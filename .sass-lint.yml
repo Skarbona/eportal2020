@@ -1,0 +1,12 @@
+rules:
+  hex-length:
+    - 1
+    - style: long
+  leading-zero: 0
+  class-name-format: 0
+  nesting-depth:
+    - 1
+    - max-depth: 3
+  property-sort-order:
+    - 1
+    - order: concentric

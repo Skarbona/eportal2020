@@ -1,0 +1,23 @@
+body {
+  background: #eeeeee;
+}
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .main-header {
+    text-align: center;
+    letter-spacing: 1rem;
+  }
+  form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    > div,
+    button {
+      margin-top: 2rem;
+      width: 100%;
+    }
+  }
+}
