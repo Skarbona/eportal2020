@@ -4,10 +4,10 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Skarbona/skarbona-events/packages/client"
+    "url": "https://github.com/Skarbona/eportal2020/packages/client"
   },
   "bugs": {
-    "url": "https://github.com/Skarbona/skarbona-events/issues"
+    "url": "https://github.com/Skarbona/eportal2020/issues"
   },
   "scripts": {
     "start": "react-scripts start",
