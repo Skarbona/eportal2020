@@ -1,23 +1,12 @@
-body {
-  background: #eeeeee;
-}
-.main {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  .main-header {
-    text-align: center;
-    letter-spacing: 1rem;
-  }
-  form {
-    width: 100%;
+@import '../../scss/Variables';
+
+.eportal {
+  background: $main-bg-color;
+  min-height: 100%;
+
+  .eportal__main {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    > div,
-    button {
-      margin-top: 2rem;
-      width: 100%;
-    }
+    align-items: center;
   }
 }
