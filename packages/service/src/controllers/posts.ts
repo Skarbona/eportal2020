@@ -4,18 +4,17 @@ import Post from '../models/post';
 import HttpError from '../models/http-error';
 
 // DONE: wp-json/wp/v2/posts?per_page=100&page=3&_embed
-export const createPosts = async (req: Request, res: Response, next: NextFunction) => {
+export const createPosts = async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
   const { posts } = req.body;
   // TODO: Add error handling
   // TODO: Protect this controller (JWT) and ONLY ADMIN
   if (!posts || posts.length === 0) {
-    return next(
-      new HttpError("Bad Request. Include valid Body", 400)
-    );
+    return next(new HttpError('Bad Request. Include valid Body', 400));
   }
 
   // TODO: Don't allow any in body map.
   // TODO: Check if this approach is ok
+  // eslint-disable-next-line
   const createdPosts = posts.map((post: any) => {
     // TODO: After uploading or images, create right model
     return {
@@ -28,7 +27,7 @@ export const createPosts = async (req: Request, res: Response, next: NextFunctio
       },
       author: '5e6e45dfdfec533ce0ebc6ee', // TODO: Auto Set Author in the future
       categories: post.categories,
-      image: post.image
+      image: post.image,
     };
   });
 
@@ -40,14 +39,12 @@ export const createPosts = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const getPosts = async (req: Request, res: Response, next: NextFunction) => {
+export const getPosts = async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
   // TODO: Add filter rules
   try {
     const posts = await Post.find();
     res.json({ posts });
   } catch (e) {
-    return next(
-      new HttpError("Something went wrong, could not find posts", 500)
-    );
+    return next(new HttpError('Something went wrong, could not find posts', 500));
   }
 };

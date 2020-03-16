@@ -18,7 +18,7 @@ export const UserSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   type: { type: String },
-  password: { type: String, required: true, minlength: 6 }
+  password: { type: String, required: true, minlength: 6 },
 });
 
 const User: Model<UserInterface> = mongoose.model<UserInterface>('User', UserSchema);

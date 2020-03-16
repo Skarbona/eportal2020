@@ -27,7 +27,7 @@ export const PostSchema = new Schema({
   },
   author: { type: Schema.Types.ObjectId, required: true },
   categories: [{ type: Number, required: true }],
-  image: { type: String }
+  image: { type: String },
 });
 
 const Post: Model<PostInterface> = mongoose.model<PostInterface>('Post', PostSchema);
