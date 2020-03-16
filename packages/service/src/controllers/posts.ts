@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import Post from '../models/post';
+import HttpError from '../models/http-error';
 
 // DONE: wp-json/wp/v2/posts?per_page=100&page=3&_embed
 export const createPosts = async (req: Request, res: Response, next: NextFunction) => {
@@ -8,7 +9,9 @@ export const createPosts = async (req: Request, res: Response, next: NextFunctio
   // TODO: Add error handling
   // TODO: Protect this controller (JWT) and ONLY ADMIN
   if (!posts || posts.length === 0) {
-    return next();
+    return next(
+      new HttpError("Bad Request. Include valid Body", 400)
+    );
   }
 
   // TODO: Don't allow any in body map.
@@ -34,5 +37,17 @@ export const createPosts = async (req: Request, res: Response, next: NextFunctio
     res.status(201).json({ msg: 'success!' });
   } catch (e) {
     res.status(400).json({ msg: e });
+  }
+};
+
+export const getPosts = async (req: Request, res: Response, next: NextFunction) => {
+  // TODO: Add filter rules
+  try {
+    const posts = await Post.find();
+    res.json({ posts });
+  } catch (e) {
+    return next(
+      new HttpError("Something went wrong, could not find posts", 500)
+    );
   }
 };
