@@ -1,13 +1,14 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
-import { FormStateInterface } from './form/initialState.interface';
-import { FormActions } from './form/action.interface';
+import { CategoriesStateInterface } from './categories/initialState.interface';
+import { CategoriesActions } from './categories/action.interface';
 
 export interface RootState {
-  form: FormStateInterface;
+  categories: CategoriesStateInterface;
 }
 
-export type Actions = FormActions;
+// TODO: Move to helpers
+export type Actions = CategoriesActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, null, Action<string>>;

@@ -1,10 +1,10 @@
 import { combineReducers, Reducer } from 'redux';
 
-import form from './form/reducer';
+import categories from './categories/reducer';
 import { RootState } from './store.interface';
 
 const reducers: Reducer<RootState> = combineReducers<RootState>({
-  form,
+  categories,
 });
 
 export default reducers;
