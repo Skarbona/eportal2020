@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import HttpError from '../models/http-error';
 import User, { UserInterface, UserType } from '../models/user';
 
-export const signUp = async (req: Request, res: Response, next: NextFunction) => {
+export const signUp = async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
   const { name, email, password } = req.body;
 
   let existingUser;
