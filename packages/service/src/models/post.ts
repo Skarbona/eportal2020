@@ -4,17 +4,20 @@ export enum PostStatus {
   Publish = 'publish',
 }
 
-export interface PostInterface extends Document {
-  date: Date;
-  slug: string;
-  status: PostStatus;
+export interface PostBasicInterface {
   content: {
     title: string;
     content: string;
   };
   author: typeof Schema.Types.ObjectId;
-  categories: number[];
+  categories: typeof Schema.Types.ObjectId[];
   image?: string;
+}
+
+export interface PostDocumentInterface extends PostBasicInterface, Document {
+  date: Date;
+  slug: string;
+  status: PostStatus;
 }
 
 export const PostSchema = new Schema({
@@ -26,10 +29,10 @@ export const PostSchema = new Schema({
     content: { type: String, required: true },
   },
   author: { type: Schema.Types.ObjectId, required: true },
-  categories: [{ type: Number, required: true }],
+  categories: [{ type: Schema.Types.ObjectId, ref: 'Category', required: true }],
   image: { type: String },
 });
 
-const Post: Model<PostInterface> = mongoose.model<PostInterface>('Post', PostSchema);
+const Post: Model<PostDocumentInterface> = mongoose.model<PostDocumentInterface>('Post', PostSchema);
 
 export default Post;

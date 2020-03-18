@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Post from '../models/post';
+import Post, { PostBasicInterface, PostStatus } from '../models/post';
 import HttpError from '../models/http-error';
+import { stringToSlug } from '../utils/slug';
 
-// DONE: wp-json/wp/v2/posts?per_page=100&page=3&_embed
+// DONE: wp-json/wp/v2/posts?per_page=100&page=9&_embed
 export const createPosts = async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
   const { posts } = req.body;
   // TODO: Add error handling
@@ -12,28 +13,27 @@ export const createPosts = async (req: Request, res: Response, next: NextFunctio
     return next(new HttpError('Bad Request. Include valid Body', 400));
   }
 
-  // TODO: Don't allow any in body map.
   // TODO: Check if this approach is ok
-  // eslint-disable-next-line
-  const createdPosts = posts.map((post: any) => {
-    // TODO: After uploading or images, create right model
-    return {
-      date: new Date(post.date), // TODO: Here create new Date() after migration
-      slug: post.slug, // TODO: Auto generate slug
-      status: post.status, // TODO: Auto set
+  const createdPosts = posts.map(({ content, categories, image, author }: PostBasicInterface) => {
+    const post = new Post({
+      date: new Date(),
+      slug: stringToSlug(content.title),
+      status: PostStatus.Publish, // TODO: Auto set
       content: {
-        title: post.title,
-        content: post.content,
+        title: content.title,
+        content: content.content,
       },
-      author: '5e6e45dfdfec533ce0ebc6ee', // TODO: Auto Set Author in the future
-      categories: post.categories,
-      image: post.image,
-    };
+      author,
+      categories,
+      image,
+    });
+    post.slug = `${post.slug}/${post._id}`;
+    return post;
   });
 
   try {
-    await Post.insertMany(createdPosts);
-    res.status(201).json({ msg: 'success!' });
+    const posts = await Post.insertMany(createdPosts);
+    res.status(201).json({ posts });
   } catch (e) {
     res.status(400).json({ msg: e });
   }
