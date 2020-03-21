@@ -8,7 +8,10 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
   "plugins": ["react", "@typescript-eslint", "simple-import-sort", "prettier"],
   "env": {
@@ -17,7 +20,7 @@
     "jest": true
   },
   "rules": {
-    "simple-import-sort/sort": "warn",
+    "import/order": ["warn"],
     "react/prop-types": "off",
     "no-param-reassign": "off",
     "import/no-named-as-default": "off",
