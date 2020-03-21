@@ -1,8 +1,8 @@
+import { Alert, AlertTitle } from '@material-ui/lab';
 import React, { FC, memo } from 'react';
-import { AlertTitle, Alert } from '@material-ui/lab';
 
-import { ErrorHandlerInterface } from './ErrorHandler.interface';
 import { ErrorHandlingMap } from '../../../../constants/error-handling-map';
+import { ErrorHandlerInterface } from './ErrorHandler.interface';
 
 export const ErrorHandlerComponent: FC<ErrorHandlerInterface> = ({ type, error }) => {
   if (!error) return null;

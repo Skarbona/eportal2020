@@ -1,4 +1,4 @@
-import React, { FC, memo, Fragment } from 'react';
+import React, { FC, Fragment, memo } from 'react';
 
 import Game from './Game/Game';
 

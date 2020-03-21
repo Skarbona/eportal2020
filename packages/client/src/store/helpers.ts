@@ -1,5 +1,5 @@
-import { ThunkDispatch } from 'redux-thunk';
 import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 import { Actions, RootState } from './store.interface';
 

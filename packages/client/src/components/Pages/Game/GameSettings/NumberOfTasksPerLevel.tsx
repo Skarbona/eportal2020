@@ -1,10 +1,10 @@
-import React, { FC, memo, useState, useEffect } from 'react';
-import { TextField, Grid } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
 import { FormatListNumbered } from '@material-ui/icons';
+import React, { FC, memo, useEffect, useState } from 'react';
 
-import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
-import { CategoryInterface } from '../../../../store/categories/initialState.interface';
 import { InputChangeEvent } from '../../../../models/typescript-events';
+import { CategoryInterface } from '../../../../store/categories/initialState.interface';
+import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 
 interface Props {
   levels: CategoryInterface;

@@ -1,13 +1,13 @@
-import React, { FC, memo, ReactNode, useState } from 'react';
+import './ExpansionPanel.scss';
+
 import {
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
   ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
   Typography,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-
-import './ExpansionPanel.scss';
+import React, { FC, memo, ReactNode, useState } from 'react';
 
 interface Props {
   children: ReactNode;

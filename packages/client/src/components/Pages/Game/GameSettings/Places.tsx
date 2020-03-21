@@ -1,10 +1,10 @@
-import React, { FC, memo, useState, useEffect } from 'react';
-import { Grid, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { Place } from '@material-ui/icons';
+import React, { FC, memo, useEffect, useState } from 'react';
 
-import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
-import { CategoryInterface } from '../../../../store/categories/initialState.interface';
 import { SelectChangeEvent } from '../../../../models/typescript-events';
+import { CategoryInterface } from '../../../../store/categories/initialState.interface';
+import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 
 interface Props {
   places: CategoryInterface;

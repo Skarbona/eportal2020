@@ -1,6 +1,6 @@
-import React, { FC, memo, useState } from 'react';
+import { FormControlLabel, Grid, Slider, Switch } from '@material-ui/core';
 import { Timelapse } from '@material-ui/icons';
-import { Slider, Switch, FormControlLabel, Grid } from '@material-ui/core';
+import React, { FC, memo, useState } from 'react';
 
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 

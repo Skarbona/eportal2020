@@ -1,18 +1,19 @@
-import React, { FC, memo, Fragment } from 'react';
+import './GameSettings.scss';
+
+import React, { FC, Fragment, memo } from 'react';
 import { useSelector } from 'react-redux';
 
-import './GameSettings.scss';
-import { RootState } from '../../../../store/store.interface';
-import { GameSettingStoreProps } from '../Game.interface';
 import { PageTypes } from '../../../../models/pageTypes';
-import CircleLoading from '../../../Shared/UIElements/Loading/CircleLoading';
+import { RootState } from '../../../../store/store.interface';
 import ErrorHandler from '../../../Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
-import Preferences from './Preferences';
-import PlayersNames from './PlayersNames';
+import CircleLoading from '../../../Shared/UIElements/Loading/CircleLoading';
+import { GameSettingStoreProps } from '../Game.interface';
+import DefaultSettings from './DefaultSettings';
 import NumberOfTasksPerLevel from './NumberOfTasksPerLevel';
 import Places from './Places';
+import PlayersNames from './PlayersNames';
+import Preferences from './Preferences';
 import TimeForTask from './TimeForTask';
-import DefaultSettings from './DefaultSettings';
 
 export const GameSettingComponent: FC<{}> = () => {
   const { cats, loading, error } = useSelector<RootState, GameSettingStoreProps>(

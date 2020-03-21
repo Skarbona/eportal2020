@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware, compose, AnyAction } from 'redux';
+import { AnyAction, applyMiddleware, compose, createStore } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 
-import reducers from './reducers';
 import { categoriesInitialState } from './categories/initialState';
+import reducers from './reducers';
 import { Actions, RootState } from './store.interface';
 
 export const initialRootState: RootState = {

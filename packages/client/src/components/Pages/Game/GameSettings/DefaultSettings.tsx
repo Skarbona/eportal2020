@@ -1,5 +1,5 @@
+import { Checkbox, FormControlLabel, FormGroup, Grid } from '@material-ui/core';
 import React, { FC, memo, useState } from 'react';
-import { FormGroup, FormControlLabel, Checkbox, Grid } from '@material-ui/core';
 
 export const DefaultSettingsComponent: FC<{}> = () => {
   const [checkboxState, setCheckboxState] = useState<boolean>(false);

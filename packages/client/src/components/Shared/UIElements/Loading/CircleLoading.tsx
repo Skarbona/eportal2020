@@ -1,6 +1,6 @@
-import React, { FC, memo } from 'react';
-
 import './CircleLoading.scss';
+
+import React, { FC, memo } from 'react';
 
 export const CircleLoadingComponent: FC = () => {
   return (

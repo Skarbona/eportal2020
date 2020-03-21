@@ -1,8 +1,8 @@
-import { categoriesInitialState } from './initialState';
-import { CategoriesStateInterface } from './initialState.interface';
+import { mainCategories } from '../../constants/categoriesIds';
 import { CategoriesActions } from './action.interface';
 import { CategoriesEnum } from './enum';
-import { mainCategories } from '../../constants/categoriesIds';
+import { categoriesInitialState } from './initialState';
+import { CategoriesStateInterface } from './initialState.interface';
 
 const formReducer = (
   state = categoriesInitialState,

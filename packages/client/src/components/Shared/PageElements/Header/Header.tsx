@@ -1,8 +1,8 @@
-import React, { FC, memo } from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-
 import './Header.scss';
+
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import React, { FC, memo } from 'react';
 
 // TODO: Add Mobile Support
 export const HeaderComponent: FC = () => {

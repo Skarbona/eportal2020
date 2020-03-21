@@ -16,9 +16,10 @@
     "eject": "react-scripts eject",
     "lint": "npm run lint:src && npm run lint:sass",
     "lint:src": "eslint ./src/**/*.{ts,tsx}",
+    "lint:fix": "eslint --fix --ext .ts,.tsx .",
     "lint:sass": "sass-lint src/**/*.scss -v -q -c ../../.sass-lint.yml",
     "prettier": "prettier --write ./{src,test}/**/*.{ts,tsx}",
-    "precommit": "npm run prettier && npm run lint"
+    "precommit": "npm run lint:fix && npm run prettier && npm run lint"
   },
   "browserslist": {
     "production": [

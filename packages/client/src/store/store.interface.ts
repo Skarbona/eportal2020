@@ -1,8 +1,8 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
-import { CategoriesStateInterface } from './categories/initialState.interface';
 import { CategoriesActions } from './categories/action.interface';
+import { CategoriesStateInterface } from './categories/initialState.interface';
 
 export interface RootState {
   categories: CategoriesStateInterface;

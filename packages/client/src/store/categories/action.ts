@@ -1,7 +1,7 @@
 import { ActionCreator } from 'redux';
 
-import { CategoriesEnum } from './enum';
 import * as I from './action.interface';
+import { CategoriesEnum } from './enum';
 
 export const initFetchCategories: ActionCreator<I.InitFetchCategories> = () => ({
   type: CategoriesEnum.InitFetchCategories,

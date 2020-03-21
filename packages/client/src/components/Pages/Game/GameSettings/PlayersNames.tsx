@@ -1,9 +1,9 @@
-import React, { FC, memo, useState } from 'react';
-import { TextField, Grid } from '@material-ui/core';
+import { Grid, TextField } from '@material-ui/core';
 import { People } from '@material-ui/icons';
+import React, { FC, memo, useState } from 'react';
 
-import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { InputChangeEvent } from '../../../../models/typescript-events';
+import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 
 export const PlayersNamesComponent: FC<{}> = () => {
   const [womanName, setWomanName] = useState<string>('');

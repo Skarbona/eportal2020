@@ -1,9 +1,9 @@
-import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { Apps } from '@material-ui/icons';
+import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 
-import * as CatsHandler from '../../../../utils/nested-cats-handlers';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
+import * as CatsHandler from '../../../../utils/nested-cats-handlers';
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 
 interface Props {
