@@ -1,6 +1,6 @@
 import { CategoriesStateInterface } from './initialState.interface';
 
 export const categoriesInitialState: CategoriesStateInterface = {
-  categories: null,
+  categories: { preferences: null, gender: null, places: null, levels: null },
   loading: false,
 };

@@ -7,7 +7,12 @@ export interface CategoryInterface {
 }
 
 export interface CategoriesStateInterface {
-  categories: CategoryInterface[];
+  categories: {
+    preferences: CategoryInterface;
+    gender: CategoryInterface;
+    places: CategoryInterface;
+    levels: CategoryInterface;
+  };
   loading: boolean;
   error?: Error;
 }

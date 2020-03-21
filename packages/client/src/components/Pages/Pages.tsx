@@ -1,15 +1,15 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, Fragment } from 'react';
 
-import Profile from './Profile/Profile';
+import Game from './Game/Game';
 
 // TODO: Add lazy loading for pages
 // TODO: Add routing for pages
-export const Component: FC<{}> = () => {
+export const ProfileComponent: FC<{}> = () => {
   return (
-    <div>
-      <Profile />
-    </div>
+    <Fragment>
+      <Game />
+    </Fragment>
   );
 };
 
-export default memo(Component);
+export default memo(ProfileComponent);

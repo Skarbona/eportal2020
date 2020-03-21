@@ -5,20 +5,20 @@ import MenuIcon from '@material-ui/icons/Menu';
 import './Header.scss';
 
 // TODO: Add Mobile Support
-export const Header: FC = () => {
+export const HeaderComponent: FC = () => {
   return (
     <AppBar position="static" className="header">
       <Toolbar>
-        <IconButton edge="start" className="menu-bottom" aria-label="menu" color="inherit">
+        <IconButton edge="start" className="menu-bottom" aria-label="menu">
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className="title">
           Eportal
         </Typography>
-        <Button color="inherit">Login/Register</Button>
+        <Button>Login/Register</Button>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default memo(Header);
+export default memo(HeaderComponent);

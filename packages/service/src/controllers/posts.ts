@@ -5,7 +5,11 @@ import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
 
 // DONE: wp-json/wp/v2/posts?per_page=100&page=9&_embed
-export const createPosts = async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
+export const createPosts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void | Response> => {
   const { posts } = req.body;
   // TODO: Add error handling
   // TODO: Protect this controller (JWT) and ONLY ADMIN
@@ -39,7 +43,11 @@ export const createPosts = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const getPosts = async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
+export const getPosts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void | Response> => {
   // TODO: Add filter rules
   try {
     const posts = await Post.find();

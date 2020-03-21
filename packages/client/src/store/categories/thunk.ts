@@ -1,16 +1,19 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import axios from 'axios';
+
+import { categoriesIds } from '../../constants/categoriesIds';
 import { AppThunk } from '../store.interface';
 import { initFetchCategories, successFetchCategories, failFetchCategories } from './action';
 
 export const fetchCategories = (): AppThunk => async dispatch => {
-  console.log('wszedlem tutaj')
   dispatch(initFetchCategories());
   try {
-    // TODO: Fetch only selected CatsID
-    const { data } = await axios.get('http://localhost:5000/api/categories');
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_API}/categories?ids=${categoriesIds.toString()}`,
+    );
     dispatch(successFetchCategories(data.categories));
   } catch (e) {
     // TODO: Handle error to users
-    dispatch(failFetchCategories(e))
+    dispatch(failFetchCategories(e));
   }
 };

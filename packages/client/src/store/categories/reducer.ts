@@ -2,25 +2,41 @@ import { categoriesInitialState } from './initialState';
 import { CategoriesStateInterface } from './initialState.interface';
 import { CategoriesActions } from './action.interface';
 import { CategoriesEnum } from './enum';
+import { mainCategories } from '../../constants/categoriesIds';
 
-const formReducer = (state = categoriesInitialState, action: CategoriesActions): CategoriesStateInterface => {
+const formReducer = (
+  state = categoriesInitialState,
+  action: CategoriesActions,
+): CategoriesStateInterface => {
   switch (action.type) {
     case CategoriesEnum.InitFetchCategories:
       return {
         ...state,
         loading: true,
       };
-    case CategoriesEnum.SuccessFetchCategories:
+    case CategoriesEnum.SuccessFetchCategories: {
+      const { categories } = action.data;
       return {
         ...state,
         loading: false,
-        categories: action.data.categories,
+        categories: {
+          preferences: categories.find(cat => cat.id === mainCategories.Preferences),
+          gender: categories.find(cat => cat.id === mainCategories.Gender),
+          places: categories.find(cat => cat.id === mainCategories.Place),
+          levels: categories.find(cat => cat.id === mainCategories.Levels),
+        },
       };
+    }
     case CategoriesEnum.FailFetchCategories:
       return {
         ...state,
         loading: false,
-        categories: [],
+        categories: {
+          preferences: null,
+          gender: null,
+          places: null,
+          levels: null,
+        },
         error: action.data.error,
       };
     default:

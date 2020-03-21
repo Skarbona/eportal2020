@@ -1,22 +1,24 @@
 import React, { FC, memo, useEffect } from 'react';
+import { Container } from '@material-ui/core';
 
 import { fetchCategories } from '../../../store/categories/thunk';
 import { useReduxDispatch } from '../../../store/helpers';
 import GameSettings from './GameSettings/GameSettings';
 
 // TODO: Add Auth wrapper for this page
-export const Component: FC<{}> = () => {
+export const GameComponent: FC<{}> = () => {
   const dispatch = useReduxDispatch();
 
   useEffect(() => {
     dispatch(fetchCategories());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div>
+    <Container className="game">
       <GameSettings />
-    </div>
+    </Container>
   );
 };
 
-export default memo(Component);
+export default memo(GameComponent);
