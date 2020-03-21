@@ -1,24 +1,51 @@
 {
   "extends": [
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "react-app",
+    "airbnb-base",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "prettier",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "simple-import-sort", "prettier"],
   "env": {
     "browser": true,
     "jasmine": true,
     "jest": true
   },
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true }]
+    "import/order": ["warn"],
+    "react/prop-types": "off",
+    "no-param-reassign": "off",
+    "import/no-named-as-default": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-underscore-dangle": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "prettier/prettier": ["warn", { "singleQuote": true }]
   },
   "settings": {
     "react": {
       "pragma": "React",
       "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {}
     }
   },
   "parser": "@typescript-eslint/parser"

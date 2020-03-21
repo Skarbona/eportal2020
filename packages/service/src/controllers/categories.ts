@@ -5,7 +5,11 @@ import Category, { CategoryRequestInterface } from '../models/category';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
 
-export const createCategories = async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
+export const createCategories = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void | Response> => {
   const categories: CategoryRequestInterface[] = req.body.categories;
   // TODO: Add error handling
   // TODO: Protect this controller (JWT) and ONLY ADMIN
@@ -45,17 +49,24 @@ export const createCategories = async (req: Request, res: Response, next: NextFu
   }
 };
 
-export const getCategories = async (req: Request, res: Response, next: NextFunction): Promise<void | Response> => {
-  const { categoriesIds } = req.body;
+export const getCategories = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void | Response> => {
+  const { ids } = req.query;
 
   try {
     let categories;
-    if (!categoriesIds) {
-      categories = await Category.find().populate({ path: 'children', populate: { path: 'children' } });
+    if (!ids) {
+      categories = await Category.find().populate({
+        path: 'children',
+        populate: { path: 'children' },
+      });
     } else {
       categories = await Category.find()
         .where('_id')
-        .in(categoriesIds)
+        .in(ids.split(','))
         .populate({ path: 'children', populate: { path: 'children' } });
     }
     res.json({ categories: categories.map(category => category.toObject({ getters: true })) });

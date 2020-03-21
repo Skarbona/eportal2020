@@ -23,6 +23,9 @@ export const CategorySchema = new Schema({
   children: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
 });
 
-const Category: Model<CategoryDocumentInterface> = mongoose.model<CategoryDocumentInterface>('Category', CategorySchema);
+const Category: Model<CategoryDocumentInterface> = mongoose.model<CategoryDocumentInterface>(
+  'Category',
+  CategorySchema,
+);
 
 export default Category;

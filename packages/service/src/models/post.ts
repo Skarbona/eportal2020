@@ -33,6 +33,9 @@ export const PostSchema = new Schema({
   image: { type: String },
 });
 
-const Post: Model<PostDocumentInterface> = mongoose.model<PostDocumentInterface>('Post', PostSchema);
+const Post: Model<PostDocumentInterface> = mongoose.model<PostDocumentInterface>(
+  'Post',
+  PostSchema,
+);
 
 export default Post;

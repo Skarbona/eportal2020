@@ -1,0 +1,13 @@
+.expansion-panel-summary {
+  flex-basis: 33.33%;
+  flex-shrink: 0;
+
+  svg {
+    margin-right: 1rem;
+  }
+
+  .subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: auto;
+  }
+}
