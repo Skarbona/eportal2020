@@ -1,15 +1,18 @@
+import React, { FC, memo, useEffect, useState } from 'react';
 import { FormControlLabel, Grid, Slider, Switch } from '@material-ui/core';
 import { Timelapse } from '@material-ui/icons';
-import React, { FC, memo, useState } from 'react';
 
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { useReduxDispatch } from '../../../../store/helpers';
+import { setFormValues } from '../../../../store/game/action';
 
-enum TimeMode {
+export enum TimeMode {
   Single,
   Range,
 }
 
 export const TimeForTaskComponent: FC<{}> = () => {
+  const dispatch = useReduxDispatch();
   const [timeMode, setTimeMode] = useState<TimeMode>(TimeMode.Single);
   const [singleState, setSingleState] = useState<number>(2);
   const [rangeState, setRangeState] = useState<number[]>([2, 5]);
@@ -21,6 +24,19 @@ export const TimeForTaskComponent: FC<{}> = () => {
       setTimeMode(TimeMode.Single);
     }
   };
+
+  useEffect(
+    () => {
+      const payload = {
+        time: {
+          type: timeMode,
+          value: timeMode === TimeMode.Single ? singleState : rangeState,
+        },
+      };
+      dispatch(setFormValues(payload));
+    },
+    [timeMode, singleState, rangeState, setFormValues],
+  );
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const handleSingleChange = (event: any, newValue: number | number[]): void =>

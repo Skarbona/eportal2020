@@ -1,13 +1,24 @@
+import React, { FC, memo, useState, useEffect } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { People } from '@material-ui/icons';
-import React, { FC, memo, useState } from 'react';
 
 import { InputChangeEvent } from '../../../../models/typescript-events';
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { useReduxDispatch } from '../../../../store/helpers';
+import { setFormValues } from '../../../../store/game/action';
 
 export const PlayersNamesComponent: FC<{}> = () => {
+  const dispatch = useReduxDispatch();
   const [womanName, setWomanName] = useState<string>('');
   const [manName, setManName] = useState<string>('');
+
+  useEffect(
+    () => {
+      const payload = { names: { she: womanName || 'Ona', he: manName || 'On' } };
+      dispatch(setFormValues(payload));
+    },
+    [womanName, manName, setFormValues],
+  );
 
   const setWomanNameHandler = (event: InputChangeEvent): void => setWomanName(event.target.value);
   const setManNameHandler = (event: InputChangeEvent): void => setManName(event.target.value);

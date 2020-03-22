@@ -1,29 +1,36 @@
+@import '../../../../scss/Variables';
+
 .game__settings {
   .form-element__default-width {
-    max-width: 500px;
-    min-width: 200px;
     width: 100%;
+    min-width: 200px;
+    max-width: 500px;
   }
 
-  .number-input input {
-    font-size: 2rem;
+  .number-input {
+    input {
+      font-size: 2rem;
+    }
   }
 
-  h4, label, .default-settings__label {
-    color: #ffffff;
+  h4,
+  label,
+  .default-settings__label {
+    color: $light;
   }
 
   .game__preferences {
     .nested-cats {
       padding-left: 10px;
     }
+
     .nested-cats__form-group {
-      > div, label {
-        width: 100%;
+      > div,
+      label {
         flex-basis: 100%;
+        width: 100%;
         max-width: 100%;
       }
     }
   }
-
 }

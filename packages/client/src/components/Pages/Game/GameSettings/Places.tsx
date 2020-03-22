@@ -5,21 +5,35 @@ import React, { FC, memo, useEffect, useState } from 'react';
 import { SelectChangeEvent } from '../../../../models/typescript-events';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { useReduxDispatch } from '../../../../store/helpers';
+import { setFormValues } from '../../../../store/game/action';
 
 interface Props {
   places: CategoryInterface;
 }
 
 export const PlacesComponent: FC<Props> = ({ places }) => {
+  const dispatch = useReduxDispatch();
   const [selectedPlace, setSelectedPlace] = useState<string>(null);
   const [subtitle, setSubtitle] = useState<string>(null);
 
-  useEffect(() => {
-    if (places && places.children) {
-      setSelectedPlace(places.children[0].id);
-      setSubtitle(`(${places.children[0].name})`);
-    }
-  }, [places]);
+  useEffect(
+    () => {
+      if (places && places.children) {
+        setSelectedPlace(places.children[0].id);
+        setSubtitle(`(${places.children[0].name})`);
+      }
+    },
+    [places],
+  );
+
+  useEffect(
+    () => {
+      const payload = { place: selectedPlace };
+      dispatch(setFormValues(payload));
+    },
+    [selectedPlace, setFormValues],
+  );
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const handleOnChange = (event: SelectChangeEvent, value: any): void => {

@@ -9,7 +9,7 @@ export const fetchCategories = (): AppThunk => async dispatch => {
   dispatch(initFetchCategories());
   try {
     const { data } = await axios.get(
-      `${process.env.REACT_APP_BACKEND_API}/categories?ids=${categoriesIds.toString()}`,
+      `${process.env.REACT_APP_BACKEND_API}/categories?ids=${categoriesIds.toString()}`
     );
     dispatch(successFetchCategories(data.categories));
   } catch (e) {

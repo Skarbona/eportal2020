@@ -13,7 +13,7 @@
     "plugin:import/warnings",
     "plugin:import/typescript"
   ],
-  "plugins": ["react", "@typescript-eslint", "simple-import-sort", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "prettier"],
   "env": {
     "browser": true,
     "jasmine": true,

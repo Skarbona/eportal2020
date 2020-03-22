@@ -2,11 +2,13 @@ import { AnyAction, applyMiddleware, compose, createStore } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 
 import { categoriesInitialState } from './categories/initialState';
+import { gameInitialState } from './game/initialState';
 import reducers from './reducers';
 import { Actions, RootState } from './store.interface';
 
 export const initialRootState: RootState = {
   categories: categoriesInitialState,
+  game: gameInitialState,
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

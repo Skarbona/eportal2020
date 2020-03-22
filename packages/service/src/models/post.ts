@@ -14,6 +14,12 @@ export interface PostBasicInterface {
   image?: string;
 }
 
+export interface PostResponseInterface extends PostBasicInterface {
+  date: Date;
+  slug: string;
+  status: PostStatus;
+}
+
 export interface PostDocumentInterface extends PostBasicInterface, Document {
   date: Date;
   slug: string;

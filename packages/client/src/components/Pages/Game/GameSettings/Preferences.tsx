@@ -5,19 +5,30 @@ import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
 import * as CatsHandler from '../../../../utils/nested-cats-handlers';
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { useReduxDispatch } from '../../../../store/helpers';
+import { setFormValues } from '../../../../store/game/action';
 
 interface Props {
   preferences: CategoryInterface;
+  setFormValidation(valid: boolean): void;
 }
 
-export const PreferencesComponent: FC<Props> = ({ preferences }) => {
+export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation }) => {
+  const dispatch = useReduxDispatch();
   const [preferencesState, setPreferencesState] = useState<CatsHandler.CatsStateInterface[]>(null);
   const [numberOfSelection, setNumberOfSelection] = useState<number>(0);
+
+  useEffect(
+    () => {
+      setFormValidation(numberOfSelection >= 10);
+    },
+    [numberOfSelection, setFormValidation],
+  );
 
   const preferenceStateHandler = useCallback(
     (id: string, parentIndex: number) => {
       setPreferencesState(prevState => {
-        const preference = { ...preferencesState[parentIndex] };
+        const preference = preferencesState[parentIndex];
         const prevStateToSet = prevState[parentIndex];
         if (preference.id === id) {
           preference.indeterminate = false;
@@ -51,26 +62,41 @@ export const PreferencesComponent: FC<Props> = ({ preferences }) => {
     [preferencesState],
   );
 
-  useEffect(() => {
-    if (preferences) {
-      setPreferencesState(CatsHandler.mapNestedCatsNames(preferences));
-    }
-  }, [preferences]);
+  useEffect(
+    () => {
+      if (preferences) {
+        setPreferencesState(CatsHandler.mapNestedCatsNames(preferences));
+      }
+    },
+    [preferences],
+  );
 
-  useEffect(() => {
-    if (preferencesState) {
-      const amountOfSelectedCats = preferencesState.reduce((amount, preference) => {
-        const childSelection = preference.child.reduce((result, preferenceChild) => {
-          if (preferenceChild.status) {
-            return result + 1;
+  useEffect(
+    () => {
+      if (preferencesState) {
+        const selectedCatsIds = preferencesState.reduce((result, preference): any => {
+          const preferenceChild = preference.child.reduce((childResult, childPreference): any => {
+            if (childPreference.status) {
+              childResult.push(childPreference.id);
+              return childResult;
+            }
+            return childResult;
+          }, []);
+
+          if (preferenceChild.length > 0) {
+            result.push(...preferenceChild);
+            return result;
           }
           return result;
-        }, 0);
-        return amount + childSelection;
-      }, 0);
-      setNumberOfSelection(amountOfSelectedCats);
-    }
-  }, [preferencesState]);
+        }, []);
+
+        setNumberOfSelection(selectedCatsIds.length);
+        const payload = { cats: selectedCatsIds };
+        dispatch(setFormValues(payload));
+      }
+    },
+    [preferencesState],
+  );
 
   if (!preferencesState) return null;
 

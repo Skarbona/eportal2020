@@ -1,10 +1,12 @@
+import React, { FC, memo, useEffect, useState } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { FormatListNumbered } from '@material-ui/icons';
-import React, { FC, memo, useEffect, useState } from 'react';
 
 import { InputChangeEvent } from '../../../../models/typescript-events';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { useReduxDispatch } from '../../../../store/helpers';
+import { setFormValues } from '../../../../store/game/action';
 
 interface Props {
   levels: CategoryInterface;
@@ -17,26 +19,46 @@ interface State {
 }
 
 export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels }) => {
-  const [selectedNumber, setSelectedNumber] = useState<State[]>(null);
-  useEffect(() => {
-    if (levels && levels.children) {
-      setSelectedNumber(
-        levels.children.map(level => ({ value: 10, id: level.id, name: level.name })),
-      );
-    }
-  }, [levels]);
+  const dispatch = useReduxDispatch();
+  const [selectedAmounts, setSelectedAmounts] = useState<State[]>(null);
+  useEffect(
+    () => {
+      if (levels && levels.children) {
+        setSelectedAmounts(
+          levels.children.map(level => ({ value: 10, id: level.id, name: level.name })),
+        );
+      }
+    },
+    [levels],
+  );
+
+  useEffect(
+    () => {
+      if (selectedAmounts) {
+        const payload = {
+          levels: {
+            level1: selectedAmounts[0].value,
+            level2: selectedAmounts[1].value,
+            level3: selectedAmounts[2].value,
+          },
+        };
+        dispatch(setFormValues(payload));
+      }
+    },
+    [selectedAmounts, setFormValues],
+  );
 
   const onChangeHandler = (event: InputChangeEvent, index: number): void => {
-    const newState = [...selectedNumber];
+    const newState = [...selectedAmounts];
     const value = parseInt(event.target.value, 10);
     const numberToSet = value >= 1 ? value : 1;
     newState[index].value = numberToSet;
-    setSelectedNumber(newState);
+    setSelectedAmounts(newState);
   };
 
-  if (!selectedNumber) return null;
+  if (!selectedAmounts) return null;
 
-  const subtitle = `(${selectedNumber.map(level => level.value)})`;
+  const subtitle = `(${selectedAmounts.map(level => level.value)})`;
   return (
     <ExpansionPanelComponent
       icon={<FormatListNumbered />}
@@ -45,8 +67,8 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels }) => {
       className="game__levels"
     >
       <Grid container spacing={1}>
-        {selectedNumber &&
-          selectedNumber.map((level, index) => (
+        {selectedAmounts &&
+          selectedAmounts.map((level, index) => (
             <Grid item xs={12} md={4} key={level.id}>
               <TextField
                 label={level.name}
