@@ -25,9 +25,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i
-    - run: lerna bootstrap
+    - run: npm run lerna:bootstrap
     - run: lerna run lint
-    - run: lerna run test -- --coverage
+    - run: lerna run test
     - run: lerna run build
       env:
         CI: true
