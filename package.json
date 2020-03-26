@@ -6,7 +6,9 @@
     "url": "https://github.com/Skarbona/eportal2020"
   },
   "scripts": {
-    "lerna:bootstrap": "lerna bootstrap"
+    "lerna:bootstrap": "lerna bootstrap",
+    "lerna:lint": "lerna run lint",
+    "lerna:test": "lerna run test"
   },
   "author": "Filip Sokolowski",
   "dependencies": {
