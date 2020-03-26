@@ -8,7 +8,8 @@
   "scripts": {
     "lerna:bootstrap": "lerna bootstrap",
     "lerna:lint": "lerna run lint",
-    "lerna:test": "lerna run test"
+    "lerna:test": "lerna run test",
+    "lerna:build": "lerna run build"
   },
   "author": "Filip Sokolowski",
   "dependencies": {
