@@ -1,4 +1,4 @@
-import { PageTypes } from '../../../../models/pageTypes';
+import { PageTypes } from '../../../../models/page-types';
 
 export interface ErrorHandlerInterface {
   type: PageTypes;

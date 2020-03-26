@@ -2,6 +2,7 @@ import { GameActions } from './action.interface';
 import { GameEnum } from './enum';
 import { gameInitialState } from './initialState';
 import { GameStateInterface } from './initialState.interface';
+import { convertedPosts } from '../../utils/post-data-for-game';
 
 const gameReducer = (state = gameInitialState, action: GameActions): GameStateInterface => {
   switch (action.type) {
@@ -12,10 +13,11 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
       };
     case GameEnum.SuccessFetchPosts: {
       const { posts } = action.data;
+
       return {
         ...state,
         loading: false,
-        // TODO: Set Posts data
+        posts: convertedPosts(posts),
       };
     }
     case GameEnum.FailFetchPosts:

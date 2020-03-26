@@ -4,7 +4,7 @@ import Game from './Game/Game';
 
 // TODO: Add lazy loading for pages
 // TODO: Add routing for pages
-export const ProfileComponent: FC<{}> = () => {
+export const PagesComponent: FC<{}> = () => {
   return (
     <Fragment>
       <Game />
@@ -12,4 +12,4 @@ export const ProfileComponent: FC<{}> = () => {
   );
 };
 
-export default memo(ProfileComponent);
+export default memo(PagesComponent);

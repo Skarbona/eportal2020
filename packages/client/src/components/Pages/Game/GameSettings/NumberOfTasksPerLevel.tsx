@@ -1,15 +1,18 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { FormatListNumbered } from '@material-ui/icons';
 
 import { InputChangeEvent } from '../../../../models/typescript-events';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
+import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
+
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
 
-interface Props {
+export interface Props {
   levels: CategoryInterface;
+  defaults: FormValues['levels'];
 }
 
 interface State {
@@ -18,24 +21,27 @@ interface State {
   name: string;
 }
 
-export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels }) => {
+export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels, defaults }) => {
   const dispatch = useReduxDispatch();
   const [selectedAmounts, setSelectedAmounts] = useState<State[]>(null);
-  useEffect(
-    () => {
-      if (levels && levels.children) {
-        setSelectedAmounts(
-          levels.children.map(level => ({ value: 10, id: level.id, name: level.name })),
-        );
-      }
-    },
-    [levels],
-  );
+
+  useEffect(() => {
+    if (levels) {
+      setSelectedAmounts(
+        levels.children.map((level, i) => ({
+          value: Object.values(defaults)[i],
+          id: level.id,
+          name: level.name,
+        })),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [levels]);
 
   useEffect(
     () => {
       if (selectedAmounts) {
-        const payload = {
+        const payload: Partial<FormValues> = {
           levels: {
             level1: selectedAmounts[0].value,
             level2: selectedAmounts[1].value,
@@ -45,20 +51,22 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels }) => {
         dispatch(setFormValues(payload));
       }
     },
-    [selectedAmounts, setFormValues],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedAmounts],
   );
 
-  const onChangeHandler = (event: InputChangeEvent, index: number): void => {
-    const newState = [...selectedAmounts];
-    const value = parseInt(event.target.value, 10);
-    const numberToSet = value >= 1 ? value : 1;
-    newState[index].value = numberToSet;
-    setSelectedAmounts(newState);
-  };
+  const onChangeHandler = useCallback(
+    (event: InputChangeEvent, index: number): void => {
+      const newState = [...selectedAmounts];
+      const value = parseInt(event.target.value, 10);
+      const numberToSet = value >= 1 ? value : 1;
+      newState[index].value = numberToSet;
+      setSelectedAmounts(newState);
+    },
+    [selectedAmounts],
+  );
 
-  if (!selectedAmounts) return null;
-
-  const subtitle = `(${selectedAmounts.map(level => level.value)})`;
+  const subtitle = `(${selectedAmounts ? selectedAmounts.map(level => level.value) : '10,10,10'})`;
   return (
     <ExpansionPanelComponent
       icon={<FormatListNumbered />}

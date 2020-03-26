@@ -1,29 +1,12 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
-
-export enum PostStatus {
-  Publish = 'publish',
-}
-
-export interface PostBasicInterface {
-  content: {
-    title: string;
-    content: string;
-  };
-  author: typeof Schema.Types.ObjectId;
-  categories: typeof Schema.Types.ObjectId[];
-  image?: string;
-}
-
-export interface PostResponseInterface extends PostBasicInterface {
-  date: Date;
-  slug: string;
-  status: PostStatus;
-}
+import { PostBasicInterface, PostStatus } from './shared-interfaces/post';
 
 export interface PostDocumentInterface extends PostBasicInterface, Document {
   date: Date;
   slug: string;
+  categories: typeof Schema.Types.ObjectId[];
   status: PostStatus;
+  author: typeof Schema.Types.ObjectId;
 }
 
 export const PostSchema = new Schema({

@@ -24,6 +24,6 @@ export const failFetchPosts: ActionCreator<I.FailFetchPosts> = error => ({
 export const setFormValues: ActionCreator<I.SetFormValues> = values => ({
   type: GameEnum.SetFormValues,
   data: {
-    values
-  }
+    values,
+  },
 });

@@ -1,6 +1,6 @@
 import { Color } from '@material-ui/lab/Alert';
 
-import { PageTypes } from '../models/pageTypes';
+import { PageTypes } from '../models/page-types';
 
 interface ErrorHandlingMapInterface {
   message: string;

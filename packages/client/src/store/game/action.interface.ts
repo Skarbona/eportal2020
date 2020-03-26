@@ -1,6 +1,6 @@
 import { GameEnum } from './enum';
-import { PostResponseInterface } from '../../../../service/src/models/post';
-import { FormValues } from './initialState.interface';
+import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
+import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 
 interface ActionInterface {
   type: GameEnum;

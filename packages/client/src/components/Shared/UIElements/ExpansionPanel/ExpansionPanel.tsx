@@ -9,7 +9,7 @@ import {
 import { ExpandMore } from '@material-ui/icons';
 import React, { FC, memo, ReactNode, useState } from 'react';
 
-interface Props {
+export interface Props {
   children: ReactNode;
   icon?: ReactNode;
   title: string;
@@ -24,7 +24,7 @@ export const ExpansionPanelComponent: FC<Props> = ({
   title,
   className,
   subtitle,
-  defaultState = true,
+  defaultState = false,
 }) => {
   const [expanded, setExpanded] = useState<boolean>(defaultState);
   const setExpandedHandler = (): void => setExpanded(!expanded);

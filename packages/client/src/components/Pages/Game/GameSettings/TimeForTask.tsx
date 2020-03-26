@@ -2,20 +2,26 @@ import React, { FC, memo, useEffect, useState } from 'react';
 import { FormControlLabel, Grid, Slider, Switch } from '@material-ui/core';
 import { Timelapse } from '@material-ui/icons';
 
+import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
+import { TimeMode } from '../../../../models/game-models';
+
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
 
-export enum TimeMode {
-  Single,
-  Range,
+export interface Props {
+  defaults: FormValues['time'];
 }
 
-export const TimeForTaskComponent: FC<{}> = () => {
+export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
   const dispatch = useReduxDispatch();
-  const [timeMode, setTimeMode] = useState<TimeMode>(TimeMode.Single);
-  const [singleState, setSingleState] = useState<number>(2);
-  const [rangeState, setRangeState] = useState<number[]>([2, 5]);
+  const [timeMode, setTimeMode] = useState<TimeMode>(defaults.type);
+  const [singleState, setSingleState] = useState<number[]>(
+    defaults.type === TimeMode.Single ? defaults.value : [2],
+  );
+  const [rangeState, setRangeState] = useState<number[]>(
+    defaults.type === TimeMode.Range ? defaults.value : [2, 5],
+  );
 
   const handleSwitchChange = (): void => {
     if (timeMode === TimeMode.Single) {
@@ -25,22 +31,19 @@ export const TimeForTaskComponent: FC<{}> = () => {
     }
   };
 
-  useEffect(
-    () => {
-      const payload = {
-        time: {
-          type: timeMode,
-          value: timeMode === TimeMode.Single ? singleState : rangeState,
-        },
-      };
-      dispatch(setFormValues(payload));
-    },
-    [timeMode, singleState, rangeState, setFormValues],
-  );
+  useEffect(() => {
+    const payload: Partial<FormValues> = {
+      time: {
+        type: timeMode,
+        value: timeMode === TimeMode.Single ? singleState : rangeState,
+      },
+    };
+    dispatch(setFormValues(payload));
+  }, [timeMode, singleState, rangeState, dispatch]);
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const handleSingleChange = (event: any, newValue: number | number[]): void =>
-    setSingleState(newValue as number);
+    setSingleState([newValue as number]);
 
   const handleRangeChange = (event: any, newValue: number | number[]): void =>
     setRangeState(newValue as number[]);
@@ -48,7 +51,7 @@ export const TimeForTaskComponent: FC<{}> = () => {
 
   const subtitleHandler = (): string => {
     if (timeMode === TimeMode.Single) {
-      return `(${singleState} min)`;
+      return `(${singleState[0]} min)`;
     }
     return `(od ${rangeState[0]} min do ${rangeState[1]} min)`;
   };
@@ -74,7 +77,7 @@ export const TimeForTaskComponent: FC<{}> = () => {
         />
         {timeMode === TimeMode.Single && (
           <Slider
-            value={singleState}
+            value={singleState[0]}
             onChange={handleSingleChange}
             valueLabelDisplay="auto"
             step={1}

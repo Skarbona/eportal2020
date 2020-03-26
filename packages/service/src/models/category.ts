@@ -1,11 +1,5 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
-
-interface CategoryBasicInterface {
-  date: Date;
-  slug: string;
-  name: string;
-  description?: string;
-}
+import { CategoryBasicInterface } from './shared-interfaces/category';
 
 export interface CategoryDocumentInterface extends CategoryBasicInterface, Document {
   children?: typeof Schema.Types.ObjectId[];

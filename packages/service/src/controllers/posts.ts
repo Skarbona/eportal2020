@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
-import Post, { PostBasicInterface, PostStatus } from '../models/post';
+import Post from '../models/post';
+import { PostRequestInterface, PostStatus } from '../models/shared-interfaces/post';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
 
-// DONE: wp-json/wp/v2/posts?per_page=100&page=9&_embed
 export const createPosts = async (
   req: Request,
   res: Response,
@@ -18,11 +18,11 @@ export const createPosts = async (
   }
 
   // TODO: Check if this approach is ok
-  const createdPosts = posts.map(({ content, categories, image, author }: PostBasicInterface) => {
+  const createdPosts = posts.map(({ content, categories, image, author }: PostRequestInterface) => {
     const post = new Post({
       date: new Date(),
       slug: stringToSlug(content.title),
-      status: PostStatus.Publish, // TODO: Auto set
+      status: PostStatus.Publish, // TODO: Auto set depends on situation
       content: {
         title: content.title,
         content: content.content,
@@ -48,11 +48,44 @@ export const getPosts = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  // TODO: Add filter rules
+  const { cat_include_strict, cats_include, cats_exclude } = req.query;
+  // TODO: Protect this endpoint
   try {
-    const posts = await Post.find();
-    res.json({ posts });
+    let posts;
+    if (req.query) {
+      let options: {};
+      if (cat_include_strict) {
+        options = {
+          $eq: cat_include_strict,
+        };
+      }
+
+      if (cats_exclude) {
+        options = {
+          ...options,
+          $nin: cats_exclude.split(','),
+        };
+      }
+
+      if (cats_include) {
+        options = {
+          ...options,
+          $nin: cats_include.split(','),
+        };
+      }
+      posts = await Post.find({
+        categories: options,
+      });
+    }
+
+    if (!req.query) {
+      posts = await Post.find().populate('categories');
+    }
+
+    res.json({ posts: posts.map(post => post.toObject({ getters: true })) });
   } catch (e) {
+    // TODO: Add errors logging
+    console.log(e);
     return next(new HttpError('Something went wrong, could not find posts', 500));
   }
 };

@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { Button, Grid } from '@material-ui/core';
 import { PlayArrow, Info } from '@material-ui/icons';
 
-interface Props {
+export interface Props {
   isFormValid: boolean;
 }
 

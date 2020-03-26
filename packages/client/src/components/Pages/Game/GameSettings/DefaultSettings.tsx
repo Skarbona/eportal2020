@@ -1,6 +1,8 @@
 import React, { FC, memo, useState, useEffect } from 'react';
 import { Checkbox, FormControlLabel, FormGroup, Grid } from '@material-ui/core';
 
+import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
+
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
 
@@ -11,12 +13,13 @@ export const DefaultSettingsComponent: FC<{}> = () => {
 
   useEffect(
     () => {
-      const payload = {
+      const payload: Partial<FormValues> = {
         saveAsDefault: checkboxState,
       };
       dispatch(setFormValues(payload));
     },
-    [checkboxState, setFormValues],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [checkboxState],
   );
 
   return (

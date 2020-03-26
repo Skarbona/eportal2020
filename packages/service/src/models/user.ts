@@ -1,16 +1,8 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
+import { UserBasic } from './shared-interfaces/user';
 
-export enum UserType {
-  Admin = 'admin',
-  User = 'user',
-}
-
-export interface UserInterface extends Document {
-  date: Date;
-  name: string;
-  email: string;
+export interface UserDocument extends UserBasic, Document {
   password: string;
-  type: UserType;
 }
 
 export const UserSchema = new Schema({
@@ -19,8 +11,28 @@ export const UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
   type: { type: String },
   password: { type: String, required: true, minlength: 6 },
+  gameDefaults: {
+    names: {
+      she: { type: String },
+      he: { type: String },
+    },
+    place: { type: String },
+    catsQuery: {
+      catsInclude: [{ type: Schema.Types.ObjectId }],
+      catsExclude: [{ type: Schema.Types.ObjectId }],
+    },
+    levels: {
+      level1: { type: Number },
+      level2: { type: Number },
+      level3: { type: Number },
+    },
+    time: {
+      type: { type: String },
+      value: [{ type: Number }],
+    },
+  },
 });
 
-const User: Model<UserInterface> = mongoose.model<UserInterface>('User', UserSchema);
+const User: Model<UserDocument> = mongoose.model<UserDocument>('User', UserSchema);
 
 export default User;

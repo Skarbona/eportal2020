@@ -4,15 +4,24 @@ export const gameInitialState: GameStateInterface = {
   gameStatus: GameStatus.None,
   posts: {
     level1: {
-      data: null,
+      data: {
+        man: [],
+        woman: [],
+      },
       removedPosts: [],
     },
     level2: {
-      data: null,
+      data: {
+        man: [],
+        woman: [],
+      },
       removedPosts: [],
     },
     level3: {
-      data: null,
+      data: {
+        man: [],
+        woman: [],
+      },
       removedPosts: [],
     },
   },

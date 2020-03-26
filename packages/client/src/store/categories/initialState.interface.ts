@@ -3,7 +3,7 @@ export interface CategoryInterface {
   date: Date;
   slug: string;
   name: string;
-  children: CategoryInterface[];
+  children?: CategoryInterface[];
 }
 
 export interface CategoriesStateInterface {
