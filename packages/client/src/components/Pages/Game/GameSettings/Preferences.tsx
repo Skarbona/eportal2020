@@ -3,86 +3,71 @@ import { Apps } from '@material-ui/icons';
 import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
-import * as CatsHandler from '../../../../utils/nested-cats-handlers';
-import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
 
-interface Props {
+import {
+  nestedCategoriesToState,
+  setCheckboxesStatus,
+  renderNestedCatsWithCheckbox,
+  selectCatsIds,
+  CatsStateInterface,
+} from '../../../../utils/preferences';
+import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { useReduxDispatch } from '../../../../store/helpers';
+import { setFormValues } from '../../../../store/game/action';
+
+export interface Props {
   preferences: CategoryInterface;
+  setFormValidation(valid: boolean): void;
+  defaults: string[];
 }
 
-export const PreferencesComponent: FC<Props> = ({ preferences }) => {
-  const [preferencesState, setPreferencesState] = useState<CatsHandler.CatsStateInterface[]>(null);
+export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation, defaults }) => {
+  const dispatch = useReduxDispatch();
+  const [preferencesState, setPreferencesState] = useState<CatsStateInterface[]>([]);
   const [numberOfSelection, setNumberOfSelection] = useState<number>(0);
 
-  const preferenceStateHandler = useCallback(
-    (id: string, parentIndex: number) => {
-      setPreferencesState(prevState => {
-        const preference = { ...preferencesState[parentIndex] };
-        const prevStateToSet = prevState[parentIndex];
-        if (preference.id === id) {
-          preference.indeterminate = false;
-          preference.status = !prevStateToSet.status;
-          preference.child.forEach(child => {
-            child.status = prevStateToSet.status;
-          });
-        } else {
-          preference.child.forEach((child, childIndex) => {
-            if (child.id === id) {
-              child.status = !prevStateToSet.child[childIndex].status;
-            }
-          });
+  useEffect(() => {
+    setFormValidation(numberOfSelection >= 10);
+  }, [numberOfSelection, setFormValidation]);
 
-          if (preference.child.every(child => child.status)) {
-            preference.indeterminate = false;
-            preference.status = true;
-          } else if (preference.child.some(child => child.status)) {
-            preference.indeterminate = true;
-            preference.status = false;
-          } else {
-            preference.indeterminate = false;
-            preference.status = false;
-          }
-        }
-        const stateToReturn = [...prevState];
-        stateToReturn[parentIndex] = preference;
-        return stateToReturn;
-      });
-    },
-    [preferencesState],
-  );
+  const preferenceStateHandler = useCallback((id: string, parentIndex: number) => {
+    setPreferencesState(prevState => setCheckboxesStatus(id, parentIndex, prevState));
+  }, []);
 
   useEffect(() => {
     if (preferences) {
-      setPreferencesState(CatsHandler.mapNestedCatsNames(preferences));
+      setPreferencesState(nestedCategoriesToState(preferences, defaults));
     }
-  }, [preferences]);
+  }, [preferences, defaults]);
 
-  useEffect(() => {
-    if (preferencesState) {
-      const amountOfSelectedCats = preferencesState.reduce((amount, preference) => {
-        const childSelection = preference.child.reduce((result, preferenceChild) => {
-          if (preferenceChild.status) {
-            return result + 1;
-          }
-          return result;
-        }, 0);
-        return amount + childSelection;
-      }, 0);
-      setNumberOfSelection(amountOfSelectedCats);
-    }
-  }, [preferencesState]);
-
-  if (!preferencesState) return null;
+  useEffect(
+    () => {
+      if (preferencesState) {
+        const selectedIds = selectCatsIds(preferencesState);
+        setNumberOfSelection(selectedIds[0].length);
+        const payload: Partial<FormValues> = {
+          catsQuery: {
+            catsInclude: selectedIds[0],
+            catsExclude: selectedIds[1],
+          },
+        };
+        dispatch(setFormValues(payload));
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [preferencesState],
+  );
 
   return (
     <ExpansionPanelComponent
       subtitle={`(Wybrano ${numberOfSelection} kategorii)`}
       className="game__preferences"
-      title={preferences.name}
+      title={preferences && preferences.name}
       icon={<Apps />}
     >
       <Grid container spacing={1}>
-        {CatsHandler.renderNestedCatsWithCheckbox(preferencesState, preferenceStateHandler)}
+        {preferencesState && renderNestedCatsWithCheckbox(preferencesState, preferenceStateHandler)}
       </Grid>
     </ExpansionPanelComponent>
   );

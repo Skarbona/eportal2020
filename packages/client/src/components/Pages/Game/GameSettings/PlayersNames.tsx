@@ -1,18 +1,47 @@
+import React, { FC, memo, useState, useEffect, useCallback } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { People } from '@material-ui/icons';
-import React, { FC, memo, useState } from 'react';
 
 import { InputChangeEvent } from '../../../../models/typescript-events';
+import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
+
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { useReduxDispatch } from '../../../../store/helpers';
+import { setFormValues } from '../../../../store/game/action';
 
-export const PlayersNamesComponent: FC<{}> = () => {
-  const [womanName, setWomanName] = useState<string>('');
-  const [manName, setManName] = useState<string>('');
+export interface Props {
+  defaults: {
+    she: string;
+    he: string;
+  };
+}
 
-  const setWomanNameHandler = (event: InputChangeEvent): void => setWomanName(event.target.value);
-  const setManNameHandler = (event: InputChangeEvent): void => setManName(event.target.value);
+export const PlayersNamesComponent: FC<Props> = ({ defaults }) => {
+  const dispatch = useReduxDispatch();
+  const [womanName, setWomanName] = useState<string>(defaults.she);
+  const [manName, setManName] = useState<string>(defaults.he);
 
-  const subtitle = `(${womanName || 'Ona'}, ${manName || 'On'})`;
+  useEffect(
+    () => {
+      const payload: Partial<FormValues> = {
+        names: { she: womanName || defaults.she, he: manName || defaults.he },
+      };
+      dispatch(setFormValues(payload));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [womanName, manName],
+  );
+
+  const setWomanNameHandler = useCallback(
+    (event: InputChangeEvent): void => setWomanName(event.target.value),
+    [],
+  );
+  const setManNameHandler = useCallback(
+    (event: InputChangeEvent): void => setManName(event.target.value),
+    [],
+  );
+
+  const subtitle = `(${womanName || defaults.she}, ${manName || defaults.he})`;
   return (
     <ExpansionPanelComponent
       icon={<People />}

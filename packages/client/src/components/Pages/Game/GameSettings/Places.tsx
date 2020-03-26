@@ -1,31 +1,51 @@
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { Place } from '@material-ui/icons';
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 
 import { SelectChangeEvent } from '../../../../models/typescript-events';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
-import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
 
-interface Props {
+import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { useReduxDispatch } from '../../../../store/helpers';
+import { setFormValues } from '../../../../store/game/action';
+
+export interface Props {
   places: CategoryInterface;
+  defaults: string;
 }
 
-export const PlacesComponent: FC<Props> = ({ places }) => {
+export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
+  const dispatch = useReduxDispatch();
   const [selectedPlace, setSelectedPlace] = useState<string>(null);
-  const [subtitle, setSubtitle] = useState<string>(null);
+  const [subtitle, setSubtitle] = useState<string>('(Ładuje lokalizacje...)');
 
-  useEffect(() => {
-    if (places && places.children) {
-      setSelectedPlace(places.children[0].id);
-      setSubtitle(`(${places.children[0].name})`);
-    }
-  }, [places]);
+  useEffect(
+    () => {
+      if (places && places.children) {
+        const findDefaultPlace = places.children.find(place => place.id === defaults);
+        setSelectedPlace(findDefaultPlace ? findDefaultPlace.id : places.children[0].id);
+        setSubtitle(`(${findDefaultPlace ? findDefaultPlace.name : places.children[0].name})`);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [places],
+  );
+
+  useEffect(
+    () => {
+      const payload: Partial<FormValues> = { place: selectedPlace };
+      dispatch(setFormValues(payload));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedPlace],
+  );
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const handleOnChange = (event: SelectChangeEvent, value: any): void => {
+  const handleOnChange = useCallback((event: SelectChangeEvent, value: any): void => {
     setSelectedPlace(event.target.value as string);
     setSubtitle(`(${value.props.children})`);
-  };
+  }, []);
 
   return (
     <ExpansionPanelComponent

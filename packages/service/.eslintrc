@@ -12,7 +12,9 @@
     "jest": true
   },
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true }]
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-empty-interface": "off"
   },
   "parser": "@typescript-eslint/parser"
 }

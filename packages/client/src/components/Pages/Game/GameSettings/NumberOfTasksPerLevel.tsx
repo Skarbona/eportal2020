@@ -1,13 +1,18 @@
+import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { FormatListNumbered } from '@material-ui/icons';
-import React, { FC, memo, useEffect, useState } from 'react';
 
 import { InputChangeEvent } from '../../../../models/typescript-events';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
-import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
 
-interface Props {
+import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import { useReduxDispatch } from '../../../../store/helpers';
+import { setFormValues } from '../../../../store/game/action';
+
+export interface Props {
   levels: CategoryInterface;
+  defaults: FormValues['levels'];
 }
 
 interface State {
@@ -16,27 +21,52 @@ interface State {
   name: string;
 }
 
-export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels }) => {
-  const [selectedNumber, setSelectedNumber] = useState<State[]>(null);
+export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels, defaults }) => {
+  const dispatch = useReduxDispatch();
+  const [selectedAmounts, setSelectedAmounts] = useState<State[]>(null);
+
   useEffect(() => {
-    if (levels && levels.children) {
-      setSelectedNumber(
-        levels.children.map(level => ({ value: 10, id: level.id, name: level.name })),
+    if (levels) {
+      setSelectedAmounts(
+        levels.children.map((level, i) => ({
+          value: Object.values(defaults)[i],
+          id: level.id,
+          name: level.name,
+        })),
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [levels]);
 
-  const onChangeHandler = (event: InputChangeEvent, index: number): void => {
-    const newState = [...selectedNumber];
-    const value = parseInt(event.target.value, 10);
-    const numberToSet = value >= 1 ? value : 1;
-    newState[index].value = numberToSet;
-    setSelectedNumber(newState);
-  };
+  useEffect(
+    () => {
+      if (selectedAmounts) {
+        const payload: Partial<FormValues> = {
+          levels: {
+            level1: selectedAmounts[0].value,
+            level2: selectedAmounts[1].value,
+            level3: selectedAmounts[2].value,
+          },
+        };
+        dispatch(setFormValues(payload));
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedAmounts],
+  );
 
-  if (!selectedNumber) return null;
+  const onChangeHandler = useCallback(
+    (event: InputChangeEvent, index: number): void => {
+      const newState = [...selectedAmounts];
+      const value = parseInt(event.target.value, 10);
+      const numberToSet = value >= 1 ? value : 1;
+      newState[index].value = numberToSet;
+      setSelectedAmounts(newState);
+    },
+    [selectedAmounts],
+  );
 
-  const subtitle = `(${selectedNumber.map(level => level.value)})`;
+  const subtitle = `(${selectedAmounts ? selectedAmounts.map(level => level.value) : '10,10,10'})`;
   return (
     <ExpansionPanelComponent
       icon={<FormatListNumbered />}
@@ -45,8 +75,8 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels }) => {
       className="game__levels"
     >
       <Grid container spacing={1}>
-        {selectedNumber &&
-          selectedNumber.map((level, index) => (
+        {selectedAmounts &&
+          selectedAmounts.map((level, index) => (
             <Grid item xs={12} md={4} key={level.id}>
               <TextField
                 label={level.name}

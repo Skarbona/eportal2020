@@ -4,7 +4,7 @@ import { CategoriesEnum } from './enum';
 import { categoriesInitialState } from './initialState';
 import { CategoriesStateInterface } from './initialState.interface';
 
-const formReducer = (
+const categoriesReducer = (
   state = categoriesInitialState,
   action: CategoriesActions,
 ): CategoriesStateInterface => {
@@ -44,4 +44,4 @@ const formReducer = (
   }
 };
 
-export default formReducer;
+export default categoriesReducer;
