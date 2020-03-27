@@ -33,7 +33,7 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
        token: ${{ secrets.CODECOV_TOKEN }}
-       file: ./packages/client/clover.xml
+       file: ./packages/client/coverage/clover.xml
        flags: client
        name: coverage-client
       env:
