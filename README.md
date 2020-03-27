@@ -2,7 +2,7 @@
 
 
 ##### Client Test coverage: 
-[![Coverage Status](https://coveralls.io/repos/github/Skarbona/eportal2020/badge.svg)](https://coveralls.io/github/Skarbona/eportal2020)
+[![codecov](https://codecov.io/gh/Skarbona/eportal2020/branch/master/graph/badge.svg?flag=client)](https://codecov.io/gh/Skarbona/eportal2020)
 
 
 ## How to start ?

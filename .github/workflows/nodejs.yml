@@ -29,18 +29,12 @@ jobs:
     - run: npm run lerna:lint
     - run: npm run lerna:test
     - run: npm run lerna:build
-
-    - name: Client Coverage
-      uses: coverallsapp/github-action@master
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel: true
-        path-to-lcov: ./packages/client/coverage/lcov.info
-
-    - name: Client Coverage Finished
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true
+       token: ${{ secrets.CODECOV_TOKEN }}
+       file: ./packages/client/clover.xml
+       flags: client
+       name: coverage-client
       env:
         CI: true
