@@ -29,5 +29,18 @@ jobs:
     - run: npm run lerna:lint
     - run: npm run lerna:test
     - run: npm run lerna:build
+
+    - name: Client Coverage
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        parallel: true
+        path-to-lcov: ./packages/client/coverage/lcov.info
+
+    - name: Client Coverage Finished
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        parallel-finished: true
       env:
         CI: true
