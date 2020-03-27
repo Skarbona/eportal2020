@@ -35,7 +35,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         parallel: true
-        path-to-lcov: .packages/client/coverage/lcov.info
+        path-to-lcov: ./packages/client/coverage/lcov.info
 
     - name: Client Coverage Finished
       uses: coverallsapp/github-action@master
