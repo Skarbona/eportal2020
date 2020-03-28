@@ -1,0 +1,10 @@
+coverage:
+  status:
+    patch: off
+    project:
+       client:
+       target: 60%
+        paths:
+        - packages/client
+        flags:
+        - "client"
