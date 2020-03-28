@@ -25,7 +25,6 @@ export const HeaderComponent: FC = () => {
         <Link to="/autentykacja">
           <Button>Logowanie/Rejestracja</Button>
         </Link>
-
       </Toolbar>
     </AppBar>
   );
