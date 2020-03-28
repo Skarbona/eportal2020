@@ -1,5 +1,5 @@
-import { Container } from '@material-ui/core';
 import React, { FC, memo, useEffect } from 'react';
+import { Container } from '@material-ui/core';
 
 import { fetchCategories } from '../../../store/categories/thunk';
 import { useReduxDispatch } from '../../../store/helpers';
