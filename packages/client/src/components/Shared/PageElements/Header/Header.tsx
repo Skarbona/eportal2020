@@ -1,4 +1,5 @@
 import React, { FC, memo } from 'react';
+import { Link } from 'react-router-dom';
 
 import './Header.scss';
 
@@ -13,10 +14,18 @@ export const HeaderComponent: FC = () => {
         <IconButton edge="start" className="menu-bottom" aria-label="menu">
           <MenuIcon />
         </IconButton>
+
         <Typography variant="h6" className="title">
-          Eportal
+          <Link to="/">Eportal</Link>
         </Typography>
-        <Button>Login/Register</Button>
+
+        <Link to="/gra">
+          <Button>Rozpocznij Grę</Button>
+        </Link>
+        <Link to="/autentykacja">
+          <Button>Logowanie/Rejestracja</Button>
+        </Link>
+
       </Toolbar>
     </AppBar>
   );
