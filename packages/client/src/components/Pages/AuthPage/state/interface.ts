@@ -35,7 +35,6 @@ export interface Actions {
 
 export interface PasswordChanged extends Actions {
   type: AuthPageActionsEnum.PasswordChanged;
-
 }
 
 export interface RepeatEmailChanged extends Actions {
@@ -48,12 +47,6 @@ export interface EmailChanged extends Actions {
 
 export interface UserNameChanged extends Actions {
   type: AuthPageActionsEnum.UserNameChanged;
-
 }
 
-
-export type AuthPageActions =
-  | PasswordChanged
-  | RepeatEmailChanged
-  | EmailChanged
-  | UserNameChanged;
+export type AuthPageActions = PasswordChanged | RepeatEmailChanged | EmailChanged | UserNameChanged;

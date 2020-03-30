@@ -18,7 +18,7 @@ export const AuthPageComponent: FC<{}> = () => {
   const [{ inputs, isFormValid }, dispatch] = useReducer(authPageReducer, initialState);
 
   const [isRegisterMode, setMode] = useState<boolean>(true);
-  const setModeHandler = () => setMode(prevState => !prevState);
+  const setModeHandler = (): void => setMode(prevState => !prevState);
 
   const passwordHandler = useCallback(
     (event: InputChangeEvent, blurred?: boolean): void => dispatch(passwordChanged(event, blurred)),

@@ -72,7 +72,7 @@ export const isEmailValidHandler = (email: string, blurred: boolean) => {
     error: errorMsg.length > 0 && blurred,
     valid: errorMsg.length === 0,
     blurred: !!blurred,
-    errorMsg: errorMsg,
+    errorMsg,
   };
 };
 
@@ -92,6 +92,6 @@ export const isRepeatedEmailValidHandler = (email: string, blurred: boolean, mai
     error: errorMsg.length > 0 && blurred,
     valid: errorMsg.length === 0,
     blurred: !!blurred,
-    errorMsg: errorMsg,
+    errorMsg,
   };
 };

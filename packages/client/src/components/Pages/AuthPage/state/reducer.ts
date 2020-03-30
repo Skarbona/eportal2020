@@ -4,14 +4,14 @@ import {
   isFormValidHandler,
   isUserNameValidHandler,
   isEmailValidHandler,
-  isRepeatedEmailValidHandler
+  isRepeatedEmailValidHandler,
 } from '../../../../utils/auth-page';
 
 export const authPageReducer = (state: AuthPageState, action: AuthPageActions): AuthPageState => {
   switch (action.type) {
     case AuthPageActionsEnum.EmailChanged: {
-      const value = action.data.value;
-      const blurred = action.data.blurred;
+      const { value } = action.data;
+      const { blurred } = action.data;
       const newState = {
         ...state,
         inputs: {
@@ -26,8 +26,8 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
       return newState;
     }
     case AuthPageActionsEnum.RepeatEmailChanged: {
-      const value = action.data.value;
-      const blurred = action.data.blurred;
+      const { value } = action.data;
+      const { blurred } = action.data;
       const newState = {
         ...state,
         inputs: {
@@ -42,8 +42,8 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
       return newState;
     }
     case AuthPageActionsEnum.PasswordChanged: {
-      const value = action.data.value;
-      const blurred = action.data.blurred;
+      const { value } = action.data;
+      const { blurred } = action.data;
       const newState = {
         ...state,
         inputs: {
@@ -58,8 +58,8 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
       return newState;
     }
     case AuthPageActionsEnum.UserNameChanged: {
-      const value = action.data.value;
-      const blurred = action.data.blurred;
+      const { value } = action.data;
+      const { blurred } = action.data;
       const newState = {
         ...state,
         inputs: {
