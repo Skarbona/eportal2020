@@ -1,0 +1,13 @@
+.auth-page {
+  .auth-page__form-wrapper {
+    .MuiFormControl-root {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .avatar {
+        margin: 1rem;
+      }
+    }
+  }
+}

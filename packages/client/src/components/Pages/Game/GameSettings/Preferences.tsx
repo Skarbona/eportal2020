@@ -66,7 +66,7 @@ export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation
       title={preferences && preferences.name}
       icon={<Apps />}
     >
-      <Grid container spacing={1}>
+      <Grid container spacing={0}>
         {preferencesState && renderNestedCatsWithCheckbox(preferencesState, preferenceStateHandler)}
       </Grid>
     </ExpansionPanelComponent>

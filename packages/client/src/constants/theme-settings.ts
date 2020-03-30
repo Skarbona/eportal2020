@@ -7,6 +7,13 @@ export const theme = createMuiTheme({
     type: 'dark',
   },
   overrides: {
+    MuiGrid: {
+      root: {
+        '&.MuiGrid-container': {
+          padding: '1.5rem 0',
+        },
+      },
+    },
     MuiBackdrop: {
       root: {
         zIndex: 100,

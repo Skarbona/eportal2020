@@ -1,6 +1,6 @@
 import React, { FC, Fragment, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 
 import './GameSettings.scss';
 
@@ -61,15 +61,17 @@ export const GameSettingComponent: FC<{}> = () => {
             <Typography variant="h3" component="h1">
               Nowa Gra
             </Typography>
-            <PlayersNames defaults={defaults.names} />
-            <Places places={cats.places} defaults={defaults.place} />
-            <Preferences
-              preferences={cats.preferences}
-              setFormValidation={setFormValidation}
-              defaults={defaults.catsQuery.catsInclude}
-            />
-            <NumberOfTasksPerLevel levels={cats.levels} defaults={defaults.levels} />
-            <TimeForTask defaults={defaults.time} />
+            <Grid container direction="column">
+              <PlayersNames defaults={defaults.names} />
+              <Places places={cats.places} defaults={defaults.place} />
+              <Preferences
+                preferences={cats.preferences}
+                setFormValidation={setFormValidation}
+                defaults={defaults.catsQuery.catsInclude}
+              />
+              <NumberOfTasksPerLevel levels={cats.levels} defaults={defaults.levels} />
+              <TimeForTask defaults={defaults.time} />
+            </Grid>
             <DefaultSettings />
             <StartButton isFormValid={isFormValid} />
           </form>
