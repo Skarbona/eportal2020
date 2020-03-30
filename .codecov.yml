@@ -1,9 +1,12 @@
 coverage:
   status:
-    patch: off
+    patch:
+      default:
+        enabled: false
     project:
        client:
-       target: 40%
+       threshold: 50%
+       target: 50%
         paths:
         - packages/client
         flags:
