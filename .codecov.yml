@@ -3,7 +3,7 @@ coverage:
     patch: off
     project:
        client:
-       target: 60%
+       target: 40%
         paths:
         - packages/client
         flags:
