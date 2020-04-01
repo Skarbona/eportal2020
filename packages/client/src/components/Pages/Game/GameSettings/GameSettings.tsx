@@ -1,5 +1,6 @@
 import React, { FC, Fragment, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Typography, Grid } from '@material-ui/core';
 
 import './GameSettings.scss';
@@ -32,6 +33,7 @@ export interface GameSettingStoreProps {
 
 export const GameSettingComponent: FC<{}> = () => {
   const dispatch = useReduxDispatch();
+  const { t } = useTranslation();
   const [isFormValid, setFormValidation] = useState<boolean>(false);
   const { cats, loading, catsError, gameError, defaults } = useSelector<
     RootState,
@@ -59,7 +61,7 @@ export const GameSettingComponent: FC<{}> = () => {
         <div className="game__settings">
           <form onSubmit={onSubmitHandler}>
             <Typography variant="h3" component="h1">
-              Nowa Gra
+              {t('New Game')}
             </Typography>
             <Grid container direction="column">
               <PlayersNames defaults={defaults.names} />

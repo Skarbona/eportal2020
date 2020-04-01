@@ -4,7 +4,8 @@ import {
   isFormValidHandler,
   isUserNameValidHandler,
   isEmailValidHandler,
-  isRepeatedEmailValidHandler,
+  isConfirmedEmailValidHandler,
+  setVisibleInputsHandler,
 } from '../../../../utils/auth-page';
 
 export const authPageReducer = (state: AuthPageState, action: AuthPageActions): AuthPageState => {
@@ -32,9 +33,9 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
         ...state,
         inputs: {
           ...state.inputs,
-          repeatedEmail: {
-            ...state.inputs.repeatedEmail,
-            ...isRepeatedEmailValidHandler(value, blurred, state.inputs.email.value),
+          confirmedEmail: {
+            ...state.inputs.confirmedEmail,
+            ...isConfirmedEmailValidHandler(value, blurred, state.inputs.email.value),
           },
         },
       };
@@ -67,6 +68,28 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
           userName: {
             ...state.inputs.userName,
             ...isUserNameValidHandler(value, blurred),
+          },
+        },
+      };
+      newState.isFormValid = isFormValidHandler(newState.inputs);
+      return newState;
+    }
+    case AuthPageActionsEnum.SetVisibleInputs: {
+      const { inputKeys } = action.data;
+      const newState = { ...state };
+      newState.inputs = setVisibleInputsHandler(newState, inputKeys);
+      newState.isFormValid = isFormValidHandler(newState.inputs);
+      return newState;
+    }
+    case AuthPageActionsEnum.RecaptchaChanged: {
+      const { value } = action.data;
+      const newState = {
+        ...state,
+        inputs: {
+          ...state.inputs,
+          recaptcha: {
+            ...state.inputs.recaptcha,
+            valid: value.length > 0,
           },
         },
       };

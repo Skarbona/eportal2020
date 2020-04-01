@@ -1,8 +1,8 @@
 import { AuthPageState } from './interface';
 
-const basicInputState = {
+const initialInputState = {
   valid: false,
-  visible: false,
+  visible: true,
   required: false,
   error: false,
   errorMsg: '',
@@ -12,10 +12,11 @@ const basicInputState = {
 
 export const initialState: AuthPageState = {
   inputs: {
-    password: basicInputState,
-    repeatedEmail: basicInputState,
-    email: basicInputState,
-    userName: basicInputState,
+    password: initialInputState,
+    confirmedEmail: initialInputState,
+    email: initialInputState,
+    userName: initialInputState,
+    recaptcha: initialInputState,
   },
   isFormValid: false,
 };

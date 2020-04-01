@@ -1,6 +1,7 @@
 import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { FormatListNumbered } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 
 import { InputChangeEvent } from '../../../../models/typescript-events';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
@@ -22,6 +23,7 @@ interface State {
 }
 
 export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels, defaults }) => {
+  const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const [selectedAmounts, setSelectedAmounts] = useState<State[]>(null);
 
@@ -71,7 +73,7 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels, defaults }) 
     <ExpansionPanelComponent
       icon={<FormatListNumbered />}
       subtitle={subtitle}
-      title="Liczba zadań na poziom"
+      title={t('Number of tasks per level')}
       className="game__levels"
     >
       <Grid container spacing={1}>

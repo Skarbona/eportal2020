@@ -11,7 +11,18 @@ configure({ adapter: new Adapter() });
 jest.mock('react-redux', () => ({
   useDispatch: () => jest.fn(),
   useReduxDispatch: () => jest.fn(),
-  useSelector: jest.fn().mockImplementation(() => mockedState),
+  useSelector: jest.fn(() => mockedState),
+}));
+
+jest.mock('./settings/translation-settings', () => ({
+  t: jest.fn((string) => string),
+  on: jest.fn((method, callback) => callback())
+}));
+
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: jest.fn((string) => string),
+  }),
 }));
 
 enableHooks(jest as any);

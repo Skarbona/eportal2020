@@ -1,4 +1,5 @@
 import React, { FC, memo, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Checkbox, FormControlLabel, FormGroup, Grid } from '@material-ui/core';
 
 import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
@@ -7,6 +8,7 @@ import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
 
 export const DefaultSettingsComponent: FC<{}> = () => {
+  const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const [checkboxState, setCheckboxState] = useState<boolean>(false);
   const setCheckboxStateHandler = (): void => setCheckboxState(prevState => !prevState);
@@ -30,7 +32,7 @@ export const DefaultSettingsComponent: FC<{}> = () => {
           control={
             <Checkbox checked={checkboxState} onChange={setCheckboxStateHandler} color="primary" />
           }
-          label="Zapisz jako domyślne ustawienia"
+          label={t('Save as default')}
         />
       </FormGroup>
     </Grid>

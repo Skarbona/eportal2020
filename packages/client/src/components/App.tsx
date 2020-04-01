@@ -4,7 +4,7 @@ import { ThemeProvider } from '@material-ui/styles';
 
 import './App.scss';
 
-import { theme } from '../constants/theme-settings';
+import { theme } from '../settings/theme-settings';
 import { useReduxDispatch } from '../store/helpers';
 import { fetchUserData } from '../store/user/thunk';
 import Pages from './Pages/Pages';

@@ -4,7 +4,9 @@ import * as usersControllers from '../controllers/users';
 
 const router = Router();
 
-router.post('/', usersControllers.signUp);
+router.post('/signup', usersControllers.signUp);
+router.post('/login', usersControllers.Login);
+
 router.get('/:id', usersControllers.getUser);
 router.patch('/:id', usersControllers.updateUser);
 

@@ -1,4 +1,5 @@
 import React, { FC, memo, useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Grid, TextField } from '@material-ui/core';
 import { People } from '@material-ui/icons';
 
@@ -17,6 +18,7 @@ export interface Props {
 }
 
 export const PlayersNamesComponent: FC<Props> = ({ defaults }) => {
+  const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const [womanName, setWomanName] = useState<string>(defaults.she);
   const [manName, setManName] = useState<string>(defaults.he);
@@ -45,27 +47,27 @@ export const PlayersNamesComponent: FC<Props> = ({ defaults }) => {
   return (
     <ExpansionPanelComponent
       icon={<People />}
-      title="Imiona Graczy"
+      title={t('Players names')}
       subtitle={subtitle}
       className="game__names"
     >
       <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
           <TextField
-            label="Ona"
+            label={t('She')}
             className="form-element__default-width"
             variant="filled"
-            helperText="Wybierz imię dla Partnerki"
+            helperText={t('Select the name for her')}
             value={womanName}
             onChange={setWomanNameHandler}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
-            label="On"
+            label={t('He')}
             className="form-element__default-width"
             variant="filled"
-            helperText="Wybierz imię dla Partnera"
+            helperText={t('Select the name for him')}
             value={manName}
             onChange={setManNameHandler}
           />

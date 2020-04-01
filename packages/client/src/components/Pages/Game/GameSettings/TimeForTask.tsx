@@ -1,4 +1,5 @@
 import React, { FC, memo, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormControlLabel, Grid, Slider, Switch } from '@material-ui/core';
 import { Timelapse } from '@material-ui/icons';
 
@@ -14,6 +15,7 @@ export interface Props {
 }
 
 export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
+  const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const [timeMode, setTimeMode] = useState<TimeMode>(defaults.type);
   const [singleState, setSingleState] = useState<number[]>(
@@ -53,14 +55,14 @@ export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
     if (timeMode === TimeMode.Single) {
       return `(${singleState[0]} min)`;
     }
-    return `(od ${rangeState[0]} min do ${rangeState[1]} min)`;
+    return `(${t('from')} ${rangeState[0]} min ${t('to')} ${rangeState[1]} min)`;
   };
 
   return (
     <ExpansionPanelComponent
       icon={<Timelapse />}
       subtitle={subtitleHandler()}
-      title="Czas na wykonanie 1 zadania"
+      title={t('Time for finishing 1 task')}
       className="game__time"
     >
       <Grid container spacing={1}>
@@ -73,7 +75,7 @@ export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
               name="Time Mode"
             />
           }
-          label="Z przedziałami czasowymi"
+          label={t('With time ranges')}
         />
         {timeMode === TimeMode.Single && (
           <Slider

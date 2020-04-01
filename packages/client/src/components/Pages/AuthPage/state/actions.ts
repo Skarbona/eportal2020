@@ -4,6 +4,9 @@ import {
   RepeatEmailChanged,
   EmailChanged,
   UserNameChanged,
+  SetVisibleInputs,
+  InputKeys,
+  RecaptchaChanged,
 } from './interface';
 import { InputChangeEvent } from '../../../../models/typescript-events';
 
@@ -15,7 +18,7 @@ export const passwordChanged = (event: InputChangeEvent, blurred?: boolean): Pas
   },
 });
 
-export const repeatEmailChanged = (
+export const confirmedEmailChanged = (
   event: InputChangeEvent,
   blurred?: boolean,
 ): RepeatEmailChanged => ({
@@ -39,5 +42,19 @@ export const userNameChanged = (event: InputChangeEvent, blurred?: boolean): Use
   data: {
     value: event.target.value,
     blurred,
+  },
+});
+
+export const setVisibleInputs = (inputKeys: InputKeys[]): SetVisibleInputs => ({
+  type: AuthPageActionsEnum.SetVisibleInputs,
+  data: {
+    inputKeys,
+  },
+});
+
+export const recaptchaChanged = (value: string): RecaptchaChanged => ({
+  type: AuthPageActionsEnum.RecaptchaChanged,
+  data: {
+    value,
   },
 });

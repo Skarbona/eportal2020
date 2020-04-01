@@ -11,9 +11,10 @@ interface InputState {
 export interface AuthPageState {
   inputs: {
     password: InputState;
-    repeatedEmail: InputState;
+    confirmedEmail: InputState;
     email: InputState;
     userName: InputState;
+    recaptcha: InputState;
   };
   isFormValid: boolean;
 }
@@ -23,6 +24,16 @@ export enum AuthPageActionsEnum {
   RepeatEmailChanged = 'REPEAT_EMAIL_CHANGED',
   EmailChanged = 'EMAIL_CHANGED',
   UserNameChanged = 'USER_NAME_CHANGED',
+  SetVisibleInputs = 'SET_VISIBLE_INPUTS',
+  RecaptchaChanged = 'RECAPTCHA_CHANGED',
+}
+
+export enum InputKeys {
+  'Password' = 'password',
+  'Username' = 'userName',
+  'ConfirmedEmail' = 'confirmedEmail',
+  'Email' = 'email',
+  'Recaptcha' = 'recaptcha',
 }
 
 export interface Actions {
@@ -49,4 +60,24 @@ export interface UserNameChanged extends Actions {
   type: AuthPageActionsEnum.UserNameChanged;
 }
 
-export type AuthPageActions = PasswordChanged | RepeatEmailChanged | EmailChanged | UserNameChanged;
+export interface SetVisibleInputs {
+  type: AuthPageActionsEnum.SetVisibleInputs;
+  data: {
+    inputKeys: InputKeys[];
+  };
+}
+
+export interface RecaptchaChanged {
+  type: AuthPageActionsEnum.RecaptchaChanged;
+  data: {
+    value: string;
+  };
+}
+
+export type AuthPageActions =
+  | PasswordChanged
+  | RepeatEmailChanged
+  | EmailChanged
+  | SetVisibleInputs
+  | RecaptchaChanged
+  | UserNameChanged;

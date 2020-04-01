@@ -1,6 +1,7 @@
 import React, { FC, memo, Fragment, useState } from 'react';
-import { Typography, Avatar, TextField, InputAdornment, IconButton } from '@material-ui/core';
-import { LockOutlined, Visibility, VisibilityOff } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
+import { TextField, InputAdornment, IconButton } from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import { AuthPageState } from './state/interface';
 import { InputChangeEvent } from '../../../models/typescript-events';
@@ -8,7 +9,7 @@ import { InputChangeEvent } from '../../../models/typescript-events';
 interface Props {
   passwordHandler(value: InputChangeEvent, blurred?: boolean): void;
   userNameHandler(value: InputChangeEvent, blurred?: boolean): void;
-  repeatedEmailHandler(value: InputChangeEvent, blurred?: boolean): void;
+  confirmedEmailHandler(value: InputChangeEvent, blurred?: boolean): void;
   emailHandler(value: InputChangeEvent, blurred?: boolean): void;
   inputs: AuthPageState['inputs'];
   isRegisterMode: boolean;
@@ -19,9 +20,10 @@ export const InputsComponent: FC<Props> = ({
   inputs,
   isRegisterMode,
   userNameHandler,
-  repeatedEmailHandler,
+  confirmedEmailHandler,
   emailHandler,
 }) => {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const setShowPasswordHandler = () => setShowPassword(prevProps => !prevProps);
@@ -36,19 +38,13 @@ export const InputsComponent: FC<Props> = ({
 
   return (
     <Fragment>
-      <Avatar className="avatar">
-        <LockOutlined />
-      </Avatar>
-      <Typography variant="h3" component="h1">
-        Rejestracja
-      </Typography>
       <TextField
         variant="filled"
         margin="normal"
         required
         fullWidth
         id="email"
-        label="Adres email"
+        label={t('Email')}
         name="email"
         autoComplete="email"
         autoFocus
@@ -64,14 +60,14 @@ export const InputsComponent: FC<Props> = ({
           margin="normal"
           required
           fullWidth
-          id="email"
-          label="Potwierdź Adres email"
-          name="repeat-email"
-          value={inputs.repeatedEmail.value}
-          error={inputs.repeatedEmail.error}
-          helperText={inputs.repeatedEmail.errorMsg}
-          onChange={repeatedEmailHandler}
-          onBlur={e => repeatedEmailHandler(e, true)}
+          id="confirmed-email"
+          label={t('Confirm Email')}
+          name="confirmed-email"
+          value={inputs.confirmedEmail.value}
+          error={inputs.confirmedEmail.error}
+          helperText={inputs.confirmedEmail.errorMsg}
+          onChange={confirmedEmailHandler}
+          onBlur={e => confirmedEmailHandler(e, true)}
         />
       )}
       {isRegisterMode && (
@@ -81,7 +77,7 @@ export const InputsComponent: FC<Props> = ({
           required
           fullWidth
           id="username"
-          label="Nazwa użytkownika"
+          label={t('Username')}
           name="username"
           value={inputs.userName.value}
           error={inputs.userName.error}
@@ -96,7 +92,7 @@ export const InputsComponent: FC<Props> = ({
         required
         fullWidth
         name="password"
-        label="Hasło"
+        label={t('Password')}
         type={showPassword ? 'text' : 'password'}
         id="password"
         autoComplete="current-password"

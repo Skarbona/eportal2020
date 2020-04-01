@@ -1,6 +1,8 @@
 import isEmail from 'validator/lib/isEmail';
+import i18n from '../settings/translation-settings';
 
-import { AuthPageState } from '../components/Pages/AuthPage/state/interface';
+import { AuthPageState, InputKeys } from '../components/Pages/AuthPage/state/interface';
+import { initialState } from '../components/Pages/AuthPage/state/initialState';
 
 export const isFormValidHandler = (inputs: AuthPageState['inputs']) => {
   return Object.values(inputs).every(input => {
@@ -16,13 +18,13 @@ export const isPasswordValidHandler = (
   let errorMsg = '';
 
   if (!/^(.*[0-9].*)$/.test(password)) {
-    errorMsg = 'Hasło musi zawierać przynajmniej jedną cyfrę';
+    errorMsg = i18n.t('Password must include at least one number');
   } else if (!/^(.*[A-Z].*)$/.test(password)) {
-    errorMsg = 'Hasło musi zawierać przynajmniej jedną dużą literę';
+    errorMsg = i18n.t('Password must include at least one big letter');
   } else if (!/^(.*[a-z].*)$/.test(password)) {
-    errorMsg = 'Hasło musi zawierać przynajmniej jedną małą literę';
+    errorMsg = i18n.t('Password must include at least one small letter');
   } else if (!/^(.{8,})$/.test(password)) {
-    errorMsg = 'Hasło musi zawierać przynajmniej 8 znaków';
+    errorMsg = i18n.t('Password must include at least 8 characters');
   } else {
     errorMsg = '';
   }
@@ -40,11 +42,11 @@ export const isUserNameValidHandler = (userName: string, blurred: boolean) => {
   let errorMsg = '';
 
   if (!/^(.{4,})$/.test(userName)) {
-    errorMsg = 'Nazwa musi mieć przynajmniej 4 litery';
+    errorMsg = i18n.t('Username must include at least 4 characters');
   } else if (/[`~,.<>;':"/[\]|{}()=_+-]/.test(userName)) {
-    errorMsg = 'Nazwa nie może zawierać znaków specjalnych';
+    errorMsg = i18n.t('Username cannot include some of special characters');
   } else if (!/^(.{4,20})$/.test(userName)) {
-    errorMsg = 'Nazwa nie może być dłuższa niż 20 znaków';
+    errorMsg = i18n.t('Username must include less then 20 characters');
   } else {
     errorMsg = '';
   }
@@ -54,7 +56,7 @@ export const isUserNameValidHandler = (userName: string, blurred: boolean) => {
     error: errorMsg.length > 0 && blurred,
     valid: errorMsg.length === 0,
     blurred: !!blurred,
-    errorMsg: errorMsg || 'Nazwa może być widoczna dla innych użytkowników',
+    errorMsg: errorMsg || i18n.t('Username can be visible for all users'),
   };
 };
 
@@ -62,7 +64,7 @@ export const isEmailValidHandler = (email: string, blurred: boolean) => {
   let errorMsg = '';
 
   if (!isEmail(email)) {
-    errorMsg = 'Podaj poprawny email';
+    errorMsg = i18n.t('Provide valid email');
   } else {
     errorMsg = '';
   }
@@ -76,13 +78,17 @@ export const isEmailValidHandler = (email: string, blurred: boolean) => {
   };
 };
 
-export const isRepeatedEmailValidHandler = (email: string, blurred: boolean, mainEmail: string) => {
+export const isConfirmedEmailValidHandler = (
+  email: string,
+  blurred: boolean,
+  mainEmail: string,
+) => {
   let errorMsg = '';
 
   if (!isEmail(email)) {
-    errorMsg = 'Podaj poprawny email';
+    errorMsg = i18n.t('Provide valid email');
   } else if (email !== mainEmail) {
-    errorMsg = 'Podane emaile się różnią';
+    errorMsg = i18n.t('Emails must be the same');
   } else {
     errorMsg = '';
   }
@@ -95,3 +101,23 @@ export const isRepeatedEmailValidHandler = (email: string, blurred: boolean, mai
     errorMsg,
   };
 };
+
+export const setVisibleInputsHandler = (
+  state: AuthPageState,
+  inputKeys: InputKeys[],
+): AuthPageState['inputs'] =>
+  Object.entries(state.inputs).reduce((result, input) => {
+    if (inputKeys.includes(input[0] as InputKeys)) {
+      return {
+        ...result,
+        [input[0]]: {
+          ...input[1],
+          visible: true,
+        },
+      };
+    }
+    return {
+      ...result,
+      [input[0]]: { ...input[1], visible: false },
+    };
+  }, initialState.inputs);
