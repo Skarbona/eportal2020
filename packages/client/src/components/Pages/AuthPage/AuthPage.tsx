@@ -26,16 +26,13 @@ export const AuthPageComponent: FC<{}> = () => {
   const [isRegisterMode, setMode] = useState<boolean>(true);
   const setModeHandler = (): void => setMode(prevState => !prevState);
 
-  useEffect(
-    () => {
-      const inputKeys = [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha];
-      if (isRegisterMode) {
-        inputKeys.push(InputKeys.ConfirmedEmail, InputKeys.Username);
-      }
-      dispatch(setVisibleInputs(inputKeys));
-    },
-    [isRegisterMode],
-  );
+  useEffect(() => {
+    const inputKeys = [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha];
+    if (isRegisterMode) {
+      inputKeys.push(InputKeys.ConfirmedEmail, InputKeys.Username);
+    }
+    dispatch(setVisibleInputs(inputKeys));
+  }, [isRegisterMode]);
 
   const passwordHandler = useCallback(
     (event: InputChangeEvent, blurred?: boolean): void => dispatch(passwordChanged(event, blurred)),

@@ -78,7 +78,11 @@ export const isEmailValidHandler = (email: string, blurred: boolean) => {
   };
 };
 
-export const isConfirmedEmailValidHandler = (email: string, blurred: boolean, mainEmail: string) => {
+export const isConfirmedEmailValidHandler = (
+  email: string,
+  blurred: boolean,
+  mainEmail: string,
+) => {
   let errorMsg = '';
 
   if (!isEmail(email)) {

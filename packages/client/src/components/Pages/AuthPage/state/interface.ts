@@ -14,7 +14,7 @@ export interface AuthPageState {
     confirmedEmail: InputState;
     email: InputState;
     userName: InputState;
-    recaptcha: InputState
+    recaptcha: InputState;
   };
   isFormValid: boolean;
 }
@@ -70,8 +70,8 @@ export interface SetVisibleInputs {
 export interface RecaptchaChanged {
   type: AuthPageActionsEnum.RecaptchaChanged;
   data: {
-    value: string,
-  }
+    value: string;
+  };
 }
 
 export type AuthPageActions =

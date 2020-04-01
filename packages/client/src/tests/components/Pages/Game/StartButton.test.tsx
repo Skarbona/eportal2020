@@ -16,7 +16,7 @@ describe('<StartButton /> component', () => {
     wrapper = shallow(<StartButtonComponent {...props} />);
     expect(wrapper.find(Button)).toHaveLength(1);
     expect(wrapper.find(Button).props().disabled).toEqual(true);
-    expect(wrapper.find(Button).text()).toEqual('Musisz zaznaczyć przynajmniej 10 kategorii');
+    expect(wrapper.find(Button).text()).toEqual('You have to select at least 10 categories');
   });
 
   it('should render all required elements if form is valid', () => {
@@ -24,6 +24,6 @@ describe('<StartButton /> component', () => {
     wrapper = shallow(<StartButtonComponent {...props} />);
     expect(wrapper.find(Button)).toHaveLength(1);
     expect(wrapper.find(Button).props().disabled).toEqual(false);
-    expect(wrapper.find(Button).text()).toEqual('Rozpocznij Grę!');
+    expect(wrapper.find(Button).text()).toEqual('Start a Game!');
   });
 });
