@@ -13,9 +13,10 @@ const initialInputState = {
 export const initialState: AuthPageState = {
   inputs: {
     password: initialInputState,
-    repeatedEmail: initialInputState,
+    confirmedEmail: initialInputState,
     email: initialInputState,
     userName: initialInputState,
+    recaptcha: initialInputState,
   },
   isFormValid: false,
 };

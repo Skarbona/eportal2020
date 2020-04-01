@@ -11,9 +11,10 @@ import { initialState } from './state/initialState';
 import {
   emailChanged,
   passwordChanged,
-  repeatEmailChanged,
+  confirmedEmailChanged,
   userNameChanged,
   setVisibleInputs,
+  recaptchaChanged,
 } from './state/actions';
 import { InputChangeEvent } from '../../../models/typescript-events';
 import { InputKeys } from './state/interface';
@@ -25,18 +26,16 @@ export const AuthPageComponent: FC<{}> = () => {
   const [isRegisterMode, setMode] = useState<boolean>(true);
   const setModeHandler = (): void => setMode(prevState => !prevState);
 
-  useEffect(() => {
-    let inputKeys = [InputKeys.Password, InputKeys.Email];
-    if (isRegisterMode) {
-      inputKeys = [
-        InputKeys.Password,
-        InputKeys.Email,
-        InputKeys.RepeatedEmail,
-        InputKeys.Username,
-      ];
-    }
-    dispatch(setVisibleInputs(inputKeys));
-  }, [isRegisterMode]);
+  useEffect(
+    () => {
+      const inputKeys = [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha];
+      if (isRegisterMode) {
+        inputKeys.push(InputKeys.ConfirmedEmail, InputKeys.Username);
+      }
+      dispatch(setVisibleInputs(inputKeys));
+    },
+    [isRegisterMode],
+  );
 
   const passwordHandler = useCallback(
     (event: InputChangeEvent, blurred?: boolean): void => dispatch(passwordChanged(event, blurred)),
@@ -53,9 +52,14 @@ export const AuthPageComponent: FC<{}> = () => {
     [],
   );
 
-  const repeatedEmailHandler = useCallback(
+  const confirmedEmailHandler = useCallback(
     (event: InputChangeEvent, blurred?: boolean): void =>
-      dispatch(repeatEmailChanged(event, blurred)),
+      dispatch(confirmedEmailChanged(event, blurred)),
+    [],
+  );
+
+  const recaptchaHandler = useCallback(
+    (value: string): void => dispatch(recaptchaChanged(value)),
     [],
   );
 
@@ -93,7 +97,7 @@ export const AuthPageComponent: FC<{}> = () => {
               passwordHandler={passwordHandler}
               userNameHandler={userNameHandler}
               emailHandler={emailHandler}
-              repeatedEmailHandler={repeatedEmailHandler}
+              confirmedEmailHandler={confirmedEmailHandler}
               inputs={inputs}
               isRegisterMode={isRegisterMode}
             />
@@ -101,7 +105,7 @@ export const AuthPageComponent: FC<{}> = () => {
             <Grid container justify="center">
               <ReCAPTCHA
                 sitekey={process.env.REACT_APP_GOOGLE_RECAPTCHA}
-                onChange={value => console.log(value)}
+                onChange={recaptchaHandler}
               />
             </Grid>
             <Button

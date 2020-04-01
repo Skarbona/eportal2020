@@ -9,7 +9,7 @@ import { InputChangeEvent } from '../../../models/typescript-events';
 interface Props {
   passwordHandler(value: InputChangeEvent, blurred?: boolean): void;
   userNameHandler(value: InputChangeEvent, blurred?: boolean): void;
-  repeatedEmailHandler(value: InputChangeEvent, blurred?: boolean): void;
+  confirmedEmailHandler(value: InputChangeEvent, blurred?: boolean): void;
   emailHandler(value: InputChangeEvent, blurred?: boolean): void;
   inputs: AuthPageState['inputs'];
   isRegisterMode: boolean;
@@ -20,7 +20,7 @@ export const InputsComponent: FC<Props> = ({
   inputs,
   isRegisterMode,
   userNameHandler,
-  repeatedEmailHandler,
+  confirmedEmailHandler,
   emailHandler,
 }) => {
   const { t } = useTranslation();
@@ -60,14 +60,14 @@ export const InputsComponent: FC<Props> = ({
           margin="normal"
           required
           fullWidth
-          id="repeat-email"
+          id="confirmed-email"
           label={t('Confirm Email')}
-          name="repeat-email"
-          value={inputs.repeatedEmail.value}
-          error={inputs.repeatedEmail.error}
-          helperText={inputs.repeatedEmail.errorMsg}
-          onChange={repeatedEmailHandler}
-          onBlur={e => repeatedEmailHandler(e, true)}
+          name="confirmed-email"
+          value={inputs.confirmedEmail.value}
+          error={inputs.confirmedEmail.error}
+          helperText={inputs.confirmedEmail.errorMsg}
+          onChange={confirmedEmailHandler}
+          onBlur={e => confirmedEmailHandler(e, true)}
         />
       )}
       {isRegisterMode && (
