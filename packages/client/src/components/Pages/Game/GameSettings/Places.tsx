@@ -1,6 +1,7 @@
+import { useTranslation } from "react-i18next";
+import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { Place } from '@material-ui/icons';
-import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 
 import { SelectChangeEvent } from '../../../../models/typescript-events';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
@@ -16,9 +17,10 @@ export interface Props {
 }
 
 export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
+  const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const [selectedPlace, setSelectedPlace] = useState<string>(null);
-  const [subtitle, setSubtitle] = useState<string>('(Ładuje lokalizacje...)');
+  const [subtitle, setSubtitle] = useState<string>('(...)');
 
   useEffect(
     () => {
@@ -51,13 +53,13 @@ export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
     <ExpansionPanelComponent
       icon={<Place />}
       subtitle={subtitle}
-      title="Miejsce Gry"
+      title={t('Place of game')}
       className="game__places"
     >
       <Grid container spacing={1}>
         {selectedPlace && (
           <FormControl variant="filled" className="form-element__default-width">
-            <InputLabel id="game_label">Miejsce gry</InputLabel>
+            <InputLabel id="game_label">{t('Place of game')}</InputLabel>
             <Select
               labelId="game_label"
               id="game_select"

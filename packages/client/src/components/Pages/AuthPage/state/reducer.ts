@@ -5,6 +5,7 @@ import {
   isUserNameValidHandler,
   isEmailValidHandler,
   isRepeatedEmailValidHandler,
+  setVisibleInputsHandler,
 } from '../../../../utils/auth-page';
 
 export const authPageReducer = (state: AuthPageState, action: AuthPageActions): AuthPageState => {
@@ -70,6 +71,13 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
           },
         },
       };
+      newState.isFormValid = isFormValidHandler(newState.inputs);
+      return newState;
+    }
+    case AuthPageActionsEnum.SetVisibleInputs: {
+      const { inputKeys } = action.data;
+      let newState = { ...state };
+      newState.inputs = setVisibleInputsHandler(newState, inputKeys);
       newState.isFormValid = isFormValidHandler(newState.inputs);
       return newState;
     }

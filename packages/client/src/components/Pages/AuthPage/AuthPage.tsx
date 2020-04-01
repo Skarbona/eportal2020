@@ -1,5 +1,7 @@
-import React, { FC, memo, useState, Fragment, useReducer, useCallback } from 'react';
-import { Container, Link, Button, FormControl, Grid } from '@material-ui/core';
+import React, { FC, memo, useState, Fragment, useReducer, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Container, Link, Button, FormControl, Grid, Typography, Avatar } from '@material-ui/core';
+import { LockOutlined } from '@material-ui/icons';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 import './AuthPage.scss';
@@ -11,14 +13,33 @@ import {
   passwordChanged,
   repeatEmailChanged,
   userNameChanged,
+  setVisibleInputs,
 } from './state/actions';
 import { InputChangeEvent } from '../../../models/typescript-events';
+import { InputKeys } from './state/interface';
 
 export const AuthPageComponent: FC<{}> = () => {
+  const { t } = useTranslation();
   const [{ inputs, isFormValid }, dispatch] = useReducer(authPageReducer, initialState);
 
   const [isRegisterMode, setMode] = useState<boolean>(true);
   const setModeHandler = (): void => setMode(prevState => !prevState);
+
+  useEffect(
+    () => {
+      let inputKeys = [InputKeys.Password, InputKeys.Email];
+      if (isRegisterMode) {
+        inputKeys = [
+          InputKeys.Password,
+          InputKeys.Email,
+          InputKeys.RepeatedEmail,
+          InputKeys.Username,
+        ];
+      }
+      dispatch(setVisibleInputs(inputKeys));
+    },
+    [isRegisterMode],
+  );
 
   const passwordHandler = useCallback(
     (event: InputChangeEvent, blurred?: boolean): void => dispatch(passwordChanged(event, blurred)),
@@ -46,15 +67,15 @@ export const AuthPageComponent: FC<{}> = () => {
       {!isRegisterMode && (
         <Grid item xs>
           <Link href="#" variant="body2">
-            Zapomniałeś hasła?
+            {t('Forgot password?')}
           </Link>
         </Grid>
       )}
       <Grid item>
         <Link onClick={setModeHandler} variant="body2" href="#">
           {isRegisterMode
-            ? 'Posiadasz już konta? Zaloguj się'
-            : 'Nie posiadasz konta? Zarejestruj się'}
+            ? t('Do you have an account? Sign in')
+            : t('Do not have an account? Sign Up')}
         </Link>
       </Grid>
     </Fragment>
@@ -65,6 +86,12 @@ export const AuthPageComponent: FC<{}> = () => {
       <div className="auth-page__form-wrapper">
         <form onSubmit={e => e.preventDefault()}>
           <FormControl>
+            <Avatar className="avatar">
+              <LockOutlined />
+            </Avatar>
+            <Typography variant="h3" component="h1">
+              {isRegisterMode ? t('Register') : t('Log in')}
+            </Typography>
             <Inputs
               passwordHandler={passwordHandler}
               userNameHandler={userNameHandler}
@@ -88,7 +115,7 @@ export const AuthPageComponent: FC<{}> = () => {
               color="primary"
               className=""
             >
-              {isRegisterMode ? 'Zarejestruj się' : 'Zaloguj się'}
+              {isRegisterMode ? t('Sign Up') : t('Sign In')}
             </Button>
           </FormControl>
         </form>

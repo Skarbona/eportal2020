@@ -1,6 +1,7 @@
+import React, { FC, memo, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
 import { Apps } from '@material-ui/icons';
-import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
 import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
@@ -23,23 +24,30 @@ export interface Props {
 }
 
 export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation, defaults }) => {
+  const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const [preferencesState, setPreferencesState] = useState<CatsStateInterface[]>([]);
   const [numberOfSelection, setNumberOfSelection] = useState<number>(0);
 
-  useEffect(() => {
-    setFormValidation(numberOfSelection >= 10);
-  }, [numberOfSelection, setFormValidation]);
+  useEffect(
+    () => {
+      setFormValidation(numberOfSelection >= 10);
+    },
+    [numberOfSelection, setFormValidation],
+  );
 
   const preferenceStateHandler = useCallback((id: string, parentIndex: number) => {
     setPreferencesState(prevState => setCheckboxesStatus(id, parentIndex, prevState));
   }, []);
 
-  useEffect(() => {
-    if (preferences) {
-      setPreferencesState(nestedCategoriesToState(preferences, defaults));
-    }
-  }, [preferences, defaults]);
+  useEffect(
+    () => {
+      if (preferences) {
+        setPreferencesState(nestedCategoriesToState(preferences, defaults));
+      }
+    },
+    [preferences, defaults],
+  );
 
   useEffect(
     () => {
@@ -61,7 +69,7 @@ export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation
 
   return (
     <ExpansionPanelComponent
-      subtitle={`(Wybrano ${numberOfSelection} kategorii)`}
+      subtitle={t('Selected numberOfSelection categories', { numberOfSelection })}
       className="game__preferences"
       title={preferences && preferences.name}
       icon={<Apps />}

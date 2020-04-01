@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import HttpError from '../models/http-error';
 import User, { UserDocument } from '../models/user';
 import { UserType } from '../models/shared-interfaces/user';
+import { TimeMode } from '../../../client/src/models/game-models';
 
 export const signUp = async (
   req: Request,
@@ -12,7 +13,7 @@ export const signUp = async (
 ): Promise<void | Response> => {
   const { name, email, password } = req.body;
 
-  // TODO: SET DEFAULT USER GAME SETTINGS!!!
+  // TODO: Add validation!!!!!!!!
 
   let existingUser;
   try {
@@ -36,8 +37,28 @@ export const signUp = async (
     date: new Date(),
     email,
     name,
-    type: UserType.Admin, // By default user type
+    type: UserType.User,
     password: hashedPassword,
+    gameDefaults: {
+      names: {
+        she: '',
+        he: '',
+      },
+      place: '',
+      catsQuery: {
+        catsInclude: [],
+        catsExclude: [],
+      },
+      levels: {
+        level1: 10,
+        level2: 10,
+        level3: 10,
+      },
+      time: {
+        type: TimeMode.Single,
+        value: [2],
+      },
+    },
   } as UserDocument);
 
   try {
@@ -48,6 +69,14 @@ export const signUp = async (
 
   // TODO: Add token
   res.status(201).json({ userId: createdUser.id, email: createdUser.email });
+};
+
+export const Login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void | Response> => {
+  // TODO: PlaceHolder
 };
 
 export const getUser = async (

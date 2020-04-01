@@ -4,6 +4,8 @@ import {
   RepeatEmailChanged,
   EmailChanged,
   UserNameChanged,
+  SetVisibleInputs,
+  InputKeys,
 } from './interface';
 import { InputChangeEvent } from '../../../../models/typescript-events';
 
@@ -39,5 +41,12 @@ export const userNameChanged = (event: InputChangeEvent, blurred?: boolean): Use
   data: {
     value: event.target.value,
     blurred,
+  },
+});
+
+export const setVisibleInputs = (inputKeys: InputKeys[]): SetVisibleInputs => ({
+  type: AuthPageActionsEnum.SetVisibleInputs,
+  data: {
+    inputKeys,
   },
 });

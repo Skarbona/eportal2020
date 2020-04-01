@@ -23,6 +23,14 @@ export enum AuthPageActionsEnum {
   RepeatEmailChanged = 'REPEAT_EMAIL_CHANGED',
   EmailChanged = 'EMAIL_CHANGED',
   UserNameChanged = 'USER_NAME_CHANGED',
+  SetVisibleInputs = 'SET_VISIBLE_INPUTS',
+}
+
+export enum InputKeys {
+  'Password' = 'password',
+  'Username' = 'userName',
+  'RepeatedEmail' = 'repeatedEmail',
+  'Email' = 'email',
 }
 
 export interface Actions {
@@ -49,4 +57,16 @@ export interface UserNameChanged extends Actions {
   type: AuthPageActionsEnum.UserNameChanged;
 }
 
-export type AuthPageActions = PasswordChanged | RepeatEmailChanged | EmailChanged | UserNameChanged;
+export interface SetVisibleInputs {
+  type: AuthPageActionsEnum.SetVisibleInputs;
+  data: {
+    inputKeys: InputKeys[];
+  };
+}
+
+export type AuthPageActions =
+  | PasswordChanged
+  | RepeatEmailChanged
+  | EmailChanged
+  | SetVisibleInputs
+  | UserNameChanged;
