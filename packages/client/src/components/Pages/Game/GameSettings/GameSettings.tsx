@@ -1,6 +1,6 @@
 import React, { FC, Fragment, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 import { Typography, Grid } from '@material-ui/core';
 
 import './GameSettings.scss';

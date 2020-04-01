@@ -1,7 +1,7 @@
 import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { FormatListNumbered } from '@material-ui/icons';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 import { InputChangeEvent } from '../../../../models/typescript-events';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';

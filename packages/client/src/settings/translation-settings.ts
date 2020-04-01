@@ -14,7 +14,7 @@ i18n
     debug: true,
     whitelist: availableLanguages,
     interpolation: {
-      escapeValue: false
+      escapeValue: false,
     },
   });
 

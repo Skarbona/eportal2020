@@ -1,5 +1,5 @@
 import React, { FC, memo, useState, useEffect } from 'react';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import { Checkbox, FormControlLabel, FormGroup, Grid } from '@material-ui/core';
 
 import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';

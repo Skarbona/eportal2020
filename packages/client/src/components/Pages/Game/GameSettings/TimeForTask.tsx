@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 import { FormControlLabel, Grid, Slider, Switch } from '@material-ui/core';
 import { Timelapse } from '@material-ui/icons';
 

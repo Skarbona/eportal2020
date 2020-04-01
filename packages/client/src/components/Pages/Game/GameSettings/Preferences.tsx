@@ -29,25 +29,19 @@ export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation
   const [preferencesState, setPreferencesState] = useState<CatsStateInterface[]>([]);
   const [numberOfSelection, setNumberOfSelection] = useState<number>(0);
 
-  useEffect(
-    () => {
-      setFormValidation(numberOfSelection >= 10);
-    },
-    [numberOfSelection, setFormValidation],
-  );
+  useEffect(() => {
+    setFormValidation(numberOfSelection >= 10);
+  }, [numberOfSelection, setFormValidation]);
 
   const preferenceStateHandler = useCallback((id: string, parentIndex: number) => {
     setPreferencesState(prevState => setCheckboxesStatus(id, parentIndex, prevState));
   }, []);
 
-  useEffect(
-    () => {
-      if (preferences) {
-        setPreferencesState(nestedCategoriesToState(preferences, defaults));
-      }
-    },
-    [preferences, defaults],
-  );
+  useEffect(() => {
+    if (preferences) {
+      setPreferencesState(nestedCategoriesToState(preferences, defaults));
+    }
+  }, [preferences, defaults]);
 
   useEffect(
     () => {

@@ -76,7 +76,7 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
     }
     case AuthPageActionsEnum.SetVisibleInputs: {
       const { inputKeys } = action.data;
-      let newState = { ...state };
+      const newState = { ...state };
       newState.inputs = setVisibleInputsHandler(newState, inputKeys);
       newState.isFormValid = isFormValidHandler(newState.inputs);
       return newState;
