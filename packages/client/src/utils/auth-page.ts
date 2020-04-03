@@ -5,7 +5,7 @@ import { AuthPageState, InputKeys } from '../components/Pages/AuthPage/state/int
 import { initialState } from '../components/Pages/AuthPage/state/initialState';
 
 export const isFormValidHandler = (inputs: AuthPageState['inputs']) => {
-  return Object.values(inputs).every(input => {
+  return Object.values(inputs).every((input) => {
     if (!input.visible) return true;
     return input.valid;
   });

@@ -45,20 +45,20 @@ export const nestedCategoriesToState = (
   defaults: string[],
 ): CatsStateInterface[] => {
   if (!cats.children || !cats.children.length) return null;
-  return cats.children.map(cat => {
+  return cats.children.map((cat) => {
     const isEveryChildTrue =
       defaults.includes(cat.id) ||
       !!(
         cat.children &&
         cat.children.length > 0 &&
-        cat.children.every(child => defaults.includes(child.id))
+        cat.children.every((child) => defaults.includes(child.id))
       );
     const isSomeChildTrue =
       defaults.includes(cat.id) ||
       !!(
         cat.children &&
         cat.children.length > 0 &&
-        cat.children.some(child => defaults.includes(child.id))
+        cat.children.some((child) => defaults.includes(child.id))
       );
 
     const parent: CatsStateInterface = {
@@ -108,7 +108,7 @@ export const setCheckboxesStatus = (
   if (preference.id === id) {
     preference.indeterminate = false;
     preference.status = !preference.status;
-    preference.child.forEach(child => {
+    preference.child.forEach((child) => {
       child.status = preference.status;
     });
   } else {
@@ -119,11 +119,11 @@ export const setCheckboxesStatus = (
       }
     });
 
-    if (preference.child.every(child => child.status)) {
+    if (preference.child.every((child) => child.status)) {
       // Check if every child is checked
       preference.indeterminate = false;
       preference.status = true;
-    } else if (preference.child.some(child => child.status)) {
+    } else if (preference.child.some((child) => child.status)) {
       // Check if only some child is checked
       preference.indeterminate = true;
       preference.status = false;

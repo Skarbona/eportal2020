@@ -17,3 +17,10 @@ export interface RootState {
 export type Actions = CategoriesActions | GameActions | UserActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, null, Action<string>>;
+
+export type ReturnAppThunk<ReturnType> = ThunkAction<
+  Promise<ReturnType>,
+  RootState,
+  any,
+  Action<string>
+>;

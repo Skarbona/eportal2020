@@ -37,5 +37,7 @@
   "Provide valid email": "Podaj poprawny email",
   "Emails must be the same": "Podane emaile muszą być takie same",
   "Sorry but we cannot fetch categories": "Przepraszamy nie możemy załadować kategorii. Proszę sprawdzić połączenie internetowe lub skontaktować się z wsparciem technicznym",
-  "Fetching error": "Błąd ładowania"
+  "Fetching error": "Błąd ładowania",
+  "Portal Name": "Eportal",
+  "Logout": "Wyloguj się"
 }

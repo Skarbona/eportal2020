@@ -11,7 +11,7 @@ export const DefaultSettingsComponent: FC<{}> = () => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const [checkboxState, setCheckboxState] = useState<boolean>(false);
-  const setCheckboxStateHandler = (): void => setCheckboxState(prevState => !prevState);
+  const setCheckboxStateHandler = (): void => setCheckboxState((prevState) => !prevState);
 
   useEffect(
     () => {

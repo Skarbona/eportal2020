@@ -35,4 +35,17 @@ export interface UserBasic {
   gameDefaults: FormValues;
 }
 
-export interface UserResponse extends UserBasic {}
+export interface AuthResponse {
+  userData: UserResponse;
+  token: string;
+}
+
+export interface AuthRequest {
+  userName?: string;
+  password: string;
+  email: string;
+}
+
+export interface UserResponse extends UserBasic {
+  id: string;
+}

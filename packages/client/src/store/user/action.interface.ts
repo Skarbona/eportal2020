@@ -1,5 +1,5 @@
 import { UserEnum } from './enum';
-import { UserResponse } from '../../../../service/src/models/shared-interfaces/user';
+import { AuthResponse, UserResponse } from '../../../../service/src/models/shared-interfaces/user';
 
 interface ActionInterface {
   type: UserEnum;
@@ -40,10 +40,32 @@ export interface FailSetUserData extends ActionInterface {
     error: Error;
   };
 }
+
+export interface InitAuthorization extends ActionInterface {
+  type: UserEnum.InitAuthorization;
+}
+
+export interface SuccessAuthorization extends ActionInterface {
+  type: UserEnum.SuccessAuthorization;
+  data: {
+    userData: UserResponse;
+  };
+}
+
+export interface FailAuthorization extends ActionInterface {
+  type: UserEnum.FailAuthorization;
+  data: {
+    error: Error;
+  };
+}
+
 export type UserActions =
   | InitFetchUserData
   | SuccessFetchUserData
   | FailFetchUserData
   | InitSetUserData
   | SuccessSetUserData
-  | FailSetUserData;
+  | FailSetUserData
+  | InitAuthorization
+  | SuccessAuthorization
+  | FailAuthorization;

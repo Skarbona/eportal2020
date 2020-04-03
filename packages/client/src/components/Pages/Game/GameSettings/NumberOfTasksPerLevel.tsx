@@ -68,7 +68,9 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels, defaults }) 
     [selectedAmounts],
   );
 
-  const subtitle = `(${selectedAmounts ? selectedAmounts.map(level => level.value) : '10,10,10'})`;
+  const subtitle = `(${
+    selectedAmounts ? selectedAmounts.map((level) => level.value) : '10,10,10'
+  })`;
   return (
     <ExpansionPanelComponent
       icon={<FormatListNumbered />}

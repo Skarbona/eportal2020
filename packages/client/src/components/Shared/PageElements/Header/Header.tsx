@@ -1,30 +1,44 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useContext, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import { useTranslation } from 'react-i18next';
+
+import { AuthContext } from '../../../../context/auth-context';
 
 import './Header.scss';
 
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-
 // TODO: Add Mobile Support
 export const HeaderComponent: FC = () => {
+  const { t } = useTranslation();
+  const { logout, token } = useContext(AuthContext);
+
+  // TODO: Full Logout support (clean store)
+
   return (
     <AppBar position="static" className="header">
       <Toolbar>
         <IconButton edge="start" className="menu-bottom" aria-label="menu">
           <MenuIcon />
         </IconButton>
-
         <Typography variant="h6" className="title">
-          <Link to="/">Eportal</Link>
+          <Link to="/">{t('Portal Name')}</Link>
         </Typography>
-
-        <Link to="/gra">
-          <Button>Rozpocznij Grę</Button>
-        </Link>
-        <Link to="/autentykacja">
-          <Button>Logowanie/Rejestracja</Button>
-        </Link>
+        {token && (
+          <Fragment>
+            <Link to="/gra">
+              <Button>{t('Start a Game!')}</Button>
+            </Link>
+            <Link to="/" onClick={logout}>
+              <Button>{t('Logout')}</Button>
+            </Link>
+          </Fragment>
+        )}
+        {!token && (
+          <Link to="/autentykacja">
+            <Button>{t('Register')}</Button>
+          </Link>
+        )}
       </Toolbar>
     </AppBar>
   );

@@ -103,6 +103,7 @@ export const mockedStore = (): RootState => ({
   },
   user: {
     userData: {
+      id: chance.word(),
       date: new Date(),
       name: chance.name(),
       email: chance.email(),

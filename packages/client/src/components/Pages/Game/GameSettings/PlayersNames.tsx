@@ -20,13 +20,16 @@ export interface Props {
 export const PlayersNamesComponent: FC<Props> = ({ defaults }) => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
-  const [womanName, setWomanName] = useState<string>(defaults.she);
-  const [manName, setManName] = useState<string>(defaults.he);
+  const [womanName, setWomanName] = useState<string>(defaults.she || t('She'));
+  const [manName, setManName] = useState<string>(defaults.he || t('He'));
 
   useEffect(
     () => {
       const payload: Partial<FormValues> = {
-        names: { she: womanName || defaults.she, he: manName || defaults.he },
+        names: {
+          she: womanName || defaults.she || t('She'),
+          he: manName || defaults.he || t('He'),
+        },
       };
       dispatch(setFormValues(payload));
     },

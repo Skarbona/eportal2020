@@ -82,7 +82,7 @@ describe('setCheckboxesStatus utility function', () => {
     const newState = setCheckboxesStatus(idOfSelectedCheckbox, indexOfSelectedCheckbox, prevState);
     expect(newState[0].status).toEqual(true);
     expect(newState[0].indeterminate).toEqual(false);
-    newState[0].child.forEach(cat => {
+    newState[0].child.forEach((cat) => {
       expect(cat.status).toEqual(true);
     });
   });
@@ -96,7 +96,7 @@ describe('setCheckboxesStatus utility function', () => {
     const newState = setCheckboxesStatus(idOfSelectedCheckbox, indexOfSelectedCheckbox, prevState);
     expect(newState[0].status).toEqual(false);
     expect(newState[0].indeterminate).toEqual(false);
-    newState[0].child.forEach(cat => {
+    newState[0].child.forEach((cat) => {
       expect(cat.status).toEqual(false);
     });
   });
@@ -121,7 +121,7 @@ describe('setCheckboxesStatus utility function', () => {
     const newState = setCheckboxesStatus(idOfSelectedCheckbox, indexOfSelectedCheckbox, prevState);
     expect(newState[0].status).toEqual(true);
     expect(newState[0].indeterminate).toEqual(false);
-    newState[0].child.forEach(cat => {
+    newState[0].child.forEach((cat) => {
       expect(cat.status).toEqual(true);
     });
   });

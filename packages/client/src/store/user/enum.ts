@@ -5,4 +5,7 @@ export enum UserEnum {
   InitSetUserData = 'initSetUserData',
   SuccessSetUserData = 'successSetUserData',
   FailSetUserData = 'failSetUserData',
+  InitAuthorization = 'initAuthorization',
+  SuccessAuthorization = 'successAuthorization',
+  FailAuthorization = 'failAuthorization',
 }

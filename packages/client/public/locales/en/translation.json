@@ -37,5 +37,7 @@
   "Provide valid email": "Provide valid email",
   "Emails must be the same": "Emails must be the same",
   "Sorry but we cannot fetch categories": "Sorry but we cannot fetch categories. Please check you internet connection or contact with support team",
-  "Fetching error": "Fetching error"
+  "Fetching error": "Fetching error",
+  "Portal Name": "Portal Name",
+  "Logout": "Logout"
 }

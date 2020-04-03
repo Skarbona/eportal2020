@@ -34,7 +34,7 @@ export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation
   }, [numberOfSelection, setFormValidation]);
 
   const preferenceStateHandler = useCallback((id: string, parentIndex: number) => {
-    setPreferencesState(prevState => setCheckboxesStatus(id, parentIndex, prevState));
+    setPreferencesState((prevState) => setCheckboxesStatus(id, parentIndex, prevState));
   }, []);
 
   useEffect(() => {

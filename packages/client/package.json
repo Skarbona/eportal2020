@@ -41,7 +41,7 @@
   "devDependencies": {
     "eslint-plugin-prettier": "^3.1.2",
     "node-sass": "^4.13.1",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.2",
     "sass-lint": "^1.13.1"
   }
 }

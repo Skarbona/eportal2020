@@ -24,8 +24,8 @@ export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
 
   useEffect(
     () => {
-      if (places && places.children) {
-        const findDefaultPlace = places.children.find(place => place.id === defaults);
+      if (places?.children) {
+        const findDefaultPlace = places.children.find((place) => place.id === defaults);
         setSelectedPlace(findDefaultPlace ? findDefaultPlace.id : places.children[0].id);
         setSubtitle(`(${findDefaultPlace ? findDefaultPlace.name : places.children[0].name})`);
       }
@@ -66,7 +66,7 @@ export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
               value={selectedPlace}
               onChange={handleOnChange}
             >
-              {places.children.map(place => (
+              {places.children.map((place) => (
                 <MenuItem value={place.id} key={place.id}>
                   {place.name}
                 </MenuItem>

@@ -20,10 +20,10 @@ const categoriesReducer = (
         ...state,
         loading: false,
         categories: {
-          preferences: categories.find(cat => cat.id === mainCategories.Preferences),
-          gender: categories.find(cat => cat.id === mainCategories.Gender),
-          places: categories.find(cat => cat.id === mainCategories.Place),
-          levels: categories.find(cat => cat.id === mainCategories.Levels),
+          preferences: categories.find((cat) => cat.id === mainCategories.Preferences),
+          gender: categories.find((cat) => cat.id === mainCategories.Gender),
+          places: categories.find((cat) => cat.id === mainCategories.Place),
+          levels: categories.find((cat) => cat.id === mainCategories.Levels),
         },
       };
     }

@@ -7,14 +7,14 @@ export const initFetchCategories: ActionCreator<I.InitFetchCategories> = () => (
   type: CategoriesEnum.InitFetchCategories,
 });
 
-export const successFetchCategories: ActionCreator<I.SuccessFetchCategories> = categories => ({
+export const successFetchCategories: ActionCreator<I.SuccessFetchCategories> = (categories) => ({
   type: CategoriesEnum.SuccessFetchCategories,
   data: {
     categories,
   },
 });
 
-export const failFetchCategories: ActionCreator<I.FailFetchCategories> = error => ({
+export const failFetchCategories: ActionCreator<I.FailFetchCategories> = (error) => ({
   type: CategoriesEnum.FailFetchCategories,
   data: {
     error,

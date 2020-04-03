@@ -7,21 +7,21 @@ export const initFetchPosts: ActionCreator<I.InitFetchPosts> = () => ({
   type: GameEnum.InitFetchPosts,
 });
 
-export const successFetchPosts: ActionCreator<I.SuccessFetchPosts> = posts => ({
+export const successFetchPosts: ActionCreator<I.SuccessFetchPosts> = (posts) => ({
   type: GameEnum.SuccessFetchPosts,
   data: {
     posts,
   },
 });
 
-export const failFetchPosts: ActionCreator<I.FailFetchPosts> = error => ({
+export const failFetchPosts: ActionCreator<I.FailFetchPosts> = (error) => ({
   type: GameEnum.FailFetchPosts,
   data: {
     error,
   },
 });
 
-export const setFormValues: ActionCreator<I.SetFormValues> = values => ({
+export const setFormValues: ActionCreator<I.SetFormValues> = (values) => ({
   type: GameEnum.SetFormValues,
   data: {
     values,
