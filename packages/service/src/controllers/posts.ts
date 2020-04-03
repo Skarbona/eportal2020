@@ -82,7 +82,7 @@ export const getPosts = async (
       posts = await Post.find().populate('categories');
     }
 
-    res.json({ posts: posts.map(post => post.toObject({ getters: true })) });
+    res.json({ posts: posts.map((post) => post.toObject({ getters: true })) });
   } catch (e) {
     // TODO: Add errors logging
     console.log(e);
