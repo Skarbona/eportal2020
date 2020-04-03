@@ -69,7 +69,7 @@ export const getCategories = async (
         .in(ids.split(','))
         .populate({ path: 'children', populate: { path: 'children' } });
     }
-    res.json({ categories: categories.map(category => category.toObject({ getters: true })) });
+    res.json({ categories: categories.map((category) => category.toObject({ getters: true })) });
   } catch (e) {
     return next(new HttpError('Something went wrong, could not find categories', 500));
   }

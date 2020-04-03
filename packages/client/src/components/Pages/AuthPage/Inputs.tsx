@@ -26,7 +26,7 @@ export const InputsComponent: FC<Props> = ({
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const setShowPasswordHandler = () => setShowPassword(prevProps => !prevProps);
+  const setShowPasswordHandler = () => setShowPassword((prevProps) => !prevProps);
 
   const showPasswordIcon = (
     <InputAdornment position="end">
@@ -47,12 +47,11 @@ export const InputsComponent: FC<Props> = ({
         label={t('Email')}
         name="email"
         autoComplete="email"
-        autoFocus
         value={inputs.email.value}
         error={inputs.email.error}
         helperText={inputs.email.errorMsg}
         onChange={emailHandler}
-        onBlur={e => emailHandler(e, true)}
+        onBlur={(e) => emailHandler(e, true)}
       />
       {isRegisterMode && (
         <TextField
@@ -67,7 +66,7 @@ export const InputsComponent: FC<Props> = ({
           error={inputs.confirmedEmail.error}
           helperText={inputs.confirmedEmail.errorMsg}
           onChange={confirmedEmailHandler}
-          onBlur={e => confirmedEmailHandler(e, true)}
+          onBlur={(e) => confirmedEmailHandler(e, true)}
         />
       )}
       {isRegisterMode && (
@@ -83,7 +82,7 @@ export const InputsComponent: FC<Props> = ({
           error={inputs.userName.error}
           helperText={inputs.userName.errorMsg}
           onChange={userNameHandler}
-          onBlur={e => userNameHandler(e, true)}
+          onBlur={(e) => userNameHandler(e, true)}
         />
       )}
       <TextField
@@ -100,7 +99,7 @@ export const InputsComponent: FC<Props> = ({
         error={inputs.password.error}
         helperText={inputs.password.errorMsg}
         onChange={passwordHandler}
-        onBlur={e => passwordHandler(e, true)}
+        onBlur={(e) => passwordHandler(e, true)}
         InputProps={{
           endAdornment: showPasswordIcon,
         }}

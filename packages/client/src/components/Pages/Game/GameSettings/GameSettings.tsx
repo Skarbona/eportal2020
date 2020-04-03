@@ -1,4 +1,4 @@
-import React, { FC, Fragment, memo, useState } from 'react';
+import React, { FC, Fragment, memo, useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Typography, Grid } from '@material-ui/core';
@@ -22,6 +22,7 @@ import TimeForTask from './TimeForTask';
 import StartButton from './StartButton';
 import { startGameHandler } from '../../../../store/game/thunk';
 import { useReduxDispatch } from '../../../../store/helpers';
+import { AuthContext } from '../../../../context/auth-context';
 
 export interface GameSettingStoreProps {
   cats: CategoriesStateInterface['categories'];
@@ -33,6 +34,7 @@ export interface GameSettingStoreProps {
 
 export const GameSettingComponent: FC<{}> = () => {
   const dispatch = useReduxDispatch();
+  const { token } = useContext(AuthContext);
   const { t } = useTranslation();
   const [isFormValid, setFormValidation] = useState<boolean>(false);
   const { cats, loading, catsError, gameError, defaults } = useSelector<
@@ -48,8 +50,9 @@ export const GameSettingComponent: FC<{}> = () => {
 
   const onSubmitHandler = (event: SubmitEvent): void => {
     event.preventDefault();
-    dispatch(startGameHandler());
+    dispatch(startGameHandler(token));
   };
+
   return (
     <Fragment>
       <ErrorHandler

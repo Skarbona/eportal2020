@@ -42,6 +42,25 @@ const userReducer = (state = userInitialState, action: UserActions): UserStateIn
         loading: false,
         error: action.data.error,
       };
+    case UserEnum.InitAuthorization:
+      return {
+        ...state,
+        loading: true,
+      };
+    case UserEnum.SuccessAuthorization: {
+      const { userData } = action.data;
+      return {
+        ...state,
+        loading: false,
+        userData,
+      };
+    }
+    case UserEnum.FailAuthorization:
+      return {
+        ...state,
+        loading: false,
+        error: action.data.error,
+      };
     default:
       return state;
   }

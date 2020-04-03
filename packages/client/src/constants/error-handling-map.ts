@@ -11,12 +11,10 @@ interface ErrorHandlingMapInterface {
 
 export const ErrorHandlingMap = new Map<PageTypes, ErrorHandlingMapInterface>();
 
-i18n.on('languageChanged', _language => {
+i18n.on('languageChanged', (_language) => {
   ErrorHandlingMap.set(PageTypes.CategorySettings, {
     header: i18n.t('Fetching error'),
     message: i18n.t('Sorry but we cannot fetch categories'),
     severity: 'error',
   });
 });
-
-

@@ -16,7 +16,7 @@ jest.mock('react-redux', () => ({
 
 jest.mock('./settings/translation-settings', () => ({
   t: jest.fn((string) => string),
-  on: jest.fn((method, callback) => callback())
+  on: jest.fn((method, callback) => callback()),
 }));
 
 jest.mock('react-i18next', () => ({

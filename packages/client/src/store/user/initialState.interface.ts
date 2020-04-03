@@ -4,4 +4,6 @@ export interface UserStateInterface {
   userData: UserResponse;
   loading: boolean;
   error?: Error;
+  token?: string;
+  tokenExpirationDate?: Date;
 }

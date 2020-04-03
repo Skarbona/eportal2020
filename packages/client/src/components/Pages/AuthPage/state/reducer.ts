@@ -1,16 +1,12 @@
-import { AuthPageActions, AuthPageState, AuthPageActionsEnum } from './interface';
-import {
-  isPasswordValidHandler,
-  isFormValidHandler,
-  isUserNameValidHandler,
-  isEmailValidHandler,
-  isConfirmedEmailValidHandler,
-  setVisibleInputsHandler,
-} from '../../../../utils/auth-page';
+import * as I from './interface';
+import * as U from '../../../../utils/auth-page';
 
-export const authPageReducer = (state: AuthPageState, action: AuthPageActions): AuthPageState => {
+export const authPageReducer = (
+  state: I.AuthPageState,
+  action: I.AuthPageActions,
+): I.AuthPageState => {
   switch (action.type) {
-    case AuthPageActionsEnum.EmailChanged: {
+    case I.AuthPageActionsEnum.EmailChanged: {
       const { value } = action.data;
       const { blurred } = action.data;
       const newState = {
@@ -19,14 +15,14 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
           ...state.inputs,
           email: {
             ...state.inputs.email,
-            ...isEmailValidHandler(value, blurred),
+            ...U.isEmailValidHandler(value, blurred),
           },
         },
       };
-      newState.isFormValid = isFormValidHandler(newState.inputs);
+      newState.isFormValid = U.isFormValidHandler(newState.inputs);
       return newState;
     }
-    case AuthPageActionsEnum.RepeatEmailChanged: {
+    case I.AuthPageActionsEnum.RepeatEmailChanged: {
       const { value } = action.data;
       const { blurred } = action.data;
       const newState = {
@@ -35,14 +31,14 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
           ...state.inputs,
           confirmedEmail: {
             ...state.inputs.confirmedEmail,
-            ...isConfirmedEmailValidHandler(value, blurred, state.inputs.email.value),
+            ...U.isConfirmedEmailValidHandler(value, blurred, state.inputs.email.value),
           },
         },
       };
-      newState.isFormValid = isFormValidHandler(newState.inputs);
+      newState.isFormValid = U.isFormValidHandler(newState.inputs);
       return newState;
     }
-    case AuthPageActionsEnum.PasswordChanged: {
+    case I.AuthPageActionsEnum.PasswordChanged: {
       const { value } = action.data;
       const { blurred } = action.data;
       const newState = {
@@ -51,14 +47,14 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
           ...state.inputs,
           password: {
             ...state.inputs.password,
-            ...isPasswordValidHandler(value, blurred),
+            ...U.isPasswordValidHandler(value, blurred),
           },
         },
       };
-      newState.isFormValid = isFormValidHandler(newState.inputs);
+      newState.isFormValid = U.isFormValidHandler(newState.inputs);
       return newState;
     }
-    case AuthPageActionsEnum.UserNameChanged: {
+    case I.AuthPageActionsEnum.UserNameChanged: {
       const { value } = action.data;
       const { blurred } = action.data;
       const newState = {
@@ -67,21 +63,21 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
           ...state.inputs,
           userName: {
             ...state.inputs.userName,
-            ...isUserNameValidHandler(value, blurred),
+            ...U.isUserNameValidHandler(value, blurred),
           },
         },
       };
-      newState.isFormValid = isFormValidHandler(newState.inputs);
+      newState.isFormValid = U.isFormValidHandler(newState.inputs);
       return newState;
     }
-    case AuthPageActionsEnum.SetVisibleInputs: {
+    case I.AuthPageActionsEnum.SetVisibleInputs: {
       const { inputKeys } = action.data;
       const newState = { ...state };
-      newState.inputs = setVisibleInputsHandler(newState, inputKeys);
-      newState.isFormValid = isFormValidHandler(newState.inputs);
+      newState.inputs = U.setVisibleInputsHandler(newState, inputKeys);
+      newState.isFormValid = U.isFormValidHandler(newState.inputs);
       return newState;
     }
-    case AuthPageActionsEnum.RecaptchaChanged: {
+    case I.AuthPageActionsEnum.RecaptchaChanged: {
       const { value } = action.data;
       const newState = {
         ...state,
@@ -89,11 +85,11 @@ export const authPageReducer = (state: AuthPageState, action: AuthPageActions): 
           ...state.inputs,
           recaptcha: {
             ...state.inputs.recaptcha,
-            valid: value.length > 0,
+            valid: value?.length > 0,
           },
         },
       };
-      newState.isFormValid = isFormValidHandler(newState.inputs);
+      newState.isFormValid = U.isFormValidHandler(newState.inputs);
       return newState;
     }
     default:
