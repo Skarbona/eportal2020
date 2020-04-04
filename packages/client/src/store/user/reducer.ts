@@ -61,6 +61,8 @@ const userReducer = (state = userInitialState, action: UserActions): UserStateIn
         loading: false,
         error: action.data.error,
       };
+    case UserEnum.CleanUserData:
+      return userInitialState;
     default:
       return state;
   }

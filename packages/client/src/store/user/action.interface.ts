@@ -59,6 +59,10 @@ export interface FailAuthorization extends ActionInterface {
   };
 }
 
+export interface CleanUserData extends ActionInterface {
+  type: UserEnum.CleanUserData;
+}
+
 export type UserActions =
   | InitFetchUserData
   | SuccessFetchUserData
@@ -68,4 +72,5 @@ export type UserActions =
   | FailSetUserData
   | InitAuthorization
   | SuccessAuthorization
+  | CleanUserData
   | FailAuthorization;

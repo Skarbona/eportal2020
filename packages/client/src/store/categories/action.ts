@@ -20,3 +20,7 @@ export const failFetchCategories: ActionCreator<I.FailFetchCategories> = (error)
     error,
   },
 });
+
+export const cleanCategoriesData: ActionCreator<I.CleanCategoriesData> = () => ({
+  type: CategoriesEnum.CleanCategoriesData,
+});

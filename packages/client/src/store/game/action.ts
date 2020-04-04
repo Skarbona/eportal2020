@@ -27,3 +27,7 @@ export const setFormValues: ActionCreator<I.SetFormValues> = (values) => ({
     values,
   },
 });
+
+export const cleanGameData: ActionCreator<I.CleanGameData> = () => ({
+  type: GameEnum.CleanGameData,
+});

@@ -31,4 +31,13 @@ export interface SetFormValues extends ActionInterface {
   };
 }
 
-export type GameActions = InitFetchPosts | SuccessFetchPosts | FailFetchPosts | SetFormValues;
+export interface CleanGameData extends ActionInterface {
+  type: GameEnum.CleanGameData;
+}
+
+export type GameActions =
+  | InitFetchPosts
+  | SuccessFetchPosts
+  | FailFetchPosts
+  | SetFormValues
+  | CleanGameData;

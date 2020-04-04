@@ -23,4 +23,12 @@ export interface FailFetchCategories extends ActionInterface {
   };
 }
 
-export type CategoriesActions = InitFetchCategories | SuccessFetchCategories | FailFetchCategories;
+export interface CleanCategoriesData extends ActionInterface {
+  type: CategoriesEnum.CleanCategoriesData;
+}
+
+export type CategoriesActions =
+  | InitFetchCategories
+  | SuccessFetchCategories
+  | FailFetchCategories
+  | CleanCategoriesData;

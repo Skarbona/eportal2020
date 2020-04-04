@@ -35,6 +35,8 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
           ...action.data.values,
         },
       };
+    case GameEnum.CleanGameData:
+      return gameInitialState;
     default:
       return state;
   }

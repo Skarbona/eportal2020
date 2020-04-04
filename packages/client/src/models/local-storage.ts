@@ -1,4 +1,5 @@
 export enum LocalStorage {
   GameConfig = 'gameConfig',
-  UserData = 'userData',
+  UserDataAccessToken = 'userDataAccessToken',
+  UserDataRefreshToken = 'userDataRefreshToken',
 }

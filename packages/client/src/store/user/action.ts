@@ -56,3 +56,7 @@ export const failAuthorization: ActionCreator<I.FailAuthorization> = (error) => 
     error,
   },
 });
+
+export const cleanUserData: ActionCreator<I.CleanUserData> = () => ({
+  type: UserEnum.CleanUserData,
+});
