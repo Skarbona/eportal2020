@@ -15,8 +15,8 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     if (!token) {
       throw new Error();
     }
-    const decodedToken = jwt.verify(token, process.env.JWT_TOKEN) as { userId: string };
-    req.userData = { userId: decodedToken.userId };
+    const decodedToken = jwt.verify(token, process.env.JWT_ACCESS_TOKEN) as Request['userData'];
+    req.userData = { userId: decodedToken.userId, email: decodedToken.email };
     next();
   } catch (e) {
     return next(new HttpError('Invalid Token', 401));

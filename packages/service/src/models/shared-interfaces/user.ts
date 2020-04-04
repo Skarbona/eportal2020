@@ -37,7 +37,8 @@ export interface UserBasic {
 
 export interface AuthResponse {
   userData: UserResponse;
-  token: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface AuthRequest {

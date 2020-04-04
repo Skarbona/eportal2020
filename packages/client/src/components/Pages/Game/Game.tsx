@@ -1,20 +1,23 @@
-import React, { FC, memo, useContext, useEffect } from 'react';
+import React, { FC, memo, useEffect } from 'react';
 import { Container } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
 import { fetchCategories } from '../../../store/categories/thunk';
 import { useReduxDispatch } from '../../../store/helpers';
 import GameSettings from './GameSettings/GameSettings';
-import { AuthContext } from '../../../context/auth-context';
+import { RootState } from '../../../store/store.interface';
 
 // TODO: Add Auth wrapper for this page
-export const GameComponent: FC<{}> = () => {
-  const { token } = useContext(AuthContext);
+export const GameComponent: FC = () => {
+  const { accessToken } = useSelector<RootState, { accessToken: string }>(({ app: { auth } }) => ({
+    accessToken: auth.accessToken,
+  }));
   const dispatch = useReduxDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories(token));
+    dispatch(fetchCategories(accessToken));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [accessToken]);
 
   return (
     <Container className="game">

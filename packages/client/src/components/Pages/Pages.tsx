@@ -1,17 +1,20 @@
-import React, { FC, Fragment, memo, useContext } from 'react';
+import React, { FC, Fragment, memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Game from './Game/Game';
 import AuthPage from './AuthPage/AuthPage';
 import Main from './Main/Main';
-import { AuthContext } from '../../context/auth-context';
+import { RootState } from '../../store/store.interface';
 
 // TODO: Add lazy loading for pages
-export const PagesComponent: FC<{}> = () => {
-  const { token } = useContext(AuthContext);
+export const PagesComponent: FC = () => {
+  const { accessToken } = useSelector<RootState, { accessToken: string }>(({ app: { auth } }) => ({
+    accessToken: auth.accessToken,
+  }));
   return (
     <Fragment>
-      {token && (
+      {accessToken && (
         <Switch>
           <Route path="/" exact>
             <Main />
@@ -21,12 +24,12 @@ export const PagesComponent: FC<{}> = () => {
           </Route>
         </Switch>
       )}
-      {!token && (
+      {!accessToken && (
         <Switch>
           <Route path="/" exact>
             <Main />
           </Route>
-          <Route path="/autentykacja">
+          <Route path="/autentykacja/:mode">
             <AuthPage />
           </Route>
         </Switch>

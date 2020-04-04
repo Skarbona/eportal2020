@@ -64,6 +64,14 @@ const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
 });
 
 export const mockedStore = (): RootState => ({
+  app: {
+    auth: {
+      accessToken: chance.string(),
+      accessTokenExpiration: new Date(),
+      refreshToken: chance.string(),
+      refreshTokenExpiration: new Date(),
+    },
+  },
   categories: {
     categories: {
       preferences: mockedCategory('preferences', 2),

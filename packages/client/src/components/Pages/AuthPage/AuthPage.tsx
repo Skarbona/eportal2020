@@ -1,14 +1,5 @@
-import React, {
-  FC,
-  memo,
-  useState,
-  Fragment,
-  useReducer,
-  useCallback,
-  useEffect,
-  useContext,
-} from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { FC, memo, Fragment, useReducer, useCallback, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Container, Link, Button, FormControl, Grid, Typography, Avatar } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
@@ -22,19 +13,27 @@ import * as A from './state/actions';
 import { InputChangeEvent, SubmitEvent } from '../../../models/typescript-events';
 import { InputKeys } from './state/interface';
 import { authorizeUser } from '../../../store/user/thunk';
-import { AuthContext } from '../../../context/auth-context';
+import { login } from '../../../store/app/thunk';
 import { AuthorizationEndpoints } from '../../../models/endpoint-models';
 import { useReduxDispatch } from '../../../store/helpers';
+import { PageParams } from '../../../models/page-types';
 
 export const AuthPageComponent: FC = () => {
-  const { login } = useContext(AuthContext);
   const history = useHistory();
+  const { mode } = useParams();
   const dispatch = useReduxDispatch();
   const { t } = useTranslation();
   const [{ inputs, isFormValid }, formDispatch] = useReducer(authPageReducer, initialState);
 
-  const [isRegisterMode, setMode] = useState<boolean>(true);
-  const setModeHandler = (): void => setMode((prevState) => !prevState);
+  const isRegisterMode = mode === PageParams.Register;
+
+  const setModeHandler = (): void => {
+    if (isRegisterMode) {
+      history.push(`/autentykacja/${PageParams.Login}`);
+    } else {
+      history.push(`/autentykacja/${PageParams.Register}`);
+    }
+  };
 
   useEffect(() => {
     const inputKeys = [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha];
@@ -85,8 +84,9 @@ export const AuthPageComponent: FC = () => {
         email: inputs.email.value,
       };
       const data = await dispatch(authorizeUser(requestType, body));
-      if (data?.userData && data.token) {
-        login(data.userData.id, data.token);
+      if (data?.userData && data.accessToken) {
+        const { userData, accessToken } = data;
+        dispatch(login({ userId: userData.id, accessTokenData: { accessToken } }));
         history.push('/gra');
       }
     },
@@ -96,7 +96,6 @@ export const AuthPageComponent: FC = () => {
       inputs.userName.value,
       inputs.email.value,
       dispatch,
-      login,
       history,
     ],
   );

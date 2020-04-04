@@ -7,6 +7,7 @@ import HttpError from '../models/http-error';
 import User, { UserDocument } from '../models/user';
 import { UserType } from '../models/shared-interfaces/user';
 import { TimeMode } from '../../../client/src/models/game-models';
+import { createTokens } from '../utils/tokens';
 
 config();
 
@@ -66,24 +67,14 @@ export const signUp = async (
     },
   } as UserDocument);
 
-  let token;
-  let user;
   try {
     await createdUser.save();
-    user = await await User.findById(createdUser.id).select('-password');
-    token = jwt.sign(
-      {
-        userId: createdUser.id,
-        email: createdUser.id,
-      },
-      process.env.JWT_TOKEN,
-      { expiresIn: '1h' },
-    );
+    const user = await await User.findById(createdUser.id).select('-password');
+    const { accessToken, refreshToken } = createTokens(createdUser);
+    res.status(201).json({ userData: user.toObject({ getters: true }), accessToken, refreshToken });
   } catch (e) {
     return next(new HttpError('Cannot sign up', 500));
   }
-
-  res.status(201).json({ userData: user.toObject({ getters: true }), token });
 };
 
 export const Login = async (
@@ -108,24 +99,15 @@ export const Login = async (
     return next(new HttpError('Could not identify user', 401));
   }
 
-  let token;
   try {
-    token = jwt.sign(
-      {
-        userId: user.id,
-        email: user.id,
-      },
-      process.env.JWT_TOKEN,
-      { expiresIn: '1h' },
-    );
+    const { accessToken, refreshToken } = createTokens(user);
+    const userData = user.toObject({ getters: true });
+    delete userData.password;
+
+    res.json({ userData, accessToken, refreshToken });
   } catch (e) {
     return next(new HttpError('Cannot sign up', 500));
   }
-
-  const userData = user.toObject({ getters: true });
-  delete userData.password;
-
-  res.json({ userData, token });
 };
 
 export const getUserData = async (

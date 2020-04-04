@@ -39,6 +39,8 @@ const categoriesReducer = (
         },
         error: action.data.error,
       };
+    case CategoriesEnum.CleanCategoriesData:
+      return categoriesInitialState;
     default:
       return state;
   }
