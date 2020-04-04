@@ -1,4 +1,4 @@
-import { useEffect, FC, memo, ReactElement } from 'react';
+import { useEffect, FC, memo, ReactElement, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 import { login, logout } from '../../store/app/thunk';
@@ -31,14 +31,16 @@ export const AuthHOC: FC<Auth> = ({ children }) => {
     refTokenExpiration: auth.refreshTokenExpiration,
   }));
 
+  const logoutHandler = useCallback(() => dispatch(logout()), [dispatch]);
+
   useEffect(() => {
     if (accToken && accTokenExpiration) {
       const remainingTime = accTokenExpiration.getTime() - new Date().getTime();
-      logoutTimer = window.setTimeout(dispatch(logout), remainingTime);
+      logoutTimer = window.setTimeout(logoutHandler, remainingTime);
     } else {
       window.clearTimeout(logoutTimer);
     }
-  }, [accToken, accTokenExpiration, dispatch]);
+  }, [accToken, accTokenExpiration, dispatch, logoutHandler]);
 
   useEffect(() => {
     const userData = JSON.parse(
