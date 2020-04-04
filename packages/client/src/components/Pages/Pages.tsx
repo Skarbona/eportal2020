@@ -1,11 +1,11 @@
 import React, { FC, Fragment, memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Game from './Game/Game';
 import AuthPage from './AuthPage/AuthPage';
 import Main from './Main/Main';
 import { RootState } from '../../store/store.interface';
-import { useSelector } from 'react-redux';
 
 // TODO: Add lazy loading for pages
 export const PagesComponent: FC = () => {

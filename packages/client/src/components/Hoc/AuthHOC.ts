@@ -38,7 +38,7 @@ export const AuthHOC: FC<Auth> = ({ children }) => {
     } else {
       window.clearTimeout(logoutTimer);
     }
-  }, [accToken, accTokenExpiration]);
+  }, [accToken, accTokenExpiration, dispatch]);
 
   useEffect(() => {
     const userData = JSON.parse(
@@ -54,7 +54,7 @@ export const AuthHOC: FC<Auth> = ({ children }) => {
         }),
       );
     }
-  }, []);
+  }, [dispatch]);
 
   return children;
 };

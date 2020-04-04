@@ -90,7 +90,14 @@ export const AuthPageComponent: FC = () => {
         history.push('/gra');
       }
     },
-    [isRegisterMode, inputs.password.value, inputs.userName.value, inputs.email.value, history],
+    [
+      isRegisterMode,
+      inputs.password.value,
+      inputs.userName.value,
+      inputs.email.value,
+      dispatch,
+      history,
+    ],
   );
 
   const infoAction = (

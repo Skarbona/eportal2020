@@ -94,7 +94,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run precommit --concurrency 1 --stream --since HEAD"
+      "pre-commit": "lerna run precommit --concurrency 1 --stream --since HEAD; git add --all"
     }
   }
 }

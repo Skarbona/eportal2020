@@ -19,7 +19,7 @@ export const HeaderComponent: FC = () => {
     accessToken: auth.accessToken,
   }));
 
-  const logoutHandler = useCallback(() => dispatch(logout()), []);
+  const logoutHandler = useCallback(() => dispatch(logout()), [dispatch]);
 
   return (
     <AppBar position="static" className="header">
