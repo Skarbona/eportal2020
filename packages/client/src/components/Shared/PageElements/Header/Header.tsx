@@ -7,20 +7,18 @@ import { useTranslation } from 'react-i18next';
 import { logout } from '../../../../store/app/thunk';
 import './Header.scss';
 import { PageParams } from '../../../../models/page-types';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../store/store.interface';
 import { useReduxDispatch } from '../../../../store/helpers';
 
+interface Props {
+  accessToken: string;
+}
+
 // TODO: Add Mobile Support
-export const HeaderComponent: FC = () => {
+export const HeaderComponent: FC<Props> = ({ accessToken }) => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
-  const { accessToken } = useSelector<RootState, { accessToken: string }>(({ app: { auth } }) => ({
-    accessToken: auth.accessToken,
-  }));
 
   const logoutHandler = useCallback(() => dispatch(logout()), [dispatch]);
-
   return (
     <AppBar position="static" className="header">
       <Toolbar>
@@ -55,4 +53,8 @@ export const HeaderComponent: FC = () => {
   );
 };
 
-export default memo(HeaderComponent);
+export default memo(
+  HeaderComponent,
+  (prevProps, nextProps) =>
+    prevProps?.accessToken?.length > 0 && nextProps?.accessToken?.length > 0,
+);

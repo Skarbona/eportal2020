@@ -17,7 +17,6 @@ export const createPosts = async (
     return next(new HttpError('Bad Request. Include valid Body', 400));
   }
 
-  // TODO: Check if this approach is ok
   const createdPosts = posts.map(({ content, categories, image, author }: PostRequestInterface) => {
     const post = new Post({
       date: new Date(),

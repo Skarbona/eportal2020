@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
+import axios from 'axios';
 import { AppThunk } from '../store.interface';
 import { cleanAppData, setAccessTokenData, setRefreshTokenData } from './action';
 import { cleanCategoriesData } from '../categories/action';
@@ -38,7 +39,10 @@ export const login = ({ userId, accessTokenData, refreshTokenData }: Login): App
     const refreshTokenExpirationDate = refreshTokenExpiration
       ? new Date(refreshTokenExpiration)
       : new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 14);
-    dispatch(setRefreshTokenData({ refreshToken, refreshTokenExpirationDate }));
+    dispatch(
+      setRefreshTokenData({ refreshToken, refreshTokenExpiration: refreshTokenExpirationDate }),
+    );
+
     window.localStorage.setItem(
       LocalStorage.UserDataRefreshToken,
       JSON.stringify({
@@ -54,4 +58,27 @@ export const logout = (): AppThunk => async (dispatch) => {
   dispatch(cleanAppDataHandler());
   window.localStorage.removeItem(LocalStorage.UserDataAccessToken);
   window.localStorage.removeItem(LocalStorage.UserDataRefreshToken);
+};
+
+export const refreshTokens = (): AppThunk => async (dispatch, getState) => {
+  try {
+    const { app, user } = getState();
+    const tokens = app.auth;
+    const userId = user.userData.id;
+
+    console.log('ZROBILEM REFRESH CALLA!!');
+
+    const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_API}/token/refresh`, {
+      headers: {
+        Authorization: `Bearer ${tokens.accessToken} ${tokens.refreshToken}`,
+      },
+    });
+    const { accessToken, refreshToken } = data;
+
+    dispatch(
+      login({ userId, accessTokenData: { accessToken }, refreshTokenData: { refreshToken } }),
+    );
+  } catch (e) {
+    // TODO: Display small error
+  }
 };

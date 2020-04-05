@@ -33,14 +33,13 @@ export const App: FC<{}> = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AuthHOC>
-        <Fragment>
-          <Header />
-          <Container component="main" className="eportal__main">
-            <Pages />
-          </Container>
-        </Fragment>
-      </AuthHOC>
+      <Fragment>
+        <AuthHOC />
+        <Header accessToken={accessToken} />
+        <Container component="main" className="eportal__main">
+          <Pages accessToken={accessToken} />
+        </Container>
+      </Fragment>
     </ThemeProvider>
   );
 };
