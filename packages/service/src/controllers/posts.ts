@@ -4,18 +4,19 @@ import Post from '../models/post';
 import { PostRequestInterface, PostStatus } from '../models/shared-interfaces/post';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
+import { validationResult } from 'express-validator';
 
 export const createPosts = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const { posts } = req.body;
-  // TODO: Add error handling
-  // TODO: Protect this controller (JWT) and ONLY ADMIN
-  if (!posts || posts.length === 0) {
-    return next(new HttpError('Bad Request. Include valid Body', 400));
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
   }
+  const { posts } = req.body;
+  // TODO: ONLY ADMIN
 
   const createdPosts = posts.map(({ content, categories, image, author }: PostRequestInterface) => {
     const post = new Post({
@@ -38,7 +39,7 @@ export const createPosts = async (
     const posts = await Post.insertMany(createdPosts);
     res.status(201).json({ posts });
   } catch (e) {
-    res.status(400).json({ msg: e });
+    return next(new HttpError('Something went wrong, could not find posts', 500));
   }
 };
 
@@ -47,30 +48,26 @@ export const getPosts = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const { cat_include_strict, cats_include, cats_exclude } = req.query;
-  // TODO: Protect this endpoint
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  const { catsIncludeStrict, catsInclude, catsExclude } = req.query;
   try {
     let posts;
     if (req.query) {
       let options: {};
-      if (cat_include_strict) {
-        options = {
-          $eq: cat_include_strict,
-        };
+      if (catsIncludeStrict) {
+        options = { $eq: catsIncludeStrict };
       }
 
-      if (cats_exclude) {
-        options = {
-          ...options,
-          $nin: cats_exclude.split(','),
-        };
+      if (catsExclude) {
+        options = { ...options, $nin: catsExclude.split(',') };
       }
 
-      if (cats_include) {
-        options = {
-          ...options,
-          $nin: cats_include.split(','),
-        };
+      if (catsInclude) {
+        options = { ...options, $nin: catsInclude.split(',') };
       }
       posts = await Post.find({
         categories: options,

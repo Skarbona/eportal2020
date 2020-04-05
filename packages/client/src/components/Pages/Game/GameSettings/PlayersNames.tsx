@@ -27,8 +27,8 @@ export const PlayersNamesComponent: FC<Props> = ({ defaults }) => {
     () => {
       const payload: Partial<FormValues> = {
         names: {
-          she: womanName || defaults.she || t('She'),
-          he: manName || defaults.he || t('He'),
+          she: (womanName || defaults.she || t('She')).slice(0, 30),
+          he: (manName || defaults.he || t('He')).slice(0, 30),
         },
       };
       dispatch(setFormValues(payload));
