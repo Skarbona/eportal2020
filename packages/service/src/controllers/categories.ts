@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import Category, { CategoryRequestInterface } from '../models/category';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
+import { validationResult } from 'express-validator';
 
 export const createCategories = async (
   req: Request,
@@ -11,12 +12,11 @@ export const createCategories = async (
   next: NextFunction,
 ): Promise<void | Response> => {
   const categories: CategoryRequestInterface[] = req.body.categories;
-  // TODO: Add error handling
-  // TODO: Protect this controller (JWT) and ONLY ADMIN
-  if (!categories || categories.length === 0) {
-    return next(new HttpError('Bad Request. Include valid Body', 400));
+  // TODO: ONLY ADMIN
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
   }
-
   try {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -29,13 +29,17 @@ export const createCategories = async (
         children: [],
       });
     });
-
     categories.forEach(async ({ parent }, i: number) => {
+      if (!mongoose.Types.ObjectId.isValid(parent as any)) {
+        return next(new HttpError('Parent ID is invalid', 422));
+      }
       // Update Parent Categories with new childs
       if (parent) {
         const parentCategory = await Category.findById(parent);
+
         const childId = newCategories[i]._id;
-        if (!parentCategory.children.includes(childId.toString())) {
+
+        if (!parentCategory?.children.includes(childId.toString())) {
           parentCategory.children.push(newCategories[i]._id);
           await parentCategory.save();
         }

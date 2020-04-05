@@ -2,18 +2,19 @@ import { Router } from 'express';
 
 import * as usersControllers from '../controllers/users';
 import { authMiddleware } from '../middlewares/auth';
+import * as validate from '../validation/users';
 
 const router = Router();
 
-router.post('/signup', usersControllers.signUp);
-router.post('/login', usersControllers.Login);
+router.post('/signup', validate.signUp, usersControllers.signUp);
+router.post('/login', validate.login, usersControllers.Login);
 
 router.use(authMiddleware);
 
-router.get('/', usersControllers.getUserData);
-router.get('/:id', usersControllers.getUserData);
+router.get('/', validate.getUserData, usersControllers.getUserData);
+router.get('/:id', validate.getUserData, usersControllers.getUserData);
 
-router.patch('/', usersControllers.updateUser);
-router.patch('/:id', usersControllers.updateUser);
+router.patch('/', validate.updateUser, usersControllers.updateUser);
+router.patch('/:id', validate.updateUser, usersControllers.updateUser);
 
 export default router;

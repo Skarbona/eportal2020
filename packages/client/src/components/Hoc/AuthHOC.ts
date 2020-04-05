@@ -69,7 +69,7 @@ export const AuthHOC: FC = () => {
     if (refTokenExpiration && refToken) {
       const remainingTime = refTokenExpiration.getTime() - new Date().getTime();
       setRefTokenRemainingTime(remainingTime);
-      refreshTokenInterval = window.setInterval(refreshTokenIntervalHandler, 1000 * 10);
+      refreshTokenInterval = window.setInterval(refreshTokenIntervalHandler, 1000 * 20);
     }
     return () => window.clearInterval(refreshTokenInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,7 +81,7 @@ export const AuthHOC: FC = () => {
     if (accTokenExpiration && accToken) {
       const remainingTime = accTokenExpiration.getTime() - new Date().getTime();
       setAccTokenRemainingTime(remainingTime);
-      accessTokenInterval = window.setInterval(accessTokenIntervalHandler, 1000 * 10);
+      accessTokenInterval = window.setInterval(accessTokenIntervalHandler, 1000 * 20);
     }
     return () => window.clearInterval(accessTokenInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,7 +117,6 @@ export const AuthHOC: FC = () => {
     ) {
       const { accessToken, accessTokenExpirationDate, userId } = accessTokenData;
       const { refreshToken, refreshTokenExpirationDate } = refreshTokenData;
-      console.log('refreshTokenExpirationDate', refreshTokenExpirationDate);
       dispatch(
         login({
           userId,

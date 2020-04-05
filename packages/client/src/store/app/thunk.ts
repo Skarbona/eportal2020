@@ -66,8 +66,6 @@ export const refreshTokens = (): AppThunk => async (dispatch, getState) => {
     const tokens = app.auth;
     const userId = user.userData.id;
 
-    console.log('ZROBILEM REFRESH CALLA!!');
-
     const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_API}/token/refresh`, {
       headers: {
         Authorization: `Bearer ${tokens.accessToken} ${tokens.refreshToken}`,

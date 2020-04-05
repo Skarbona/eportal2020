@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
+import { validationResult } from 'express-validator';
 
 import HttpError from '../models/http-error';
 import User, { UserDocument } from '../models/user';
@@ -16,9 +16,12 @@ export const signUp = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const { userName, email, password } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
 
-  // TODO: Add validation!!!!!!!!
+  const { userName, email, password } = req.body;
 
   let existingUser;
   try {
@@ -82,6 +85,11 @@ export const Login = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   const { email, password } = req.body;
   let user;
 
@@ -115,6 +123,11 @@ export const getUserData = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   const { userId } = req.userData;
   // const { userId } = req.params;
   // TODO: ADD ADMIN POSSIBILITY TO FETCH USER DATA
@@ -137,12 +150,17 @@ export const updateUser = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
   const { userId } = req.userData;
   const { gameDefaults, password } = req.body;
   // TODO: ADD ADMIN POSSIBILITY TO UPDATE USER DATA
   let user;
   try {
-    user = await User.findById(userId).select('-password');
+    user = await User.findById(userId);
   } catch (e) {
     return next(new HttpError('User does not exist', 404));
   }
@@ -157,6 +175,7 @@ export const updateUser = async (
       return next(new HttpError('Something went wrong, could not update user', 500));
     }
   }
-
-  res.json({ user: user.toObject({ getters: true }) });
+  const userData = user.toObject({ getters: true });
+  delete userData.password;
+  res.json({ user: userData });
 };
