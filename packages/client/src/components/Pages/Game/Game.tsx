@@ -1,17 +1,12 @@
 import React, { FC, memo, useEffect } from 'react';
 import { Container } from '@material-ui/core';
-import { useSelector } from 'react-redux';
 
 import { fetchCategories } from '../../../store/categories/thunk';
 import { useReduxDispatch } from '../../../store/helpers';
 import GameSettings from './GameSettings/GameSettings';
-import { RootState } from '../../../store/store.interface';
 
 // TODO: Add Auth wrapper for this page
-export const GameComponent: FC = () => {
-  const { accessToken } = useSelector<RootState, { accessToken: string }>(({ app: { auth } }) => ({
-    accessToken: auth.accessToken,
-  }));
+export const GameComponent: FC<{ accessToken: string }> = ({ accessToken }) => {
   const dispatch = useReduxDispatch();
 
   useEffect(() => {

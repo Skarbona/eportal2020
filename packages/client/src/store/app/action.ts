@@ -10,7 +10,7 @@ export const cleanAppData: ActionCreator<I.CleanAppData> = () => ({
 export const setAccessTokenData: ActionCreator<I.SetAccessTokenData> = ({
   accessToken,
   accessTokenExpiration,
-}) => ({
+}: I.SetAccessTokenData['data']) => ({
   type: AppEnum.SetAccessTokenData,
   data: {
     accessToken,
@@ -21,7 +21,7 @@ export const setAccessTokenData: ActionCreator<I.SetAccessTokenData> = ({
 export const setRefreshTokenData: ActionCreator<I.SetRefreshTokenData> = ({
   refreshToken,
   refreshTokenExpiration,
-}) => ({
+}: I.SetRefreshTokenData['data']) => ({
   type: AppEnum.SetRefreshTokenData,
   data: {
     refreshToken,

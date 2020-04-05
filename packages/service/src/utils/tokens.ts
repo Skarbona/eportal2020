@@ -17,7 +17,7 @@ export const createTokens = (user: UserDocument): { accessToken: string; refresh
       email: user.email,
     },
     process.env.JWT_REFRESH_TOKEN,
-    { expiresIn: '14d' },
+    { expiresIn: '1d' },
   );
 
   return {

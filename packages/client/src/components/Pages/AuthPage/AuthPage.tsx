@@ -84,10 +84,18 @@ export const AuthPageComponent: FC = () => {
         email: inputs.email.value,
       };
       const data = await dispatch(authorizeUser(requestType, body));
-      if (data?.userData && data.accessToken) {
-        const { userData, accessToken } = data;
-        dispatch(login({ userId: userData.id, accessTokenData: { accessToken } }));
+      if (data?.userData && data.accessToken && data.refreshToken) {
+        const { userData, accessToken, refreshToken } = data;
+        dispatch(
+          login({
+            userId: userData.id,
+            accessTokenData: { accessToken },
+            refreshTokenData: { refreshToken },
+          }),
+        );
         history.push('/gra');
+      } else {
+        // TODO: Display error
       }
     },
     [

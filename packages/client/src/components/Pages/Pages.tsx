@@ -1,17 +1,12 @@
 import React, { FC, Fragment, memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import Game from './Game/Game';
 import AuthPage from './AuthPage/AuthPage';
 import Main from './Main/Main';
-import { RootState } from '../../store/store.interface';
 
 // TODO: Add lazy loading for pages
-export const PagesComponent: FC = () => {
-  const { accessToken } = useSelector<RootState, { accessToken: string }>(({ app: { auth } }) => ({
-    accessToken: auth.accessToken,
-  }));
+export const PagesComponent: FC<{ accessToken: string }> = ({ accessToken }) => {
   return (
     <Fragment>
       {accessToken && (
@@ -20,7 +15,7 @@ export const PagesComponent: FC = () => {
             <Main />
           </Route>
           <Route path="/gra">
-            <Game />
+            <Game accessToken={accessToken} />
           </Route>
         </Switch>
       )}
@@ -38,4 +33,8 @@ export const PagesComponent: FC = () => {
   );
 };
 
-export default memo(PagesComponent);
+export default memo(
+  PagesComponent,
+  (prevProps, nextProps) =>
+    prevProps?.accessToken?.length > 0 && nextProps?.accessToken?.length > 0,
+);
