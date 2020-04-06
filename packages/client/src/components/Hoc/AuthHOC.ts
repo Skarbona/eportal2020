@@ -124,6 +124,8 @@ export const AuthHOC: FC = () => {
           refreshTokenData: { refreshToken, refreshTokenExpiration: refreshTokenExpirationDate },
         } as Login),
       );
+    } else {
+      dispatch(logout());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

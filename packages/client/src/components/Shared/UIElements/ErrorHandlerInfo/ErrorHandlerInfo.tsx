@@ -1,17 +1,28 @@
-import { Alert, AlertTitle } from '@material-ui/lab';
 import React, { FC, memo } from 'react';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { Grid } from '@material-ui/core';
 
-import { ErrorHandlingMap } from '../../../../constants/error-handling-map';
-import { ErrorHandlerInterface } from './ErrorHandler.interface';
+import './ErrorHandlers.scss';
+import { ErrorHandlingMap, ErrorTypes, ErrorsSize } from '../../../../models/errors';
 
-export const ErrorHandlerComponent: FC<ErrorHandlerInterface> = ({ type, error }) => {
-  if (!error) return null;
-  const { message, severity, header } = ErrorHandlingMap.get(type);
+export interface Props {
+  type: ErrorTypes;
+  error: Error | boolean;
+}
+
+export const ErrorHandlerComponent: FC<Props> = ({ type, error }) => {
+  if (!error && ErrorHandlingMap) return null;
+  const { message, severity, header, size } = ErrorHandlingMap.get(type);
+
   return (
-    <Alert severity={severity}>
-      <AlertTitle>{header}</AlertTitle>
-      {message}
-    </Alert>
+    size === ErrorsSize.Big && (
+      <Grid container justify="center">
+        <Alert severity={severity} className="errors-handler">
+          <AlertTitle>{header}</AlertTitle>
+          {message}
+        </Alert>
+      </Grid>
+    )
   );
 };
 

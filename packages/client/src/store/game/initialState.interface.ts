@@ -1,5 +1,6 @@
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
+import { ErrorTypes, NetworkError } from '../../models/errors';
 
 export enum GameStatus {
   'Level1',
@@ -36,5 +37,6 @@ export interface GameStateInterface {
   };
   config: FormValues;
   loading: boolean;
-  error?: Error;
+  error?: NetworkError;
+  errorType?: ErrorTypes;
 }

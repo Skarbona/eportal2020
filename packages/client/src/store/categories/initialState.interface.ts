@@ -1,3 +1,5 @@
+import { ErrorTypes } from '../../models/errors';
+
 export interface CategoryInterface {
   id: string;
   date: Date;
@@ -15,4 +17,5 @@ export interface CategoriesStateInterface {
   };
   loading: boolean;
   error?: Error;
+  errorType?: ErrorTypes;
 }
