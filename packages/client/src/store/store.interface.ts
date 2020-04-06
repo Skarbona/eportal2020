@@ -24,6 +24,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, nul
 export type ReturnAppThunk<ReturnType> = ThunkAction<
   Promise<ReturnType>,
   RootState,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any,
   Action<string>
 >;

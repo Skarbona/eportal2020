@@ -49,7 +49,7 @@ export const AuthHOC: FC = () => {
     } else {
       window.clearTimeout(accessTokenTimeout);
     }
-    return () => clearTimeout(accessTokenTimeout);
+    return (): void => window.clearTimeout(accessTokenTimeout);
   }, [accToken, accTokenExpiration, logoutHandler]);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export const AuthHOC: FC = () => {
     } else {
       window.clearTimeout(refreshTokenTimeout);
     }
-    return () => window.clearTimeout(refreshTokenTimeout);
+    return (): void => window.clearTimeout(refreshTokenTimeout);
   }, [refTokenExpiration, refToken, logoutHandler]);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export const AuthHOC: FC = () => {
       setRefTokenRemainingTime(remainingTime);
       refreshTokenInterval = window.setInterval(refreshTokenIntervalHandler, 1000 * 20);
     }
-    return () => window.clearInterval(refreshTokenInterval);
+    return (): void => window.clearInterval(refreshTokenInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refToken, refTokenExpiration]);
 
@@ -83,7 +83,7 @@ export const AuthHOC: FC = () => {
       setAccTokenRemainingTime(remainingTime);
       accessTokenInterval = window.setInterval(accessTokenIntervalHandler, 1000 * 20);
     }
-    return () => window.clearInterval(accessTokenInterval);
+    return (): void => window.clearInterval(accessTokenInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accToken, accTokenExpiration]);
 

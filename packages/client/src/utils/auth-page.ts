@@ -4,7 +4,7 @@ import i18n from '../settings/translation-settings';
 import { AuthPageState, InputKeys } from '../components/Pages/AuthPage/state/interface';
 import { initialState } from '../components/Pages/AuthPage/state/initialState';
 
-export const isFormValidHandler = (inputs: AuthPageState['inputs']) => {
+export const isFormValidHandler = (inputs: AuthPageState['inputs']): boolean => {
   return Object.values(inputs).every((input) => {
     if (!input.visible) return true;
     return input.valid;
@@ -38,7 +38,10 @@ export const isPasswordValidHandler = (
   };
 };
 
-export const isUserNameValidHandler = (userName: string, blurred: boolean) => {
+export const isUserNameValidHandler = (
+  userName: string,
+  blurred: boolean,
+): Partial<AuthPageState['inputs']['userName']> => {
   let errorMsg = '';
 
   if (!/^(.{4,})$/.test(userName)) {
@@ -60,7 +63,10 @@ export const isUserNameValidHandler = (userName: string, blurred: boolean) => {
   };
 };
 
-export const isEmailValidHandler = (email: string, blurred: boolean) => {
+export const isEmailValidHandler = (
+  email: string,
+  blurred: boolean,
+): Partial<AuthPageState['inputs']['email']> => {
   let errorMsg = '';
 
   if (!isEmail(email)) {
@@ -82,7 +88,7 @@ export const isConfirmedEmailValidHandler = (
   email: string,
   blurred: boolean,
   mainEmail: string,
-) => {
+): Partial<AuthPageState['inputs']['confirmedEmail']> => {
   let errorMsg = '';
 
   if (!isEmail(email)) {

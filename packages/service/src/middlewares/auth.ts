@@ -6,7 +6,7 @@ import HttpError from '../models/http-error';
 
 config();
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   if (req.method === 'OPTIONS') {
     return next();
   }
@@ -27,7 +27,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   }
 };
 
-export const authRefreshMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const authRefreshMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   if (req.method === 'OPTIONS') {
     return next();
   }

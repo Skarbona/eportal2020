@@ -90,7 +90,6 @@ const userReducer = (state = userInitialState, action: UserActions): UserStateIn
       } else if (errorStatus === 400) {
         errorType = ErrorTypes.ValidationError;
       } else if (errorStatus === 401) {
-        console.log(error.response);
         errorType = ErrorTypes.WrongLoginInputs;
       } else if (errorStatus === 422) {
         errorType = ErrorTypes.WrongRegisterInputs;
