@@ -31,7 +31,7 @@ export const createCategories = async (
     });
     categories.forEach(async ({ parent }, i: number) => {
       if (!mongoose.Types.ObjectId.isValid(parent as any)) {
-        return next(new HttpError('Parent ID is invalid', 422));
+        return next(new HttpError('Parent ID is invalid', 422)); // TODO: Move to validation
       }
       // Update Parent Categories with new childs
       if (parent) {

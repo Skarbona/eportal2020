@@ -10,6 +10,7 @@ import { useReduxDispatch } from '../store/helpers';
 import { fetchUserData } from '../store/user/thunk';
 import Pages from './Pages/Pages';
 import Header from './Shared/PageElements/Header/Header';
+import SnackBarErrorHandler from './Shared/UIElements/ErrorHandlerInfo/SnackBarErrorHandler';
 import AuthHOC from './Hoc/AuthHOC';
 import { RootState } from '../store/store.interface';
 
@@ -38,6 +39,7 @@ export const App: FC<{}> = () => {
         <Header accessToken={accessToken} />
         <Container component="main" className="eportal__main">
           <Pages accessToken={accessToken} />
+          <SnackBarErrorHandler />
         </Container>
       </Fragment>
     </ThemeProvider>

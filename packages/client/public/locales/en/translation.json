@@ -39,5 +39,17 @@
   "Sorry but we cannot fetch categories": "Sorry but we cannot fetch categories. Please check you internet connection or contact with support team",
   "Fetching error": "Fetching error",
   "Portal Name": "Portal Name",
-  "Logout": "Logout"
+  "Logout": "Logout",
+  "Sorry but we cannot fetch posts": "Sorry but we cannot fetch posts",
+  "Wrong Inputs": "Wrong Inputs",
+  "Your email or password are incorrect": "Your email or password are incorrect",
+  "User exist": "User exist",
+  "User with this email or userName already exist": "User with this email or userName already exist",
+  "Validation error": "Validation error",
+  "If you use form website this error should not appear": "If you use form website this error should not appear",
+  "Server cannot response": "Server cannot response",
+  "This is probably issue with Internet connection or server": "This is probably issue with Internet connection or server",
+  "We cannot save user data": "We cannot save user data",
+  "Your permissions are not valid": "Your permissions are not valid",
+  "Please login again": "Please login again"
 }

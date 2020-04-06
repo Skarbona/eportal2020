@@ -3,6 +3,7 @@ import { GameEnum } from './enum';
 import { gameInitialState } from './initialState';
 import { GameStateInterface } from './initialState.interface';
 import { convertedPosts } from '../../utils/post-data-for-game';
+import { ErrorTypes } from '../../models/errors';
 
 const gameReducer = (state = gameInitialState, action: GameActions): GameStateInterface => {
   switch (action.type) {
@@ -10,6 +11,7 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
       return {
         ...state,
         loading: true,
+        error: null,
       };
     case GameEnum.SuccessFetchPosts: {
       const { posts } = action.data;
@@ -20,13 +22,25 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
         posts: convertedPosts(posts),
       };
     }
-    case GameEnum.FailFetchPosts:
+    case GameEnum.FailFetchPosts: {
+      const { error } = action.data;
+      let errorType = ErrorTypes.ServerError;
+      const errorStatus = error.response?.status;
+      if (!errorStatus || errorStatus >= 500) {
+        errorType = ErrorTypes.ServerError;
+      } else if (errorStatus === 401) {
+        errorType = ErrorTypes.UnAuthorized;
+      } else {
+        errorType = ErrorTypes.FetchingPosts;
+      }
       return {
         ...state,
         ...gameInitialState,
         loading: false,
-        error: action.data.error,
+        error,
+        errorType,
       };
+    }
     case GameEnum.SetFormValues:
       return {
         ...state,

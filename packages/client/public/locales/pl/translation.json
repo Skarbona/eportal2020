@@ -36,8 +36,20 @@
   "Username can be visible for all users": "Nazwa może być widoczna dla innych użytkowników",
   "Provide valid email": "Podaj poprawny email",
   "Emails must be the same": "Podane emaile muszą być takie same",
-  "Sorry but we cannot fetch categories": "Przepraszamy nie możemy załadować kategorii. Proszę sprawdzić połączenie internetowe lub skontaktować się z wsparciem technicznym",
+  "Sorry but we cannot fetch categories": "Przepraszamy, nie możemy załadować kategorii. Proszę sprawdzić połączenie internetowe lub skontaktować się z wsparciem technicznym",
   "Fetching error": "Błąd ładowania",
   "Portal Name": "Eportal",
-  "Logout": "Wyloguj się"
+  "Logout": "Wyloguj się",
+  "Sorry but we cannot fetch posts": "Przepraszamy, nie możemy załadować zadań. Proszę sprawdzić połączenie internetowe lub skontaktować się z wsparciem technicznym",
+  "Wrong Inputs": "Źle uzupełnione pola",
+  "Your email or password are incorrect": "Email albo hasło są nie poprawne",
+  "User exist": "Użytkownik istnieje",
+  "User with this email or userName already exist": "Użytkownik z podanym emialem lub nazwą użytkownika już istnieje",
+  "Validation error": "Błąd walidacji",
+  "If you use form website this error should not appear": "Jeżeli używasz formularza na stronie ten błąd nie powinnien się pojawić. Proszę skontaktuj się z wsparciem technicznym. Spróbuj również uzupełnić pola jeszcze raz.",
+  "Server cannot response": "Błąd odpowiedzi serwera",
+  "This is probably issue with Internet connection or server": "Proszę sprawdź połączenie internetowe. Jeżeli nie pomoże, skontaktuj się ze wsparciem technicznym",
+  "We cannot save user data": "Nie możemy zapisać nowych danych",
+  "Your permissions are not valid": "Nie możemy Ciebie zweryfikować",
+  "Please login again": "Proszę zaloguj się ponownie"
 }

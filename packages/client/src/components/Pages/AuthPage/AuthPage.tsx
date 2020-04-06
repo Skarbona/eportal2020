@@ -1,22 +1,30 @@
 import React, { FC, memo, Fragment, useReducer, useCallback, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Container, Link, Button, FormControl, Grid, Typography, Avatar } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 import './AuthPage.scss';
 import Inputs from './Inputs';
+import ErrorHandler from '../../Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
 import { authPageReducer } from './state/reducer';
 import { initialState } from './state/initialState';
 import * as A from './state/actions';
 import { InputChangeEvent, SubmitEvent } from '../../../models/typescript-events';
+import { RootState } from '../../../store/store.interface';
 import { InputKeys } from './state/interface';
 import { authorizeUser } from '../../../store/user/thunk';
-import { login } from '../../../store/app/thunk';
-import { AuthorizationEndpoints } from '../../../models/endpoint-models';
 import { useReduxDispatch } from '../../../store/helpers';
+import { AuthorizationEndpoints } from '../../../models/endpoint-models';
 import { PageParams } from '../../../models/page-types';
+import { ErrorTypes } from '../../../models/errors';
+
+interface AuthPageSelectorProps {
+  error: Error;
+  errorType: ErrorTypes;
+}
 
 export const AuthPageComponent: FC = () => {
   const history = useHistory();
@@ -24,6 +32,10 @@ export const AuthPageComponent: FC = () => {
   const dispatch = useReduxDispatch();
   const { t } = useTranslation();
   const [{ inputs, isFormValid }, formDispatch] = useReducer(authPageReducer, initialState);
+  const { error, errorType } = useSelector<RootState, AuthPageSelectorProps>(({ user }) => ({
+    error: user.error,
+    errorType: user.errorType,
+  }));
 
   const isRegisterMode = mode === PageParams.Register;
 
@@ -83,20 +95,8 @@ export const AuthPageComponent: FC = () => {
         userName: inputs.userName.value,
         email: inputs.email.value,
       };
-      const data = await dispatch(authorizeUser(requestType, body));
-      if (data?.userData && data.accessToken && data.refreshToken) {
-        const { userData, accessToken, refreshToken } = data;
-        dispatch(
-          login({
-            userId: userData.id,
-            accessTokenData: { accessToken },
-            refreshTokenData: { refreshToken },
-          }),
-        );
-        history.push('/gra');
-      } else {
-        // TODO: Display error
-      }
+      const success = await dispatch(authorizeUser(requestType, body));
+      if (success) history.push('/gra');
     },
     [
       isRegisterMode,
@@ -153,6 +153,7 @@ export const AuthPageComponent: FC = () => {
                 onChange={recaptchaHandler}
               />
             </Grid>
+            <ErrorHandler error={error} type={errorType} />
             <Button
               disabled={!isFormValid}
               type="submit"

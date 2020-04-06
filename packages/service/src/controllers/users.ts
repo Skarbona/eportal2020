@@ -18,7 +18,7 @@ export const signUp = async (
 ): Promise<void | Response> => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const { userName, email, password } = req.body;
@@ -87,7 +87,7 @@ export const Login = async (
 ): Promise<void | Response> => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const { email, password } = req.body;
@@ -125,7 +125,7 @@ export const getUserData = async (
 ): Promise<void | Response> => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const { userId } = req.userData;
@@ -152,7 +152,7 @@ export const updateUser = async (
 ): Promise<void | Response> => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const { userId } = req.userData;

@@ -1,5 +1,6 @@
 import { UserEnum } from './enum';
-import { AuthResponse, UserResponse } from '../../../../service/src/models/shared-interfaces/user';
+import { UserResponse } from '../../../../service/src/models/shared-interfaces/user';
+import { NetworkError } from '../../models/errors';
 
 interface ActionInterface {
   type: UserEnum;
@@ -19,7 +20,7 @@ export interface SuccessFetchUserData extends ActionInterface {
 export interface FailFetchUserData extends ActionInterface {
   type: UserEnum.FailFetchUserData;
   data: {
-    error: Error;
+    error: NetworkError;
   };
 }
 
@@ -37,7 +38,7 @@ export interface SuccessSetUserData extends ActionInterface {
 export interface FailSetUserData extends ActionInterface {
   type: UserEnum.FailSetUserData;
   data: {
-    error: Error;
+    error: NetworkError;
   };
 }
 
@@ -55,7 +56,7 @@ export interface SuccessAuthorization extends ActionInterface {
 export interface FailAuthorization extends ActionInterface {
   type: UserEnum.FailAuthorization;
   data: {
-    error: Error;
+    error: NetworkError;
   };
 }
 

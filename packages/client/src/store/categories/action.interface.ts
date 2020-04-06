@@ -1,5 +1,6 @@
 import { CategoriesEnum } from './enum';
 import { CategoryInterface } from './initialState.interface';
+import { NetworkError } from '../../models/errors';
 
 interface ActionInterface {
   type: CategoriesEnum;
@@ -19,7 +20,7 @@ export interface SuccessFetchCategories extends ActionInterface {
 export interface FailFetchCategories extends ActionInterface {
   type: CategoriesEnum.FailFetchCategories;
   data: {
-    error: Error;
+    error: NetworkError;
   };
 }
 

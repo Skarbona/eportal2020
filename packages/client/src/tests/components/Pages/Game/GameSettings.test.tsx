@@ -64,7 +64,7 @@ describe('<GameSettings > component', () => {
     expect(wrapper.find(CircleLoading)).toHaveLength(1);
   });
 
-  it('should render all game settings if default provided', () => {
+  it.skip('should render all game settings if default provided', () => {
     const { categories, user } = mockedStore();
     spyStore.mockReturnValue({
       cats: categories.categories,
@@ -85,7 +85,7 @@ describe('<GameSettings > component', () => {
     expect(wrapper.find(CircleLoading)).toHaveLength(0);
   });
 
-  it('should not render all game settings if error occured', () => {
+  it.skip('should not render all game settings if error occured', () => {
     const { categories, user } = mockedStore();
     spyStore.mockReturnValue({
       catsError: new Error(),

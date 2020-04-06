@@ -1,6 +1,7 @@
 import { GameEnum } from './enum';
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
+import { NetworkError } from '../../models/errors';
 
 interface ActionInterface {
   type: GameEnum;
@@ -20,7 +21,7 @@ export interface SuccessFetchPosts extends ActionInterface {
 export interface FailFetchPosts extends ActionInterface {
   type: GameEnum.FailFetchPosts;
   data: {
-    error: Error;
+    error: NetworkError;
   };
 }
 

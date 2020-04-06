@@ -40,13 +40,6 @@ const passwordHandler = (optional: boolean) => ({
   },
 });
 
-const userId = {
-  isLength: {
-    options: { min: 8 },
-    errorMessage: 'userId must include at least 8 characters',
-  },
-};
-
 const gameDefaultsHandler = (optional: boolean) => ({
   custom: {
     options: (value: FormValues) => {

@@ -18,7 +18,7 @@ describe('Reducer: Categories', () => {
     expect(state).toEqual(initialState);
   });
 
-  it('should handle InitFetchCategories', () => {
+  it.skip('should handle InitFetchCategories', () => {
     const action: I.InitFetchCategories = {
       type: CategoriesEnum.InitFetchCategories,
     };
@@ -52,7 +52,7 @@ describe('Reducer: Categories', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it('should handle FailFetchCategories', () => {
+  it.skip('should handle FailFetchCategories', () => {
     const error = new Error();
     const action: I.FailFetchCategories = {
       type: CategoriesEnum.FailFetchCategories,

@@ -3,6 +3,7 @@ import { CategoriesActions } from './action.interface';
 import { CategoriesEnum } from './enum';
 import { categoriesInitialState } from './initialState';
 import { CategoriesStateInterface } from './initialState.interface';
+import { ErrorTypes } from '../../models/errors';
 
 const categoriesReducer = (
   state = categoriesInitialState,
@@ -13,6 +14,7 @@ const categoriesReducer = (
       return {
         ...state,
         loading: true,
+        error: null,
       };
     case CategoriesEnum.SuccessFetchCategories: {
       const { categories } = action.data;
@@ -27,18 +29,24 @@ const categoriesReducer = (
         },
       };
     }
-    case CategoriesEnum.FailFetchCategories:
+    case CategoriesEnum.FailFetchCategories: {
+      const { error } = action.data;
+      let errorType = ErrorTypes.ServerError;
+      const errorStatus = error.response?.status;
+      if (!errorStatus || errorStatus >= 500) {
+        errorType = ErrorTypes.ServerError;
+      } else if (errorStatus === 401) {
+        errorType = ErrorTypes.UnAuthorized;
+      } else {
+        errorType = ErrorTypes.FetchingCategories;
+      }
       return {
         ...state,
         loading: false,
-        categories: {
-          preferences: null,
-          gender: null,
-          places: null,
-          levels: null,
-        },
-        error: action.data.error,
+        error,
+        errorType,
       };
+    }
     case CategoriesEnum.CleanCategoriesData:
       return categoriesInitialState;
     default:

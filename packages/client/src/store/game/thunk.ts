@@ -26,18 +26,18 @@ export const fetchPostsForGame = (token: string): AppThunk => async (dispatch, g
     );
     dispatch(successFetchPosts(data.posts as PostResponseInterface));
   } catch (e) {
-    // TODO: Test Fetch Error!!!!
     dispatch(failFetchPosts(e));
   }
 };
 
-export const startGameHandler = (token: string): AppThunk => async (dispatch, getState) => {
+export const startGameHandler = (): AppThunk => async (dispatch, getState) => {
   const {
     game: { config },
+    app: { auth },
   } = getState();
   if (config.saveAsDefault) {
-    dispatch(setUserData(token));
+    dispatch(setUserData(auth.accessToken));
   }
-  dispatch(fetchPostsForGame(token));
+  dispatch(fetchPostsForGame(auth.accessToken));
   window.localStorage.setItem(LocalStorage.GameConfig, JSON.stringify(config));
 };

@@ -5,7 +5,7 @@ import { Typography, Grid } from '@material-ui/core';
 
 import './GameSettings.scss';
 
-import { PageTypes } from '../../../../models/page-types';
+import { ErrorTypes } from '../../../../models/errors';
 import { RootState } from '../../../../store/store.interface';
 import { SubmitEvent } from '../../../../models/typescript-events';
 import { CategoriesStateInterface } from '../../../../store/categories/initialState.interface';
@@ -26,41 +26,39 @@ import { useReduxDispatch } from '../../../../store/helpers';
 export interface GameSettingStoreProps {
   cats: CategoriesStateInterface['categories'];
   loading: boolean;
-  catsError: Error;
-  gameError: Error;
+  error: Error;
+  errorType: ErrorTypes;
   defaults: FormValues;
-  accessToken: string;
 }
 
-export const GameSettingComponent: FC<{}> = () => {
+export const GameSettingComponent: FC = () => {
   const dispatch = useReduxDispatch();
   const { t } = useTranslation();
   const [isFormValid, setFormValidation] = useState<boolean>(false);
-  const { cats, loading, catsError, gameError, defaults, accessToken } = useSelector<
+  const { cats, loading, error, errorType, defaults } = useSelector<
     RootState,
     GameSettingStoreProps
   >(({ categories, game, user, app }) => ({
     cats: categories.categories,
     loading: categories.loading || game.loading,
-    catsError: categories.error,
-    gameError: categories.error,
+    error: categories.error || game.error || user.error,
+    errorType: categories.errorType || game.errorType || user.errorType,
     defaults: user.userData.gameDefaults,
     accessToken: app.auth.accessToken,
   }));
 
   const onSubmitHandler = (event: SubmitEvent): void => {
     event.preventDefault();
-    dispatch(startGameHandler(accessToken));
+    dispatch(startGameHandler());
   };
+
+  const errors = <ErrorHandler error={error} type={errorType} />;
 
   return (
     <Fragment>
-      <ErrorHandler
-        error={gameError || catsError}
-        type={catsError ? PageTypes.CategorySettings : PageTypes.FetchingPosts}
-      />
+      {errors}
       {loading && <CircleLoading />}
-      {(!gameError || !catsError) && defaults && cats && (
+      {defaults && cats && (
         <div className="game__settings">
           <form onSubmit={onSubmitHandler}>
             <Typography variant="h3" component="h1">
@@ -78,6 +76,7 @@ export const GameSettingComponent: FC<{}> = () => {
               <TimeForTask defaults={defaults.time} />
             </Grid>
             <DefaultSettings />
+            {errors}
             <StartButton isFormValid={isFormValid} />
           </form>
         </div>

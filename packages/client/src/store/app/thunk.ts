@@ -58,6 +58,7 @@ export const logout = (): AppThunk => async (dispatch) => {
   dispatch(cleanAppDataHandler());
   window.localStorage.removeItem(LocalStorage.UserDataAccessToken);
   window.localStorage.removeItem(LocalStorage.UserDataRefreshToken);
+  window.localStorage.removeItem(LocalStorage.GameConfig);
 };
 
 export const refreshTokens = (): AppThunk => async (dispatch, getState) => {
