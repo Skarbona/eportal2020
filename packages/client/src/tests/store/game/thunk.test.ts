@@ -1,78 +1,87 @@
 import axios from 'axios';
 
-import * as gameThunk from '../../../store/game/thunk';
+import * as startGameThunk from '../../../store/game/thunks/startGame';
+import * as fetchPostsForGameThunk from '../../../store/game/thunks/fetchPostsForGame';
+import * as setUserDataThunk from '../../../store/user/thunks/setUserData';
 import * as gameActions from '../../../store/game/action';
 import * as userActions from '../../../store/user/action';
 import { RootState } from '../../../store/store.interface';
 import { mockedStore } from '../../../mocks/store';
 
-jest.mock('../../../store/game/action', () => ({
-  failFetchPosts: jest.fn(),
-  successFetchPosts: jest.fn(),
-  initFetchPosts: jest.fn(),
-}));
-
-jest.mock('../../../store/user/action', () => ({
-  initSetUserData: jest.fn(),
-  successSetUserData: jest.fn(),
-  failSetUserData: jest.fn(),
-}));
-
 describe('Thunk: game', () => {
   let dispatch: any;
   let store: RootState;
+  let failFetchPostsSpy: any;
+  let successFetchPostsSpy: any;
+  let initFetchPostsSpy: any;
+  let initSetUserDataSpy: any;
+  let successSetUserDataSpy: any;
+  let failSetUserDataSpy: any;
+  let setInLocalStorageSpy: any;
+  let setUserDataSpy: any;
+  let fetchPostsForGameSpy: any;
 
   beforeEach(() => {
     store = mockedStore();
     dispatch = jest.fn();
+    failFetchPostsSpy = jest.spyOn(gameActions, 'failFetchPosts');
+    successFetchPostsSpy = jest.spyOn(gameActions, 'successFetchPosts');
+    initFetchPostsSpy = jest.spyOn(gameActions, 'initFetchPosts');
+    initSetUserDataSpy = jest.spyOn(userActions, 'initSetUserData');
+    successSetUserDataSpy = jest.spyOn(userActions, 'successSetUserData');
+    failSetUserDataSpy = jest.spyOn(userActions, 'failSetUserData');
+    fetchPostsForGameSpy = jest.spyOn(fetchPostsForGameThunk, 'fetchPostsForGame');
+    setInLocalStorageSpy = jest.spyOn(window.localStorage.__proto__, 'setItem');
+    setUserDataSpy = jest
+      .spyOn(setUserDataThunk, 'setUserData')
+      .mockImplementation(() => jest.fn());
+  });
+
+  afterEach(() => {
+    failFetchPostsSpy.mockClear();
+    successFetchPostsSpy.mockClear();
+    initFetchPostsSpy.mockClear();
+    initSetUserDataSpy.mockClear();
+    successSetUserDataSpy.mockClear();
+    failSetUserDataSpy.mockClear();
+    setInLocalStorageSpy.mockClear();
+    setUserDataSpy.mockClear();
+    fetchPostsForGameSpy.mockClear();
   });
 
   describe('fetchPostsForGame thunk', () => {
     it('should call all required action in success path', async () => {
       jest.spyOn(axios, 'get').mockImplementation(() => Promise.resolve({ data: { posts: [] } }));
-      await gameThunk.fetchPostsForGame()(dispatch, () => store, null);
-      expect(gameActions.initFetchPosts).toHaveBeenCalled();
-      expect(gameActions.successFetchPosts).toHaveBeenCalledWith([]);
+      await fetchPostsForGameThunk.fetchPostsForGame()(dispatch, () => store, null);
+      expect(initFetchPostsSpy).toHaveBeenCalled();
+      expect(successFetchPostsSpy).toHaveBeenCalledWith([]);
     });
 
     it('should call all required action in fail path', async () => {
       const error = new Error();
       jest.spyOn(axios, 'get').mockImplementation(() => Promise.reject(error));
-      await gameThunk.fetchPostsForGame()(dispatch, () => store, null);
-      expect(gameActions.initFetchPosts).toHaveBeenCalled();
-      expect(gameActions.failFetchPosts).toHaveBeenCalledWith(error);
+      await fetchPostsForGameThunk.fetchPostsForGame()(dispatch, () => store, null);
+      expect(initFetchPostsSpy).toHaveBeenCalled();
+      expect(failFetchPostsSpy).toHaveBeenCalledWith(error);
     });
   });
 
   describe('startGameHandler thunk', () => {
     it('should call all required actions and thunks', async () => {
-      jest.spyOn(window.localStorage.__proto__, 'setItem');
-      window.localStorage.__proto__.setItem = jest.fn();
+      await startGameThunk.startGameHandler()(dispatch, () => store, null);
 
-      await gameThunk.startGameHandler()(dispatch, () => store, null);
-
-      // setUserData THUNK actions
-      expect(userActions.initSetUserData).not.toHaveBeenCalled();
-
-      // fetchPostsForGame THUNK actions
-      expect(gameActions.initFetchPosts).toHaveBeenCalled();
+      expect(setUserDataSpy).not.toHaveBeenCalled();
+      expect(fetchPostsForGameSpy).toHaveBeenCalled();
 
       expect(window.localStorage.setItem).toHaveBeenCalled();
     });
 
     it('should call all required actions and thunks if saveAsDefault selected', async () => {
-      jest.spyOn(window.localStorage.__proto__, 'setItem');
-      window.localStorage.__proto__.setItem = jest.fn();
       store.game.config.saveAsDefault = true;
+      await startGameThunk.startGameHandler()(dispatch, () => store, null);
 
-      await gameThunk.startGameHandler()(dispatch, () => store, null);
-
-      // setUserData THUNK actions
-      // TODO: Check why I cannot detect failSetUserData
-      // expect(userActions.failSetUserData).toHaveBeenCalled();
-
-      // fetchPostsForGame THUNK actions
-      expect(gameActions.initFetchPosts).toHaveBeenCalled();
+      expect(setUserDataSpy).toHaveBeenCalled();
+      expect(fetchPostsForGameSpy).toHaveBeenCalled();
 
       expect(window.localStorage.setItem).toHaveBeenCalled();
     });

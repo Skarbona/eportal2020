@@ -2,6 +2,7 @@ import { AppActions } from './action.interface';
 import { AppEnum } from './enum';
 import { appInitialState } from './initialState';
 import { AppStateInterface } from './initialState.interface';
+import { ErrorTypes } from '../../models/errors';
 
 const appReducer = (state = appInitialState, action: AppActions): AppStateInterface => {
   switch (action.type) {
@@ -25,6 +26,13 @@ const appReducer = (state = appInitialState, action: AppActions): AppStateInterf
           refreshToken,
           refreshTokenExpiration,
         },
+      };
+    }
+    case AppEnum.FailRefreshTokens: {
+      return {
+        ...state,
+        error: action.data.error,
+        errorType: ErrorTypes.UnAuthorizedWarning,
       };
     }
     case AppEnum.CleanAppData:

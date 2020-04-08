@@ -48,4 +48,13 @@ describe('Actions: Game', () => {
     const action = A.setFormValues(values);
     expect(action).toEqual(expectedAction);
   });
+
+  it('should create cleanGameData action', () => {
+    const expectedAction: I.CleanGameData = {
+      type: GameEnum.CleanGameData,
+    };
+
+    const action = A.cleanGameData();
+    expect(action).toEqual(expectedAction);
+  });
 });

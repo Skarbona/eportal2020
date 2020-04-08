@@ -5,6 +5,7 @@ import { GameEnum } from '../../../store/game/enum';
 import * as I from '../../../store/game/action.interface';
 import { postsResponseMock } from '../../../mocks/responses';
 import { convertedPosts } from '../../../utils/post-data-for-game';
+import { ErrorTypes, NetworkError } from '../../../models/errors';
 
 describe('Reducer: Game', () => {
   let reducerState: GameStateInterface;
@@ -48,8 +49,8 @@ describe('Reducer: Game', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it.skip('should handle FailFetchPosts', () => {
-    const error = new Error();
+  it('should handle FailFetchPosts', () => {
+    const error = { response: { status: 422 } } as NetworkError;
     const action: I.FailFetchPosts = {
       type: GameEnum.FailFetchPosts,
       data: {
@@ -61,6 +62,7 @@ describe('Reducer: Game', () => {
       ...initialState,
       loading: false,
       error,
+      errorType: ErrorTypes.FetchingPosts,
     };
     expect(state).toEqual(expectedState);
   });
@@ -82,5 +84,13 @@ describe('Reducer: Game', () => {
       },
     };
     expect(state).toEqual(expectedState);
+  });
+
+  it('should handle CleanGameData', () => {
+    const action: I.CleanGameData = {
+      type: GameEnum.CleanGameData,
+    };
+    const state = gameReducer(initialState, action);
+    expect(state).toEqual(initialState);
   });
 });

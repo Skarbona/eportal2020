@@ -5,8 +5,11 @@ import Game from './Game/Game';
 import AuthPage from './AuthPage/AuthPage';
 import Main from './Main/Main';
 
+interface Props {
+  accessToken: string;
+}
 // TODO: Add lazy loading for pages
-export const PagesComponent: FC<{ accessToken: string }> = ({ accessToken }) => {
+export const PagesComponent: FC<Props> = ({ accessToken }) => {
   return (
     <Fragment>
       {accessToken && (

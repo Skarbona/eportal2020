@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import axios from 'axios';
 
-import { categoriesIds } from '../../constants/categoriesIds';
-import { AppThunk } from '../store.interface';
-import { failFetchCategories, initFetchCategories, successFetchCategories } from './action';
+import { categoriesIds } from '../../../constants/categoriesIds';
+import { initFetchCategories, successFetchCategories, failFetchCategories } from '../action';
+import { AppThunk } from '../../store.interface';
 
 export const fetchCategories = (token: string): AppThunk => async (dispatch) => {
   dispatch(initFetchCategories());
@@ -18,7 +18,6 @@ export const fetchCategories = (token: string): AppThunk => async (dispatch) => 
     );
     dispatch(successFetchCategories(data.categories));
   } catch (e) {
-    // TODO: Handle error to users
     dispatch(failFetchCategories(e));
   }
 };

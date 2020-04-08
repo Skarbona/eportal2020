@@ -1,3 +1,5 @@
+import { ErrorTypes, NetworkError } from '../../models/errors';
+
 export interface AppStateInterface {
   auth: {
     accessToken: string;
@@ -5,4 +7,6 @@ export interface AppStateInterface {
     refreshToken: string;
     refreshTokenExpiration: Date;
   };
+  error?: NetworkError;
+  errorType?: ErrorTypes;
 }

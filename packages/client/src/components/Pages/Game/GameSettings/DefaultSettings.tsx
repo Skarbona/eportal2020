@@ -7,7 +7,7 @@ import { FormValues } from '../../../../../../service/src/models/shared-interfac
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
 
-export const DefaultSettingsComponent: FC<{}> = () => {
+export const DefaultSettingsComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const [checkboxState, setCheckboxState] = useState<boolean>(false);
@@ -30,7 +30,12 @@ export const DefaultSettingsComponent: FC<{}> = () => {
         <FormControlLabel
           className="default-settings__label"
           control={
-            <Checkbox checked={checkboxState} onChange={setCheckboxStateHandler} color="primary" />
+            <Checkbox
+              id="default-option"
+              checked={checkboxState}
+              onChange={setCheckboxStateHandler}
+              color="primary"
+            />
           }
           label={t('Save as default')}
         />

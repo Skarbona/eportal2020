@@ -7,7 +7,7 @@ import './App.scss';
 import { useSelector } from 'react-redux';
 import { theme } from '../settings/theme-settings';
 import { useReduxDispatch } from '../store/helpers';
-import { fetchUserData } from '../store/user/thunk';
+import { fetchUserData } from '../store/user/thunks/fetchUserData';
 import Pages from './Pages/Pages';
 import Header from './Shared/PageElements/Header/Header';
 import SnackBarErrorHandler from './Shared/UIElements/ErrorHandlerInfo/SnackBarErrorHandler';
@@ -19,7 +19,7 @@ interface AppSelector {
   accessToken: string;
 }
 
-export const App: FC<{}> = () => {
+export const App: FC = () => {
   const { id, accessToken } = useSelector<RootState, AppSelector>(({ user, app }) => ({
     id: user.userData.id,
     accessToken: app.auth.accessToken,

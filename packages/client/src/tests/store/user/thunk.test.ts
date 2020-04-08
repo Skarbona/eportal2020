@@ -1,57 +1,112 @@
 import axios from 'axios';
 
-import * as userThunk from '../../../store/user/thunk';
-
-import { initialRootState } from '../../../store/store';
+import * as setUserDataThunk from '../../../store/user/thunks/setUserData';
+import * as fetchUserDataThunk from '../../../store/user/thunks/fetchUserData';
+import * as authorizeUserThunk from '../../../store/user/thunks/authorizeUser';
 import * as userActions from '../../../store/user/action';
 
-jest.mock('../../../store/user/action', () => ({
-  initSetUserData: jest.fn(),
-  successSetUserData: jest.fn(),
-  failSetUserData: jest.fn(),
-  initFetchUserData: jest.fn(),
-  successFetchUserData: jest.fn(),
-  failFetchUserData: jest.fn(),
-}));
+import { initialRootState } from '../../../store/store';
+import { AuthorizationEndpoints } from '../../../models/endpoint-models';
 
 describe('Thunk: User', () => {
   let dispatch: any;
+  let initSetUserDataSpy: any;
+  let successSetUserDataSpy: any;
+  let failSetUserDataSpy: any;
+  let initFetchUserDataSpy: any;
+  let successFetchUserDataSpy: any;
+  let failFetchUserDataSpy: any;
+  let initAuthorizationSpy: any;
+  let successAuthorizationSpy: any;
+  let failAuthorizationSpy: any;
 
   beforeEach(() => {
     dispatch = jest.fn();
+    initSetUserDataSpy = jest.spyOn(userActions, 'initSetUserData');
+    successSetUserDataSpy = jest.spyOn(userActions, 'successSetUserData');
+    failSetUserDataSpy = jest.spyOn(userActions, 'failSetUserData');
+    initFetchUserDataSpy = jest.spyOn(userActions, 'initFetchUserData');
+    successFetchUserDataSpy = jest.spyOn(userActions, 'successFetchUserData');
+    failFetchUserDataSpy = jest.spyOn(userActions, 'failFetchUserData');
+    initAuthorizationSpy = jest.spyOn(userActions, 'initAuthorization');
+    successAuthorizationSpy = jest.spyOn(userActions, 'successAuthorization');
+    failAuthorizationSpy = jest.spyOn(userActions, 'failAuthorization');
+  });
+
+  afterEach(() => {
+    initSetUserDataSpy.mockClear();
+    successSetUserDataSpy.mockClear();
+    failSetUserDataSpy.mockClear();
+    initFetchUserDataSpy.mockClear();
+    successFetchUserDataSpy.mockClear();
+    failFetchUserDataSpy.mockClear();
+    initAuthorizationSpy.mockClear();
+    successAuthorizationSpy.mockClear();
+    failAuthorizationSpy.mockClear();
   });
 
   describe('setUserData thunk', () => {
     it('should call all required action in success path', async () => {
       jest.spyOn(axios, 'patch').mockImplementation(() => Promise.resolve({ data: { user: {} } }));
-      await userThunk.setUserData()(dispatch, () => initialRootState, null);
-      expect(userActions.initSetUserData).toHaveBeenCalled();
-      expect(userActions.successSetUserData).toHaveBeenCalledWith({});
+      await setUserDataThunk.setUserData()(dispatch, () => initialRootState, null);
+      expect(initSetUserDataSpy).toHaveBeenCalled();
+      expect(successSetUserDataSpy).toHaveBeenCalledWith({});
     });
 
     it('should call all required action in fail path', async () => {
       const error = new Error();
       jest.spyOn(axios, 'patch').mockImplementation(() => Promise.reject(error));
-      await userThunk.setUserData()(dispatch, () => initialRootState, null);
-      expect(userActions.initSetUserData).toHaveBeenCalled();
-      expect(userActions.failSetUserData).toHaveBeenCalledWith(error);
+      await setUserDataThunk.setUserData()(dispatch, () => initialRootState, null);
+      expect(initSetUserDataSpy).toHaveBeenCalled();
+      expect(failSetUserDataSpy).toHaveBeenCalledWith(error);
     });
   });
 
   describe('fetchUserData thunk', () => {
     it('should call all required action in success path', async () => {
       jest.spyOn(axios, 'get').mockImplementation(() => Promise.resolve({ data: { user: {} } }));
-      await userThunk.fetchUserData()(dispatch, () => initialRootState, null);
-      expect(userActions.initFetchUserData).toHaveBeenCalled();
-      expect(userActions.successFetchUserData).toHaveBeenCalledWith({});
+      await fetchUserDataThunk.fetchUserData('TOKEN')(dispatch, () => initialRootState, null);
+      expect(initFetchUserDataSpy).toHaveBeenCalled();
+      expect(successFetchUserDataSpy).toHaveBeenCalledWith({});
     });
 
     it('should call all required action in fail path', async () => {
       const error = new Error();
       jest.spyOn(axios, 'get').mockImplementation(() => Promise.reject(error));
-      await userThunk.fetchUserData()(dispatch, () => initialRootState, null);
-      expect(userActions.initFetchUserData).toHaveBeenCalled();
-      expect(userActions.failFetchUserData).toHaveBeenCalledWith(error);
+      await fetchUserDataThunk.fetchUserData('TOKEN')(dispatch, () => initialRootState, null);
+      expect(initFetchUserDataSpy).toHaveBeenCalled();
+      expect(failFetchUserDataSpy).toHaveBeenCalledWith(error);
+    });
+  });
+
+  describe('authorizeUser thunk', () => {
+    it('should call all required action in success path', async () => {
+      jest.spyOn(axios, 'post').mockImplementation(() =>
+        Promise.resolve({
+          data: {
+            userData: { id: '' },
+            accessTokenData: { accessToken: '' },
+            refreshTokenData: { refreshToken: '' },
+          },
+        }),
+      );
+      await authorizeUserThunk.authorizeUser(AuthorizationEndpoints.Login, {
+        password: '',
+        email: '',
+      })(dispatch, () => initialRootState, null);
+      expect(initAuthorizationSpy).toHaveBeenCalled();
+      expect(successAuthorizationSpy).toHaveBeenCalledWith({ userData: { id: '' } });
+    });
+
+    it('should call all required action in fail path', async () => {
+      const error = new Error();
+      jest.spyOn(axios, 'post').mockImplementation(() => Promise.reject(error));
+      await authorizeUserThunk.authorizeUser(AuthorizationEndpoints.Login, {
+        password: '',
+        email: '',
+      })(dispatch, () => initialRootState, null);
+      expect(initAuthorizationSpy).toHaveBeenCalled();
+      expect(failAuthorizationSpy).toHaveBeenCalledWith(error);
     });
   });
 });

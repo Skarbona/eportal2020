@@ -36,4 +36,13 @@ describe('Actions: Categories', () => {
     const action = A.failFetchCategories(error);
     expect(action).toEqual(expectedAction);
   });
+
+  it('should create cleanCategoriesData action', () => {
+    const expectedAction: I.CleanCategoriesData = {
+      type: CategoriesEnum.CleanCategoriesData,
+    };
+
+    const action = A.cleanCategoriesData();
+    expect(action).toEqual(expectedAction);
+  });
 });

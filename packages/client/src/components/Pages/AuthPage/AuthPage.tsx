@@ -15,7 +15,7 @@ import * as A from './state/actions';
 import { InputChangeEvent, SubmitEvent } from '../../../models/typescript-events';
 import { RootState } from '../../../store/store.interface';
 import { InputKeys } from './state/interface';
-import { authorizeUser } from '../../../store/user/thunk';
+import { authorizeUser } from '../../../store/user/thunks/authorizeUser';
 import { useReduxDispatch } from '../../../store/helpers';
 import { AuthorizationEndpoints } from '../../../models/endpoint-models';
 import { PageParams } from '../../../models/page-types';
@@ -112,13 +112,13 @@ export const AuthPageComponent: FC = () => {
     <Fragment>
       {!isRegisterMode && (
         <Grid item xs>
-          <Link href="#" variant="body2">
+          <Link href="#" variant="body2" className="link__forgot-password">
             {t('Forgot password?')}
           </Link>
         </Grid>
       )}
       <Grid item>
-        <Link onClick={setModeHandler} variant="body2" href="#">
+        <Link onClick={setModeHandler} variant="body2" href="#" className="link__switch-mode">
           {isRegisterMode
             ? t('Do you have an account? Sign in')
             : t('Do not have an account? Sign Up')}

@@ -1,4 +1,5 @@
 import { AppEnum } from './enum';
+import { NetworkError } from '../../models/errors';
 
 interface ActionInterface {
   type: AppEnum;
@@ -6,6 +7,17 @@ interface ActionInterface {
 
 export interface CleanAppData extends ActionInterface {
   type: AppEnum.CleanAppData;
+}
+
+export interface InitRefreshTokens extends ActionInterface {
+  type: AppEnum.InitRefreshTokens;
+}
+
+export interface FailRefreshTokens extends ActionInterface {
+  type: AppEnum.FailRefreshTokens;
+  data: {
+    error: NetworkError;
+  };
 }
 
 export interface SetAccessTokenData extends ActionInterface {
@@ -24,7 +36,12 @@ export interface SetRefreshTokenData extends ActionInterface {
   };
 }
 
-export type AppActions = CleanAppData | SetAccessTokenData | SetRefreshTokenData;
+export type AppActions =
+  | CleanAppData
+  | SetAccessTokenData
+  | SetRefreshTokenData
+  | InitRefreshTokens
+  | FailRefreshTokens;
 
 export interface Login {
   userId: string;

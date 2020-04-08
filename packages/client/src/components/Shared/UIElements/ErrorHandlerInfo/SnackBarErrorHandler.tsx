@@ -14,9 +14,9 @@ export interface Props {
 
 export const SnackBarErrorHandlerComponent: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
-  const { error, type } = useSelector<RootState, Props>(({ user }) => ({
-    error: user?.error,
-    type: user?.errorType,
+  const { error, type } = useSelector<RootState, Props>(({ user, app }) => ({
+    error: user.error || app.error,
+    type: user.errorType || app.errorType,
   }));
 
   useEffect(() => {

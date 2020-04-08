@@ -21,7 +21,7 @@ export interface AuthPageState {
 
 export enum AuthPageActionsEnum {
   PasswordChanged = 'PASSWORD_CHANGED',
-  RepeatEmailChanged = 'REPEAT_EMAIL_CHANGED',
+  ConfirmedEmailChanged = 'CONFIRMED_EMAIL_CHANGED',
   EmailChanged = 'EMAIL_CHANGED',
   UserNameChanged = 'USER_NAME_CHANGED',
   SetVisibleInputs = 'SET_VISIBLE_INPUTS',
@@ -48,8 +48,8 @@ export interface PasswordChanged extends Actions {
   type: AuthPageActionsEnum.PasswordChanged;
 }
 
-export interface RepeatEmailChanged extends Actions {
-  type: AuthPageActionsEnum.RepeatEmailChanged;
+export interface ConfirmedEmailChanged extends Actions {
+  type: AuthPageActionsEnum.ConfirmedEmailChanged;
 }
 
 export interface EmailChanged extends Actions {
@@ -76,7 +76,7 @@ export interface RecaptchaChanged {
 
 export type AuthPageActions =
   | PasswordChanged
-  | RepeatEmailChanged
+  | ConfirmedEmailChanged
   | EmailChanged
   | SetVisibleInputs
   | RecaptchaChanged

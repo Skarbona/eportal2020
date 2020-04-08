@@ -5,6 +5,7 @@ import { UserEnum } from '../../../store/user/enum';
 import * as I from '../../../store/user/action.interface';
 import { categoryResponseMock } from '../../../mocks/responses';
 import { mockedStore } from '../../../mocks/store';
+import { ErrorTypes, NetworkError } from '../../../models/errors';
 
 describe('Reducer: User', () => {
   let reducerState: UserStateInterface;
@@ -18,14 +19,15 @@ describe('Reducer: User', () => {
     expect(state).toEqual(initialState);
   });
 
-  it.skip('should handle InitFetchUserData', () => {
+  it('should handle InitFetchUserData', () => {
     const action: I.InitFetchUserData = {
       type: UserEnum.InitFetchUserData,
     };
     const state = userReducer(initialState, action);
-    const expectedState = {
+    const expectedState: UserStateInterface = {
       ...initialState,
       loading: true,
+      error: null,
     };
     expect(state).toEqual(expectedState);
   });
@@ -49,8 +51,8 @@ describe('Reducer: User', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it.skip('should handle FailFetchUserData', () => {
-    const error = new Error();
+  it('should handle FailFetchUserData', () => {
+    const error = { response: { status: 401 } } as NetworkError;
     const action: I.FailFetchUserData = {
       type: UserEnum.FailFetchUserData,
       data: {
@@ -62,23 +64,20 @@ describe('Reducer: User', () => {
       ...initialState,
       loading: false,
       error,
+      errorType: ErrorTypes.UnAuthorized,
     };
     expect(state).toEqual(expectedState);
   });
 
-  it('should return initial state', () => {
-    const state = userReducer(initialState, {} as any);
-    expect(state).toEqual(initialState);
-  });
-
-  it.skip('should handle InitSetUserData', () => {
+  it('should handle InitSetUserData', () => {
     const action: I.InitSetUserData = {
       type: UserEnum.InitSetUserData,
     };
     const state = userReducer(initialState, action);
-    const expectedState = {
+    const expectedState: UserStateInterface = {
       ...initialState,
       loading: true,
+      error: null,
     };
     expect(state).toEqual(expectedState);
   });
@@ -102,8 +101,8 @@ describe('Reducer: User', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it.skip('should handle FailSetUserData', () => {
-    const error = new Error();
+  it('should handle FailSetUserData', () => {
+    const error = { response: { status: 422 } } as NetworkError;
     const action: I.FailSetUserData = {
       type: UserEnum.FailSetUserData,
       data: {
@@ -115,7 +114,66 @@ describe('Reducer: User', () => {
       ...initialState,
       loading: false,
       error,
+      errorType: ErrorTypes.CannotSetUserDataWarning,
     };
     expect(state).toEqual(expectedState);
+  });
+
+  it('should handle InitAuthorization', () => {
+    const action: I.InitAuthorization = {
+      type: UserEnum.InitAuthorization,
+    };
+    const state = userReducer(initialState, action);
+    const expectedState: UserStateInterface = {
+      ...initialState,
+      loading: true,
+      error: null,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle SuccessAuthorization', () => {
+    const {
+      user: { userData },
+    } = mockedStore();
+    const action: I.SuccessAuthorization = {
+      type: UserEnum.SuccessAuthorization,
+      data: {
+        userData,
+      },
+    };
+    const state = userReducer(initialState, action);
+    const expectedState = {
+      ...initialState,
+      loading: false,
+      userData,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle FailAuthorization', () => {
+    const error = { response: { status: 422 } } as NetworkError;
+    const action: I.FailAuthorization = {
+      type: UserEnum.FailAuthorization,
+      data: {
+        error,
+      },
+    };
+    const state = userReducer(initialState, action);
+    const expectedState = {
+      ...initialState,
+      loading: false,
+      error,
+      errorType: ErrorTypes.WrongRegisterInputs,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle CleanUserData', () => {
+    const action: I.CleanUserData = {
+      type: UserEnum.CleanUserData,
+    };
+    const state = userReducer(initialState, action);
+    expect(state).toEqual(initialState);
   });
 });

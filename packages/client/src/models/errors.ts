@@ -19,6 +19,7 @@ export enum ErrorTypes {
   ServerError = 'ServerError',
   CannotSetUserDataWarning = 'CannotSetUserDataWarning',
   UnAuthorized = 'UnAuthorized',
+  UnAuthorizedWarning = 'UnAuthorizedWarning',
 }
 
 export enum ErrorsSize {
@@ -90,5 +91,12 @@ i18n.on('languageChanged', (_language) => {
     message: i18n.t('Please login again'),
     size: ErrorsSize.Big,
     severity: 'error',
+  });
+
+  ErrorHandlingMap.set(ErrorTypes.UnAuthorizedWarning, {
+    header: i18n.t('Your permissions are not valid'),
+    message: i18n.t('Some features may be not available'),
+    size: ErrorsSize.Snackbar,
+    severity: 'warning',
   });
 });

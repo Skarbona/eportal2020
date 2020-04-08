@@ -7,6 +7,17 @@ export const cleanAppData: ActionCreator<I.CleanAppData> = () => ({
   type: AppEnum.CleanAppData,
 });
 
+export const initRefreshTokens: ActionCreator<I.InitRefreshTokens> = () => ({
+  type: AppEnum.InitRefreshTokens,
+});
+
+export const failRefreshTokens: ActionCreator<I.FailRefreshTokens> = (error) => ({
+  type: AppEnum.FailRefreshTokens,
+  data: {
+    error,
+  },
+});
+
 export const setAccessTokenData: ActionCreator<I.SetAccessTokenData> = ({
   accessToken,
   accessTokenExpiration,

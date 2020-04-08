@@ -5,14 +5,17 @@ import { FormControlLabel } from '@material-ui/core';
 import * as gameActions from '../../../../store/game/action';
 import { DefaultSettingsComponent } from '../../../../components/Pages/Game/GameSettings/DefaultSettings';
 
-jest.mock('../../../../store/game/action', () => ({
-  setFormValues: jest.fn(),
-}));
-
 describe('<DefaultSettings /> component', () => {
   let wrapper: ShallowWrapper;
+  let setFormValuesSpy: any;
+
   beforeEach(() => {
     wrapper = shallow(<DefaultSettingsComponent />);
+    setFormValuesSpy = jest.spyOn(gameActions, 'setFormValues');
+  });
+
+  afterEach(() => {
+    setFormValuesSpy.mockClear();
   });
 
   it('should render all required elements', () => {
@@ -20,6 +23,6 @@ describe('<DefaultSettings /> component', () => {
   });
 
   it('should call setFormValues with defaults', () => {
-    expect(gameActions.setFormValues).toHaveBeenCalledWith({ saveAsDefault: false });
+    expect(setFormValuesSpy).toHaveBeenCalledWith({ saveAsDefault: false });
   });
 });

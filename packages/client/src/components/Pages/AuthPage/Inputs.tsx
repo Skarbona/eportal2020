@@ -6,7 +6,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { AuthPageState } from './state/interface';
 import { InputChangeEvent } from '../../../models/typescript-events';
 
-interface Props {
+export interface Props {
   passwordHandler(value: InputChangeEvent, blurred?: boolean): void;
   userNameHandler(value: InputChangeEvent, blurred?: boolean): void;
   confirmedEmailHandler(value: InputChangeEvent, blurred?: boolean): void;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
+import { createShallow } from '@material-ui/core/test-utils';
 import { FormGroup } from '@material-ui/core';
 
 import * as gameActions from '../../../../store/game/action';
@@ -10,13 +11,20 @@ import {
 import ExpansionPanelComponent from '../../../../components/Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { mockedStore } from '../../../../mocks/store';
 
-jest.mock('../../../../store/game/action', () => ({
-  setFormValues: jest.fn(),
-}));
-
 describe('<PreferencesComponent /> component', () => {
   let wrapper: ShallowWrapper;
+  let materialShallow: any;
   let props: Props;
+  let setFormValuesSpy: any;
+
+  beforeEach(() => {
+    materialShallow = createShallow();
+    setFormValuesSpy = jest.spyOn(gameActions, 'setFormValues');
+  });
+
+  afterEach(() => {
+    setFormValuesSpy.mockClear();
+  });
 
   it('should render all required elements', () => {
     props = { preferences: null, setFormValidation: () => {}, defaults: null };
@@ -45,6 +53,6 @@ describe('<PreferencesComponent /> component', () => {
       setFormValidation: () => {},
     };
     wrapper = shallow(<PreferencesComponent {...props} />);
-    expect(gameActions.setFormValues).toHaveBeenCalled();
+    expect(setFormValuesSpy).toHaveBeenCalled();
   });
 });
