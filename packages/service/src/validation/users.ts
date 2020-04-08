@@ -1,6 +1,5 @@
 import { checkSchema } from 'express-validator';
 import { FormValues } from '../models/shared-interfaces/user';
-// TODO: make multilanguage
 
 const userName = {
   isLength: {
@@ -20,9 +19,10 @@ const email = {
   },
 };
 
+/* eslint-disable-next-line @typescript-eslint/explicit-function-return-type */
 const passwordHandler = (optional: boolean) => ({
   custom: {
-    options: (value: string) => {
+    options: (value: string): boolean => {
       if (!value && optional) {
         return true;
       }
@@ -40,9 +40,10 @@ const passwordHandler = (optional: boolean) => ({
   },
 });
 
+/* eslint-disable-next-line @typescript-eslint/explicit-function-return-type */
 const gameDefaultsHandler = (optional: boolean) => ({
   custom: {
-    options: (value: FormValues) => {
+    options: (value: FormValues): boolean => {
       if (!value && optional) {
         return true;
       }

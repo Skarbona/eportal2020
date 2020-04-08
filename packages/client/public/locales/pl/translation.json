@@ -51,5 +51,6 @@
   "This is probably issue with Internet connection or server": "Proszę sprawdź połączenie internetowe. Jeżeli nie pomoże, skontaktuj się ze wsparciem technicznym",
   "We cannot save user data": "Nie możemy zapisać nowych danych",
   "Your permissions are not valid": "Nie możemy Ciebie zweryfikować",
-  "Please login again": "Proszę zaloguj się ponownie"
+  "Please login again": "Proszę zaloguj się ponownie",
+  "Some features may be not available": "Niektóre funkcjonalności mogą być ograniczone. Proszę zaloguj się ponownie"
 }

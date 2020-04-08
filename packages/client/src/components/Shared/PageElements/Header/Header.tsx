@@ -4,7 +4,7 @@ import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/co
 import MenuIcon from '@material-ui/icons/Menu';
 import { useTranslation } from 'react-i18next';
 
-import { logout } from '../../../../store/app/thunk';
+import { logout } from '../../../../store/app/thunks/logout';
 import './Header.scss';
 import { PageParams } from '../../../../models/page-types';
 import { useReduxDispatch } from '../../../../store/helpers';
@@ -30,20 +30,20 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
         </Typography>
         {accessToken && (
           <Fragment>
-            <Link to="/gra">
+            <Link to="/gra" className="btn__start-game">
               <Button>{t('Start a Game!')}</Button>
             </Link>
-            <Link to="/" onClick={logoutHandler}>
+            <Link to="/" onClick={logoutHandler} className="btn__logout">
               <Button>{t('Logout')}</Button>
             </Link>
           </Fragment>
         )}
         {!accessToken && (
           <Fragment>
-            <Link to={`/autentykacja/${PageParams.Login}`}>
+            <Link to={`/autentykacja/${PageParams.Login as string}`} className="btn__log-in">
               <Button>{t('Log in')}</Button>
             </Link>
-            <Link to={`/autentykacja/${PageParams.Register}`}>
+            <Link to={`/autentykacja/${PageParams.Register as string}`} className="btn__register">
               <Button>{t('Register')}</Button>
             </Link>
           </Fragment>

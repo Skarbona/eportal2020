@@ -6,7 +6,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { AuthPageState } from './state/interface';
 import { InputChangeEvent } from '../../../models/typescript-events';
 
-interface Props {
+export interface Props {
   passwordHandler(value: InputChangeEvent, blurred?: boolean): void;
   userNameHandler(value: InputChangeEvent, blurred?: boolean): void;
   confirmedEmailHandler(value: InputChangeEvent, blurred?: boolean): void;
@@ -26,7 +26,7 @@ export const InputsComponent: FC<Props> = ({
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const setShowPasswordHandler = () => setShowPassword((prevProps) => !prevProps);
+  const setShowPasswordHandler = (): void => setShowPassword((prevProps) => !prevProps);
 
   const showPasswordIcon = (
     <InputAdornment position="end">
@@ -51,7 +51,7 @@ export const InputsComponent: FC<Props> = ({
         error={inputs.email.error}
         helperText={inputs.email.errorMsg}
         onChange={emailHandler}
-        onBlur={(e) => emailHandler(e, true)}
+        onBlur={(e): void => emailHandler(e, true)}
       />
       {isRegisterMode && (
         <TextField
@@ -66,7 +66,7 @@ export const InputsComponent: FC<Props> = ({
           error={inputs.confirmedEmail.error}
           helperText={inputs.confirmedEmail.errorMsg}
           onChange={confirmedEmailHandler}
-          onBlur={(e) => confirmedEmailHandler(e, true)}
+          onBlur={(e): void => confirmedEmailHandler(e, true)}
         />
       )}
       {isRegisterMode && (
@@ -82,7 +82,7 @@ export const InputsComponent: FC<Props> = ({
           error={inputs.userName.error}
           helperText={inputs.userName.errorMsg}
           onChange={userNameHandler}
-          onBlur={(e) => userNameHandler(e, true)}
+          onBlur={(e): void => userNameHandler(e, true)}
         />
       )}
       <TextField
@@ -99,7 +99,7 @@ export const InputsComponent: FC<Props> = ({
         error={inputs.password.error}
         helperText={inputs.password.errorMsg}
         onChange={passwordHandler}
-        onBlur={(e) => passwordHandler(e, true)}
+        onBlur={(e): void => passwordHandler(e, true)}
         InputProps={{
           endAdornment: showPasswordIcon,
         }}

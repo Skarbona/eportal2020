@@ -1,16 +1,21 @@
 import React, { FC, memo, useEffect } from 'react';
 import { Container } from '@material-ui/core';
 
-import { fetchCategories } from '../../../store/categories/thunk';
+import { fetchCategories } from '../../../store/categories/thunks/fetchCategories';
 import { useReduxDispatch } from '../../../store/helpers';
 import GameSettings from './GameSettings/GameSettings';
 
-// TODO: Add Auth wrapper for this page
-export const GameComponent: FC<{ accessToken: string }> = ({ accessToken }) => {
+interface Props {
+  accessToken: string;
+}
+
+export const GameComponent: FC<Props> = ({ accessToken }) => {
   const dispatch = useReduxDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories(accessToken));
+    if (accessToken) {
+      dispatch(fetchCategories(accessToken));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 

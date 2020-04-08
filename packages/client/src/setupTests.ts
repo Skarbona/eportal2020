@@ -10,8 +10,18 @@ configure({ adapter: new Adapter() });
 
 jest.mock('react-redux', () => ({
   useDispatch: () => jest.fn(),
-  useReduxDispatch: () => jest.fn(),
   useSelector: jest.fn(() => mockedState),
+}));
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: jest.fn(() => ({
+    push: (path: string) => {},
+  })),
+}));
+
+jest.mock('./store/helpers', () => ({
+  useReduxDispatch: () => jest.fn(),
 }));
 
 jest.mock('./settings/translation-settings', () => ({
@@ -26,8 +36,7 @@ jest.mock('react-i18next', () => ({
 }));
 
 enableHooks(jest as any);
-
+// jest.spyOn(React, 'useCallback').mockImplementation((f) => f());
 // jest.spyOn(React, 'useRef').mockImplementation(() =>({ current: "current"}));
 // jest.spyOn(React, 'useEffect').mockImplementation(f => f());
-// jest.spyOn(React, 'useCallback').mockImplementation(f => f());
 // jest.spyOn(React, 'useState').mockImplementation((init) => [init,jest.fn()]);

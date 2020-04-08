@@ -5,7 +5,7 @@ import { PostRequestInterface } from '../models/shared-interfaces/post';
 const catsQueryRules = {
   optional: { options: { nullable: true } },
   custom: {
-    options: (cats: string) => {
+    options: (cats: string): boolean => {
       const hasInvalidIds = cats?.split(',').find((cat) => !Types.ObjectId.isValid(cat));
       if (hasInvalidIds) {
         throw new Error('Provided Ids are not valid');
@@ -17,7 +17,7 @@ const catsQueryRules = {
 
 const posts = {
   custom: {
-    options: (posts: PostRequestInterface) => {
+    options: (posts: PostRequestInterface): boolean => {
       if (!posts || !Array.isArray(posts) || posts.length < 1) {
         throw new Error('Not valid schema for posts');
       }

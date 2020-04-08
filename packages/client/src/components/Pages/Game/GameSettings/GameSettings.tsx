@@ -20,7 +20,7 @@ import PlayersNames from './PlayersNames';
 import Preferences from './Preferences';
 import TimeForTask from './TimeForTask';
 import StartButton from './StartButton';
-import { startGameHandler } from '../../../../store/game/thunk';
+import { startGameHandler } from '../../../../store/game/thunks/startGame';
 import { useReduxDispatch } from '../../../../store/helpers';
 
 export interface GameSettingStoreProps {

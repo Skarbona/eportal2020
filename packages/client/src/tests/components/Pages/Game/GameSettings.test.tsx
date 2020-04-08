@@ -3,7 +3,11 @@ import * as redux from 'react-redux';
 import { shallow, ShallowWrapper } from 'enzyme';
 
 import { mockedStore } from '../../../../mocks/store';
-import { GameSettingComponent } from '../../../../components/Pages/Game/GameSettings/GameSettings';
+import { ErrorTypes } from '../../../../models/errors';
+import {
+  GameSettingComponent,
+  GameSettingStoreProps,
+} from '../../../../components/Pages/Game/GameSettings/GameSettings';
 import DefaultSettings from '../../../../components/Pages/Game/GameSettings/DefaultSettings';
 import NumberOfTasksPerLevel from '../../../../components/Pages/Game/GameSettings/NumberOfTasksPerLevel';
 import Places from '../../../../components/Pages/Game/GameSettings/Places';
@@ -13,33 +17,32 @@ import TimeForTask from '../../../../components/Pages/Game/GameSettings/TimeForT
 import StartButton from '../../../../components/Pages/Game/GameSettings/StartButton';
 import ErrorHandler from '../../../../components/Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
 import CircleLoading from '../../../../components/Shared/UIElements/Loading/CircleLoading';
-import * as gameThunk from '../../../../store/game/thunk';
+import * as startGameThunk from '../../../../store/game/thunks/startGame';
 import { mockedEvent } from '../../../../mocks/event';
-
-jest.mock('../../../../store/game/thunk', () => ({
-  startGameHandler: jest.fn(),
-}));
 
 describe('<GameSettings > component', () => {
   let wrapper: ShallowWrapper;
   let spyStore: any;
+  let startGameSpy: any;
 
   beforeEach(() => {
     spyStore = jest.spyOn(redux, 'useSelector');
+    startGameSpy = jest.spyOn(startGameThunk, 'startGameHandler');
   });
 
   afterEach(() => {
     spyStore.mockRestore();
+    startGameSpy.mockRestore();
   });
 
   it('should have all required elements', () => {
     spyStore.mockReturnValue({
       loading: false,
       cats: null,
-      catsError: null,
-      gameError: null,
+      error: null,
+      errorType: null,
       defaults: null,
-    });
+    } as GameSettingStoreProps);
     wrapper = shallow(<GameSettingComponent />);
     expect(wrapper.find(ErrorHandler)).toHaveLength(1);
     expect(wrapper.find(DefaultSettings)).toHaveLength(0);
@@ -56,25 +59,25 @@ describe('<GameSettings > component', () => {
     spyStore.mockReturnValue({
       loading: true,
       cats: null,
-      catsError: null,
-      gameError: null,
+      error: null,
+      errorType: null,
       defaults: null,
-    });
+    } as GameSettingStoreProps);
     wrapper = shallow(<GameSettingComponent />);
     expect(wrapper.find(CircleLoading)).toHaveLength(1);
   });
 
-  it.skip('should render all game settings if default provided', () => {
+  it('should render all game settings if defaults and categories provided', () => {
     const { categories, user } = mockedStore();
     spyStore.mockReturnValue({
       cats: categories.categories,
       defaults: user.userData.gameDefaults,
       loading: false,
-      catsError: null,
-      gameError: null,
-    });
+      error: null,
+      errorType: null,
+    } as GameSettingStoreProps);
     wrapper = shallow(<GameSettingComponent />);
-    expect(wrapper.find(ErrorHandler)).toHaveLength(1);
+    expect(wrapper.find(ErrorHandler)).toHaveLength(2);
     expect(wrapper.find(DefaultSettings)).toHaveLength(1);
     expect(wrapper.find(NumberOfTasksPerLevel)).toHaveLength(1);
     expect(wrapper.find(Places)).toHaveLength(1);
@@ -85,24 +88,24 @@ describe('<GameSettings > component', () => {
     expect(wrapper.find(CircleLoading)).toHaveLength(0);
   });
 
-  it.skip('should not render all game settings if error occured', () => {
+  it('should properly render all components if error occured', () => {
     const { categories, user } = mockedStore();
     spyStore.mockReturnValue({
-      catsError: new Error(),
-      gameError: new Error(),
+      error: new Error(),
+      errorType: ErrorTypes.UnAuthorized,
       loading: false,
       cats: categories.categories,
       defaults: user.userData.gameDefaults,
-    });
+    } as GameSettingStoreProps);
     wrapper = shallow(<GameSettingComponent />);
-    expect(wrapper.find(ErrorHandler)).toHaveLength(1);
-    expect(wrapper.find(DefaultSettings)).toHaveLength(0);
-    expect(wrapper.find(NumberOfTasksPerLevel)).toHaveLength(0);
-    expect(wrapper.find(Places)).toHaveLength(0);
-    expect(wrapper.find(PlayersNames)).toHaveLength(0);
-    expect(wrapper.find(Preferences)).toHaveLength(0);
-    expect(wrapper.find(TimeForTask)).toHaveLength(0);
-    expect(wrapper.find(StartButton)).toHaveLength(0);
+    expect(wrapper.find(ErrorHandler)).toHaveLength(2);
+    expect(wrapper.find(DefaultSettings)).toHaveLength(1);
+    expect(wrapper.find(NumberOfTasksPerLevel)).toHaveLength(1);
+    expect(wrapper.find(Places)).toHaveLength(1);
+    expect(wrapper.find(PlayersNames)).toHaveLength(1);
+    expect(wrapper.find(Preferences)).toHaveLength(1);
+    expect(wrapper.find(TimeForTask)).toHaveLength(1);
+    expect(wrapper.find(StartButton)).toHaveLength(1);
     expect(wrapper.find(CircleLoading)).toHaveLength(0);
   });
 
@@ -112,11 +115,11 @@ describe('<GameSettings > component', () => {
       cats: categories.categories,
       defaults: user.userData.gameDefaults,
       loading: false,
-      catsError: null,
-      gameError: null,
-    });
+      error: null,
+      errorType: null,
+    } as GameSettingStoreProps);
     wrapper = shallow(<GameSettingComponent />);
     wrapper.find('form').simulate('submit', mockedEvent);
-    expect(gameThunk.startGameHandler).toHaveBeenCalled();
+    expect(startGameSpy).toHaveBeenCalled();
   });
 });

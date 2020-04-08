@@ -1,7 +1,9 @@
 import { useEffect, FC, memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { login, logout, refreshTokens } from '../../store/app/thunk';
+import { logout } from '../../store/app/thunks/logout';
+import { login } from '../../store/app/thunks/login';
+import { refreshTokens } from '../../store/app/thunks/refreshTokens';
 import { LocalStorage } from '../../models/local-storage';
 import { useReduxDispatch } from '../../store/helpers';
 import { RootState } from '../../store/store.interface';
@@ -49,7 +51,7 @@ export const AuthHOC: FC = () => {
     } else {
       window.clearTimeout(accessTokenTimeout);
     }
-    return () => clearTimeout(accessTokenTimeout);
+    return (): void => window.clearTimeout(accessTokenTimeout);
   }, [accToken, accTokenExpiration, logoutHandler]);
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export const AuthHOC: FC = () => {
     } else {
       window.clearTimeout(refreshTokenTimeout);
     }
-    return () => window.clearTimeout(refreshTokenTimeout);
+    return (): void => window.clearTimeout(refreshTokenTimeout);
   }, [refTokenExpiration, refToken, logoutHandler]);
 
   useEffect(() => {
@@ -71,7 +73,7 @@ export const AuthHOC: FC = () => {
       setRefTokenRemainingTime(remainingTime);
       refreshTokenInterval = window.setInterval(refreshTokenIntervalHandler, 1000 * 20);
     }
-    return () => window.clearInterval(refreshTokenInterval);
+    return (): void => window.clearInterval(refreshTokenInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refToken, refTokenExpiration]);
 
@@ -83,22 +85,25 @@ export const AuthHOC: FC = () => {
       setAccTokenRemainingTime(remainingTime);
       accessTokenInterval = window.setInterval(accessTokenIntervalHandler, 1000 * 20);
     }
-    return () => window.clearInterval(accessTokenInterval);
+    return (): void => window.clearInterval(accessTokenInterval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accToken, accTokenExpiration]);
 
   useEffect(() => {
-    // Refresh refresh and access Token
-    if (refTokenRemainingTime && accTokenRemainingTime) {
-      if (refTokenRemainingTime < 1000 * 60 && refTokenRemainingTime > 0) {
-        dispatch(refreshTokens());
-      }
-      if (accTokenRemainingTime < 1000 * 60 && accTokenRemainingTime > 0) {
-        dispatch(refreshTokens());
-      }
+    // Refresh Refresh Token
+    if (refTokenRemainingTime > 0 && refTokenRemainingTime < 1000 * 60) {
+      dispatch(refreshTokens());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refTokenRemainingTime, accTokenRemainingTime]);
+  }, [refTokenRemainingTime]);
+
+  useEffect(() => {
+    // Refresh Access Token
+    if (accTokenRemainingTime > 0 && accTokenRemainingTime < 1000 * 60) {
+      dispatch(refreshTokens());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accTokenRemainingTime]);
 
   useEffect(() => {
     // Login if Access Token in LocalStorage

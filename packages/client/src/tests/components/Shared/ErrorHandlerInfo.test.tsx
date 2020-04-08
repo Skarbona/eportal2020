@@ -20,4 +20,13 @@ describe('<ErrorHandlerInfo > component', () => {
     wrapper = shallow(<ErrorHandlerComponent {...props} />);
     expect(wrapper.find(Alert)).toHaveLength(1);
   });
+
+  it('should not render Alert if size is of type SnackBar', () => {
+    props = {
+      type: ErrorTypes.UnAuthorizedWarning,
+      error: true,
+    };
+    wrapper = shallow(<ErrorHandlerComponent {...props} />);
+    expect(wrapper.find(Alert)).toHaveLength(0);
+  });
 });

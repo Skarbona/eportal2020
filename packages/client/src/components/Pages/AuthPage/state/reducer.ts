@@ -22,7 +22,7 @@ export const authPageReducer = (
       newState.isFormValid = U.isFormValidHandler(newState.inputs);
       return newState;
     }
-    case I.AuthPageActionsEnum.RepeatEmailChanged: {
+    case I.AuthPageActionsEnum.ConfirmedEmailChanged: {
       const { value } = action.data;
       const { blurred } = action.data;
       const newState = {
@@ -86,6 +86,7 @@ export const authPageReducer = (
           recaptcha: {
             ...state.inputs.recaptcha,
             valid: value?.length > 0,
+            value,
           },
         },
       };

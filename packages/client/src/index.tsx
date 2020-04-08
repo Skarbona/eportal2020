@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, FC } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -6,12 +6,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './main.scss';
 import './settings/translation-settings';
 import App from './components/App';
+import CircleLoading from './components/Shared/UIElements/Loading/CircleLoading';
 import { store } from './store/store';
 
-// TODO: Prepare nice fallback
-const app = (
+export const Index: FC = () => (
   <Provider store={store}>
-    <Suspense fallback={<div>Loading</div>}>
+    <Suspense fallback={<CircleLoading />}>
       <Router>
         <App />
       </Router>
@@ -19,4 +19,4 @@ const app = (
   </Provider>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+ReactDOM.render(<Index />, document.getElementById('root'));

@@ -1,7 +1,7 @@
 import {
   AuthPageActionsEnum,
   PasswordChanged,
-  RepeatEmailChanged,
+  ConfirmedEmailChanged,
   EmailChanged,
   UserNameChanged,
   SetVisibleInputs,
@@ -21,8 +21,8 @@ export const passwordChanged = (event: InputChangeEvent, blurred?: boolean): Pas
 export const confirmedEmailChanged = (
   event: InputChangeEvent,
   blurred?: boolean,
-): RepeatEmailChanged => ({
-  type: AuthPageActionsEnum.RepeatEmailChanged,
+): ConfirmedEmailChanged => ({
+  type: AuthPageActionsEnum.ConfirmedEmailChanged,
   data: {
     value: event.target.value,
     blurred,

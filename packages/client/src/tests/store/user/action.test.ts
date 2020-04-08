@@ -73,4 +73,48 @@ describe('Actions: User', () => {
     const action = A.failSetUserData(error);
     expect(action).toEqual(expectedAction);
   });
+
+  it('should create initAuthorization action', () => {
+    const expectedAction: I.InitAuthorization = {
+      type: UserEnum.InitAuthorization,
+    };
+
+    const action = A.initAuthorization();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create SuccessAuthorization action', () => {
+    const {
+      user: { userData },
+    } = mockedStore();
+    const expectedAction: I.SuccessAuthorization = {
+      type: UserEnum.SuccessAuthorization,
+      data: {
+        userData,
+      },
+    };
+    const action = A.successAuthorization({ userData });
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create failAuthorization action', () => {
+    const error = new Error();
+    const expectedAction: I.FailAuthorization = {
+      type: UserEnum.FailAuthorization,
+      data: {
+        error,
+      },
+    };
+    const action = A.failAuthorization(error);
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create cleanUserData action', () => {
+    const expectedAction: I.CleanUserData = {
+      type: UserEnum.CleanUserData,
+    };
+
+    const action = A.cleanUserData();
+    expect(action).toEqual(expectedAction);
+  });
 });

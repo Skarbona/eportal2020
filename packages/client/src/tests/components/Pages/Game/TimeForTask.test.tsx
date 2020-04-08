@@ -11,13 +11,18 @@ import ExpansionPanelComponent from '../../../../components/Shared/UIElements/Ex
 import { mockedStore } from '../../../../mocks/store';
 import { TimeMode } from '../../../../models/game-models';
 
-jest.mock('../../../../store/game/action', () => ({
-  setFormValues: jest.fn(),
-}));
-
 describe('<TimeForTask /> component', () => {
   let wrapper: ShallowWrapper;
   let props: Props;
+  let setFormValuesSpy: any;
+
+  beforeEach(() => {
+    setFormValuesSpy = jest.spyOn(gameActions, 'setFormValues');
+  });
+
+  afterEach(() => {
+    setFormValuesSpy.mockClear();
+  });
 
   it('should render all required elements', () => {
     const { user } = mockedStore();
@@ -40,6 +45,15 @@ describe('<TimeForTask /> component', () => {
     const { user } = mockedStore();
     props = { defaults: user.userData.gameDefaults.time };
     wrapper = shallow(<TimeForTaskComponent {...props} />);
-    expect(gameActions.setFormValues).toHaveBeenCalled();
+    expect(setFormValuesSpy).toHaveBeenCalled();
+  });
+
+  it('should call setFormValues', () => {
+    const { user } = mockedStore();
+    props = { defaults: user.userData.gameDefaults.time };
+    wrapper = shallow(<TimeForTaskComponent {...props} />);
+    expect(setFormValuesSpy).toHaveBeenCalledTimes(1);
+    wrapper.find(Slider).simulate('change', {}, [0]);
+    expect(setFormValuesSpy).toHaveBeenCalledTimes(2);
   });
 });
