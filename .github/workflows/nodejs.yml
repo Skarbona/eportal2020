@@ -29,12 +29,12 @@ jobs:
     - run: npm run lerna:lint
     - run: npm run lerna:test
     - run: npm run lerna:build
-#    - name: Upload coverage to Codecov
-#      uses: codecov/codecov-action@v1
-#      with:
-#       token: ${{ secrets.CODECOV_TOKEN }}
-#       file: ./packages/client/coverage/clover.xml
-#       flags: client
-#       name: coverage-client
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./packages/client/coverage/clover.xml
+        flags: client
+        name: coverage-client
       env:
         CI: true
