@@ -12,8 +12,8 @@ describe('<Header > component', () => {
   it('should have all required elements', () => {
     wrapper = shallow(<HeaderComponent accessToken="TOKEN" />);
     expect(wrapper.find(AppBar)).toHaveLength(1);
-    expect(wrapper.find(IconButton)).toHaveLength(1);
-    expect(wrapper.find(Link)).toHaveLength(3);
+    expect(wrapper.find(IconButton)).toHaveLength(2);
+    expect(wrapper.find(Link)).toHaveLength(4);
     expect(wrapper.find('.btn__start-game')).toHaveLength(1);
     expect(wrapper.find('.btn__logout')).toHaveLength(1);
   });

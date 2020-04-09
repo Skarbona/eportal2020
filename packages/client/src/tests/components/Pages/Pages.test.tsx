@@ -14,7 +14,7 @@ describe('<Pages > component', () => {
     wrapper = shallow(<PagesComponent accessToken="TOKEN" />);
     expect(wrapper.find(Game)).toHaveLength(1);
     expect(wrapper.find(Main)).toHaveLength(1);
-    expect(wrapper.find(Route)).toHaveLength(2);
+    expect(wrapper.find(Route)).toHaveLength(3);
 
     expect(wrapper.find(AuthPage)).toHaveLength(0);
   });
