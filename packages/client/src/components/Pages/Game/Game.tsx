@@ -1,5 +1,4 @@
-import React, { FC, memo, useEffect } from 'react';
-import { Container } from '@material-ui/core';
+import React, { FC, memo, useEffect, Fragment } from 'react';
 
 import { fetchCategories } from '../../../store/categories/thunks/fetchCategories';
 import { useReduxDispatch } from '../../../store/helpers';
@@ -20,9 +19,9 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
   }, [accessToken]);
 
   return (
-    <Container className="game">
+    <Fragment>
       <GameSettings />
-    </Container>
+    </Fragment>
   );
 };
 

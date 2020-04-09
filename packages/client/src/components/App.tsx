@@ -37,7 +37,7 @@ export const App: FC = () => {
       <Fragment>
         <AuthHOC />
         <Header accessToken={accessToken} />
-        <Container component="main" className="eportal__main">
+        <Container component="main" className="eportal__main" maxWidth={false} disableGutters>
           <Pages accessToken={accessToken} />
           <SnackBarErrorHandler />
         </Container>

@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Game from './Game/Game';
 import AuthPage from './AuthPage/AuthPage';
 import Main from './Main/Main';
+import Profile from './Profile/Profile';
 
 interface Props {
   accessToken: string;
@@ -16,6 +17,9 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
         <Switch>
           <Route path="/" exact>
             <Main />
+          </Route>
+          <Route path="/profil" exact>
+            <Profile />
           </Route>
           <Route path="/gra">
             <Game accessToken={accessToken} />
