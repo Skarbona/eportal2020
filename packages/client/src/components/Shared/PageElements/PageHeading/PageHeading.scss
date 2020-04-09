@@ -1,0 +1,41 @@
+@import '../../../../scss/BreakPoints';
+
+.page-heading {
+  &.MuiContainer-root {
+    display: flex;
+  }
+
+  height: 25rem;
+  background: #212121;
+  background-image: url('../../../../media/svg/wave2.svg');
+  background-position: 0 5rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @include xs {
+    height: 20rem;
+    background-size: 200%;
+    background-position: bottom;
+  }
+
+  .page-heading__title {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+  }
+
+  svg {
+    width: 100%;
+    align-self: flex-end;
+    transform-origin: bottom;
+    animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+
+  @keyframes animateWave {
+    0% {
+      transform: scale(1, 0);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+}

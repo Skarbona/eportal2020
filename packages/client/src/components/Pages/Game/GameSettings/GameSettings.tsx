@@ -1,7 +1,6 @@
 import React, { FC, Fragment, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Typography, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import './GameSettings.scss';
 
@@ -13,6 +12,8 @@ import { FormValues } from '../../../../../../service/src/models/shared-interfac
 
 import ErrorHandler from '../../../Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
 import CircleLoading from '../../../Shared/UIElements/Loading/CircleLoading';
+import PageHeading from '../../../Shared/PageElements/PageHeading/PageHeading';
+import PageContainer from '../../../Shared/PageElements/PageContainer/PageContainer';
 import DefaultSettings from './DefaultSettings';
 import NumberOfTasksPerLevel from './NumberOfTasksPerLevel';
 import Places from './Places';
@@ -33,7 +34,6 @@ export interface GameSettingStoreProps {
 
 export const GameSettingComponent: FC = () => {
   const dispatch = useReduxDispatch();
-  const { t } = useTranslation();
   const [isFormValid, setFormValidation] = useState<boolean>(false);
   const { cats, loading, error, errorType, defaults } = useSelector<
     RootState,
@@ -56,14 +56,12 @@ export const GameSettingComponent: FC = () => {
 
   return (
     <Fragment>
-      {errors}
-      {loading && <CircleLoading />}
-      {defaults && cats && (
-        <div className="game__settings">
+      <PageHeading title="New Game" />
+      <PageContainer className="game__settings">
+        {errors}
+        {loading && <CircleLoading />}
+        {defaults && cats && (
           <form onSubmit={onSubmitHandler}>
-            <Typography variant="h3" component="h1">
-              {t('New Game')}
-            </Typography>
             <Grid container direction="column">
               <PlayersNames defaults={defaults.names} />
               <Places places={cats.places} defaults={defaults.place} />
@@ -79,8 +77,8 @@ export const GameSettingComponent: FC = () => {
             {errors}
             <StartButton isFormValid={isFormValid} />
           </form>
-        </div>
-      )}
+        )}
+      </PageContainer>
     </Fragment>
   );
 };

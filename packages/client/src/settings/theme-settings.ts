@@ -21,8 +21,11 @@ export const theme = createMuiTheme({
     },
     MuiTypography: {
       root: {
+        '&.MuiTypography-h2': {
+          padding: '5rem 0',
+        },
         '&.MuiTypography-h3': {
-          padding: '1rem 0',
+          padding: '5rem 0',
         },
         color: '#fff',
       },

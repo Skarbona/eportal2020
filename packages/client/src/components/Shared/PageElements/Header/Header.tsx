@@ -1,7 +1,7 @@
 import React, { FC, memo, useCallback, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AccountCircle as AccountIcon, Menu as MenuIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import { logout } from '../../../../store/app/thunks/logout';
@@ -35,6 +35,11 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
             </Link>
             <Link to="/" onClick={logoutHandler} className="btn__logout">
               <Button>{t('Logout')}</Button>
+            </Link>
+            <Link to="/profil" className="btn__start-game">
+              <IconButton>
+                <AccountIcon color="inherit" />
+              </IconButton>
             </Link>
           </Fragment>
         )}

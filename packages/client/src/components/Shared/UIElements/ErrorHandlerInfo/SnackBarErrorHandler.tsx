@@ -25,8 +25,8 @@ export const SnackBarErrorHandlerComponent: FC = () => {
 
   const closeHandler = useCallback(() => setIsOpen(false), []);
 
-  if (!error && ErrorHandlingMap) return null;
-  const { message, severity, header, size } = ErrorHandlingMap.get(type);
+  if (!error && !type && ErrorHandlingMap) return null;
+  const { message, severity, header, size } = ErrorHandlingMap.get(type || ErrorTypes.ServerError);
   return (
     size === ErrorsSize.Snackbar && (
       <Snackbar autoHideDuration={6000} open={isOpen} onClose={closeHandler}>
