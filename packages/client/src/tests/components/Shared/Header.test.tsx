@@ -16,6 +16,7 @@ describe('<Header > component', () => {
     expect(wrapper.find(Link)).toHaveLength(4);
     expect(wrapper.find('.btn__start-game')).toHaveLength(1);
     expect(wrapper.find('.btn__logout')).toHaveLength(1);
+    expect(wrapper.find('.btn__profile-page')).toHaveLength(1);
   });
 
   it('should render proper amount of links if token not provided', () => {

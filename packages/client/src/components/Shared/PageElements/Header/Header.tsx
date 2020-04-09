@@ -36,7 +36,7 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
             <Link to="/" onClick={logoutHandler} className="btn__logout">
               <Button>{t('Logout')}</Button>
             </Link>
-            <Link to="/profil" className="btn__start-game">
+            <Link to="/profil" className="btn__profile-page">
               <IconButton>
                 <AccountIcon color="inherit" />
               </IconButton>
