@@ -1,0 +1,44 @@
+@import '../../../scss/Variables';
+
+.profile {
+  .profile__grid-item {
+    flex-grow: 1;
+  }
+  .card-info {
+    overflow: visible;
+    position: relative;
+    margin-bottom: 1rem;
+
+    .card-user {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        flex: 1;
+      }
+
+      .MuiButton-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .counter {
+        font-size: 2rem;
+      }
+
+      .text {
+        color: $light-gray;
+      }
+    }
+  }
+}

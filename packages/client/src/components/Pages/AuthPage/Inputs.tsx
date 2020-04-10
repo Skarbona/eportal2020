@@ -30,7 +30,11 @@ export const InputsComponent: FC<Props> = ({
 
   const showPasswordIcon = (
     <InputAdornment position="end">
-      <IconButton aria-label="toggle password visibility" onClick={setShowPasswordHandler}>
+      <IconButton
+        aria-label="toggle password visibility"
+        onClick={setShowPasswordHandler}
+        color="primary"
+      >
         {showPassword ? <Visibility /> : <VisibilityOff />}
       </IconButton>
     </InputAdornment>

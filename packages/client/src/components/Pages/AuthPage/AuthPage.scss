@@ -1,13 +1,42 @@
+@import '../../../scss/Variables';
+
 .auth-page {
   .auth-page__form-wrapper {
+    .MuiFilledInput-root,
+    .MuiFormLabel-root,
+    .MuiFormHelperText-root,
+    .MuiFilledInput-underline::before {
+      color: $primary;
+      &.Mui-error {
+        color: $error;
+      }
+    }
+
+    .MuiFilledInput-underline {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .MuiButton-contained.Mui-disabled {
+      background-color: $light-gray;
+      color: $gray;
+    }
+
     .MuiFormControl-root {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 2rem;
 
+      .auth-page__title {
+        color: $primary;
+      }
+
       .avatar {
         margin: 1rem;
+        @include primary-gradient-bg();
+        color: $light;
+        width: 50px;
+        height: 50px;
       }
     }
   }

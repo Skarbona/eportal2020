@@ -14,6 +14,11 @@ export const theme = createMuiTheme({
         },
       },
     },
+    MuiPaper: {
+      root: {
+        background: `linear-gradient(90deg, ${deepPurple[700]} 0%, ${deepPurple[400]} 100%)`,
+      },
+    },
     MuiBackdrop: {
       root: {
         zIndex: 100,

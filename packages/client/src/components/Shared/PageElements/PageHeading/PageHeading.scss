@@ -1,12 +1,17 @@
 @import '../../../../scss/BreakPoints';
+@import '../../../../scss/Variables';
 
 .page-heading {
+  .svg__wave1 {
+    fill: $main-bg-color;
+  }
+
   &.MuiContainer-root {
     display: flex;
   }
 
   height: 25rem;
-  background: #212121;
+  background: $deep-dark;
   background-image: url('../../../../media/svg/wave2.svg');
   background-position: 0 5rem;
   background-repeat: no-repeat;

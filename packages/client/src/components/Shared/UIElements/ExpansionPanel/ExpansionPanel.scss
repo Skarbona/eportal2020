@@ -1,26 +1,28 @@
 @import '../../../../scss/BreakPoints';
 @import '../../../../scss/Variables';
 
-.expansion-panel-summary {
-  flex-basis: 33.33%;
-  flex-shrink: 0;
+.expansion-panel {
+  .expansion-panel__summary {
+    flex-basis: 33.33%;
+    flex-shrink: 0;
 
-  > div {
-    @include xs {
-      flex-wrap: wrap;
+    > div {
+      @include xs {
+        flex-wrap: wrap;
+      }
     }
-  }
 
-  svg {
-    margin-right: 1rem;
-  }
-
-  .subtitle {
-    @include xs {
-      flex-basis: 100%;
-      flex-grow: 1;
+    svg {
+      margin-right: 1rem;
     }
-    margin-left: auto;
-    color: $light-gray;
+
+    .subtitle {
+      @include xs {
+        flex-basis: 100%;
+        flex-grow: 1;
+      }
+      margin-left: auto;
+      color: $light-gray;
+    }
   }
 }

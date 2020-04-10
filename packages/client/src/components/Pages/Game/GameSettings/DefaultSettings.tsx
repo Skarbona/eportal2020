@@ -28,6 +28,7 @@ export const DefaultSettingsComponent: FC = () => {
     <Grid container className="default-settings">
       <FormGroup>
         <FormControlLabel
+          color="primary"
           className="default-settings__label"
           control={
             <Checkbox
