@@ -1,5 +1,4 @@
 import React, { FC, memo, Fragment } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 
