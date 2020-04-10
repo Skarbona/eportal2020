@@ -9,3 +9,4 @@ coverage:
         - packages/client
         flags:
         - "client"
+        
