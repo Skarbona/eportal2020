@@ -30,10 +30,14 @@ export const ExpansionPanelComponent: FC<Props> = ({
   const setExpandedHandler = (): void => setExpanded(!expanded);
 
   return (
-    <ExpansionPanel expanded={expanded} onChange={setExpandedHandler} className={className}>
+    <ExpansionPanel
+      expanded={expanded}
+      onChange={setExpandedHandler}
+      className={`expansion-panel ${className}`}
+    >
       <ExpansionPanelSummary
         expandIcon={<ExpandMore />}
-        className="expansion-panel-summary"
+        className="expansion-panel__summary"
         aria-controls={`${title}-header`}
         id={`${title}-header`}
       >

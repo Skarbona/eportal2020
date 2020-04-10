@@ -11,8 +11,10 @@ export interface Props {
 }
 
 export const ErrorHandlerComponent: FC<Props> = ({ type, error }) => {
-  if (!error && ErrorHandlingMap) return null;
-  const { message, severity, header, size } = ErrorHandlingMap.get(type);
+  if (!error || !type) return null;
+  const errorValues = ErrorHandlingMap?.get(type || ErrorTypes.ServerError);
+  if (!errorValues) return null;
+  const { message, severity, header, size } = errorValues;
 
   return (
     size === ErrorsSize.Big && (

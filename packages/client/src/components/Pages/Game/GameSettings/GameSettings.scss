@@ -13,10 +13,17 @@
     }
   }
 
-  h4,
-  label,
   .default-settings__label {
-    color: $light;
+    .MuiTypography-root,
+    .MuiCheckbox-root {
+      color: $primary;
+    }
+  }
+
+  .game__time {
+    .MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track {
+      background-color: $light-gray;
+    }
   }
 
   .game__preferences {

@@ -135,7 +135,7 @@ export const AuthPageComponent: FC = () => {
             <Avatar className="avatar">
               <LockOutlined />
             </Avatar>
-            <Typography variant="h3" component="h1">
+            <Typography variant="h3" component="h1" className="auth-page__title">
               {isRegisterMode ? t('Register') : t('Log in')}
             </Typography>
             <Inputs
