@@ -5,12 +5,7 @@ import {
   SettingsBackupRestore as RestoreIcon,
 } from '@material-ui/icons';
 
-import { a11yProps, TabPanel } from '../../../utils/profile-settings';
-
-export enum ProfileSettings {
-  ChangePassword,
-  DeleteAccount,
-}
+import { a11yProps, TabPanel, ProfileSettings } from '../../../utils/profile-settings';
 
 export const SettingsComponent: FC = () => {
   const [activeSetting, setActiveSetting] = useState<ProfileSettings>(

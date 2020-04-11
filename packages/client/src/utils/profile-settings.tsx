@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 import { Box } from '@material-ui/core';
 
-import { ProfileSettings } from '../components/Pages/Profile/Settings';
+export enum ProfileSettings {
+  ChangePassword,
+  DeleteAccount,
+}
 
 interface TabPanelProps {
   children?: React.ReactNode;
