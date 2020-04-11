@@ -9,7 +9,7 @@ interface Props {
 export const CardInfoComponent: FC<Props> = ({ name, email }) => {
   return (
     <Fragment>
-      <Card className="card-info">
+      <Card className="profile__card-info primary-gradient-bg">
         <CardContent className="card-user">
           <Typography gutterBottom variant="h4" component="h2">
             {name}
@@ -19,7 +19,7 @@ export const CardInfoComponent: FC<Props> = ({ name, email }) => {
           </Typography>
         </CardContent>
       </Card>
-      <Card className="card-info">
+      <Card className="profile__card-info primary-gradient-bg">
         <CardContent className="card-actions">
           <Button>
             <span className="counter">10</span>

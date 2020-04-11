@@ -59,9 +59,9 @@ export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
       <Grid container spacing={1}>
         {selectedPlace && (
           <FormControl variant="filled" className="form-element__default-width">
-            <InputLabel id="game_label">{t('Place of game')}</InputLabel>
+            <InputLabel id="place_label">{t('Place of game')}</InputLabel>
             <Select
-              labelId="game_label"
+              labelId="place_label"
               id="game_select"
               value={selectedPlace}
               onChange={handleOnChange}

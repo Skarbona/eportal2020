@@ -10,16 +10,17 @@
     display: flex;
   }
 
-  height: 25rem;
+  height: 20rem;
   background: $deep-dark;
   background-image: url('../../../../media/svg/wave2.svg');
-  background-position: 0 5rem;
+  background-size: 200%;
+  background-position: bottom;
   background-repeat: no-repeat;
-  background-size: cover;
-  @include xs {
-    height: 20rem;
-    background-size: 200%;
-    background-position: bottom;
+
+  @include sm {
+    height: 25rem;
+    background-position: 0 5rem;
+    background-size: cover;
   }
 
   .page-heading__title {

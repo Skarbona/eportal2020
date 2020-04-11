@@ -33,7 +33,7 @@ export const ExpansionPanelComponent: FC<Props> = ({
     <ExpansionPanel
       expanded={expanded}
       onChange={setExpandedHandler}
-      className={`expansion-panel ${className}`}
+      className={`expansion-panel primary-gradient-bg ${className}`}
     >
       <ExpansionPanelSummary
         expandIcon={<ExpandMore />}

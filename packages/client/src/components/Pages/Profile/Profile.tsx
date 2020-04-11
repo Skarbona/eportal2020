@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import './Profile.scss';
 import PageHeading from '../../Shared/PageElements/PageHeading/PageHeading';
 import CardInfo from './CardInfo';
+import Settings from './Settings';
 import PageContainer from '../../Shared/PageElements/PageContainer/PageContainer';
 import { RootState } from '../../../store/store.interface';
 
@@ -23,12 +24,12 @@ export const ProfileComponent: FC = () => {
     <Fragment>
       <PageHeading title="Profile" />
       <PageContainer className="profile">
-        <Grid container spacing={1}>
+        <Grid container spacing={2} className="profile__grid-container">
           <Grid item sm={12} md={4} className="profile__grid-item">
             <CardInfo name={name} email={email} />
           </Grid>
           <Grid item sm={12} md={8} className="profile__grid-item">
-            <div>PUT PROFILE SETTINGS HERE</div>
+            <Settings />
           </Grid>
         </Grid>
       </PageContainer>

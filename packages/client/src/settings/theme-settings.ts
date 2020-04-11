@@ -16,7 +16,12 @@ export const theme = createMuiTheme({
     },
     MuiPaper: {
       root: {
-        background: `linear-gradient(90deg, ${deepPurple[700]} 0%, ${deepPurple[400]} 100%)`,
+        '&.primary-gradient-bg': {
+          background: `linear-gradient(90deg, ${deepPurple[700]} 0%, ${deepPurple[400]} 100%)`,
+        },
+        '&.MuiMenu-paper': {
+          background: `linear-gradient(90deg, ${deepPurple[700]} 0%, ${deepPurple[400]} 100%)`,
+        },
       },
     },
     MuiBackdrop: {
