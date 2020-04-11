@@ -1,10 +1,17 @@
 @import '../../../scss/Variables';
+@import '../../../scss/BreakPoints';
 
 .profile {
+  .profile__grid-container {
+    flex-direction: column;
+    @include md {
+      flex-direction: row;
+    }
+  }
   .profile__grid-item {
     flex-grow: 1;
   }
-  .card-info {
+  .profile__card-info {
     overflow: visible;
     position: relative;
     margin-bottom: 1rem;
@@ -38,6 +45,15 @@
 
       .text {
         color: $light-gray;
+      }
+    }
+  }
+
+  .profile__settings {
+    .setting-switcher {
+      background: $light;
+      .setting-switcher__tab:not(.Mui-selected) {
+        color: $primary400;
       }
     }
   }
