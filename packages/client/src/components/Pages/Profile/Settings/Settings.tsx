@@ -4,10 +4,14 @@ import {
   DeleteForever as DeleteIcon,
   SettingsBackupRestore as RestoreIcon,
 } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 
-import { a11yProps, TabPanel, ProfileSettings } from '../../../utils/profile-settings';
+import { a11yProps, TabPanel, ProfileSettings } from '../../../../utils/profile-settings';
+import ChangePassword from './ChangePassword';
+import DeleteAccount from './DeleteAccount';
 
 export const SettingsComponent: FC = () => {
+  const { t } = useTranslation();
   const [activeSetting, setActiveSetting] = useState<ProfileSettings>(
     ProfileSettings.ChangePassword,
   );
@@ -31,22 +35,22 @@ export const SettingsComponent: FC = () => {
           <Tab
             className="setting-switcher__tab"
             icon={<RestoreIcon />}
-            label="Change Password"
+            label={t('Change password')}
             {...a11yProps(ProfileSettings.ChangePassword)}
           />
           <Tab
             className="setting-switcher__tab"
             icon={<DeleteIcon />}
-            label="Delete an Account"
+            label={t('Delete an Account')}
             {...a11yProps(ProfileSettings.DeleteAccount)}
           />
         </Tabs>
       </AppBar>
       <TabPanel value={activeSetting} index={ProfileSettings.ChangePassword}>
-        CHANGE PASSWORD
+        <ChangePassword />
       </TabPanel>
       <TabPanel value={activeSetting} index={ProfileSettings.DeleteAccount}>
-        DELETE ACCOUNT
+        <DeleteAccount />
       </TabPanel>
     </div>
   );

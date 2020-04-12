@@ -92,6 +92,7 @@ const gameDefaultsOptional = gameDefaultsHandler(true);
 export const signUp = checkSchema({ userName, email, password });
 export const login = checkSchema({ email, password });
 export const getUserData = checkSchema({});
+export const deleteUser = checkSchema({});
 export const updateUser = checkSchema({
   password: optionalPassword,
   gameDefaults: gameDefaultsOptional,

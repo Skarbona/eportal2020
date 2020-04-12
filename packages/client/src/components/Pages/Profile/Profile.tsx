@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 import './Profile.scss';
 import PageHeading from '../../Shared/PageElements/PageHeading/PageHeading';
 import CardInfo from './CardInfo';
-import Settings from './Settings';
+import Settings from './Settings/Settings';
 import PageContainer from '../../Shared/PageElements/PageContainer/PageContainer';
 import { RootState } from '../../../store/store.interface';
 
