@@ -1,6 +1,6 @@
-import { AuthPageState } from './interface';
+import { FormState } from './interface';
 
-const initialInputState = {
+export const initialInputState = {
   valid: false,
   visible: true,
   required: false,
@@ -10,9 +10,10 @@ const initialInputState = {
   blurred: false,
 };
 
-export const initialState: AuthPageState = {
+export const initialState: FormState = {
   inputs: {
     password: initialInputState,
+    newPassword: initialInputState,
     confirmedEmail: initialInputState,
     email: initialInputState,
     userName: initialInputState,

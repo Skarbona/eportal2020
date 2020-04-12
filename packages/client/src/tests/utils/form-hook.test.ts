@@ -5,9 +5,12 @@ import {
   isPasswordValidHandler,
   isUserNameValidHandler,
   setVisibleInputsHandler,
-} from '../../utils/auth-page';
-import { initialState } from '../../components/Pages/AuthPage/state/initialState';
-import { InputKeys } from '../../components/Pages/AuthPage/state/interface';
+  setInitialInputsHandler,
+  isRecaptchaValidHandler,
+} from '../../utils/form-hook';
+import { initialState } from '../../hooks/form/state/initialState';
+import { InputKeys } from '../../hooks/form/state/interface';
+import { chance } from '../../mocks/chance';
 
 describe('isFormValidHandler utility function', () => {
   it('should return false if all fields are invalid', () => {
@@ -30,6 +33,7 @@ describe('isFormValidHandler utility function', () => {
       password: { ...initialState.inputs.password, valid: true },
       userName: { ...initialState.inputs.userName, valid: true },
       recaptcha: { ...initialState.inputs.recaptcha, valid: true },
+      newPassword: { ...initialState.inputs.newPassword, valid: true },
     };
     const isFormValid = isFormValidHandler(inputs);
     expect(isFormValid).toEqual(true);
@@ -43,9 +47,31 @@ describe('isFormValidHandler utility function', () => {
       password: { ...initialState.inputs.password, valid: true },
       userName: { ...initialState.inputs.userName, valid: true },
       recaptcha: { ...initialState.inputs.recaptcha, valid: true },
+      newPassword: { ...initialState.inputs.newPassword, valid: true },
     };
     const isFormValid = isFormValidHandler(inputs);
     expect(isFormValid).toEqual(true);
+  });
+});
+
+describe('isRecaptchaValidHandler utility function', () => {
+  it('should return proper object if recaptcha is valid', () => {
+    const recaptchaValue = chance.word();
+    const recaptcha = isRecaptchaValidHandler(recaptchaValue);
+    const expectedState = {
+      value: recaptchaValue,
+      valid: true,
+    };
+    expect(recaptcha).toEqual(expectedState);
+  });
+  it('should return proper object if recaptcha is NOT valid', () => {
+    const recaptchaValue = '';
+    const recaptcha = isRecaptchaValidHandler(recaptchaValue);
+    const expectedState = {
+      value: recaptchaValue,
+      valid: false,
+    };
+    expect(recaptcha).toEqual(expectedState);
   });
 });
 
@@ -194,7 +220,7 @@ describe('setVisibleInputsHandler utility function', () => {
     const state = {
       ...initialState,
     };
-    const newState = setVisibleInputsHandler(state, [InputKeys.Recaptcha, InputKeys.Email]);
+    const newState = setVisibleInputsHandler(state.inputs, [InputKeys.Recaptcha, InputKeys.Email]);
 
     expect(newState.recaptcha.visible).toEqual(true);
     expect(newState.email.visible).toEqual(true);
@@ -202,5 +228,21 @@ describe('setVisibleInputsHandler utility function', () => {
     expect(newState.password.visible).toEqual(false);
     expect(newState.confirmedEmail.visible).toEqual(false);
     expect(newState.userName.visible).toEqual(false);
+  });
+});
+
+describe('setInitialInputsHandler utility function', () => {
+  it('should set visibility for provided inputs', () => {
+    const state = {
+      ...initialState,
+    };
+    const newState = setInitialInputsHandler(state.inputs, [InputKeys.Recaptcha, InputKeys.Email]);
+
+    expect(newState.recaptcha).toBeTruthy();
+    expect(newState.email).toBeTruthy();
+
+    expect(newState.password).toBeFalsy();
+    expect(newState.confirmedEmail).toBeFalsy();
+    expect(newState.userName).toBeFalsy();
   });
 });

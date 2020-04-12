@@ -1,4 +1,4 @@
-import React, { FC, memo, Fragment, useReducer, useCallback, useEffect } from 'react';
+import React, { FC, memo, Fragment, useCallback, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -9,35 +9,44 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import './AuthPage.scss';
 import Inputs from './Inputs';
 import ErrorHandler from '../../Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
-import { authPageReducer } from './state/reducer';
-import { initialState } from './state/initialState';
-import * as A from './state/actions';
-import { InputChangeEvent, SubmitEvent } from '../../../models/typescript-events';
+import { SubmitEvent } from '../../../models/typescript-events';
 import { RootState } from '../../../store/store.interface';
-import { InputKeys } from './state/interface';
 import { authorizeUser } from '../../../store/user/thunks/authorizeUser';
 import { useReduxDispatch } from '../../../store/helpers';
 import { AuthorizationEndpoints } from '../../../models/endpoint-models';
 import { PageParams } from '../../../models/page-types';
 import { ErrorTypes } from '../../../models/errors';
+import { useForm } from '../../../hooks/form/form-hook';
+import { InputKeys } from '../../../hooks/form/state/interface';
 
 interface AuthPageSelectorProps {
   error: Error;
   errorType: ErrorTypes;
 }
 
+const loginInputs = [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha];
+const registerInputs = [...loginInputs, InputKeys.ConfirmedEmail, InputKeys.Username];
+
 export const AuthPageComponent: FC = () => {
   const history = useHistory();
   const { mode } = useParams();
   const dispatch = useReduxDispatch();
   const { t } = useTranslation();
-  const [{ inputs, isFormValid }, formDispatch] = useReducer(authPageReducer, initialState);
+  const isRegisterMode = mode === PageParams.Register;
+  const {
+    state: { inputs, isFormValid },
+    handlers: { setVisibleInputs, inputChanged, recaptchaChanged },
+  } = useForm(registerInputs, false);
+
   const { error, errorType } = useSelector<RootState, AuthPageSelectorProps>(({ user }) => ({
     error: user.error,
     errorType: user.errorType,
   }));
 
-  const isRegisterMode = mode === PageParams.Register;
+  useEffect(() => {
+    setVisibleInputs(isRegisterMode ? registerInputs : loginInputs);
+    // eslint-disable-next-line
+  }, [isRegisterMode]);
 
   const setModeHandler = (): void => {
     if (isRegisterMode) {
@@ -46,43 +55,6 @@ export const AuthPageComponent: FC = () => {
       history.push(`/autentykacja/${PageParams.Register}`);
     }
   };
-
-  useEffect(() => {
-    const inputKeys = [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha];
-    if (isRegisterMode) {
-      inputKeys.push(InputKeys.ConfirmedEmail, InputKeys.Username);
-    }
-    formDispatch(A.setVisibleInputs(inputKeys));
-  }, [isRegisterMode]);
-
-  const passwordHandler = useCallback(
-    (event: InputChangeEvent, blurred?: boolean): void =>
-      formDispatch(A.passwordChanged(event, blurred)),
-    [],
-  );
-
-  const userNameHandler = useCallback(
-    (event: InputChangeEvent, blurred?: boolean): void =>
-      formDispatch(A.userNameChanged(event, blurred)),
-    [],
-  );
-
-  const emailHandler = useCallback(
-    (event: InputChangeEvent, blurred?: boolean): void =>
-      formDispatch(A.emailChanged(event, blurred)),
-    [],
-  );
-
-  const confirmedEmailHandler = useCallback(
-    (event: InputChangeEvent, blurred?: boolean): void =>
-      formDispatch(A.confirmedEmailChanged(event, blurred)),
-    [],
-  );
-
-  const recaptchaHandler = useCallback(
-    (value: string): void => formDispatch(A.recaptchaChanged(value)),
-    [],
-  );
 
   const handleSubmit = useCallback(
     async (e: SubmitEvent) => {
@@ -98,14 +70,7 @@ export const AuthPageComponent: FC = () => {
       const success = await dispatch(authorizeUser(requestType, body));
       if (success) history.push('/gra');
     },
-    [
-      isRegisterMode,
-      inputs.password.value,
-      inputs.userName.value,
-      inputs.email.value,
-      dispatch,
-      history,
-    ],
+    [isRegisterMode, inputs, dispatch, history],
   );
 
   const infoAction = (
@@ -138,19 +103,12 @@ export const AuthPageComponent: FC = () => {
             <Typography variant="h3" component="h1" className="auth-page__title">
               {isRegisterMode ? t('Register') : t('Log in')}
             </Typography>
-            <Inputs
-              passwordHandler={passwordHandler}
-              userNameHandler={userNameHandler}
-              emailHandler={emailHandler}
-              confirmedEmailHandler={confirmedEmailHandler}
-              inputs={inputs}
-              isRegisterMode={isRegisterMode}
-            />
+            <Inputs inputChanged={inputChanged} inputs={inputs} isRegisterMode={isRegisterMode} />
             <Grid container> {infoAction}</Grid>
             <Grid container justify="center">
               <ReCAPTCHA
                 sitekey={process.env.REACT_APP_GOOGLE_RECAPTCHA}
-                onChange={recaptchaHandler}
+                onChange={recaptchaChanged}
               />
             </Grid>
             <ErrorHandler error={error} type={errorType} />
