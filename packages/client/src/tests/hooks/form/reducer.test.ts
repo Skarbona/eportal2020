@@ -1,32 +1,30 @@
 import {
-  AuthPageActionsEnum,
-  AuthPageState,
-  EmailChanged,
-  ConfirmedEmailChanged,
-  PasswordChanged,
+  InputChanged,
   RecaptchaChanged,
   SetVisibleInputs,
-  UserNameChanged,
   InputKeys,
-} from '../../../../components/Pages/AuthPage/state/interface';
-import { initialState } from '../../../../components/Pages/AuthPage/state/initialState';
-import { authPageReducer } from '../../../../components/Pages/AuthPage/state/reducer';
+  FormActionsEnum,
+  FormState,
+} from '../../../hooks/form/state/interface';
+import { initialState } from '../../../hooks/form/state/initialState';
+import { formReducer } from '../../../hooks/form/state/reducer';
 
 describe('AuthPage State: reducer', () => {
-  let state: AuthPageState;
+  let state: FormState;
   beforeEach(() => {
     state = { ...initialState };
   });
 
   it('should return default state', () => {
-    const reducer = authPageReducer(state, {} as any);
+    const reducer = formReducer(state, {} as any);
     expect(reducer).toEqual(state);
   });
 
-  it('should handle EmailChanged', () => {
-    const action: EmailChanged = {
-      type: AuthPageActionsEnum.EmailChanged,
+  it('should handle email input', () => {
+    const action: InputChanged = {
+      type: FormActionsEnum.InputChanged,
       data: {
+        inputKey: InputKeys.Email,
         value: 'test@test.pl',
         blurred: false,
       },
@@ -46,14 +44,15 @@ describe('AuthPage State: reducer', () => {
         },
       },
     };
-    const reducer = authPageReducer(state, action);
+    const reducer = formReducer(state, action);
     expect(reducer).toEqual(expectedState);
   });
 
-  it('should handle RepeatEmailChanged', () => {
-    const action: ConfirmedEmailChanged = {
-      type: AuthPageActionsEnum.ConfirmedEmailChanged,
+  it('should handle confirmedEmail input', () => {
+    const action: InputChanged = {
+      type: FormActionsEnum.InputChanged,
       data: {
+        inputKey: InputKeys.ConfirmedEmail,
         value: 'test@test.pl',
         blurred: false,
       },
@@ -87,14 +86,15 @@ describe('AuthPage State: reducer', () => {
       },
     };
 
-    const reducer = authPageReducer(stateWithEmail, action);
+    const reducer = formReducer(stateWithEmail, action);
     expect(reducer).toEqual(expectedState);
   });
 
-  it('should handle PasswordChanged', () => {
-    const action: PasswordChanged = {
-      type: AuthPageActionsEnum.PasswordChanged,
+  it('should handle password input', () => {
+    const action: InputChanged = {
+      type: FormActionsEnum.InputChanged,
       data: {
+        inputKey: InputKeys.Password,
         value: 'aaAA1111',
         blurred: false,
       },
@@ -114,14 +114,15 @@ describe('AuthPage State: reducer', () => {
         },
       },
     };
-    const reducer = authPageReducer(state, action);
+    const reducer = formReducer(state, action);
     expect(reducer).toEqual(expectedState);
   });
 
-  it('should handle UserNameChanged', () => {
-    const action: UserNameChanged = {
-      type: AuthPageActionsEnum.UserNameChanged,
+  it('should handle userName input', () => {
+    const action: InputChanged = {
+      type: FormActionsEnum.InputChanged,
       data: {
+        inputKey: InputKeys.Username,
         value: 'AAAA',
         blurred: false,
       },
@@ -141,13 +142,13 @@ describe('AuthPage State: reducer', () => {
         },
       },
     };
-    const reducer = authPageReducer(state, action);
+    const reducer = formReducer(state, action);
     expect(reducer).toEqual(expectedState);
   });
 
   it('should handle SetVisibleInputs', () => {
     const action: SetVisibleInputs = {
-      type: AuthPageActionsEnum.SetVisibleInputs,
+      type: FormActionsEnum.SetVisibleInputs,
       data: {
         inputKeys: [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha],
       },
@@ -175,15 +176,19 @@ describe('AuthPage State: reducer', () => {
           ...state.inputs.confirmedEmail,
           visible: false,
         },
+        newPassword: {
+          ...state.inputs.newPassword,
+          visible: false,
+        },
       },
     };
-    const reducer = authPageReducer(state, action);
+    const reducer = formReducer(state, action);
     expect(reducer).toEqual(expectedState);
   });
 
   it('should handle RecaptchaChanged', () => {
     const action: RecaptchaChanged = {
-      type: AuthPageActionsEnum.RecaptchaChanged,
+      type: FormActionsEnum.RecaptchaChanged,
       data: {
         value: 'RECAPTCHA',
       },
@@ -203,7 +208,7 @@ describe('AuthPage State: reducer', () => {
         },
       },
     };
-    const reducer = authPageReducer(state, action);
+    const reducer = formReducer(state, action);
     expect(reducer).toEqual(expectedState);
   });
 });

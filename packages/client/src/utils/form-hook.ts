@@ -1,20 +1,24 @@
 import isEmail from 'validator/lib/isEmail';
 import i18n from '../settings/translation-settings';
 
-import { AuthPageState, InputKeys } from '../components/Pages/AuthPage/state/interface';
-import { initialState } from '../components/Pages/AuthPage/state/initialState';
+import { FormState, InputKeys, InputState } from '../hooks/form/state/interface';
+import { initialInputState } from '../hooks/form/state/initialState';
 
-export const isFormValidHandler = (inputs: AuthPageState['inputs']): boolean => {
+interface ValidateByKeyProps {
+  inputKey: InputKeys;
+  value: string;
+  blurred: boolean;
+  oldState: Partial<FormState>;
+}
+
+export const isFormValidHandler = (inputs: Partial<FormState['inputs']>): boolean => {
   return Object.values(inputs).every((input) => {
     if (!input.visible) return true;
     return input.valid;
   });
 };
 
-export const isPasswordValidHandler = (
-  password: string,
-  blurred: boolean,
-): Partial<AuthPageState['inputs']['password']> => {
+export const isPasswordValidHandler = (password: string, blurred: boolean): Partial<InputState> => {
   let errorMsg = '';
 
   if (!/^(.*[0-9].*)$/.test(password)) {
@@ -38,10 +42,7 @@ export const isPasswordValidHandler = (
   };
 };
 
-export const isUserNameValidHandler = (
-  userName: string,
-  blurred: boolean,
-): Partial<AuthPageState['inputs']['userName']> => {
+export const isUserNameValidHandler = (userName: string, blurred: boolean): Partial<InputState> => {
   let errorMsg = '';
 
   if (!/^(.{4,})$/.test(userName)) {
@@ -63,10 +64,7 @@ export const isUserNameValidHandler = (
   };
 };
 
-export const isEmailValidHandler = (
-  email: string,
-  blurred: boolean,
-): Partial<AuthPageState['inputs']['email']> => {
+export const isEmailValidHandler = (email: string, blurred: boolean): Partial<InputState> => {
   let errorMsg = '';
 
   if (!isEmail(email)) {
@@ -88,7 +86,7 @@ export const isConfirmedEmailValidHandler = (
   email: string,
   blurred: boolean,
   mainEmail: string,
-): Partial<AuthPageState['inputs']['confirmedEmail']> => {
+): Partial<InputState> => {
   let errorMsg = '';
 
   if (!isEmail(email)) {
@@ -108,11 +106,16 @@ export const isConfirmedEmailValidHandler = (
   };
 };
 
+export const isRecaptchaValidHandler = (recaptcha: string): Partial<InputState> => ({
+  valid: recaptcha?.length > 0,
+  value: recaptcha,
+});
+
 export const setVisibleInputsHandler = (
-  state: AuthPageState,
+  inputs: Partial<FormState['inputs']>,
   inputKeys: InputKeys[],
-): AuthPageState['inputs'] =>
-  Object.entries(state.inputs).reduce((result, input) => {
+) =>
+  Object.entries(inputs).reduce((result, input) => {
     if (inputKeys.includes(input[0] as InputKeys)) {
       return {
         ...result,
@@ -126,4 +129,40 @@ export const setVisibleInputsHandler = (
       ...result,
       [input[0]]: { ...input[1], visible: false },
     };
-  }, initialState.inputs);
+  }, {} as FormState['inputs']);
+
+export const setInitialInputsHandler = (
+  inputs: Partial<FormState['inputs']>,
+  inputKeys: InputKeys[],
+) =>
+  Object.entries(inputs).reduce((result, input) => {
+    if (inputKeys.includes(input[0] as InputKeys)) {
+      return {
+        ...result,
+        [input[0]]: input[1],
+      };
+    }
+    return result;
+  }, {} as FormState['inputs']);
+
+export const validateByKey = ({
+  inputKey,
+  value,
+  blurred = false,
+  oldState,
+}: ValidateByKeyProps): Partial<InputState> => {
+  switch (inputKey) {
+    case InputKeys.Email:
+      return isEmailValidHandler(value, blurred);
+    case InputKeys.Password:
+      return isPasswordValidHandler(value, blurred);
+    case InputKeys.Username:
+      return isUserNameValidHandler(value, blurred);
+    case InputKeys.ConfirmedEmail:
+      return isConfirmedEmailValidHandler(value, blurred, oldState.inputs.email.value);
+    case InputKeys.Recaptcha:
+      return isRecaptchaValidHandler(value);
+    default:
+      return initialInputState;
+  }
+};

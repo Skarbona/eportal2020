@@ -6,7 +6,7 @@ import { Button, Avatar } from '@material-ui/core';
 import { AuthPageComponent } from '../../../../components/Pages/AuthPage/AuthPage';
 import Inputs from '../../../../components/Pages/AuthPage/Inputs';
 import ErrorHandler from '../../../../components/Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
-import * as A from '../../../../components/Pages/AuthPage/state/actions';
+import * as A from '../../../../hooks/form/state/actions';
 import * as authorizeUserThunk from '../../../../store/user/thunks/authorizeUser';
 import { mockedEvent } from '../../../../mocks/event';
 

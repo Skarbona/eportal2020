@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 
 import { InputsComponent, Props } from '../../../../components/Pages/AuthPage/Inputs';
-import { initialState } from '../../../../components/Pages/AuthPage/state/initialState';
+import { initialState } from '../../../../hooks/form/state/initialState';
 
 describe('<Inputs /> component', () => {
   let wrapper: ShallowWrapper;
@@ -10,12 +10,9 @@ describe('<Inputs /> component', () => {
 
   beforeEach(() => {
     props = {
-      passwordHandler: jest.fn(),
+      inputChanged: jest.fn(),
       inputs: initialState.inputs,
       isRegisterMode: true,
-      userNameHandler: jest.fn(),
-      confirmedEmailHandler: jest.fn(),
-      emailHandler: jest.fn(),
     };
   });
 
@@ -39,24 +36,24 @@ describe('<Inputs /> component', () => {
   it('should call handler on email changed', () => {
     wrapper = shallow(<InputsComponent {...props} />);
     wrapper.find('#email').simulate('change');
-    expect(props.emailHandler).toHaveBeenCalled();
+    expect(props.inputChanged).toHaveBeenCalled();
   });
 
   it('should call handler on confirmed email changed', () => {
     wrapper = shallow(<InputsComponent {...props} />);
     wrapper.find('#confirmed-email').simulate('change');
-    expect(props.confirmedEmailHandler).toHaveBeenCalled();
+    expect(props.inputChanged).toHaveBeenCalled();
   });
 
   it('should call handler on username changed', () => {
     wrapper = shallow(<InputsComponent {...props} />);
     wrapper.find('#username').simulate('change');
-    expect(props.userNameHandler).toHaveBeenCalled();
+    expect(props.inputChanged).toHaveBeenCalled();
   });
 
   it('should call handler on password changed', () => {
     wrapper = shallow(<InputsComponent {...props} />);
     wrapper.find('#password').simulate('change');
-    expect(props.passwordHandler).toHaveBeenCalled();
+    expect(props.inputChanged).toHaveBeenCalled();
   });
 });
