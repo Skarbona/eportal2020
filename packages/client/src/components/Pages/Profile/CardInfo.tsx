@@ -1,5 +1,6 @@
 import React, { FC, memo, Fragment } from 'react';
 import { Typography, Card, CardContent, Button } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   name: string;
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export const CardInfoComponent: FC<Props> = ({ name, email }) => {
+  const { t } = useTranslation();
   return (
     <Fragment>
       <Card className="profile__card-info primary-gradient-bg">
@@ -23,11 +25,11 @@ export const CardInfoComponent: FC<Props> = ({ name, email }) => {
         <CardContent className="card-actions">
           <Button>
             <span className="counter">10</span>
-            <span className="text">Added Tasks</span>
+            <span className="text">{t('Added Tasks')}</span>
           </Button>
           <Button>
             <span className="counter">5</span>
-            <span className="text">Approved Tasks</span>
+            <span className="text">{t('Approved Tasks')}</span>
           </Button>
         </CardContent>
       </Card>

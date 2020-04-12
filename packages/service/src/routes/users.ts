@@ -17,4 +17,7 @@ router.get('/:id', validate.getUserData, usersControllers.getUserData);
 router.patch('/', validate.updateUser, usersControllers.updateUser);
 router.patch('/:id', validate.updateUser, usersControllers.updateUser);
 
+router.delete('/', validate.deleteUser, usersControllers.deleteUser);
+router.delete('/:id', validate.deleteUser, usersControllers.deleteUser);
+
 export default router;

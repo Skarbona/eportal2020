@@ -54,5 +54,9 @@
   "Please login again": "Please login again",
   "Some features may be not available": "Some features may be not available. Please login again",
   "Profile": "Profile",
-  "Home": "Home"
+  "Home": "Home",
+  "Change password": "Change password",
+  "Delete an Account": "Delete an Account",
+  "Added Tasks": "Added Tasks",
+  "Approved Tasks": "Approved Tasks"
 }

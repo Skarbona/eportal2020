@@ -179,3 +179,31 @@ export const updateUser = async (
   delete userData.password;
   res.json({ user: userData });
 };
+
+export const deleteUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void | Response> => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { userId } = req.userData;
+  // const { userId } = req.params;
+  // TODO: ADD ADMIN POSSIBILITY TO DELETE USER
+  // TODO: Send email to Admin
+  let user;
+  try {
+    user = await User.findById(userId);
+    if (!user) {
+      return next(new HttpError('User does not exist', 404));
+    }
+    await user.remove();
+  } catch (e) {
+    return next(new HttpError('Something went wrong', 500));
+  }
+
+  res.status(200).json({ msg: 'User Removed' });
+};
