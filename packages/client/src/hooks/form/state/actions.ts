@@ -4,6 +4,7 @@ import {
   InputChanged,
   SetVisibleInputs,
   RecaptchaChanged,
+  ConfirmAccountDeleteChanged,
 } from './interface';
 import { InputChangeEvent } from '../../../models/typescript-events';
 
@@ -20,6 +21,17 @@ export const setVisibleInputs = (inputKeys: InputKeys[]): SetVisibleInputs => ({
   type: FormActionsEnum.SetVisibleInputs,
   data: {
     inputKeys,
+  },
+});
+
+export const confirmAccountDeleteChanged = (
+  value: string,
+  userEmail: string,
+): ConfirmAccountDeleteChanged => ({
+  type: FormActionsEnum.ConfirmAccountDeleteChanged,
+  data: {
+    value,
+    userEmail,
   },
 });
 

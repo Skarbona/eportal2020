@@ -24,6 +24,8 @@ export const TabPanel: FC<TabPanelProps> = ({ children, value, index }) => (
     id={`scrollable-auto-tabpanel-${index}`}
     aria-labelledby={`scrollable-auto-tab-${index}`}
   >
-    {value === index && <Box p={3}>{children}</Box>}
+    <Box p={3} className="primary-gradient-bg">
+      {children}
+    </Box>
   </div>
 );

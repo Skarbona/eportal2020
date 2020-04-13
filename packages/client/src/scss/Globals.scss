@@ -1,0 +1,12 @@
+@import './Variables';
+.primary-gradient-bg {
+  @include primary-gradient-bg();
+}
+
+.MuiButton-contained.delete-button {
+  color: $light-gray;
+  background-color: $error;
+  &:hover {
+    background-color: $error900;
+  }
+}

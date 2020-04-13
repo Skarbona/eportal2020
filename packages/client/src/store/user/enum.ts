@@ -9,4 +9,7 @@ export enum UserEnum {
   SuccessAuthorization = 'successAuthorization',
   FailAuthorization = 'failAuthorization',
   CleanUserData = 'cleanUserData',
+  InitDeleteUser = 'initDeleteUser',
+  SuccessDeleteUser = 'successDeleteUser',
+  FailDeleteUser = 'failDeleteUser',
 }

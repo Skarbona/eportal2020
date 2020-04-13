@@ -90,7 +90,7 @@ describe('Actions: User', () => {
     const expectedAction: I.SuccessAuthorization = {
       type: UserEnum.SuccessAuthorization,
       data: {
-        userData,
+        user: userData,
       },
     };
     const action = A.successAuthorization({ userData });

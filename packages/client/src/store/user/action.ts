@@ -46,7 +46,7 @@ export const initAuthorization: ActionCreator<I.InitAuthorization> = () => ({
 export const successAuthorization: ActionCreator<I.SuccessAuthorization> = ({ userData }) => ({
   type: UserEnum.SuccessAuthorization,
   data: {
-    userData,
+    user: userData,
   },
 });
 
@@ -59,4 +59,19 @@ export const failAuthorization: ActionCreator<I.FailAuthorization> = (error) => 
 
 export const cleanUserData: ActionCreator<I.CleanUserData> = () => ({
   type: UserEnum.CleanUserData,
+});
+
+export const initDeleteUser: ActionCreator<I.InitDeleteUser> = () => ({
+  type: UserEnum.InitDeleteUser,
+});
+
+export const successDeleteUser: ActionCreator<I.SuccessDeleteUser> = () => ({
+  type: UserEnum.SuccessDeleteUser,
+});
+
+export const failDeleteUser: ActionCreator<I.FailDeleteUser> = (error) => ({
+  type: UserEnum.FailDeleteUser,
+  data: {
+    error,
+  },
 });

@@ -58,5 +58,9 @@
   "Change password": "Change password",
   "Delete an Account": "Delete an Account",
   "Added Tasks": "Added Tasks",
-  "Approved Tasks": "Approved Tasks"
+  "Approved Tasks": "Approved Tasks",
+  "Please confirm account deletion by typing your email": "Please confirm account deletion by typing your email",
+  "Type your email": "Type your email",
+  "After password changed you will be log off": "After password changed you will be log off",
+  "New password": "New password"
 }

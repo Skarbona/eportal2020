@@ -13,11 +13,11 @@ export const initialInputState = {
 export const initialState: FormState = {
   inputs: {
     password: initialInputState,
-    newPassword: initialInputState,
     confirmedEmail: initialInputState,
     email: initialInputState,
     userName: initialInputState,
     recaptcha: initialInputState,
+    confirmAccountDelete: initialInputState,
   },
   isFormValid: false,
 };

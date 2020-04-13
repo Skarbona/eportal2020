@@ -166,18 +166,19 @@ export const updateUser = async (
   }
 
   if (user) {
-    if (gameDefaults) user.gameDefaults = gameDefaults;
-    if (password) user.password = password;
-
     try {
+      if (gameDefaults) user.gameDefaults = gameDefaults;
+      if (password) user.password = await bcrypt.hash(password, 12);
       await user.save();
     } catch (e) {
       return next(new HttpError('Something went wrong, could not update user', 500));
     }
+    const userData = user.toObject({ getters: true });
+    delete userData.password;
+    res.json({ user: userData });
+  } else {
+    return next(new HttpError('Something went wrong, could not update user', 500));
   }
-  const userData = user.toObject({ getters: true });
-  delete userData.password;
-  res.json({ user: userData });
 };
 
 export const deleteUser = async (

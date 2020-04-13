@@ -25,10 +25,10 @@ export const ProfileComponent: FC = () => {
       <PageHeading title="Profile" />
       <PageContainer className="profile">
         <Grid container spacing={2} className="profile__grid-container">
-          <Grid item sm={12} md={4} className="profile__grid-item">
+          <Grid item sm={12} md={5} className="profile__grid-item">
             <CardInfo name={name} email={email} />
           </Grid>
-          <Grid item sm={12} md={8} className="profile__grid-item">
+          <Grid item sm={12} md={7} className="profile__grid-item">
             <Settings />
           </Grid>
         </Grid>

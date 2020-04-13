@@ -35,9 +35,17 @@ export const theme = createMuiTheme({
           padding: '5rem 0',
         },
         '&.MuiTypography-h3': {
-          padding: '5rem 0',
+          padding: '2rem 0',
         },
         color: '#fff',
+      },
+    },
+    MuiButton: {
+      root: {
+        '&.MuiButton-contained.Mui-disabled': {
+          backgroundColor: 'rgba(255, 255, 255, 0.7)',
+          color: '#212121',
+        },
       },
     },
     MuiCheckbox: {

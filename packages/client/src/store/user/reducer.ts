@@ -6,12 +6,23 @@ import { ErrorTypes } from '../../models/errors';
 
 const userReducer = (state = userInitialState, action: UserActions): UserStateInterface => {
   switch (action.type) {
+    case UserEnum.InitAuthorization:
+    case UserEnum.InitSetUserData:
+    case UserEnum.InitDeleteUser:
     case UserEnum.InitFetchUserData:
       return {
         ...state,
         loading: true,
         error: null,
       };
+    case UserEnum.SuccessDeleteUser: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case UserEnum.SuccessAuthorization:
+    case UserEnum.SuccessSetUserData:
     case UserEnum.SuccessFetchUserData: {
       return {
         ...state,
@@ -19,6 +30,7 @@ const userReducer = (state = userInitialState, action: UserActions): UserStateIn
         userData: action.data.user,
       };
     }
+    case UserEnum.FailDeleteUser:
     case UserEnum.FailFetchUserData: {
       const { error } = action.data;
       let errorType = ErrorTypes.ServerError;
@@ -34,19 +46,6 @@ const userReducer = (state = userInitialState, action: UserActions): UserStateIn
         loading: false,
         error,
         errorType,
-      };
-    }
-    case UserEnum.InitSetUserData:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case UserEnum.SuccessSetUserData: {
-      return {
-        ...state,
-        loading: false,
-        userData: action.data.user,
       };
     }
     case UserEnum.FailSetUserData: {
@@ -65,20 +64,6 @@ const userReducer = (state = userInitialState, action: UserActions): UserStateIn
         loading: false,
         error,
         errorType,
-      };
-    }
-    case UserEnum.InitAuthorization:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case UserEnum.SuccessAuthorization: {
-      const { userData } = action.data;
-      return {
-        ...state,
-        loading: false,
-        userData,
       };
     }
     case UserEnum.FailAuthorization: {
