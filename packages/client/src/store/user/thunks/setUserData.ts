@@ -4,7 +4,7 @@ import axios from 'axios';
 import { AppThunk } from '../../store.interface';
 import * as A from '../action';
 
-export const setUserData = (password?: string): AppThunk => async (dispatch, getState) => {
+export const setUserData = (): AppThunk => async (dispatch, getState) => {
   dispatch(A.initSetUserData());
   const {
     user: { userData },
@@ -12,12 +12,11 @@ export const setUserData = (password?: string): AppThunk => async (dispatch, get
     app: { auth },
   } = getState();
   try {
+    const requestBody = { gameDefaults: config };
+
     const { data } = await axios.patch(
       `${process.env.REACT_APP_BACKEND_API}/users/${userData.id}`,
-      {
-        gameDefaults: config,
-        password,
-      },
+      requestBody,
       {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,

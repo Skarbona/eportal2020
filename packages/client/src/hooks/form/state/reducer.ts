@@ -45,6 +45,23 @@ export const formReducer = (
       newState.isFormValid = U.isFormValidHandler(newState.inputs);
       return newState;
     }
+    case I.FormActionsEnum.ConfirmAccountDeleteChanged: {
+      const { value, userEmail } = action.data;
+      const newState = {
+        ...state,
+        inputs: {
+          ...state.inputs,
+          confirmAccountDelete: {
+            ...state.inputs.confirmAccountDelete,
+            value,
+            valid: value === userEmail,
+          },
+        },
+      };
+      newState.isFormValid = U.isFormValidHandler(newState.inputs);
+      return newState;
+    }
+
     default:
       return state;
   }

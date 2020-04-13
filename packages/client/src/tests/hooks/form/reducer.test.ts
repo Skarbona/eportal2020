@@ -176,8 +176,8 @@ describe('AuthPage State: reducer', () => {
           ...state.inputs.confirmedEmail,
           visible: false,
         },
-        newPassword: {
-          ...state.inputs.newPassword,
+        confirmAccountDelete: {
+          ...state.inputs.confirmAccountDelete,
           visible: false,
         },
       },

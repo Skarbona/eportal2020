@@ -3,7 +3,6 @@ import { userInitialState as initialState } from '../../../store/user/initialSta
 import userReducer from '../../../store/user/reducer';
 import { UserEnum } from '../../../store/user/enum';
 import * as I from '../../../store/user/action.interface';
-import { categoryResponseMock } from '../../../mocks/responses';
 import { mockedStore } from '../../../mocks/store';
 import { ErrorTypes, NetworkError } from '../../../models/errors';
 
@@ -139,7 +138,7 @@ describe('Reducer: User', () => {
     const action: I.SuccessAuthorization = {
       type: UserEnum.SuccessAuthorization,
       data: {
-        userData,
+        user: userData,
       },
     };
     const state = userReducer(initialState, action);

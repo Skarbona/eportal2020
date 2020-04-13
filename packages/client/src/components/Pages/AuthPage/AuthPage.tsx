@@ -118,7 +118,6 @@ export const AuthPageComponent: FC = () => {
               fullWidth
               variant="contained"
               color="primary"
-              className=""
             >
               {isRegisterMode ? t('Sign Up') : t('Sign In')}
             </Button>

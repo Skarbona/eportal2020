@@ -9,10 +9,11 @@ import { InputChangeEvent } from '../../models/typescript-events';
 import { InputKeys } from './state/interface';
 
 export const useForm = (inputs: I.InputKeys[], isFormValid = false) => {
-  initialState.isFormValid = isFormValid;
-  initialState.inputs = setInitialInputsHandler(initialState.inputs, inputs);
+  const formState = { ...initialState };
+  formState.isFormValid = isFormValid;
+  formState.inputs = setInitialInputsHandler(formState.inputs, inputs);
 
-  const [state, formDispatch] = useReducer(formReducer, initialState);
+  const [state, formDispatch] = useReducer(formReducer, formState);
 
   const inputChanged = useCallback(
     (event: InputChangeEvent, blurred?: boolean): void =>
@@ -30,12 +31,19 @@ export const useForm = (inputs: I.InputKeys[], isFormValid = false) => {
     [],
   );
 
+  const confirmAccountDeleteChanged = useCallback(
+    (value: string, userEmail: string): void =>
+      formDispatch(A.confirmAccountDeleteChanged(value, userEmail)),
+    [],
+  );
+
   return {
     state,
     handlers: {
       inputChanged,
       recaptchaChanged,
       setVisibleInputs,
+      confirmAccountDeleteChanged,
     },
   };
 };

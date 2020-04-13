@@ -5,7 +5,6 @@ import { NetworkError } from '../../models/errors';
 interface ActionInterface {
   type: UserEnum;
 }
-
 export interface InitFetchUserData extends ActionInterface {
   type: UserEnum.InitFetchUserData;
 }
@@ -19,6 +18,21 @@ export interface SuccessFetchUserData extends ActionInterface {
 
 export interface FailFetchUserData extends ActionInterface {
   type: UserEnum.FailFetchUserData;
+  data: {
+    error: NetworkError;
+  };
+}
+
+export interface InitDeleteUser extends ActionInterface {
+  type: UserEnum.InitDeleteUser;
+}
+
+export interface SuccessDeleteUser extends ActionInterface {
+  type: UserEnum.SuccessDeleteUser;
+}
+
+export interface FailDeleteUser extends ActionInterface {
+  type: UserEnum.FailDeleteUser;
   data: {
     error: NetworkError;
   };
@@ -49,7 +63,7 @@ export interface InitAuthorization extends ActionInterface {
 export interface SuccessAuthorization extends ActionInterface {
   type: UserEnum.SuccessAuthorization;
   data: {
-    userData: UserResponse;
+    user: UserResponse;
   };
 }
 
@@ -65,6 +79,9 @@ export interface CleanUserData extends ActionInterface {
 }
 
 export type UserActions =
+  | InitDeleteUser
+  | SuccessDeleteUser
+  | FailDeleteUser
   | InitFetchUserData
   | SuccessFetchUserData
   | FailFetchUserData
