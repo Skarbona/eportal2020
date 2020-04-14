@@ -114,7 +114,7 @@ export const isRecaptchaValidHandler = (recaptcha: string): Partial<InputState> 
 export const setVisibleInputsHandler = (
   inputs: Partial<FormState['inputs']>,
   inputKeys: InputKeys[],
-) =>
+): Partial<FormState['inputs']> =>
   Object.entries(inputs).reduce((result, input) => {
     if (inputKeys.includes(input[0] as InputKeys)) {
       return {
@@ -134,7 +134,7 @@ export const setVisibleInputsHandler = (
 export const setInitialInputsHandler = (
   inputs: Partial<FormState['inputs']>,
   inputKeys: InputKeys[],
-) =>
+): Partial<FormState['inputs']> =>
   Object.entries(inputs).reduce((result, input) => {
     if (inputKeys.includes(input[0] as InputKeys)) {
       return {

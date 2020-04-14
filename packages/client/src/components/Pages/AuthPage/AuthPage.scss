@@ -5,15 +5,20 @@
     .MuiFilledInput-root,
     .MuiFormLabel-root,
     .MuiFormHelperText-root,
-    .MuiFilledInput-underline::before {
+    .MuiFilledInput-underline {
       color: $primary;
-      &.Mui-error {
-        color: $error;
+
+      &::before {
+        color: $primary;
+
+        &.Mui-error {
+          color: $error;
+        }
       }
     }
 
     .MuiFilledInput-underline {
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: $transparent-gray;
     }
 
     .MuiFormControl-root {
@@ -28,10 +33,10 @@
 
       .avatar {
         margin: 1rem;
-        @include primary-gradient-bg();
-        color: $light;
+        background: $primary-gradient-bg;
         width: 50px;
         height: 50px;
+        color: $light;
       }
     }
   }

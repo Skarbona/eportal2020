@@ -21,8 +21,10 @@
   }
 
   .game__time {
-    .MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track {
-      background-color: $light-gray;
+    .MuiSwitch-colorPrimary {
+      &.Mui-checked + .MuiSwitch-track {
+        background-color: $light-gray;
+      }
     }
   }
 

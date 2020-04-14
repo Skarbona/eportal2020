@@ -12,7 +12,7 @@ interface TabPanelProps {
   value: ProfileSettings;
 }
 
-export const a11yProps = (index: ProfileSettings) => ({
+export const a11yProps = (index: ProfileSettings): { id: string; 'aria-controls': string } => ({
   id: `scrollable-auto-tab-${index}`,
   'aria-controls': `scrollable-auto-tabpanel-${index}`,
 });

@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, ReactNode } from 'react';
 import { Typography, Breadcrumbs as MaterialBreadcrumbs } from '@material-ui/core';
 
 import { Link as RouterLink, Route } from 'react-router-dom';
@@ -16,7 +16,7 @@ export const Breadcrumbs: FC = () => {
   const { t } = useTranslation();
   return (
     <Route>
-      {({ location }: LocationProps) => {
+      {({ location }: LocationProps): ReactNode => {
         const pathnames = location.pathname.split('/').filter((x: string) => x);
         return (
           <MaterialBreadcrumbs aria-label="Breadcrumb" className="breadcrumb">

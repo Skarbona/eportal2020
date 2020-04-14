@@ -1,6 +1,8 @@
+@import '../../../../scss/Variables';
+
 .breadcrumb {
   a {
     text-decoration: none;
-    color: rgb(179, 157, 219);
+    color: $primary400;
   }
 }
