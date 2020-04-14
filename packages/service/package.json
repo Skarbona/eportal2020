@@ -11,12 +11,14 @@
   },
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly --notify=false src/app.ts",
+    "test": "jest",
     "lint": "npm run lint:src",
     "lint:src": "eslint ./src/**/*.ts",
     "prettier": "prettier --write ./{src,test}/**/*.ts",
     "precommit": "npm run prettier && npm run lint"
   },
   "dependencies": {
+    "jest": "^25.3.0",
     "ts-node-dev": "^1.0.0-pre.44"
   },
   "devDependencies": {

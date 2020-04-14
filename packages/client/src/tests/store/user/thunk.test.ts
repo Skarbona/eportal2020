@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 import * as setUserDataThunk from '../../../store/user/thunks/setUserData';
+import * as deleteUserThunk from '../../../store/user/thunks/deleteUser';
 import * as fetchUserDataThunk from '../../../store/user/thunks/fetchUserData';
 import * as authorizeUserThunk from '../../../store/user/thunks/authorizeUser';
+import * as changePasswordThunk from '../../../store/user/thunks/changePassword';
+import * as logoutThunk from '../../../store/app/thunks/logout';
 import * as userActions from '../../../store/user/action';
 
 import { initialRootState } from '../../../store/store';
@@ -19,6 +22,10 @@ describe('Thunk: User', () => {
   let initAuthorizationSpy: any;
   let successAuthorizationSpy: any;
   let failAuthorizationSpy: any;
+  let initDeleteUserSpy: any;
+  let successDeleteUserSpy: any;
+  let failDeleteUserSpy: any;
+  let logoutSpy: any;
 
   beforeEach(() => {
     dispatch = jest.fn();
@@ -31,6 +38,10 @@ describe('Thunk: User', () => {
     initAuthorizationSpy = jest.spyOn(userActions, 'initAuthorization');
     successAuthorizationSpy = jest.spyOn(userActions, 'successAuthorization');
     failAuthorizationSpy = jest.spyOn(userActions, 'failAuthorization');
+    initDeleteUserSpy = jest.spyOn(userActions, 'initDeleteUser');
+    successDeleteUserSpy = jest.spyOn(userActions, 'successDeleteUser');
+    failDeleteUserSpy = jest.spyOn(userActions, 'failDeleteUser');
+    logoutSpy = jest.spyOn(logoutThunk, 'logout');
   });
 
   afterEach(() => {
@@ -43,6 +54,10 @@ describe('Thunk: User', () => {
     initAuthorizationSpy.mockClear();
     successAuthorizationSpy.mockClear();
     failAuthorizationSpy.mockClear();
+    initDeleteUserSpy.mockClear();
+    successDeleteUserSpy.mockClear();
+    failDeleteUserSpy.mockClear();
+    logoutSpy.mockClear();
   });
 
   describe('setUserData thunk', () => {
@@ -107,6 +122,51 @@ describe('Thunk: User', () => {
       })(dispatch, () => initialRootState, null);
       expect(initAuthorizationSpy).toHaveBeenCalled();
       expect(failAuthorizationSpy).toHaveBeenCalledWith(error);
+    });
+  });
+
+  describe('deleteUser thunk', () => {
+    it('should call all required action in success path', async () => {
+      jest.spyOn(axios, 'delete').mockImplementation(() => Promise.resolve({ msg: 'ok' }));
+      await deleteUserThunk.deleteUser()(dispatch, () => initialRootState, null);
+      expect(initDeleteUserSpy).toHaveBeenCalled();
+      expect(successDeleteUserSpy).toHaveBeenCalled();
+      expect(logoutSpy).toHaveBeenCalled();
+    });
+
+    it('should call all required action in fail path', async () => {
+      const error = new Error();
+      jest.spyOn(axios, 'delete').mockImplementation(() => Promise.reject(error));
+      await deleteUserThunk.deleteUser()(dispatch, () => initialRootState, null);
+      expect(initDeleteUserSpy).toHaveBeenCalled();
+      expect(failDeleteUserSpy).toHaveBeenCalledWith(error);
+      expect(logoutSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('changePassword thunk', () => {
+    it('should call all required action in success path', async () => {
+      jest.spyOn(axios, 'patch').mockImplementation(() => Promise.resolve({ msg: 'ok' }));
+      await changePasswordThunk.changePassword('NEW PASSWORD')(
+        dispatch,
+        () => initialRootState,
+        null,
+      );
+      expect(initSetUserDataSpy).toHaveBeenCalled();
+      expect(logoutSpy).toHaveBeenCalled();
+    });
+
+    it('should call all required action in fail path', async () => {
+      const error = new Error();
+      jest.spyOn(axios, 'patch').mockImplementation(() => Promise.reject(error));
+      await changePasswordThunk.changePassword('NEW PASSWORD')(
+        dispatch,
+        () => initialRootState,
+        null,
+      );
+      expect(initSetUserDataSpy).toHaveBeenCalled();
+      expect(failSetUserDataSpy).toHaveBeenCalledWith(error);
+      expect(logoutSpy).not.toHaveBeenCalled();
     });
   });
 });
