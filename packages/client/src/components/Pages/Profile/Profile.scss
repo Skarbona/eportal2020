@@ -8,25 +8,27 @@
       flex-direction: row;
     }
   }
+
   .profile__grid-item {
     flex-grow: 1;
   }
+
   .profile__card-info {
-    overflow: visible;
     position: relative;
     margin-bottom: 1rem;
+    overflow: visible;
 
     .card-user {
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .card-actions {
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
 
       button {
         flex: 1;
@@ -34,9 +36,9 @@
 
       .MuiButton-label {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        flex-direction: column;
       }
 
       .counter {
@@ -53,8 +55,11 @@
   .profile__settings {
     .setting-switcher {
       background: $light;
-      .setting-switcher__tab:not(.Mui-selected) {
-        color: $primary400;
+
+      .setting-switcher__tab {
+        &:not(.Mui-selected) {
+          color: $primary400;
+        }
       }
     }
   }

@@ -6,9 +6,18 @@ import { initialState } from './state/initialState';
 import * as I from './state/interface';
 import * as A from './state/actions';
 import { InputChangeEvent } from '../../models/typescript-events';
-import { InputKeys } from './state/interface';
 
-export const useForm = (inputs: I.InputKeys[], isFormValid = false) => {
+interface UseForm {
+  state: Partial<I.FormState>;
+  handlers: {
+    inputChanged(event: InputChangeEvent, blurred?: boolean): void;
+    recaptchaChanged(value: string): void;
+    setVisibleInputs(inputKeys: I.InputKeys[]): void;
+    confirmAccountDeleteChanged(value: string, userEmail: string): void;
+  };
+}
+
+export const useForm = (inputs: I.InputKeys[], isFormValid = false): UseForm => {
   const formState = { ...initialState };
   formState.isFormValid = isFormValid;
   formState.inputs = setInitialInputsHandler(formState.inputs, inputs);
@@ -27,7 +36,7 @@ export const useForm = (inputs: I.InputKeys[], isFormValid = false) => {
   );
 
   const setVisibleInputs = useCallback(
-    (inputKeys: InputKeys[]): void => formDispatch(A.setVisibleInputs(inputKeys)),
+    (inputKeys: I.InputKeys[]): void => formDispatch(A.setVisibleInputs(inputKeys)),
     [],
   );
 
