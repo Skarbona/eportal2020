@@ -1,13 +1,13 @@
-import request from 'supertest';
+import request, { Response } from 'supertest';
 import mongoose from 'mongoose';
+import { Server } from 'http';
 
-import * as usersController from '../../../controllers/users';
 import appStartUp from '../../../app';
 import User from '../../../models/user';
 
 const endpoint = '/api/users/';
 
-const signUpUser = (server: any) => {
+const signUpUser = (server: Server): Promise<Response> => {
   return request(server)
     .post(endpoint + '/signup')
     .send({
@@ -18,7 +18,7 @@ const signUpUser = (server: any) => {
 };
 
 describe('Controller: Users', () => {
-  let server: any;
+  let server: Server;
 
   beforeAll(async () => {
     server = await appStartUp;
