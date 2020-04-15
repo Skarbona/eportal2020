@@ -7,7 +7,11 @@ describe('<PageContainer > component', () => {
   let wrapper: ShallowWrapper;
 
   it('should have all required elements', () => {
-    wrapper = shallow(<PageContainerComponent className="className" children={null} />);
+    wrapper = shallow(
+      <PageContainerComponent className="className">
+        <div />
+      </PageContainerComponent>,
+    );
     expect(wrapper.find('.page-container.className')).toHaveLength(1);
   });
 });
