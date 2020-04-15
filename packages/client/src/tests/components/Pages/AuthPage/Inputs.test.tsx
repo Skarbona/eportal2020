@@ -14,10 +14,10 @@ describe('<Inputs /> component', () => {
       inputs: initialState.inputs,
       isRegisterMode: true,
     };
+    wrapper = shallow(<InputsComponent {...props} />);
   });
 
   it('should render all required elements (Register Page)', () => {
-    wrapper = shallow(<InputsComponent {...props} />);
     expect(wrapper.find('#email')).toHaveLength(1);
     expect(wrapper.find('#confirmed-email')).toHaveLength(1);
     expect(wrapper.find('#username')).toHaveLength(1);
@@ -34,26 +34,42 @@ describe('<Inputs /> component', () => {
   });
 
   it('should call handler on email changed', () => {
-    wrapper = shallow(<InputsComponent {...props} />);
     wrapper.find('#email').simulate('change');
     expect(props.inputChanged).toHaveBeenCalled();
   });
 
+  it('should call handler on email blurred', () => {
+    wrapper.find('#email').simulate('blur');
+    expect(props.inputChanged).toHaveBeenCalled();
+  });
+
   it('should call handler on confirmed email changed', () => {
-    wrapper = shallow(<InputsComponent {...props} />);
     wrapper.find('#confirmed-email').simulate('change');
     expect(props.inputChanged).toHaveBeenCalled();
   });
 
+  it('should call handler on confirmed email blurred', () => {
+    wrapper.find('#confirmed-email').simulate('blur');
+    expect(props.inputChanged).toHaveBeenCalled();
+  });
+
   it('should call handler on username changed', () => {
-    wrapper = shallow(<InputsComponent {...props} />);
     wrapper.find('#username').simulate('change');
     expect(props.inputChanged).toHaveBeenCalled();
   });
 
+  it('should call handler on username blurred', () => {
+    wrapper.find('#username').simulate('blur');
+    expect(props.inputChanged).toHaveBeenCalled();
+  });
+
   it('should call handler on password changed', () => {
-    wrapper = shallow(<InputsComponent {...props} />);
     wrapper.find('#password').simulate('change');
+    expect(props.inputChanged).toHaveBeenCalled();
+  });
+
+  it('should call handler on password blurred', () => {
+    wrapper.find('#password').simulate('blur');
     expect(props.inputChanged).toHaveBeenCalled();
   });
 });

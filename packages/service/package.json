@@ -11,17 +11,24 @@
   },
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly --notify=false src/app.ts",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "lint": "npm run lint:src",
     "lint:src": "eslint ./src/**/*.ts",
     "prettier": "prettier --write ./{src,test}/**/*.ts",
     "precommit": "npm run prettier && npm run lint"
   },
   "dependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
+    "jest": "^25.3.0",
     "ts-node-dev": "^1.0.0-pre.44"
   },
   "devDependencies": {
+    "@types/supertest": "^2.0.8",
     "eslint": "^6.8.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "^25.3.1"
   }
 }

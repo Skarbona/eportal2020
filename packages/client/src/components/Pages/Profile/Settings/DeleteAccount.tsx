@@ -30,13 +30,11 @@ export const DeleteAccountComponent: FC = () => {
     handlers: { confirmAccountDeleteChanged },
   } = useForm([InputKeys.ConfirmAccountDelete]);
 
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch(deleteUser());
-    },
-    [dispatch],
-  );
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    dispatch(deleteUser());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>
