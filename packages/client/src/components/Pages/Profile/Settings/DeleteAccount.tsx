@@ -10,6 +10,7 @@ import ErrorHandler from '../../../Shared/UIElements/ErrorHandlerInfo/ErrorHandl
 import { deleteUser } from '../../../../store/user/thunks/deleteUser';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { ErrorTypes } from '../../../../models/errors';
+import { InputChangeEvent } from '../../../../models/typescript-events';
 
 interface DeleteAccountSelectorProps {
   email: string;
@@ -48,7 +49,7 @@ export const DeleteAccountComponent: FC = () => {
         label={t('Type your email')}
         name="confirmAccountDelete"
         value={inputs.confirmAccountDelete?.value}
-        onChange={(e) => confirmAccountDeleteChanged(e.target.value, email)}
+        onChange={(e: InputChangeEvent): void => confirmAccountDeleteChanged(e.target.value, email)}
       />
       <ErrorHandler error={error} type={type} />
       <Button

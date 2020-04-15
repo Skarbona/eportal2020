@@ -9,6 +9,7 @@
     "lerna:bootstrap": "lerna bootstrap",
     "lerna:lint": "lerna run lint",
     "lerna:test": "lerna run test",
+    "test:coverage": "istanbul-combine -r lcov -r lcovonly packages/client/coverage/coverage-final.json packages/service/coverage/coverage-final.json",
     "lerna:build": "lerna run build"
   },
   "author": "Filip Sokolowski",
@@ -48,6 +49,7 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
+    "babel-jest": "^24.9.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -83,11 +85,14 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.2.3",
+    "istanbul-combine": "^0.3.0",
+    "jest": "^24.9.0",
     "jest-react-hooks-shallow": "^1.2.0",
     "lerna": "^3.20.2",
     "lint-staged": "^10.0.8",
     "prettier": "^2.0.2",
-    "react-test-renderer": "^16.13.1"
+    "react-test-renderer": "^16.13.1",
+    "ts-jest": "^25.3.1"
   },
   "peerDependencies": {
     "react": "^16.13.0",

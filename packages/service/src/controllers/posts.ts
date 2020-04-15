@@ -63,11 +63,11 @@ export const getPosts = async (
       }
 
       if (catsExclude) {
-        options = { ...options, $nin: catsExclude.split(',') };
+        options = { ...options, $nin: (catsExclude as string).split(',') };
       }
 
       if (catsInclude) {
-        options = { ...options, $nin: catsInclude.split(',') };
+        options = { ...options, $nin: (catsInclude as string).split(',') };
       }
       posts = await Post.find({
         categories: options,

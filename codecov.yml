@@ -11,11 +11,10 @@ coverage:
         target: 60%
         flags:
           - service
-
-flags:
-  service:
-    paths:
-      - packages/service/
-  client:
-    paths:
-      - packages/client/
+  flags:
+    service:
+      paths:
+        - packages/service/
+    client:
+      paths:
+        - packages/client/

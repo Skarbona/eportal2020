@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 
 config();
 
-export default () => {
+export default (): Error | void => {
   if (
     !process.env.DB_USER ||
     !process.env.DB_PASS ||
