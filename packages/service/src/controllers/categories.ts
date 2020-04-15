@@ -67,7 +67,7 @@ export const getCategories = async (
     } else {
       categories = await Category.find()
         .where('_id')
-        .in(ids.split(','))
+        .in((ids as string).split(','))
         .populate({ path: 'children', populate: { path: 'children' } });
     }
     res.json({ categories: categories.map((category) => category.toObject({ getters: true })) });
