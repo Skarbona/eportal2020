@@ -4,7 +4,6 @@ export interface PostBasicInterface {
     content: string;
   };
   image?: string;
-  author: string;
 }
 
 export enum PostStatus {
@@ -13,6 +12,7 @@ export enum PostStatus {
 
 export interface PostRequestInterface extends PostBasicInterface {
   categories: string[];
+  author: string;
 }
 
 export interface PostResponseInterface extends PostBasicInterface {
@@ -20,4 +20,5 @@ export interface PostResponseInterface extends PostBasicInterface {
   slug: string;
   categories: string[];
   status: PostStatus;
+  author: string;
 }
