@@ -34,9 +34,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/Icov.info
-          flags:
-            - client
-            - service
+          flags: client, service
           name: project
         env:
           CI: true
