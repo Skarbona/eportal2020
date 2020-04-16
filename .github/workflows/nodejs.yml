@@ -23,6 +23,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+        env:
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          JWT_ACCESS_TOKEN: ${{ secrets.JWT_ACCESS_TOKEN }}
+          JWT_REFRESH_TOKEN: ${{ secrets.JWT_REFRESH_TOKEN }}
       - run: npm i
       - run: npm run lerna:bootstrap
       - run: npm run lerna:lint
