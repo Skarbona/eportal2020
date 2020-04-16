@@ -8,4 +8,5 @@ export const logout = (): AppThunk => (dispatch) => {
   window.localStorage.removeItem(LocalStorage.UserDataAccessToken);
   window.localStorage.removeItem(LocalStorage.UserDataRefreshToken);
   window.localStorage.removeItem(LocalStorage.GameConfig);
+  window.localStorage.removeItem(LocalStorage.GameStatus);
 };

@@ -2,6 +2,7 @@ import { GameEnum } from './enum';
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 import { NetworkError } from '../../models/errors';
+import { GameStatus } from './initialState.interface';
 
 interface ActionInterface {
   type: GameEnum;
@@ -36,9 +37,17 @@ export interface CleanGameData extends ActionInterface {
   type: GameEnum.CleanGameData;
 }
 
+export interface SaveGameStatus extends ActionInterface {
+  type: GameEnum.SaveGameStatus;
+  data: {
+    gameStatus: GameStatus;
+  };
+}
+
 export type GameActions =
   | InitFetchPosts
   | SuccessFetchPosts
   | FailFetchPosts
   | SetFormValues
+  | SaveGameStatus
   | CleanGameData;

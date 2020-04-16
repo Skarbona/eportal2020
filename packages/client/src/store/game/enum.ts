@@ -4,4 +4,5 @@ export enum GameEnum {
   SuccessFetchPosts = 'successFetchPosts',
   SetFormValues = 'setFormValues',
   CleanGameData = 'cleanGameData',
+  SaveGameStatus = 'saveGameStatus',
 }

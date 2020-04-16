@@ -3,11 +3,11 @@ import { FormValues } from '../../../../service/src/models/shared-interfaces/use
 import { ErrorTypes, NetworkError } from '../../models/errors';
 
 export enum GameStatus {
-  'Level1',
-  'Level2',
-  'Level3',
-  'Summary',
-  'None',
+  'NewGame' = 'NewGame',
+  'Level1' = 'Level1',
+  'Level2' = 'Level2',
+  'Level3' = 'Level3',
+  'Summary' = 'Summary',
 }
 
 export interface GameStateInterface {

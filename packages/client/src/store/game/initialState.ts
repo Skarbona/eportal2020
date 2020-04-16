@@ -1,7 +1,7 @@
 import { GameStateInterface, GameStatus } from './initialState.interface';
 
 export const gameInitialState: GameStateInterface = {
-  gameStatus: GameStatus.None,
+  gameStatus: GameStatus.NewGame,
   posts: {
     level1: {
       data: {

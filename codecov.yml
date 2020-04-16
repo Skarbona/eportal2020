@@ -13,6 +13,8 @@ coverage:
     service:
       paths:
         - packages/service/
+      carryforward: true
     client:
       paths:
         - packages/client/
+      carryforward: true
