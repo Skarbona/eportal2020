@@ -9,7 +9,7 @@
     "lerna:bootstrap": "lerna bootstrap",
     "lerna:lint": "lerna run lint",
     "lerna:test": "lerna run test",
-    "test:coverage": "istanbul-combine -r lcov -r lcovonly packages/client/coverage/coverage-final.json packages/service/coverage/coverage-final.json",
+    "test:coverage": "istanbul-combine -r json packages/client/coverage/coverage-final.json packages/service/coverage/coverage-final.json",
     "lerna:build": "lerna run build"
   },
   "author": "Filip Sokolowski",
