@@ -23,6 +23,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - run: npm i
+      - run: npm run lerna:bootstrap
+      - run: npm run lerna:lint
+      - run: npm run lerna:test
         env:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
@@ -30,10 +34,6 @@ jobs:
           DB_HOST: ${{ secrets.DB_HOST }}
           JWT_ACCESS_TOKEN: ${{ secrets.JWT_ACCESS_TOKEN }}
           JWT_REFRESH_TOKEN: ${{ secrets.JWT_REFRESH_TOKEN }}
-      - run: npm i
-      - run: npm run lerna:bootstrap
-      - run: npm run lerna:lint
-      - run: npm run lerna:test
       - run: npm run lerna:build
       - run: npm run test:coverage
       - name: Upload coverage to Codecov
