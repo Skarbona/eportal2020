@@ -5,12 +5,10 @@ coverage:
       default: off
       client:
         target: 80%
-        flags:
-          - client
+        flags: client
       service:
         target: 60%
-        flags:
-          - service
+        flags: service
   flags:
     service:
       paths:

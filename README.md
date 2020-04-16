@@ -1,11 +1,9 @@
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
-##### Client Test coverage:
+##### Test coverage, Client coverage, Service coverage:
 
+[![codecov](https://codecov.io/gh/Skarbona/eportal2020/branch/master/graph/badge.svg?flag)](https://codecov.io/gh/Skarbona/eportal2020)
 [![codecov](https://codecov.io/gh/Skarbona/eportal2020/branch/master/graph/badge.svg?flag=client)](https://codecov.io/gh/Skarbona/eportal2020)
-
-##### Service Test coverage:
-
 [![codecov](https://codecov.io/gh/Skarbona/eportal2020/branch/master/graph/badge.svg?flag=service)](https://codecov.io/gh/Skarbona/eportal2020)
 
 ## How to start ?
