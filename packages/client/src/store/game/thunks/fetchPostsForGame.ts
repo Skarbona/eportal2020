@@ -4,8 +4,13 @@ import axios from 'axios';
 import { AppThunk } from '../../store.interface';
 import { PostResponseInterface } from '../../../../../service/src/models/shared-interfaces/post';
 import { failFetchPosts, initFetchPosts, successFetchPosts } from '../action';
+import { setGameStatus } from './setGameStatus';
+import { GameStatus } from '../initialState.interface';
 
-export const fetchPostsForGame = (): AppThunk => async (dispatch, getState) => {
+export const fetchPostsForGame = (gameStatus?: GameStatus): AppThunk => async (
+  dispatch,
+  getState,
+) => {
   dispatch(initFetchPosts());
   try {
     const {
@@ -23,6 +28,7 @@ export const fetchPostsForGame = (): AppThunk => async (dispatch, getState) => {
       },
     );
     dispatch(successFetchPosts(data.posts as PostResponseInterface));
+    dispatch(setGameStatus(gameStatus || GameStatus.Level1));
   } catch (e) {
     dispatch(failFetchPosts(e));
   }

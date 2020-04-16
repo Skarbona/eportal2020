@@ -82,7 +82,7 @@ export const mockedStore = (): RootState => ({
     loading: false,
   },
   game: {
-    gameStatus: GameStatus.None,
+    gameStatus: GameStatus.NewGame,
     posts: {
       level1: {
         data: {

@@ -101,7 +101,7 @@ describe('Thunk: App', () => {
 
     it('should call all required actions', () => {
       logoutThunk.logout()(dispatch, () => initialRootState, null);
-      expect(removeItemLocalStorageSpy).toHaveBeenCalledTimes(3);
+      expect(removeItemLocalStorageSpy).toHaveBeenCalledTimes(4);
       expect(cleanAppDataHandler).toHaveBeenCalled();
     });
   });

@@ -2,6 +2,7 @@ import { ActionCreator } from 'redux';
 
 import * as I from './action.interface';
 import { GameEnum } from './enum';
+import { GameStatus } from './initialState.interface';
 
 export const initFetchPosts: ActionCreator<I.InitFetchPosts> = () => ({
   type: GameEnum.InitFetchPosts,
@@ -30,4 +31,11 @@ export const setFormValues: ActionCreator<I.SetFormValues> = (values) => ({
 
 export const cleanGameData: ActionCreator<I.CleanGameData> = () => ({
   type: GameEnum.CleanGameData,
+});
+
+export const saveGameStatus: ActionCreator<I.SaveGameStatus> = (gameStatus: GameStatus) => ({
+  type: GameEnum.SaveGameStatus,
+  data: {
+    gameStatus,
+  },
 });

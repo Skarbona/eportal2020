@@ -62,5 +62,6 @@
   "Please confirm account deletion by typing your email": "Proszę potwierdź usunięcie konta. Aby to zrobić wpisz swój email. Usunięcie konta jest działaniem nieodwracalnym. Po usunięciu konta zostaniesz wylogowany.",
   "Type your email": "Wpisz swój email",
   "After password changed you will be log off": "Po zmianie hasła zostaniesz wylogowany",
-  "New password": "Nowe hasło"
+  "New password": "Nowe hasło",
+  "Summary": "Podsumowanie"
 }
