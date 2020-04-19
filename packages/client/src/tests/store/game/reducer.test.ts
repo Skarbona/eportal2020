@@ -4,7 +4,7 @@ import gameReducer from '../../../store/game/reducer';
 import { GameEnum } from '../../../store/game/enum';
 import * as I from '../../../store/game/action.interface';
 import { postsResponseMock } from '../../../mocks/responses';
-import { convertedPosts } from '../../../utils/post-data-for-game';
+import { convertPosts, checkIfHasEnoughPosts } from '../../../utils/post-data-for-game';
 import { ErrorTypes, NetworkError } from '../../../models/errors';
 
 describe('Reducer: Game', () => {
@@ -38,13 +38,16 @@ describe('Reducer: Game', () => {
       type: GameEnum.SuccessFetchPosts,
       data: {
         posts,
+        makeCheck: false,
       },
     };
     const state = gameReducer(initialState, action);
-    const expectedState = {
+    const convertedPosts = convertPosts(posts);
+    const expectedState: GameStateInterface = {
       ...initialState,
       loading: false,
-      posts: convertedPosts(posts),
+      posts: convertedPosts,
+      isReadyToStartGame: null,
     };
     expect(state).toEqual(expectedState);
   });
@@ -58,7 +61,7 @@ describe('Reducer: Game', () => {
       },
     };
     const state = gameReducer(initialState, action);
-    const expectedState = {
+    const expectedState: GameStateInterface = {
       ...initialState,
       loading: false,
       error,
@@ -76,7 +79,7 @@ describe('Reducer: Game', () => {
       },
     };
     const state = gameReducer(initialState, action);
-    const expectedState = {
+    const expectedState: GameStateInterface = {
       ...initialState,
       config: {
         ...initialState.config,

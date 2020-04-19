@@ -1,4 +1,4 @@
-import React, { FC, memo, Fragment } from 'react';
+import React, { FC, memo } from 'react';
 import { Typography, Card, CardContent, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -10,7 +10,7 @@ interface Props {
 export const CardInfoComponent: FC<Props> = ({ name, email }) => {
   const { t } = useTranslation();
   return (
-    <Fragment>
+    <>
       <Card className="profile__card-info primary-gradient-bg">
         <CardContent className="card-user">
           <Typography gutterBottom variant="h4" component="h2">
@@ -33,7 +33,7 @@ export const CardInfoComponent: FC<Props> = ({ name, email }) => {
           </Button>
         </CardContent>
       </Card>
-    </Fragment>
+    </>
   );
 };
 

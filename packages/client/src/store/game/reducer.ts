@@ -2,7 +2,7 @@ import { GameActions } from './action.interface';
 import { GameEnum } from './enum';
 import { gameInitialState } from './initialState';
 import { GameStateInterface } from './initialState.interface';
-import { convertedPosts } from '../../utils/post-data-for-game';
+import { checkIfHasEnoughPosts, convertPosts } from '../../utils/post-data-for-game';
 import { ErrorTypes } from '../../models/errors';
 
 const gameReducer = (state = gameInitialState, action: GameActions): GameStateInterface => {
@@ -14,12 +14,15 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
         error: null,
       };
     case GameEnum.SuccessFetchPosts: {
-      const { posts } = action.data;
-
+      const { posts, makeCheck } = action.data;
+      const convertedPosts = convertPosts(posts);
       return {
         ...state,
         loading: false,
-        posts: convertedPosts(posts),
+        posts: convertedPosts,
+        isReadyToStartGame: makeCheck
+          ? checkIfHasEnoughPosts(convertedPosts, state.config.levels)
+          : null,
       };
     }
     case GameEnum.FailFetchPosts: {
@@ -51,6 +54,12 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
       };
     case GameEnum.CleanGameData:
       return gameInitialState;
+    case GameEnum.CleanIsReadyToGameData: {
+      return {
+        ...state,
+        isReadyToStartGame: null,
+      };
+    }
     case GameEnum.SaveGameStatus:
       return {
         ...state,

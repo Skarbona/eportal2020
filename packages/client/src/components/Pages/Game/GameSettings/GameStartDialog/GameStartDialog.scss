@@ -1,0 +1,27 @@
+@import '../../../../../scss/Variables';
+
+.game-start-dialog {
+  .task-error {
+    .MuiListItemText-secondary {
+      color: $error;
+    }
+  }
+
+  .task-success {
+    .MuiListItemText-secondary {
+      color: $success;
+    }
+  }
+
+  .task-warning {
+    .MuiListItemText-secondary {
+      color: $warning;
+    }
+  }
+
+  .game-start-dialog__grid {
+    button {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@import '../../../../scss/Variables';
+
+.dialog {
+  .MuiDialog-paper {
+    z-index: 100;
+    background: $primary-gradient-bg;
+  }
+
+  .dialog__title {
+    .MuiIconButton-root {
+      position: absolute;
+      right: 1rem;
+      top: 0.5rem;
+    }
+  }
+}

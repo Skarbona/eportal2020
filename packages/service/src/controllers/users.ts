@@ -161,22 +161,21 @@ export const updateUser = async (
   let user;
   try {
     user = await User.findById(userId);
+    if (!user) {
+      throw new Error();
+    }
   } catch (e) {
     return next(new HttpError('User does not exist', 404));
   }
 
-  if (user) {
-    try {
-      if (gameDefaults) user.gameDefaults = gameDefaults;
-      if (password) user.password = await bcrypt.hash(password, 12);
-      await user.save();
-    } catch (e) {
-      return next(new HttpError('Something went wrong, could not update user', 500));
-    }
+  try {
+    if (gameDefaults) user.gameDefaults = gameDefaults;
+    if (password) user.password = await bcrypt.hash(password, 12);
+    await user.save();
     const userData = user.toObject({ getters: true });
     delete userData.password;
     res.json({ user: userData });
-  } else {
+  } catch (e) {
     return next(new HttpError('Something went wrong, could not update user', 500));
   }
 };

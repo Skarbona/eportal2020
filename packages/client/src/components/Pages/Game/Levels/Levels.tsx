@@ -1,4 +1,4 @@
-import React, { FC, memo, Fragment } from 'react';
+import React, { FC, memo } from 'react';
 
 import './Levels.scss';
 import { useSelector } from 'react-redux';
@@ -30,7 +30,7 @@ export const LevelsComponent: FC = () => {
   if (!levels) return null;
 
   return (
-    <Fragment>
+    <>
       <PageHeading
         title={
           gameStatus === GameStatus.Summary ? t('Summary') : setGameTitleHelper(gameStatus, levels)
@@ -44,7 +44,7 @@ export const LevelsComponent: FC = () => {
         {gameStatus === GameStatus.Summary && <Summary />}
         <LevelsNavigation />
       </PageContainer>
-    </Fragment>
+    </>
   );
 };
 

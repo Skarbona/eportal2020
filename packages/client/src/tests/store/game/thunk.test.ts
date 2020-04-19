@@ -52,9 +52,9 @@ describe('Thunk: game', () => {
   describe('fetchPostsForGame thunk', () => {
     it('should call all required action in success path', async () => {
       jest.spyOn(axios, 'get').mockImplementation(() => Promise.resolve({ data: { posts: [] } }));
-      await fetchPostsForGameThunk.fetchPostsForGame()(dispatch, () => store, null);
+      await fetchPostsForGameThunk.fetchPostsForGame(false)(dispatch, () => store, null);
       expect(initFetchPostsSpy).toHaveBeenCalled();
-      expect(successFetchPostsSpy).toHaveBeenCalledWith([]);
+      expect(successFetchPostsSpy).toHaveBeenCalledWith([], false);
     });
 
     it('should call all required action in fail path', async () => {

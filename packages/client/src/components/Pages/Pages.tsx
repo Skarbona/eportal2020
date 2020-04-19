@@ -1,4 +1,4 @@
-import React, { FC, Fragment, memo } from 'react';
+import React, { FC, memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Game from './Game/Game';
@@ -12,7 +12,7 @@ interface Props {
 // TODO: Add lazy loading for pages
 export const PagesComponent: FC<Props> = ({ accessToken }) => {
   return (
-    <Fragment>
+    <>
       {accessToken && (
         <Switch>
           <Route path="/" exact>
@@ -36,7 +36,7 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
           </Route>
         </Switch>
       )}
-    </Fragment>
+    </>
   );
 };
 

@@ -4,13 +4,8 @@ import axios from 'axios';
 import { AppThunk } from '../../store.interface';
 import { PostResponseInterface } from '../../../../../service/src/models/shared-interfaces/post';
 import { failFetchPosts, initFetchPosts, successFetchPosts } from '../action';
-import { setGameStatus } from './setGameStatus';
-import { GameStatus } from '../initialState.interface';
 
-export const fetchPostsForGame = (gameStatus?: GameStatus): AppThunk => async (
-  dispatch,
-  getState,
-) => {
+export const fetchPostsForGame = (makeCheck?: boolean): AppThunk => async (dispatch, getState) => {
   dispatch(initFetchPosts());
   try {
     const {
@@ -27,8 +22,7 @@ export const fetchPostsForGame = (gameStatus?: GameStatus): AppThunk => async (
         },
       },
     );
-    dispatch(successFetchPosts(data.posts as PostResponseInterface));
-    dispatch(setGameStatus(gameStatus || GameStatus.Level1));
+    dispatch(successFetchPosts(data.posts as PostResponseInterface, makeCheck));
   } catch (e) {
     dispatch(failFetchPosts(e));
   }

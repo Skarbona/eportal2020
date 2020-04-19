@@ -11,8 +11,8 @@
   },
   "scripts": {
     "start": "ts-node-dev --respawn --transpileOnly --notify=false src/app.ts",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch",
+    "test": "jest --coverage --forceExit --detectOpenHandles --maxWorkers=1",
+    "test:watch": "jest --watch --detectOpenHandles --maxWorkers=1",
     "lint": "npm run lint:src",
     "lint:src": "eslint ./src/**/*.ts",
     "prettier": "prettier --write ./{src,test}/**/*.ts",

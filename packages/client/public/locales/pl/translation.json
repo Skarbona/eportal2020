@@ -63,5 +63,14 @@
   "Type your email": "Wpisz swój email",
   "After password changed you will be log off": "Po zmianie hasła zostaniesz wylogowany",
   "New password": "Nowe hasło",
-  "Summary": "Podsumowanie"
+  "Summary": "Podsumowanie",
+  "Play!": "Graj!",
+  "tasks": "zadań/nia",
+  "expected": "oczekiwano",
+  "I will configure game parameters": "Skonfiguruje parametry",
+  "I am ok with that": "Rozumiem. Chce rozpocząć grę!",
+  "What we have": "Co posiadamy",
+  "Try change params": "Przepraszamy, ale nie posiadamy wystarczającej ilości zadań, które by pasowały Twoim oczekiwaniom. Spróbuj zmienić parametry gry.",
+  "You can still start game": "Przepraszamy, ale nie posiadamy wystarczającej ilości zadań, które by pasowały Twoim oczekiwaniom. Możesz jednak rozpocząć grę, ale zmniejszymy liczbę zadań na poziom. Możesz również zmienić parametry gry.",
+  "Not enough tasks": "Brak wystarczającej liczby zadań"
 }

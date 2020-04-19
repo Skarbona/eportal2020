@@ -5,4 +5,5 @@ export enum GameEnum {
   SetFormValues = 'setFormValues',
   CleanGameData = 'cleanGameData',
   SaveGameStatus = 'saveGameStatus',
+  CleanIsReadyToGameData = 'cleanIsReadyToGameData',
 }

@@ -1,22 +1,33 @@
-import React, { FC, memo, useCallback, Fragment } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { AccountCircle as AccountIcon, Menu as MenuIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { logout } from '../../../../store/app/thunks/logout';
 import './Header.scss';
 import { PageParams } from '../../../../models/page-types';
 import { useReduxDispatch } from '../../../../store/helpers';
 
+import { RootState } from '../../../../store/store.interface';
+import { GameStatus } from '../../../../store/game/initialState.interface';
+
 interface Props {
   accessToken: string;
+}
+
+interface SelectorProps {
+  gameStatus: GameStatus;
 }
 
 // TODO: Add Mobile Support
 export const HeaderComponent: FC<Props> = ({ accessToken }) => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
+  const { gameStatus } = useSelector<RootState, SelectorProps>(({ game }) => ({
+    gameStatus: game.gameStatus,
+  }));
 
   const logoutHandler = useCallback(() => dispatch(logout()), [dispatch]);
   return (
@@ -29,9 +40,9 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
           <Link to="/">{t('Portal Name')}</Link>
         </Typography>
         {accessToken && (
-          <Fragment>
+          <>
             <Link to="/gra" className="btn__start-game">
-              <Button>{t('Start a Game!')}</Button>
+              <Button>{gameStatus === GameStatus.NewGame ? t('Start a Game!') : t('Play!')}</Button>
             </Link>
             <Link to="/" onClick={logoutHandler} className="btn__logout">
               <Button>{t('Logout')}</Button>
@@ -41,17 +52,17 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
                 <AccountIcon color="inherit" />
               </IconButton>
             </Link>
-          </Fragment>
+          </>
         )}
         {!accessToken && (
-          <Fragment>
+          <>
             <Link to={`/autentykacja/${PageParams.Login as string}`} className="btn__log-in">
               <Button>{t('Log in')}</Button>
             </Link>
             <Link to={`/autentykacja/${PageParams.Register as string}`} className="btn__register">
               <Button>{t('Register')}</Button>
             </Link>
-          </Fragment>
+          </>
         )}
       </Toolbar>
     </AppBar>

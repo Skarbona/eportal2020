@@ -1,9 +1,10 @@
-import { deepPurple } from '@material-ui/core/colors';
+import { deepPurple, grey } from '@material-ui/core/colors';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 export const theme = createMuiTheme({
   palette: {
     primary: deepPurple,
+    secondary: grey,
     type: 'dark',
   },
   overrides: {
@@ -11,6 +12,14 @@ export const theme = createMuiTheme({
       root: {
         '&.MuiGrid-container': {
           padding: '1.5rem 0',
+        },
+      },
+    },
+    MuiAvatar: {
+      root: {
+        '&.main-bg-color': {
+          backgroundColor: deepPurple[200],
+          color: deepPurple,
         },
       },
     },

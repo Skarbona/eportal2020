@@ -11,12 +11,14 @@ export const createCategories = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const categories: CategoryRequestInterface[] = req.body.categories;
   // TODO: ONLY ADMIN
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
+
+  const categories: CategoryRequestInterface[] = req.body.categories;
+
   try {
     const session = await mongoose.startSession();
     session.startTransaction();

@@ -16,6 +16,7 @@ export interface SuccessFetchPosts extends ActionInterface {
   type: GameEnum.SuccessFetchPosts;
   data: {
     posts: PostResponseInterface[];
+    makeCheck?: boolean;
   };
 }
 
@@ -44,10 +45,15 @@ export interface SaveGameStatus extends ActionInterface {
   };
 }
 
+export interface CleanIsReadyToGameData extends ActionInterface {
+  type: GameEnum.CleanIsReadyToGameData;
+}
+
 export type GameActions =
   | InitFetchPosts
   | SuccessFetchPosts
   | FailFetchPosts
+  | CleanIsReadyToGameData
   | SetFormValues
   | SaveGameStatus
   | CleanGameData;

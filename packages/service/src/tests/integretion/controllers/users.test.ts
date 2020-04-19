@@ -1,21 +1,12 @@
-import request, { Response } from 'supertest';
+import request from 'supertest';
 import mongoose from 'mongoose';
 import { Server } from 'http';
 
 import appStartUp from '../../../app';
 import User from '../../../models/user';
+import { signUpUser } from '../../../utils/test-basic-calls';
 
 const endpoint = '/api/users/';
-
-const signUpUser = (server: Server): Promise<Response> => {
-  return request(server)
-    .post(endpoint + '/signup')
-    .send({
-      password: 'aaAA1111',
-      userName: 'AAAA',
-      email: 'test@test.pl',
-    });
-};
 
 describe('Controller: Users', () => {
   let server: Server;
@@ -198,6 +189,19 @@ describe('Controller: Users', () => {
 
       expect(response.status).toEqual(401);
     });
+
+    it('should return 404 if user does not exist', async () => {
+      const user = await signUpUser(server);
+      await request(server)
+        .delete(endpoint)
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      const response = await request(server)
+        .get(endpoint)
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      expect(response.status).toEqual(404);
+    });
   });
 
   describe('updateUser Controller', () => {
@@ -232,6 +236,22 @@ describe('Controller: Users', () => {
 
       expect(response.status).toEqual(401);
     });
+
+    it('should return 404 if user does not exist', async () => {
+      const user = await signUpUser(server);
+      await request(server)
+        .delete(endpoint)
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      const response = await request(server)
+        .patch(endpoint)
+        .send({
+          password: 'NewPassword11',
+        })
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      expect(response.status).toEqual(404);
+    });
   });
 
   describe('deleteUser Controller', () => {
@@ -259,6 +279,19 @@ describe('Controller: Users', () => {
       const response = await request(server).delete(endpoint);
 
       expect(response.status).toEqual(401);
+    });
+
+    it('should return 404 if user does not exist', async () => {
+      const user = await signUpUser(server);
+      await request(server)
+        .delete(endpoint)
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      const response = await request(server)
+        .delete(endpoint)
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      expect(response.status).toEqual(404);
     });
   });
 });
