@@ -1,5 +1,5 @@
 import React, { memo, FC, ReactNode } from 'react';
-import { Button, Dialog, DialogContent, DialogActions } from '@material-ui/core';
+import { Dialog, DialogContent, DialogActions } from '@material-ui/core';
 
 import './Dialog.scss';
 import DialogTitle from './DialogTitle';
