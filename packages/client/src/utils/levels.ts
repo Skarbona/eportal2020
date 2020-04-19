@@ -1,11 +1,7 @@
 import { GameStatus } from '../store/game/initialState.interface';
 import { CategoryInterface } from '../store/categories/initialState.interface';
 
-export const setGameStatusHelper = (
-  currentStatus: GameStatus,
-  finishGame?: boolean,
-): GameStatus => {
-  if (finishGame) return GameStatus.NewGame;
+export const setGameStatusHelper = (currentStatus: GameStatus): GameStatus => {
   if (currentStatus === GameStatus.Level1) return GameStatus.Level2;
   if (currentStatus === GameStatus.Level2) return GameStatus.Level3;
   if (currentStatus === GameStatus.Level3) return GameStatus.Summary;

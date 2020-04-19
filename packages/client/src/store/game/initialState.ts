@@ -25,6 +25,7 @@ export const gameInitialState: GameStateInterface = {
       removedPosts: [],
     },
   },
+  isReadyToStartGame: null,
   config: null,
   loading: false,
 };

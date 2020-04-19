@@ -82,6 +82,7 @@ export const mockedStore = (): RootState => ({
     loading: false,
   },
   game: {
+    isReadyToStartGame: null,
     gameStatus: GameStatus.NewGame,
     posts: {
       level1: {

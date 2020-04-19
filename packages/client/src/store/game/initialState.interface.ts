@@ -10,6 +10,26 @@ export enum GameStatus {
   'Summary' = 'Summary',
 }
 
+export interface CheckIfHasEnoughPosts {
+  hasEnough: boolean;
+  canStartWithSmallerAmount: boolean;
+  level1: {
+    hasEnough: boolean;
+    expected: number;
+    has: number;
+  };
+  level2: {
+    hasEnough: boolean;
+    expected: number;
+    has: number;
+  };
+  level3: {
+    hasEnough: boolean;
+    expected: number;
+    has: number;
+  };
+}
+
 export interface GameStateInterface {
   gameStatus: GameStatus;
   posts: {
@@ -35,6 +55,7 @@ export interface GameStateInterface {
       removedPosts?: string[];
     };
   };
+  isReadyToStartGame: CheckIfHasEnoughPosts;
   config: FormValues;
   loading: boolean;
   error?: NetworkError;

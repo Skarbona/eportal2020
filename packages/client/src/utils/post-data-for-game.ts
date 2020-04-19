@@ -1,9 +1,10 @@
 import { GenderIds, LevelsIDs } from '../constants/categoriesIds';
 import { gameInitialState } from '../store/game/initialState';
-import { GameStateInterface } from '../store/game/initialState.interface';
+import { CheckIfHasEnoughPosts, GameStateInterface } from '../store/game/initialState.interface';
 import { PostResponseInterface } from '../../../service/src/models/shared-interfaces/post';
+import { FormValues } from '../../../service/src/models/shared-interfaces/user';
 
-export const convertedPosts = (posts: PostResponseInterface[]): GameStateInterface['posts'] =>
+export const convertPosts = (posts: PostResponseInterface[]): GameStateInterface['posts'] =>
   posts.reduce(
     (result, post) => {
       const { categories } = post;
@@ -83,3 +84,27 @@ export const convertedPosts = (posts: PostResponseInterface[]): GameStateInterfa
     },
     { ...gameInitialState.posts },
   );
+
+export const checkIfHasEnoughPosts = (
+  posts: GameStateInterface['posts'],
+  levels: FormValues['levels'],
+): CheckIfHasEnoughPosts => {
+  const newPosts = { ...posts };
+  const checkerCreator = Object.values(newPosts).map((level, index) => {
+    const has = Math.min(level.data.man.length, level.data.man.length);
+    const expected = Object.values(levels)[index];
+    return {
+      has,
+      expected,
+      hasEnough: has > 0 && has >= expected,
+    };
+  });
+
+  return {
+    hasEnough: Object.values(checkerCreator).every((level) => level.hasEnough),
+    canStartWithSmallerAmount: Object.values(checkerCreator).every((level) => level.has > 0),
+    level1: checkerCreator[0],
+    level2: checkerCreator[1],
+    level3: checkerCreator[2],
+  };
+};

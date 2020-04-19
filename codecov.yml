@@ -7,7 +7,7 @@ coverage:
         target: 80%
         flags: client
       service:
-        target: 60%
+        target: 70%
         flags: service
   flags:
     service:

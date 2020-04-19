@@ -1,4 +1,4 @@
-import React, { FC, memo, Fragment } from 'react';
+import React, { FC, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 
@@ -21,7 +21,7 @@ export const ProfileComponent: FC = () => {
   }));
 
   return (
-    <Fragment>
+    <>
       <PageHeading title="Profile" />
       <PageContainer className="profile">
         <Grid container spacing={2} className="profile__grid-container">
@@ -33,7 +33,7 @@ export const ProfileComponent: FC = () => {
           </Grid>
         </Grid>
       </PageContainer>
-    </Fragment>
+    </>
   );
 };
 

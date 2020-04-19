@@ -4,6 +4,10 @@
   background: $primary-gradient-bg;
 }
 
+.main-bg-color {
+  background-color: $main-bg-color;
+}
+
 .MuiButton-contained {
   &.delete-button {
     background-color: $error;
@@ -11,6 +15,25 @@
 
     &:hover {
       background-color: $error900;
+    }
+  }
+  &.success-button {
+    background-color: $success;
+    color: $deep-dark;
+
+    &:hover {
+      color: $light-gray;
+      background-color: $success900;
+    }
+  }
+
+  &.warning-button {
+    background-color: $warning;
+    color: $deep-dark;
+
+    &:hover {
+      color: $light-gray;
+      background-color: $warning900;
     }
   }
 }

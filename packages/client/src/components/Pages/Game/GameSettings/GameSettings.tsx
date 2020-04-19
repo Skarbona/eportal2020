@@ -1,4 +1,4 @@
-import React, { FC, Fragment, memo, useState } from 'react';
+import React, { FC, memo, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 
@@ -21,6 +21,8 @@ import PlayersNames from './PlayersNames';
 import Preferences from './Preferences';
 import TimeForTask from './TimeForTask';
 import StartButton from './StartButton';
+import GameStartDialog from './GameStartDialog/GameStartDialog';
+import { cleanIsReadyToGameData } from '../../../../store/game/action';
 import { startGameHandler } from '../../../../store/game/thunks/startGame';
 import { useReduxDispatch } from '../../../../store/helpers';
 
@@ -52,10 +54,13 @@ export const GameSettingComponent: FC = () => {
     dispatch(startGameHandler());
   };
 
+  useEffect(() => () => dispatch(cleanIsReadyToGameData()), [dispatch]);
+
   const errors = <ErrorHandler error={error} type={errorType} />;
 
   return (
-    <Fragment>
+    <>
+      <GameStartDialog />
       <PageHeading title="New Game" />
       <PageContainer className="game__settings">
         {errors}
@@ -79,7 +84,7 @@ export const GameSettingComponent: FC = () => {
           </form>
         )}
       </PageContainer>
-    </Fragment>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { FC, memo, ReactNode, Fragment } from 'react';
+import React, { FC, memo, ReactNode } from 'react';
 import { Container } from '@material-ui/core';
 
 export interface Props {
@@ -9,7 +9,7 @@ export interface Props {
 export const PageContainerComponent: FC<Props> = ({ children, className = '' }) => {
   return (
     <Container className={`page-container ${className}`}>
-      <Fragment>{children}</Fragment>
+      <>{children}</>
     </Container>
   );
 };

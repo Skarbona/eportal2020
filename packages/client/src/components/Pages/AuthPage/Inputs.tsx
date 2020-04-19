@@ -1,4 +1,4 @@
-import React, { FC, memo, Fragment, useState } from 'react';
+import React, { FC, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField, InputAdornment, IconButton } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
@@ -31,7 +31,7 @@ export const InputsComponent: FC<Props> = ({ inputChanged, inputs, isRegisterMod
   );
 
   return (
-    <Fragment>
+    <>
       <TextField
         variant="filled"
         margin="normal"
@@ -98,7 +98,7 @@ export const InputsComponent: FC<Props> = ({ inputChanged, inputs, isRegisterMod
           endAdornment: showPasswordIcon,
         }}
       />
-    </Fragment>
+    </>
   );
 };
 

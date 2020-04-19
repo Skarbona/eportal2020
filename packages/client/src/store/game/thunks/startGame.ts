@@ -11,6 +11,6 @@ export const startGameHandler = (): AppThunk => async (dispatch, getState) => {
   if (config.saveAsDefault) {
     dispatch(setUserData());
   }
-  dispatch(fetchPostsForGame());
   window.localStorage.setItem(LocalStorage.GameConfig, JSON.stringify(config));
+  dispatch(fetchPostsForGame(true));
 };

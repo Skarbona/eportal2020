@@ -1,4 +1,4 @@
-import React, { FC, memo, Fragment, useCallback, useEffect } from 'react';
+import React, { FC, memo, useCallback, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ import { ErrorTypes } from '../../../models/errors';
 import { useForm } from '../../../hooks/form/form-hook';
 import { InputKeys } from '../../../hooks/form/state/interface';
 
-interface AuthPageSelectorProps {
+interface SelectorProps {
   error: Error;
   errorType: ErrorTypes;
 }
@@ -38,7 +38,7 @@ export const AuthPageComponent: FC = () => {
     handlers: { setVisibleInputs, inputChanged, recaptchaChanged },
   } = useForm(registerInputs, false);
 
-  const { error, errorType } = useSelector<RootState, AuthPageSelectorProps>(({ user }) => ({
+  const { error, errorType } = useSelector<RootState, SelectorProps>(({ user }) => ({
     error: user.error,
     errorType: user.errorType,
   }));
@@ -74,7 +74,7 @@ export const AuthPageComponent: FC = () => {
   );
 
   const infoAction = (
-    <Fragment>
+    <>
       {!isRegisterMode && (
         <Grid item xs>
           <Link href="#" variant="body2" className="link__forgot-password">
@@ -89,7 +89,7 @@ export const AuthPageComponent: FC = () => {
             : t('Do not have an account? Sign Up')}
         </Link>
       </Grid>
-    </Fragment>
+    </>
   );
 
   return (

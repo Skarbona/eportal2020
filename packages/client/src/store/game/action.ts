@@ -3,15 +3,20 @@ import { ActionCreator } from 'redux';
 import * as I from './action.interface';
 import { GameEnum } from './enum';
 import { GameStatus } from './initialState.interface';
+import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 
 export const initFetchPosts: ActionCreator<I.InitFetchPosts> = () => ({
   type: GameEnum.InitFetchPosts,
 });
 
-export const successFetchPosts: ActionCreator<I.SuccessFetchPosts> = (posts) => ({
+export const successFetchPosts: ActionCreator<I.SuccessFetchPosts> = (
+  posts: PostResponseInterface[],
+  makeCheck?: boolean,
+) => ({
   type: GameEnum.SuccessFetchPosts,
   data: {
     posts,
+    makeCheck,
   },
 });
 
@@ -38,4 +43,8 @@ export const saveGameStatus: ActionCreator<I.SaveGameStatus> = (gameStatus: Game
   data: {
     gameStatus,
   },
+});
+
+export const cleanIsReadyToGameData: ActionCreator<I.CleanIsReadyToGameData> = () => ({
+  type: GameEnum.CleanIsReadyToGameData,
 });

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, Fragment } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Container } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 
@@ -34,14 +34,14 @@ export const App: FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Fragment>
+      <>
         <AuthHOC />
         <Header accessToken={accessToken} />
         <Container component="main" className="eportal__main" maxWidth={false} disableGutters>
           <Pages accessToken={accessToken} />
           <SnackBarErrorHandler />
         </Container>
-      </Fragment>
+      </>
     </ThemeProvider>
   );
 };
