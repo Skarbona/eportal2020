@@ -7,7 +7,7 @@ import { useReduxDispatch } from '../../../store/helpers';
 import GameSettings from './GameSettings/GameSettings';
 import Levels from './Levels/Levels';
 import { RootState } from '../../../store/store.interface';
-import { GameStatus } from '../../../store/game/initialState.interface';
+import { GameStatus } from '../../../models/game-models';
 import { LocalStorage } from '../../../models/local-storage';
 import { setFormValues } from '../../../store/game/action';
 import { fetchPostsForGame } from '../../../store/game/thunks/fetchPostsForGame';

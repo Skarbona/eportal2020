@@ -2,16 +2,14 @@ import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { Button, Grid } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { Alert } from '@material-ui/lab';
+import { useTranslation } from 'react-i18next';
 
 import './GameStartDialog.scss';
-import { useTranslation } from 'react-i18next';
 import Dialog from '../../../../Shared/UIElements/Dialog/Dialog';
 import WhatWeHave from './WhatWeHave';
 import { setGameStatus } from '../../../../../store/game/thunks/setGameStatus';
-import {
-  CheckIfHasEnoughPosts,
-  GameStatus,
-} from '../../../../../store/game/initialState.interface';
+import { GameStatus } from '../../../../../models/game-models';
+import { CheckIfHasEnoughPosts } from '../../../../../store/game/initialState.interface';
 import { RootState } from '../../../../../store/store.interface';
 import { useReduxDispatch } from '../../../../../store/helpers';
 

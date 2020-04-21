@@ -1,7 +1,9 @@
-import { GameStateInterface, GameStatus } from './initialState.interface';
+import { GameStateInterface } from './initialState.interface';
+import { GameStatus } from '../../models/game-models';
 
 export const gameInitialState: GameStateInterface = {
   gameStatus: GameStatus.NewGame,
+  currentTask: null,
   posts: {
     level1: {
       data: {

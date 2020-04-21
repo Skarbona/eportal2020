@@ -3,6 +3,7 @@ import { gameInitialState } from '../store/game/initialState';
 import { CheckIfHasEnoughPosts, GameStateInterface } from '../store/game/initialState.interface';
 import { PostResponseInterface } from '../../../service/src/models/shared-interfaces/post';
 import { FormValues } from '../../../service/src/models/shared-interfaces/user';
+import { ActivePerson, GameStatus } from '../models/game-models';
 
 export const convertPosts = (posts: PostResponseInterface[]): GameStateInterface['posts'] =>
   posts.reduce(
@@ -106,5 +107,25 @@ export const checkIfHasEnoughPosts = (
     level1: checkerCreator[0],
     level2: checkerCreator[1],
     level3: checkerCreator[2],
+  };
+};
+
+export const randomizeNewTask = (state: GameStateInterface, activePerson: ActivePerson) => {
+  const newState = { ...state };
+  let tasksByLevel = null;
+  if (newState.gameStatus === GameStatus.Level1) tasksByLevel = newState.posts.level1;
+  if (newState.gameStatus === GameStatus.Level2) tasksByLevel = newState.posts.level2;
+  if (newState.gameStatus === GameStatus.Level3) tasksByLevel = newState.posts.level3;
+
+  const postsToRandomize =
+    activePerson === ActivePerson.He ? tasksByLevel.data.man : tasksByLevel.data.woman;
+  const randomIndex =
+    postsToRandomize.length > 1 ? Math.floor(Math.random() * postsToRandomize.length) : 1;
+  const randomTask = postsToRandomize[randomIndex];
+  postsToRandomize.splice(randomIndex, 1);
+  tasksByLevel.removedPosts.push(randomTask.id);
+  return {
+    currentTask: randomTask,
+    posts: newState.posts,
   };
 };

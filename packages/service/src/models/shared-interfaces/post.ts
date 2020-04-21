@@ -21,4 +21,5 @@ export interface PostResponseInterface extends PostBasicInterface {
   categories: string[];
   status: PostStatus;
   author: string;
+  id: string;
 }

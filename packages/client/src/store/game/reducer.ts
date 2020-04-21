@@ -2,7 +2,11 @@ import { GameActions } from './action.interface';
 import { GameEnum } from './enum';
 import { gameInitialState } from './initialState';
 import { GameStateInterface } from './initialState.interface';
-import { checkIfHasEnoughPosts, convertPosts } from '../../utils/post-data-for-game';
+import {
+  checkIfHasEnoughPosts,
+  convertPosts,
+  randomizeNewTask,
+} from '../../utils/post-data-for-game';
 import { ErrorTypes } from '../../models/errors';
 
 const gameReducer = (state = gameInitialState, action: GameActions): GameStateInterface => {
@@ -65,6 +69,39 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
         ...state,
         gameStatus: action.data.gameStatus,
       };
+
+    case GameEnum.SaveActiveGameData: {
+      const { currentTask, removedPosts } = action.data;
+      const newState = { ...state };
+      const {
+        posts: { level1, level2, level3 },
+      } = newState;
+
+      level1.removedPosts = [...level1.removedPosts, ...removedPosts[0]];
+      level2.removedPosts = [...level2.removedPosts, ...removedPosts[1]];
+      level3.removedPosts = [...level3.removedPosts, ...removedPosts[2]];
+
+      return {
+        ...newState,
+        currentTask,
+      };
+    }
+    case GameEnum.CleanCurrentTask: {
+      return {
+        ...state,
+        currentTask: null,
+      };
+    }
+    case GameEnum.RandomizeTask: {
+      const { activePerson } = action.data;
+      const newState = { ...state };
+      const { currentTask, posts } = randomizeNewTask(newState, activePerson);
+      return {
+        ...newState,
+        currentTask,
+        posts,
+      };
+    }
     default:
       return state;
   }

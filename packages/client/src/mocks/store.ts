@@ -1,12 +1,12 @@
 import { RootState } from '../store/store.interface';
 import { CategoryInterface } from '../store/categories/initialState.interface';
-import { GameStatus } from '../store/game/initialState.interface';
+import { GameStatus, TimeMode } from '../models/game-models';
 import {
   PostResponseInterface,
   PostStatus,
 } from '../../../service/src/models/shared-interfaces/post';
 import { chance } from './chance';
-import { TimeMode } from '../models/game-models';
+
 import { FormValues, UserType } from '../../../service/src/models/shared-interfaces/user';
 
 const catId1 = chance.string();
@@ -18,6 +18,7 @@ const mockPost = (): PostResponseInterface => ({
     title: chance.string(),
     content: chance.sentence(),
   },
+  id: chance.string(),
   author: chance.string(),
   image: chance.string(),
   date: new Date(),
@@ -82,6 +83,7 @@ export const mockedStore = (): RootState => ({
     loading: false,
   },
   game: {
+    currentTask: null,
     isReadyToStartGame: null,
     gameStatus: GameStatus.NewGame,
     posts: {
