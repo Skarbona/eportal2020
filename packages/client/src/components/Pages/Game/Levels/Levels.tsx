@@ -47,15 +47,15 @@ export const LevelsComponent: FC = () => {
   const prevProps = usePrevious<PreviousProps>({ currentTask });
 
   useEffect(() => {
-    const currentTask = (JSON.parse(
+    const currentTaskLS = (JSON.parse(
       window.localStorage.getItem(LocalStorage.CurrentTask || '{}'),
     ) as unknown) as PostResponseInterface;
-    const removedPosts = (JSON.parse(
+    const removedPostsLS = (JSON.parse(
       window.localStorage.getItem(LocalStorage.RemovedPosts || '{}'),
     ) as unknown) as string[][];
 
-    if (currentTask?.id && Array.isArray(removedPosts)) {
-      dispatch(saveActiveGameData(currentTask, removedPosts));
+    if (currentTaskLS?.id && Array.isArray(removedPostsLS)) {
+      dispatch(saveActiveGameData(currentTaskLS, removedPostsLS));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
