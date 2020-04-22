@@ -87,21 +87,21 @@ describe('Thunk: App', () => {
 
   describe('logout thunk', () => {
     let cleanAppDataHandler: any;
-    let removeItemLocalStorageSpy: any;
+    let clearItemsLocalStorageSpy: any;
 
     beforeEach(() => {
       cleanAppDataHandler = jest.spyOn(cleanThunk, 'cleanAppDataHandler');
-      removeItemLocalStorageSpy = jest.spyOn(window.localStorage.__proto__, 'removeItem');
+      clearItemsLocalStorageSpy = jest.spyOn(window.localStorage.__proto__, 'clear');
     });
 
     afterEach(() => {
       cleanAppDataHandler.mockClear();
-      removeItemLocalStorageSpy.mockClear();
+      clearItemsLocalStorageSpy.mockClear();
     });
 
     it('should call all required actions', () => {
       logoutThunk.logout()(dispatch, () => initialRootState, null);
-      expect(removeItemLocalStorageSpy).toHaveBeenCalledTimes(4);
+      expect(clearItemsLocalStorageSpy).toHaveBeenCalledTimes(1);
       expect(cleanAppDataHandler).toHaveBeenCalled();
     });
   });
