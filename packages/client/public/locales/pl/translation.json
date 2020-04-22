@@ -72,5 +72,11 @@
   "What we have": "Co posiadamy",
   "Try change params": "Przepraszamy, ale nie posiadamy wystarczającej ilości zadań, które by pasowały Twoim oczekiwaniom. Spróbuj zmienić parametry gry.",
   "You can still start game": "Przepraszamy, ale nie posiadamy wystarczającej ilości zadań, które by pasowały Twoim oczekiwaniom. Możesz jednak rozpocząć grę, ale zmniejszymy liczbę zadań na poziom. Możesz również zmienić parametry gry.",
-  "Not enough tasks": "Brak wystarczającej liczby zadań"
+  "Not enough tasks": "Brak wystarczającej liczby zadań",
+  "Ignore current task and go to the next task": "Ignoruj zadanie i wylosuj następne",
+  "Ignore current level and go to the next level": "Ignoruj poziom i idź do następnego",
+  "Go to Summary": "Idź do podsumowania",
+  "Finish the Game": "Zakończ grę",
+  "Select the person for the next task": "Wybierz następną osobę do zadania",
+  "Randomize person": "Wylosuj osobę"
 }

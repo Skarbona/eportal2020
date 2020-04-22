@@ -1,4 +1,4 @@
-import { GameStatus } from '../store/game/initialState.interface';
+import { ActivePerson, GameStatus } from '../models/game-models';
 import { CategoryInterface } from '../store/categories/initialState.interface';
 
 export const setGameStatusHelper = (currentStatus: GameStatus): GameStatus => {
@@ -16,4 +16,9 @@ export const setGameTitleHelper = (
   if (currentStatus === GameStatus.Level2) return levels[1].name;
   if (currentStatus === GameStatus.Level3) return levels[2].name;
   return '';
+};
+
+export const randomizeUser = (): ActivePerson => {
+  const random = Math.random();
+  return random > 0.5 ? ActivePerson.She : ActivePerson.He;
 };

@@ -1,14 +1,7 @@
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
 import { ErrorTypes, NetworkError } from '../../models/errors';
-
-export enum GameStatus {
-  'NewGame' = 'NewGame',
-  'Level1' = 'Level1',
-  'Level2' = 'Level2',
-  'Level3' = 'Level3',
-  'Summary' = 'Summary',
-}
+import { GameStatus } from '../../models/game-models';
 
 export interface CheckIfHasEnoughPosts {
   hasEnough: boolean;
@@ -32,6 +25,7 @@ export interface CheckIfHasEnoughPosts {
 
 export interface GameStateInterface {
   gameStatus: GameStatus;
+  currentTask: PostResponseInterface;
   posts: {
     level1: {
       data: {

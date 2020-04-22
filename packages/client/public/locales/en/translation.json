@@ -72,5 +72,11 @@
   "What we have": "What we have",
   "Try change params": "Sorry, but we don't have enough tasks to fully fit your expectations. Please try change game parameters.",
   "You can still start game": "Sorry, but we don't have enough tasks to fully fit your expectations. If you want you can still start a game or you can try change game parameters.",
-  "Not enough tasks": "Not enough tasks"
+  "Not enough tasks": "Not enough tasks",
+  "Ignore current task and go to the next task": "Ignore current task and go to the next task",
+  "Ignore current level and go to the next level": "Ignore current level and go to the next level",
+  "Go to Summary": "Go to Summary",
+  "Finish the Game": "Finish the Game",
+  "Select the person for the next task": "Select the person for the next task",
+  "Randomize person": "Randomize person"
 }

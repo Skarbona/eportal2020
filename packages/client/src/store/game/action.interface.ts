@@ -2,7 +2,7 @@ import { GameEnum } from './enum';
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 import { NetworkError } from '../../models/errors';
-import { GameStatus } from './initialState.interface';
+import { ActivePerson, GameStatus } from '../../models/game-models';
 
 interface ActionInterface {
   type: GameEnum;
@@ -49,6 +49,25 @@ export interface CleanIsReadyToGameData extends ActionInterface {
   type: GameEnum.CleanIsReadyToGameData;
 }
 
+export interface RandomizeTask extends ActionInterface {
+  type: GameEnum.RandomizeTask;
+  data: {
+    activePerson: ActivePerson;
+  };
+}
+
+export interface SaveActiveGameData extends ActionInterface {
+  type: GameEnum.SaveActiveGameData;
+  data: {
+    currentTask: PostResponseInterface;
+    removedPosts: string[][];
+  };
+}
+
+export interface CleanCurrentTask extends ActionInterface {
+  type: GameEnum.CleanCurrentTask;
+}
+
 export type GameActions =
   | InitFetchPosts
   | SuccessFetchPosts
@@ -56,4 +75,7 @@ export type GameActions =
   | CleanIsReadyToGameData
   | SetFormValues
   | SaveGameStatus
+  | RandomizeTask
+  | CleanCurrentTask
+  | SaveActiveGameData
   | CleanGameData;

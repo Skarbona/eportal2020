@@ -3,4 +3,6 @@ export enum LocalStorage {
   UserDataAccessToken = 'userDataAccessToken',
   UserDataRefreshToken = 'userDataRefreshToken',
   GameStatus = 'GameStatus',
+  CurrentTask = 'CurrentTask',
+  RemovedPosts = 'RemovedPosts',
 }

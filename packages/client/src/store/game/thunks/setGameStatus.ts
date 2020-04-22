@@ -2,7 +2,7 @@
 import { saveGameStatus } from '../action';
 import { AppThunk } from '../../store.interface';
 import { LocalStorage } from '../../../models/local-storage';
-import { GameStatus } from '../initialState.interface';
+import { GameStatus } from '../../../models/game-models';
 
 export const setGameStatus = (gameStatus: GameStatus): AppThunk => (dispatch) => {
   dispatch(saveGameStatus(gameStatus));

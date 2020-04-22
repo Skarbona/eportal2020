@@ -11,7 +11,7 @@ import { PageParams } from '../../../../models/page-types';
 import { useReduxDispatch } from '../../../../store/helpers';
 
 import { RootState } from '../../../../store/store.interface';
-import { GameStatus } from '../../../../store/game/initialState.interface';
+import { GameStatus } from '../../../../models/game-models';
 
 interface Props {
   accessToken: string;
