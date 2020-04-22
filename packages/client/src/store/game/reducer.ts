@@ -6,6 +6,7 @@ import {
   checkIfHasEnoughPosts,
   convertPosts,
   randomizeNewTask,
+  filterRemovedPosts,
 } from '../../utils/post-data-for-game';
 import { ErrorTypes } from '../../models/errors';
 
@@ -72,17 +73,30 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
 
     case GameEnum.SaveActiveGameData: {
       const { currentTask, removedPosts } = action.data;
-      const newState = { ...state };
-      const {
-        posts: { level1, level2, level3 },
-      } = newState;
+      const newState = {
+        ...state,
+        posts: {
+          ...state.posts,
+          level1: {
+            ...state.posts.level1,
+            removedPosts: [...removedPosts[0]],
+          },
+          level2: {
+            ...state.posts.level2,
+            removedPosts: [...removedPosts[1]],
+          },
+          level3: {
+            ...state.posts.level3,
+            removedPosts: [...removedPosts[2]],
+          },
+        },
+      };
 
-      level1.removedPosts = [...level1.removedPosts, ...removedPosts[0]];
-      level2.removedPosts = [...level2.removedPosts, ...removedPosts[1]];
-      level3.removedPosts = [...level3.removedPosts, ...removedPosts[2]];
+      const posts = filterRemovedPosts(newState.posts);
 
       return {
         ...newState,
+        posts,
         currentTask,
       };
     }

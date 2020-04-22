@@ -9,9 +9,10 @@ import Levels from './Levels/Levels';
 import { RootState } from '../../../store/store.interface';
 import { GameStatus } from '../../../models/game-models';
 import { LocalStorage } from '../../../models/local-storage';
-import { setFormValues } from '../../../store/game/action';
+import { saveActiveGameData, setFormValues } from '../../../store/game/action';
 import { fetchPostsForGame } from '../../../store/game/thunks/fetchPostsForGame';
 import { FormValues } from '../../../../../service/src/models/shared-interfaces/user';
+import { checkIfHasPosts, checkIfHasCategories } from '../../../utils/post-data-for-game';
 
 interface Props {
   accessToken: string;
@@ -21,16 +22,20 @@ interface SelectorProps {
   gameStatus: GameStatus;
   config: FormValues;
   hasPosts: boolean;
+  hasCategories: boolean;
 }
 
 export const GameComponent: FC<Props> = ({ accessToken }) => {
   const dispatch = useReduxDispatch();
 
-  const { gameStatus, hasPosts, config } = useSelector<RootState, SelectorProps>(({ game }) => ({
-    gameStatus: game.gameStatus,
-    config: game.config,
-    hasPosts: !!game.posts.level1.data.man?.length,
-  }));
+  const { gameStatus, hasPosts, config, hasCategories } = useSelector<RootState, SelectorProps>(
+    ({ game, categories }) => ({
+      gameStatus: game.gameStatus,
+      config: game.config,
+      hasPosts: checkIfHasPosts(game.posts, game.loading, game.error),
+      hasCategories: checkIfHasCategories(categories.categories),
+    }),
+  );
 
   useEffect(() => {
     if (accessToken) {
@@ -47,6 +52,9 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
       dispatch(setFormValues(JSON.parse(gameConfig)));
     } else {
       dispatch(setGameStatus(GameStatus.NewGame));
+      dispatch(saveActiveGameData(null, [[], [], []]));
+      window.localStorage.removeItem(LocalStorage.CurrentTask);
+      window.localStorage.removeItem(LocalStorage.RemovedPosts);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,7 +69,7 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
   return (
     <>
       {gameStatus === GameStatus.NewGame && <GameSettings />}
-      {gameStatus !== GameStatus.NewGame && <Levels />}
+      {gameStatus !== GameStatus.NewGame && hasPosts && hasCategories && <Levels />}
     </>
   );
 };

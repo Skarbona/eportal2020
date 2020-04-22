@@ -14,6 +14,7 @@ import { RootState } from '../../../../store/store.interface';
 import { GameStatus } from '../../../../models/game-models';
 import { setGameStatusHelper } from '../../../../utils/levels';
 import { cleanGameData, cleanCurrentTask } from '../../../../store/game/action';
+import { LocalStorage } from '../../../../models/local-storage';
 
 interface PropsSelector {
   currentGameStatus: GameStatus;
@@ -34,7 +35,8 @@ export const LevelsNavigationComponent: FC = () => {
   const finishGameHandler = useCallback(() => {
     dispatch(setGameStatus(setGameStatusHelper(GameStatus.NewGame)));
     dispatch(cleanGameData());
-    dispatch(cleanCurrentTask());
+    window.localStorage.removeItem(LocalStorage.CurrentTask);
+    window.localStorage.removeItem(LocalStorage.RemovedPosts);
   }, [dispatch]);
 
   return (
