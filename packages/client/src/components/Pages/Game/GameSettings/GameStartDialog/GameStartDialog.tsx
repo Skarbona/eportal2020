@@ -12,6 +12,8 @@ import { GameStatus } from '../../../../../models/game-models';
 import { CheckIfHasEnoughPosts } from '../../../../../store/game/initialState.interface';
 import { RootState } from '../../../../../store/store.interface';
 import { useReduxDispatch } from '../../../../../store/helpers';
+import { FormValues } from '../../../../../../../service/src/models/shared-interfaces/user';
+import { setFormValues } from '../../../../../store/game/action';
 
 interface SelectorProps {
   isReadyToStartGame: CheckIfHasEnoughPosts;
@@ -43,6 +45,22 @@ export const GameStartComponent: FC = () => {
 
   const hideDialogHandler = useCallback(() => setDialogStatus(false), []);
   const showDialogHandler = useCallback(() => setDialogStatus(true), []);
+  const startGameHandler = useCallback(() => {
+    dispatch(setGameStatus(GameStatus.Level1));
+    const payload: Partial<FormValues> = {
+      levels: {
+        level1: isReadyToStartGame.level1.has,
+        level2: isReadyToStartGame.level2.has,
+        level3: isReadyToStartGame.level3.has,
+      },
+    };
+    dispatch(setFormValues(payload));
+  }, [
+    dispatch,
+    isReadyToStartGame.level1.has,
+    isReadyToStartGame.level2.has,
+    isReadyToStartGame.level3.has,
+  ]);
 
   useEffect(() => {
     if (isReadyToStartGame?.hasEnough) {
@@ -80,7 +98,7 @@ export const GameStartComponent: FC = () => {
                   <Button
                     variant="contained"
                     autoFocus
-                    onClick={() => dispatch(setGameStatus(GameStatus.Level1))}
+                    onClick={startGameHandler}
                     className="success-button"
                   >
                     {t('I am ok with that')}

@@ -69,7 +69,6 @@ export const LevelsComponent: FC = () => {
     if (!!prevProps?.currentTask?.id && currentTask === null) {
       window.localStorage.setItem(LocalStorage.CurrentTask, JSON.stringify(null));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prevProps, currentTask, removedPosts]);
 
   if (!levels) return null;

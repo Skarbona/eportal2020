@@ -17,16 +17,20 @@ import { RootState } from '../store/store.interface';
 interface AppSelector {
   id: string;
   accessToken: string;
+  expirationTokenDate: Date;
 }
 
 export const App: FC = () => {
-  const { id, accessToken } = useSelector<RootState, AppSelector>(({ user, app }) => ({
-    id: user.userData.id,
-    accessToken: app.auth.accessToken,
-  }));
+  const { id, accessToken, expirationTokenDate } = useSelector<RootState, AppSelector>(
+    ({ user, app }) => ({
+      id: user.userData.id,
+      accessToken: app.auth.accessToken,
+      expirationTokenDate: app.auth.accessTokenExpiration,
+    }),
+  );
   const dispatch = useReduxDispatch();
   useEffect(() => {
-    if (accessToken && !id) {
+    if (accessToken && !id && new Date(expirationTokenDate) > new Date()) {
       dispatch(fetchUserData(accessToken));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
