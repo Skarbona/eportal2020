@@ -46,33 +46,27 @@ export const GameStartComponent: FC = () => {
   const hideDialogHandler = useCallback(() => setDialogStatus(false), []);
   const showDialogHandler = useCallback(() => setDialogStatus(true), []);
   const startGameHandler = useCallback(() => {
-    dispatch(setGameStatus(GameStatus.Level1));
+    const { level1, level2, level3 } = isReadyToStartGame;
     const payload: Partial<FormValues> = {
       levels: {
-        level1: isReadyToStartGame.level1.has,
-        level2: isReadyToStartGame.level2.has,
-        level3: isReadyToStartGame.level3.has,
+        level1: level1.hasEnough ? level1.expected : level1.has,
+        level2: level2.hasEnough ? level2.expected : level2.has,
+        level3: level3.hasEnough ? level3.expected : level3.has,
       },
     };
     dispatch(setFormValues(payload));
-  }, [
-    dispatch,
-    isReadyToStartGame.level1.has,
-    isReadyToStartGame.level2.has,
-    isReadyToStartGame.level3.has,
-  ]);
+    dispatch(setGameStatus(GameStatus.Level1));
+  }, [isReadyToStartGame, dispatch]);
 
   useEffect(() => {
-    if (isReadyToStartGame?.hasEnough) {
-      dispatch(setGameStatus(GameStatus.Level1));
-    } else if (isReadyToStartGame?.canStartWithSmallerAmount) {
+    if (isReadyToStartGame?.canStartWithSmallerAmount) {
       showDialogHandler();
       setMessageType(MessageType.WeCanStartWithSmallerAmount);
     } else if (isReadyToStartGame?.level1) {
       showDialogHandler();
       setMessageType(MessageType.NoTaskAtAll);
     }
-  }, [dispatch, isReadyToStartGame, showDialogHandler]);
+  }, [isReadyToStartGame, showDialogHandler, dispatch]);
 
   return (
     <>

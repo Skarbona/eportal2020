@@ -25,6 +25,8 @@ import GameStartDialog from './GameStartDialog/GameStartDialog';
 import { cleanIsReadyToGameData } from '../../../../store/game/action';
 import { startGameHandler } from '../../../../store/game/thunks/startGame';
 import { useReduxDispatch } from '../../../../store/helpers';
+import { setGameStatus } from '../../../../store/game/thunks/setGameStatus';
+import { GameStatus } from '../../../../models/game-models';
 
 export interface GameSettingStoreProps {
   cats: CategoriesStateInterface['categories'];
@@ -32,12 +34,13 @@ export interface GameSettingStoreProps {
   error: Error;
   errorType: ErrorTypes;
   defaults: FormValues;
+  userCanStartGame: boolean;
 }
 
 export const GameSettingComponent: FC = () => {
   const dispatch = useReduxDispatch();
   const [isFormValid, setFormValidation] = useState<boolean>(false);
-  const { cats, loading, error, errorType, defaults } = useSelector<
+  const { cats, loading, error, errorType, defaults, userCanStartGame } = useSelector<
     RootState,
     GameSettingStoreProps
   >(({ categories, game, user, app }) => ({
@@ -47,12 +50,19 @@ export const GameSettingComponent: FC = () => {
     errorType: categories.errorType || game.errorType || user.errorType,
     defaults: user.userData.gameDefaults,
     accessToken: app.auth.accessToken,
+    userCanStartGame: game.isReadyToStartGame?.hasEnough,
   }));
 
   const onSubmitHandler = (event: SubmitEvent): void => {
     event.preventDefault();
     dispatch(startGameHandler());
   };
+
+  useEffect(() => {
+    if (userCanStartGame) {
+      dispatch(setGameStatus(GameStatus.Level1));
+    }
+  }, [userCanStartGame, dispatch]);
 
   useEffect(() => () => dispatch(cleanIsReadyToGameData()), [dispatch]);
 

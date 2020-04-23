@@ -56,7 +56,6 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
       window.localStorage.removeItem(LocalStorage.CurrentTask);
       window.localStorage.removeItem(LocalStorage.RemovedPosts);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -64,7 +63,8 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
     if (config && !hasPosts && ![GameStatus.NewGame, GameStatus.Summary].includes(gameStatus)) {
       dispatch(fetchPostsForGame());
     }
-  }, [gameStatus, config, hasPosts, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameStatus, config, hasPosts]);
 
   return (
     <>

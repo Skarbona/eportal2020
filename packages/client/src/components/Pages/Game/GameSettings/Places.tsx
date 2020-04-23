@@ -34,14 +34,11 @@ export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
     [places],
   );
 
-  useEffect(
-    () => {
-      const payload: Partial<FormValues> = { place: selectedPlace };
-      dispatch(setFormValues(payload));
-    },
+  useEffect(() => {
+    const payload: Partial<FormValues> = { place: selectedPlace };
+    dispatch(setFormValues(payload));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedPlace],
-  );
+  }, [selectedPlace]);
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const handleOnChange = useCallback((event: SelectChangeEvent, value: any): void => {
