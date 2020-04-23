@@ -22,10 +22,3 @@ export const randomizeUser = (): ActivePerson => {
   const random = Math.random();
   return random > 0.5 ? ActivePerson.She : ActivePerson.He;
 };
-//
-// export const tasksPerCurrentLevel = (currentStatus, config) => {
-//   return {
-//     currentTask: 0,
-//     tasksForCurrentLevel: 10,
-//   };
-// };
