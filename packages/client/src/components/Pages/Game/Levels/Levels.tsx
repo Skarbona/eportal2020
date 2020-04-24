@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import './Levels.scss';
@@ -7,26 +7,16 @@ import Summary from './Summary';
 import LevelsNavigation from './LevelsNavigation';
 import TaskRandomization from './TaskRandomizer';
 import TaskContent from './TaskContent';
+import TaskCounter from './TaskCounter';
 import PageHeading from '../../../Shared/PageElements/PageHeading/PageHeading';
 import PageContainer from '../../../Shared/PageElements/PageContainer/PageContainer';
 import { GameStatus } from '../../../../models/game-models';
 import { LocalStorage } from '../../../../models/local-storage';
-import { RootState } from '../../../../store/store.interface';
-import { CategoryInterface } from '../../../../store/categories/initialState.interface';
 import { PostResponseInterface } from '../../../../../../service/src/models/shared-interfaces/post';
-import { setGameTitleHelper } from '../../../../utils/levels';
+import { setGameTitleHelper, taskCounter } from '../../../../utils/levels';
 import { usePrevious } from '../../../../hooks/previous-state';
 import { saveActiveGameData } from '../../../../store/game/action';
-import { GameStateInterface } from '../../../../store/game/initialState.interface';
-
-interface PropsSelector {
-  gameStatus: GameStatus;
-  levels: CategoryInterface[];
-  currentTask: PostResponseInterface;
-  removedPosts: string[][];
-  config: GameStateInterface['config'];
-  tasksPerCurrentLevel: number;
-}
+import { useLevelsSelector } from './selector-hooks';
 
 interface PreviousProps {
   currentTask: PostResponseInterface;
@@ -35,22 +25,18 @@ interface PreviousProps {
 export const LevelsComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { gameStatus, levels, currentTask, removedPosts, config } = useSelector<
-    RootState,
-    PropsSelector
-  >(({ game, categories }) => ({
-    gameStatus: game.gameStatus,
-    config: game.config,
-    levels: categories.categories?.levels?.children,
-    currentTask: game.currentTask,
-    tasksPerCurrentLevel: 0,
-    removedPosts: [
-      game.posts.level1.removedPosts,
-      game.posts.level2.removedPosts,
-      game.posts.level3.removedPosts,
-    ],
-  }));
+  const {
+    gameStatus,
+    levels,
+    currentTask,
+    removedPosts,
+    config,
+    configLevels,
+    posts,
+  } = useLevelsSelector();
   const prevProps = usePrevious<PreviousProps>({ currentTask });
+
+  const { currentTaskNo, taskPerLevel } = taskCounter(gameStatus, posts, configLevels);
 
   useEffect(() => {
     if (config) {
@@ -94,12 +80,21 @@ export const LevelsComponent: FC = () => {
         className="game__levels-heading"
       />
       <PageContainer className={`game__levels game__levels-${gameStatus}`}>
-        {gameStatus !== GameStatus.Summary && currentTask === null && <TaskRandomization />}
-        {gameStatus !== GameStatus.Summary && !!currentTask && (
-          <TaskContent currentTask={currentTask} />
+        {gameStatus !== GameStatus.Summary && (
+          <TaskCounter
+            isCurrentTaskVisible={!!currentTask?.id}
+            taskPerLevel={taskPerLevel}
+            currentTaskNo={currentTaskNo}
+          />
         )}
+        {gameStatus !== GameStatus.Summary && currentTask === null && <TaskRandomization />}
+        {gameStatus !== GameStatus.Summary && !!currentTask && <TaskContent />}
         {gameStatus === GameStatus.Summary && <Summary />}
-        <LevelsNavigation />
+        <LevelsNavigation
+          isTheLastTask={taskPerLevel === currentTaskNo}
+          currentGameStatus={gameStatus}
+          currentTask={currentTask}
+        />
       </PageContainer>
     </>
   );

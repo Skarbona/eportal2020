@@ -1,27 +1,19 @@
 import React, { FC, memo, useCallback } from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { Replay as ReplayIcon } from '@material-ui/icons';
 
-import { RootState } from '../../../../store/store.interface';
 import { randomizeTask } from '../../../../store/game/action';
 import { Gender } from '../../../../models/game-models';
 import { randomizeUser } from '../../../../utils/levels';
-
-interface SelectorProps {
-  she: string;
-  he: string;
-}
+import { useTaskRandomizationSelector } from './selector-hooks';
 
 export const TaskRandomizationComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { she, he } = useSelector<RootState, SelectorProps>(({ game }) => ({
-    she: game.config?.names.she,
-    he: game.config?.names.he,
-  }));
+  const { she, he } = useTaskRandomizationSelector();
 
   const randomizeTaskHandler = useCallback(
     (gender) => dispatch(randomizeTask(gender)),

@@ -1,6 +1,7 @@
 import { GameStatus, Gender, Levels } from '../models/game-models';
 import { CategoryInterface } from '../store/categories/initialState.interface';
 import { GameStateInterface } from '../store/game/initialState.interface';
+import { FormValues } from '../../../service/src/models/shared-interfaces/user';
 
 export const setGameStatusHelper = (currentStatus: GameStatus): GameStatus => {
   if (currentStatus === GameStatus.Level1) return GameStatus.Level2;
@@ -29,10 +30,14 @@ interface TaskCounter {
   taskPerLevel: number;
 }
 
-export const taskCounter = ({ gameStatus, posts, config }: GameStateInterface): TaskCounter => {
+export const taskCounter = (
+  gameStatus: GameStatus,
+  posts: GameStateInterface['posts'],
+  configLevels: FormValues['levels'],
+): TaskCounter => {
   const taskCounterReturnHandler = (level: Levels) => ({
     currentTaskNo: posts[level].removedPosts.length,
-    taskPerLevel: config.levels[level],
+    taskPerLevel: configLevels[level],
   });
 
   if (gameStatus === GameStatus.Level1) return taskCounterReturnHandler(Levels.L1);

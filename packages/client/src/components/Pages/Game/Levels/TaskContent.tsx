@@ -1,16 +1,20 @@
 import React, { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { PostResponseInterface } from '../../../../../../service/src/models/shared-interfaces/post';
 
-interface Props {
+import { useSelector } from 'react-redux';
+import { PostResponseInterface } from '../../../../../../service/src/models/shared-interfaces/post';
+import { RootState } from '../../../../store/store.interface';
+
+interface PropsSelector {
   currentTask: PostResponseInterface;
 }
 
-export const TaskContentComponent: FC<Props> = ({ currentTask }) => {
-  const { t } = useTranslation();
+export const TaskContentComponent: FC = () => {
+  const { currentTask } = useSelector<RootState, PropsSelector>(({ game }) => ({
+    currentTask: game.currentTask,
+  }));
+
   return (
     <div>
-      <div>{t('Task No')}: 0/10</div>
       <h3>{currentTask.content.title}</h3>
       <br />
       {currentTask.content.content}
