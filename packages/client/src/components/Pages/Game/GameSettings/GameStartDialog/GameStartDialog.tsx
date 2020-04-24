@@ -12,6 +12,8 @@ import { GameStatus } from '../../../../../models/game-models';
 import { CheckIfHasEnoughPosts } from '../../../../../store/game/initialState.interface';
 import { RootState } from '../../../../../store/store.interface';
 import { useReduxDispatch } from '../../../../../store/helpers';
+import { FormValues } from '../../../../../../../service/src/models/shared-interfaces/user';
+import { setFormValues } from '../../../../../store/game/action';
 
 interface SelectorProps {
   isReadyToStartGame: CheckIfHasEnoughPosts;
@@ -43,18 +45,28 @@ export const GameStartComponent: FC = () => {
 
   const hideDialogHandler = useCallback(() => setDialogStatus(false), []);
   const showDialogHandler = useCallback(() => setDialogStatus(true), []);
+  const startGameHandler = useCallback(() => {
+    const { level1, level2, level3 } = isReadyToStartGame;
+    const payload: Partial<FormValues> = {
+      levels: {
+        level1: level1.hasEnough ? level1.expected : level1.has,
+        level2: level2.hasEnough ? level2.expected : level2.has,
+        level3: level3.hasEnough ? level3.expected : level3.has,
+      },
+    };
+    dispatch(setFormValues(payload));
+    dispatch(setGameStatus(GameStatus.Level1));
+  }, [isReadyToStartGame, dispatch]);
 
   useEffect(() => {
-    if (isReadyToStartGame?.hasEnough) {
-      dispatch(setGameStatus(GameStatus.Level1));
-    } else if (isReadyToStartGame?.canStartWithSmallerAmount) {
+    if (isReadyToStartGame?.canStartWithSmallerAmount) {
       showDialogHandler();
       setMessageType(MessageType.WeCanStartWithSmallerAmount);
     } else if (isReadyToStartGame?.level1) {
       showDialogHandler();
       setMessageType(MessageType.NoTaskAtAll);
     }
-  }, [dispatch, isReadyToStartGame, showDialogHandler]);
+  }, [isReadyToStartGame, showDialogHandler, dispatch]);
 
   return (
     <>
@@ -80,7 +92,7 @@ export const GameStartComponent: FC = () => {
                   <Button
                     variant="contained"
                     autoFocus
-                    onClick={() => dispatch(setGameStatus(GameStatus.Level1))}
+                    onClick={startGameHandler}
                     className="success-button"
                   >
                     {t('I am ok with that')}

@@ -17,7 +17,6 @@ describe('Thunk: game', () => {
   let initSetUserDataSpy: any;
   let successSetUserDataSpy: any;
   let failSetUserDataSpy: any;
-  let setInLocalStorageSpy: any;
   let setUserDataSpy: any;
   let fetchPostsForGameSpy: any;
 
@@ -31,7 +30,6 @@ describe('Thunk: game', () => {
     successSetUserDataSpy = jest.spyOn(userActions, 'successSetUserData');
     failSetUserDataSpy = jest.spyOn(userActions, 'failSetUserData');
     fetchPostsForGameSpy = jest.spyOn(fetchPostsForGameThunk, 'fetchPostsForGame');
-    setInLocalStorageSpy = jest.spyOn(window.localStorage.__proto__, 'setItem');
     setUserDataSpy = jest
       .spyOn(setUserDataThunk, 'setUserData')
       .mockImplementation(() => jest.fn());
@@ -44,7 +42,6 @@ describe('Thunk: game', () => {
     initSetUserDataSpy.mockClear();
     successSetUserDataSpy.mockClear();
     failSetUserDataSpy.mockClear();
-    setInLocalStorageSpy.mockClear();
     setUserDataSpy.mockClear();
     fetchPostsForGameSpy.mockClear();
   });
@@ -72,8 +69,6 @@ describe('Thunk: game', () => {
 
       expect(setUserDataSpy).not.toHaveBeenCalled();
       expect(fetchPostsForGameSpy).toHaveBeenCalled();
-
-      expect(window.localStorage.setItem).toHaveBeenCalled();
     });
 
     it('should call all required actions and thunks if saveAsDefault selected', async () => {
@@ -82,8 +77,6 @@ describe('Thunk: game', () => {
 
       expect(setUserDataSpy).toHaveBeenCalled();
       expect(fetchPostsForGameSpy).toHaveBeenCalled();
-
-      expect(window.localStorage.setItem).toHaveBeenCalled();
     });
   });
 });

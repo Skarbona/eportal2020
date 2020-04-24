@@ -38,6 +38,7 @@ describe('<App > component', () => {
     spyStore.mockReturnValue({
       accessToken: 'TOKEN',
       id: null,
+      expirationTokenDate: new Date().getTime() + 360000,
     });
     wrapper = shallow(<App />);
     expect(spyFetchUserData).toHaveBeenCalled();
