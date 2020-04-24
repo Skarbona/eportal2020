@@ -56,10 +56,10 @@ describe('<Places /> component', () => {
       places: categories.categories.places,
     };
     wrapper = shallow(<PlacesComponent {...props} />);
-    expect(setFormValuesSpy).toHaveBeenCalledTimes(1);
+    expect(setFormValuesSpy).toHaveBeenCalledTimes(2);
     const event = ({ target: { value: 0 } } as unknown) as InputChangeEvent;
     const value = { props: { children: [''] } };
     wrapper.find(Select).simulate('change', event, value);
-    expect(setFormValuesSpy).toHaveBeenCalledTimes(2);
+    expect(setFormValuesSpy).toHaveBeenCalledTimes(3);
   });
 });
