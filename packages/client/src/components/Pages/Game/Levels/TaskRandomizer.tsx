@@ -1,30 +1,22 @@
 import React, { FC, memo, useCallback } from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { Replay as ReplayIcon } from '@material-ui/icons';
 
-import { RootState } from '../../../../store/store.interface';
 import { randomizeTask } from '../../../../store/game/action';
-import { ActivePerson } from '../../../../models/game-models';
+import { Gender } from '../../../../models/game-models';
 import { randomizeUser } from '../../../../utils/levels';
-
-interface SelectorProps {
-  she: string;
-  he: string;
-}
+import { useTaskRandomizationSelector } from './selector-hooks';
 
 export const TaskRandomizationComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { she, he } = useSelector<RootState, SelectorProps>(({ game }) => ({
-    she: game.config?.names.she,
-    he: game.config?.names.he,
-  }));
+  const { she, he } = useTaskRandomizationSelector();
 
   const randomizeTaskHandler = useCallback(
-    (activePerson) => dispatch(randomizeTask(activePerson)),
+    (gender) => dispatch(randomizeTask(gender)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
@@ -53,7 +45,7 @@ export const TaskRandomizationComponent: FC = () => {
           color="primary"
           name="she"
           variant="contained"
-          onClick={() => randomizeTaskHandler(ActivePerson.She)}
+          onClick={() => randomizeTaskHandler(Gender.Woman)}
         >
           {she}
         </Button>
@@ -63,7 +55,7 @@ export const TaskRandomizationComponent: FC = () => {
           color="primary"
           name="he"
           variant="contained"
-          onClick={() => randomizeTaskHandler(ActivePerson.He)}
+          onClick={() => randomizeTaskHandler(Gender.Man)}
         >
           {he}
         </Button>

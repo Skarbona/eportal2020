@@ -2,7 +2,7 @@ import { GameEnum } from './enum';
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 import { NetworkError } from '../../models/errors';
-import { ActivePerson, GameStatus } from '../../models/game-models';
+import { GameStatus, Gender } from '../../models/game-models';
 
 interface ActionInterface {
   type: GameEnum;
@@ -52,7 +52,7 @@ export interface CleanIsReadyToGameData extends ActionInterface {
 export interface RandomizeTask extends ActionInterface {
   type: GameEnum.RandomizeTask;
   data: {
-    activePerson: ActivePerson;
+    activePerson: Gender;
   };
 }
 
