@@ -43,7 +43,6 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
       }
       return {
         ...state,
-        ...gameInitialState,
         loading: false,
         error,
         errorType,

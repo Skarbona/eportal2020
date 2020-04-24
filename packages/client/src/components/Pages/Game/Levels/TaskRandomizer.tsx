@@ -7,7 +7,7 @@ import { Replay as ReplayIcon } from '@material-ui/icons';
 
 import { RootState } from '../../../../store/store.interface';
 import { randomizeTask } from '../../../../store/game/action';
-import { ActivePerson } from '../../../../models/game-models';
+import { Gender } from '../../../../models/game-models';
 import { randomizeUser } from '../../../../utils/levels';
 
 interface SelectorProps {
@@ -24,7 +24,7 @@ export const TaskRandomizationComponent: FC = () => {
   }));
 
   const randomizeTaskHandler = useCallback(
-    (activePerson) => dispatch(randomizeTask(activePerson)),
+    (gender) => dispatch(randomizeTask(gender)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
@@ -53,7 +53,7 @@ export const TaskRandomizationComponent: FC = () => {
           color="primary"
           name="she"
           variant="contained"
-          onClick={() => randomizeTaskHandler(ActivePerson.She)}
+          onClick={() => randomizeTaskHandler(Gender.Woman)}
         >
           {she}
         </Button>
@@ -63,7 +63,7 @@ export const TaskRandomizationComponent: FC = () => {
           color="primary"
           name="he"
           variant="contained"
-          onClick={() => randomizeTaskHandler(ActivePerson.He)}
+          onClick={() => randomizeTaskHandler(Gender.Man)}
         >
           {he}
         </Button>

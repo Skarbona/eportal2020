@@ -1,5 +1,6 @@
-import { ActivePerson, GameStatus } from '../models/game-models';
+import { GameStatus, Gender, Levels } from '../models/game-models';
 import { CategoryInterface } from '../store/categories/initialState.interface';
+import { GameStateInterface } from '../store/game/initialState.interface';
 
 export const setGameStatusHelper = (currentStatus: GameStatus): GameStatus => {
   if (currentStatus === GameStatus.Level1) return GameStatus.Level2;
@@ -18,7 +19,23 @@ export const setGameTitleHelper = (
   return '';
 };
 
-export const randomizeUser = (): ActivePerson => {
+export const randomizeUser = (): Gender => {
   const random = Math.random();
-  return random > 0.5 ? ActivePerson.She : ActivePerson.He;
+  return random > 0.5 ? Gender.Woman : Gender.Man;
+};
+
+interface TaskCounter {
+  currentTaskNo: number;
+  taskPerLevel: number;
+}
+
+export const taskCounter = ({ gameStatus, posts, config }: GameStateInterface): TaskCounter => {
+  const taskCounterReturnHandler = (level: Levels) => ({
+    currentTaskNo: posts[level].removedPosts.length,
+    taskPerLevel: config.levels[level],
+  });
+
+  if (gameStatus === GameStatus.Level1) return taskCounterReturnHandler(Levels.L1);
+  if (gameStatus === GameStatus.Level2) return taskCounterReturnHandler(Levels.L2);
+  if (gameStatus === GameStatus.Level3) return taskCounterReturnHandler(Levels.L3);
 };

@@ -3,7 +3,7 @@ import { ActionCreator } from 'redux';
 import * as I from './action.interface';
 import { GameEnum } from './enum';
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
-import { ActivePerson, GameStatus } from '../../models/game-models';
+import { GameStatus, Gender } from '../../models/game-models';
 
 export const initFetchPosts: ActionCreator<I.InitFetchPosts> = () => ({
   type: GameEnum.InitFetchPosts,
@@ -64,7 +64,7 @@ export const cleanCurrentTask: ActionCreator<I.CleanCurrentTask> = () => ({
   type: GameEnum.CleanCurrentTask,
 });
 
-export const randomizeTask: ActionCreator<I.RandomizeTask> = (activePerson: ActivePerson) => ({
+export const randomizeTask: ActionCreator<I.RandomizeTask> = (activePerson: Gender) => ({
   type: GameEnum.RandomizeTask,
   data: {
     activePerson,

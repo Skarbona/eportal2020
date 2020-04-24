@@ -35,8 +35,10 @@ export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
   );
 
   useEffect(() => {
-    const payload: Partial<FormValues> = { place: selectedPlace };
-    dispatch(setFormValues(payload));
+    if (selectedPlace) {
+      const payload: Partial<FormValues> = { place: selectedPlace };
+      dispatch(setFormValues(payload));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPlace]);
 
