@@ -107,7 +107,7 @@ export const randomizeNewTask = (
 
   if (gameStatus === GameStatus.Level1) return setRandomizeData(posts, Levels.L1, gender);
   if (gameStatus === GameStatus.Level2) return setRandomizeData(posts, Levels.L2, gender);
-  if (gameStatus === GameStatus.Level3) return setRandomizeData(posts, Levels.L3, gender);
+  return setRandomizeData(posts, Levels.L3, gender);
 };
 
 export const filterRemovedPosts = (posts: Posts): Posts => {

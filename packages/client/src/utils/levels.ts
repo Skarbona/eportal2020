@@ -42,5 +42,5 @@ export const taskCounter = (
 
   if (gameStatus === GameStatus.Level1) return taskCounterReturnHandler(Levels.L1);
   if (gameStatus === GameStatus.Level2) return taskCounterReturnHandler(Levels.L2);
-  if (gameStatus === GameStatus.Level3) return taskCounterReturnHandler(Levels.L3);
+  return taskCounterReturnHandler(Levels.L3);
 };
