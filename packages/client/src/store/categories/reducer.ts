@@ -4,6 +4,7 @@ import { CategoriesEnum } from './enum';
 import { categoriesInitialState } from './initialState';
 import { CategoriesStateInterface } from './initialState.interface';
 import { ErrorTypes } from '../../models/errors';
+import { setCatsMap } from '../../utils/categories';
 
 const categoriesReducer = (
   state = categoriesInitialState,
@@ -18,6 +19,7 @@ const categoriesReducer = (
       };
     case CategoriesEnum.SuccessFetchCategories: {
       const { categories } = action.data;
+
       return {
         ...state,
         loading: false,
@@ -27,6 +29,7 @@ const categoriesReducer = (
           places: categories.find((cat) => cat.id === mainCategories.Place),
           levels: categories.find((cat) => cat.id === mainCategories.Levels),
         },
+        allCatsMap: setCatsMap(categories),
       };
     }
     case CategoriesEnum.FailFetchCategories: {

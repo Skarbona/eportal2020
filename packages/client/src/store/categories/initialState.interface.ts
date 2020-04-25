@@ -15,6 +15,7 @@ export interface CategoriesStateInterface {
     places: CategoryInterface;
     levels: CategoryInterface;
   };
+  allCatsMap: Map<string, string>;
   loading: boolean;
   error?: Error;
   errorType?: ErrorTypes;

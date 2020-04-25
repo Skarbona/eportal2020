@@ -8,12 +8,33 @@ import {
 import { chance } from './chance';
 
 import { FormValues, UserType } from '../../../service/src/models/shared-interfaces/user';
+import { CheckIfHasEnoughPosts } from '../store/game/initialState.interface';
 
 const catId1 = chance.string();
 const catId2 = chance.string();
 const catId3 = chance.string();
 
-const mockPost = (): PostResponseInterface => ({
+export const CheckIfHasEnoughPostsMock = (): CheckIfHasEnoughPosts => ({
+  hasEnough: true,
+  canStartWithSmallerAmount: true,
+  level1: {
+    hasEnough: true,
+    expected: 10,
+    has: 20,
+  },
+  level2: {
+    hasEnough: true,
+    expected: 5,
+    has: 11,
+  },
+  level3: {
+    hasEnough: true,
+    expected: 12,
+    has: 15,
+  },
+});
+
+export const mockPost = (): PostResponseInterface => ({
   content: {
     title: chance.string(),
     content: chance.sentence(),
@@ -81,6 +102,7 @@ export const mockedStore = (): RootState => ({
       levels: mockedCategory('levels', 1),
     },
     loading: false,
+    allCatsMap: null,
   },
   game: {
     currentTask: null,

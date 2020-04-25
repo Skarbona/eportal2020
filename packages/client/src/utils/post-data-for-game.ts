@@ -90,6 +90,12 @@ export const randomizeNewTask = (
       ...storePosts,
       [level]: {
         ...storePosts[level],
+        data: {
+          ...storePosts[level].data,
+          man: [...storePosts[level].data.man],
+          woman: [...storePosts[level].data.woman],
+        },
+        removedPosts: [...storePosts[level].removedPosts],
       },
     };
     const postsByLevel = gamePosts[level];

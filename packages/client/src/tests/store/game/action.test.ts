@@ -1,5 +1,6 @@
 import * as I from '../../../store/game/action.interface';
 import { GameEnum } from '../../../store/game/enum';
+import { GameStatus, Gender } from '../../../models/game-models';
 import * as A from '../../../store/game/action';
 import { postsResponseMock } from '../../../mocks/responses';
 
@@ -55,6 +56,61 @@ describe('Actions: Game', () => {
     };
 
     const action = A.cleanGameData();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create saveGameStatus action', () => {
+    const expectedAction: I.SaveGameStatus = {
+      type: GameEnum.SaveGameStatus,
+      data: {
+        gameStatus: GameStatus.Level1,
+      },
+    };
+
+    const action = A.saveGameStatus(GameStatus.Level1);
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create cleanIsReadyToGameData action', () => {
+    const expectedAction: I.CleanIsReadyToGameData = {
+      type: GameEnum.CleanIsReadyToGameData,
+    };
+
+    const action = A.cleanIsReadyToGameData();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create saveActiveGameData action', () => {
+    const expectedAction: I.SaveActiveGameData = {
+      type: GameEnum.SaveActiveGameData,
+      data: {
+        currentTask: null,
+        removedPosts: [],
+      },
+    };
+
+    const action = A.saveActiveGameData(null, []);
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create CleanCurrentTask action', () => {
+    const expectedAction: I.CleanCurrentTask = {
+      type: GameEnum.CleanCurrentTask,
+    };
+
+    const action = A.cleanCurrentTask();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create RandomizeTask action', () => {
+    const expectedAction: I.RandomizeTask = {
+      type: GameEnum.RandomizeTask,
+      data: {
+        activePerson: Gender.Woman,
+      },
+    };
+
+    const action = A.randomizeTask(Gender.Woman);
     expect(action).toEqual(expectedAction);
   });
 });

@@ -4,8 +4,10 @@ import gameReducer from '../../../store/game/reducer';
 import { GameEnum } from '../../../store/game/enum';
 import * as I from '../../../store/game/action.interface';
 import { postsResponseMock } from '../../../mocks/responses';
-import { convertPosts, checkIfHasEnoughPosts } from '../../../utils/post-data-for-game';
+import { convertPosts } from '../../../utils/post-data-for-game';
 import { ErrorTypes, NetworkError } from '../../../models/errors';
+import { GameStatus, Gender } from '../../../models/game-models';
+import { mockedStore, mockPost } from '../../../mocks/store';
 
 describe('Reducer: Game', () => {
   let reducerState: GameStateInterface;
@@ -95,5 +97,64 @@ describe('Reducer: Game', () => {
     };
     const state = gameReducer(initialState, action);
     expect(state).toEqual(initialState);
+  });
+
+  it('should handle CleanIsReadyToGameData', () => {
+    const action: I.CleanGameData = {
+      type: GameEnum.CleanGameData,
+    };
+    const expectedState: GameStateInterface = {
+      ...initialState,
+      isReadyToStartGame: null,
+    };
+    const state = gameReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle SaveGameStatus', () => {
+    const action: I.SaveGameStatus = {
+      type: GameEnum.SaveGameStatus,
+      data: {
+        gameStatus: GameStatus.Level1,
+      },
+    };
+    const expectedState: GameStateInterface = {
+      ...initialState,
+      gameStatus: GameStatus.Level1,
+    };
+    const state = gameReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle SaveActiveGameData', () => {
+    const mockedPost = mockPost();
+    const action: I.SaveActiveGameData = {
+      type: GameEnum.SaveActiveGameData,
+      data: {
+        currentTask: mockedPost,
+        removedPosts: [[], [], []],
+      },
+    };
+    const expectedState: GameStateInterface = {
+      ...initialState,
+      currentTask: mockedPost,
+    };
+    const state = gameReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle RandomizeTask', () => {
+    const action: I.RandomizeTask = {
+      type: GameEnum.RandomizeTask,
+      data: {
+        activePerson: Gender.Woman,
+      },
+    };
+    const stateForGameInProgress: GameStateInterface = mockedStore().game;
+    stateForGameInProgress.gameStatus = GameStatus.Level1;
+
+    const state = gameReducer(stateForGameInProgress, action);
+    expect(state.currentTask).toBeTruthy();
+    expect(state.posts.level1.removedPosts).toHaveLength(1);
   });
 });

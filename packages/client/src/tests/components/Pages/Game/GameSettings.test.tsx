@@ -4,10 +4,7 @@ import { shallow, ShallowWrapper } from 'enzyme';
 
 import { mockedStore } from '../../../../mocks/store';
 import { ErrorTypes } from '../../../../models/errors';
-import {
-  GameSettingComponent,
-  GameSettingStoreProps,
-} from '../../../../components/Pages/Game/GameSettings/GameSettings';
+import { GameSettingComponent } from '../../../../components/Pages/Game/GameSettings/GameSettings';
 import DefaultSettings from '../../../../components/Pages/Game/GameSettings/DefaultSettings';
 import NumberOfTasksPerLevel from '../../../../components/Pages/Game/GameSettings/NumberOfTasksPerLevel';
 import Places from '../../../../components/Pages/Game/GameSettings/Places';
@@ -42,7 +39,7 @@ describe('<GameSettings > component', () => {
       error: null,
       errorType: null,
       defaults: null,
-    } as GameSettingStoreProps);
+    });
     wrapper = shallow(<GameSettingComponent />);
     expect(wrapper.find(ErrorHandler)).toHaveLength(1);
     expect(wrapper.find(DefaultSettings)).toHaveLength(0);
@@ -62,7 +59,7 @@ describe('<GameSettings > component', () => {
       error: null,
       errorType: null,
       defaults: null,
-    } as GameSettingStoreProps);
+    });
     wrapper = shallow(<GameSettingComponent />);
     expect(wrapper.find(CircleLoading)).toHaveLength(1);
   });
@@ -75,7 +72,7 @@ describe('<GameSettings > component', () => {
       loading: false,
       error: null,
       errorType: null,
-    } as GameSettingStoreProps);
+    });
     wrapper = shallow(<GameSettingComponent />);
     expect(wrapper.find(ErrorHandler)).toHaveLength(2);
     expect(wrapper.find(DefaultSettings)).toHaveLength(1);
@@ -96,7 +93,7 @@ describe('<GameSettings > component', () => {
       loading: false,
       cats: categories.categories,
       defaults: user.userData.gameDefaults,
-    } as GameSettingStoreProps);
+    });
     wrapper = shallow(<GameSettingComponent />);
     expect(wrapper.find(ErrorHandler)).toHaveLength(2);
     expect(wrapper.find(DefaultSettings)).toHaveLength(1);
@@ -117,7 +114,7 @@ describe('<GameSettings > component', () => {
       loading: false,
       error: null,
       errorType: null,
-    } as GameSettingStoreProps);
+    });
     wrapper = shallow(<GameSettingComponent />);
     wrapper.find('form').simulate('submit', mockedEvent);
     expect(startGameSpy).toHaveBeenCalled();
