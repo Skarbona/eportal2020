@@ -17,19 +17,21 @@ interface PropsLevelSelector {
 }
 
 export const useLevelsSelector = (): PropsLevelSelector => {
-  return useSelector<RootState, PropsLevelSelector>(({ game, categories }) => ({
-    gameStatus: game.gameStatus,
-    config: game.config,
-    levels: categories.categories?.levels?.children,
-    currentTask: game.currentTask,
-    posts: game.posts,
-    configLevels: game.config?.levels,
-    removedPosts: [
-      game.posts.level1.removedPosts,
-      game.posts.level2.removedPosts,
-      game.posts.level3.removedPosts,
-    ],
-  }));
+  return useSelector<RootState, PropsLevelSelector>(
+    ({ game, categories }): PropsLevelSelector => ({
+      gameStatus: game.gameStatus,
+      config: game.config,
+      levels: categories.categories?.levels?.children,
+      currentTask: game.currentTask,
+      posts: game.posts,
+      configLevels: game.config?.levels,
+      removedPosts: [
+        game.posts.level1.removedPosts,
+        game.posts.level2.removedPosts,
+        game.posts.level3.removedPosts,
+      ],
+    }),
+  );
 };
 
 interface PropsTaskRandomizationSelector {
@@ -38,8 +40,28 @@ interface PropsTaskRandomizationSelector {
 }
 
 export const useTaskRandomizationSelector = (): PropsTaskRandomizationSelector => {
-  return useSelector<RootState, PropsTaskRandomizationSelector>(({ game }) => ({
-    she: game.config?.names.she,
-    he: game.config?.names.he,
-  }));
+  return useSelector<RootState, PropsTaskRandomizationSelector>(
+    ({ game }): PropsTaskRandomizationSelector => ({
+      she: game.config?.names.she,
+      he: game.config?.names.he,
+    }),
+  );
+};
+
+interface PropsTaskContentSelector {
+  allCatsMap: Map<string, string>;
+  currentTask: PostResponseInterface;
+  she: string;
+  he: string;
+}
+
+export const useTaskContentSelector = (): PropsTaskContentSelector => {
+  return useSelector<RootState, PropsTaskContentSelector>(
+    ({ game, categories }): PropsTaskContentSelector => ({
+      allCatsMap: categories.allCatsMap,
+      currentTask: game.currentTask,
+      she: game.config?.names.she,
+      he: game.config?.names.he,
+    }),
+  );
 };

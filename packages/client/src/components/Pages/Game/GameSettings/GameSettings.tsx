@@ -1,14 +1,9 @@
 import React, { FC, memo, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 
 import './GameSettings.scss';
 
-import { ErrorTypes } from '../../../../models/errors';
-import { RootState } from '../../../../store/store.interface';
 import { SubmitEvent } from '../../../../models/typescript-events';
-import { CategoriesStateInterface } from '../../../../store/categories/initialState.interface';
-import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
 
 import ErrorHandler from '../../../Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
 import CircleLoading from '../../../Shared/UIElements/Loading/CircleLoading';
@@ -27,31 +22,12 @@ import { startGameHandler } from '../../../../store/game/thunks/startGame';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setGameStatus } from '../../../../store/game/thunks/setGameStatus';
 import { GameStatus } from '../../../../models/game-models';
-
-export interface GameSettingStoreProps {
-  cats: CategoriesStateInterface['categories'];
-  loading: boolean;
-  error: Error;
-  errorType: ErrorTypes;
-  defaults: FormValues;
-  userCanStartGame: boolean;
-}
+import { useGameSettingsSelector } from './selector-hooks';
 
 export const GameSettingComponent: FC = () => {
   const dispatch = useReduxDispatch();
   const [isFormValid, setFormValidation] = useState<boolean>(false);
-  const { cats, loading, error, errorType, defaults, userCanStartGame } = useSelector<
-    RootState,
-    GameSettingStoreProps
-  >(({ categories, game, user, app }) => ({
-    cats: categories.categories,
-    loading: categories.loading || game.loading,
-    error: categories.error || game.error || user.error,
-    errorType: categories.errorType || game.errorType || user.errorType,
-    defaults: user.userData.gameDefaults,
-    accessToken: app.auth.accessToken,
-    userCanStartGame: game.isReadyToStartGame?.hasEnough,
-  }));
+  const { cats, loading, error, errorType, defaults, userCanStartGame } = useGameSettingsSelector();
 
   const onSubmitHandler = (event: SubmitEvent): void => {
     event.preventDefault();

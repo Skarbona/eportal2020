@@ -1,6 +1,5 @@
 import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { Button, Grid } from '@material-ui/core';
-import { useSelector } from 'react-redux';
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
 
@@ -9,17 +8,10 @@ import Dialog from '../../../../Shared/UIElements/Dialog/Dialog';
 import WhatWeHave from './WhatWeHave';
 import { setGameStatus } from '../../../../../store/game/thunks/setGameStatus';
 import { GameStatus } from '../../../../../models/game-models';
-import { CheckIfHasEnoughPosts } from '../../../../../store/game/initialState.interface';
-import { RootState } from '../../../../../store/store.interface';
 import { useReduxDispatch } from '../../../../../store/helpers';
 import { FormValues } from '../../../../../../../service/src/models/shared-interfaces/user';
 import { setFormValues } from '../../../../../store/game/action';
-
-interface SelectorProps {
-  isReadyToStartGame: CheckIfHasEnoughPosts;
-  levels: string[];
-  levelsValues: CheckIfHasEnoughPosts['level1'][];
-}
+import { useGameStartSelector } from '../selector-hooks';
 
 enum MessageType {
   NoTaskAtAll = 'NoTaskAtAll',
@@ -31,17 +23,7 @@ export const GameStartComponent: FC = () => {
   const { t } = useTranslation();
   const [showDialog, setDialogStatus] = useState<boolean>(false);
   const [messageType, setMessageType] = useState<MessageType>(null);
-  const { isReadyToStartGame, levels, levelsValues } = useSelector<RootState, SelectorProps>(
-    ({ game, categories }) => ({
-      isReadyToStartGame: game.isReadyToStartGame,
-      levelsValues: [
-        game.isReadyToStartGame?.level1,
-        game.isReadyToStartGame?.level2,
-        game.isReadyToStartGame?.level3,
-      ],
-      levels: categories.categories.levels?.children.map((level) => level.name),
-    }),
-  );
+  const { isReadyToStartGame, levels, levelsValues } = useGameStartSelector();
 
   const hideDialogHandler = useCallback(() => setDialogStatus(false), []);
   const showDialogHandler = useCallback(() => setDialogStatus(true), []);

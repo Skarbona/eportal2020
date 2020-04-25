@@ -23,3 +23,17 @@
     height: 2rem;
   }
 }
+
+.task-content {
+  .task-title {
+    &.MuiTypography-root.MuiTypography-h2 {
+      font-size: 2rem;
+      padding: 0 0 2rem 0;
+    }
+  }
+  .categories-badges {
+    .MuiChip-root {
+      margin: 0 0.5rem 0.5rem 0;
+    }
+  }
+}

@@ -81,6 +81,7 @@ export const mockedStore = (): RootState => ({
       levels: mockedCategory('levels', 1),
     },
     loading: false,
+    allCatsMap: null,
   },
   game: {
     currentTask: null,
