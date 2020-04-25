@@ -38,7 +38,8 @@ export const GameStartComponent: FC = () => {
     };
     dispatch(setFormValues(payload));
     dispatch(setGameStatus(GameStatus.Level1));
-  }, [isReadyToStartGame, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReadyToStartGame]);
 
   useEffect(() => {
     if (isReadyToStartGame?.canStartWithSmallerAmount) {
@@ -48,7 +49,8 @@ export const GameStartComponent: FC = () => {
       showDialogHandler();
       setMessageType(MessageType.NoTaskAtAll);
     }
-  }, [isReadyToStartGame, showDialogHandler, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReadyToStartGame]);
 
   return (
     <>
@@ -85,24 +87,19 @@ export const GameStartComponent: FC = () => {
           }
         >
           {messageType === MessageType.NoTaskAtAll ? (
-            <>
-              <Alert severity="error">
-                {t('Try change params')}
-                <br />
-                {t('What we have')}:
-              </Alert>
-              <WhatWeHave levels={levels} isReadyToStartGame={levelsValues} />
-            </>
+            <Alert severity="error">
+              {t('Try change params')}
+              <br />
+              {t('What we have')}:
+            </Alert>
           ) : (
-            <>
-              <Alert severity="warning">
-                {t('You can still start game')}
-                <br />
-                {t('What we have')}:
-              </Alert>
-              <WhatWeHave levels={levels} isReadyToStartGame={levelsValues} />
-            </>
+            <Alert severity="warning">
+              {t('You can still start game')}
+              <br />
+              {t('What we have')}:
+            </Alert>
           )}
+          <WhatWeHave levels={levels} isReadyToStartGame={levelsValues} />
         </Dialog>
       )}
     </>

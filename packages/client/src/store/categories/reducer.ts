@@ -19,17 +19,16 @@ const categoriesReducer = (
       };
     case CategoriesEnum.SuccessFetchCategories: {
       const { categories } = action.data;
-      const cats = {
-        preferences: categories.find((cat) => cat.id === mainCategories.Preferences),
-        gender: categories.find((cat) => cat.id === mainCategories.Gender),
-        places: categories.find((cat) => cat.id === mainCategories.Place),
-        levels: categories.find((cat) => cat.id === mainCategories.Levels),
-      };
 
       return {
         ...state,
         loading: false,
-        categories: cats,
+        categories: {
+          preferences: categories.find((cat) => cat.id === mainCategories.Preferences),
+          gender: categories.find((cat) => cat.id === mainCategories.Gender),
+          places: categories.find((cat) => cat.id === mainCategories.Place),
+          levels: categories.find((cat) => cat.id === mainCategories.Levels),
+        },
         allCatsMap: setCatsMap(categories),
       };
     }

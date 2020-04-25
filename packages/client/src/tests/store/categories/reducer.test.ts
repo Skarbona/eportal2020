@@ -6,6 +6,7 @@ import * as I from '../../../store/categories/action.interface';
 import { categoryResponseMock } from '../../../mocks/responses';
 import { mainCategories } from '../../../constants/categoriesIds';
 import { ErrorTypes, NetworkError } from '../../../models/errors';
+import { setCatsMap } from '../../../utils/categories';
 
 describe('Reducer: Categories', () => {
   let reducerState: CategoriesStateInterface;
@@ -50,6 +51,7 @@ describe('Reducer: Categories', () => {
         places: categories.find((cat) => cat.id === mainCategories.Place),
         levels: categories.find((cat) => cat.id === mainCategories.Levels),
       },
+      allCatsMap: setCatsMap(categories),
     };
     expect(state).toEqual(expectedState);
   });

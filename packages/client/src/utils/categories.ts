@@ -7,7 +7,7 @@ export const setCatsMap = (cats: CategoryInterface[]): CategoriesStateInterface[
   const listOfCats = (categories: CategoryInterface[]): { id: string; name: string }[] =>
     categories
       .map((cat) => {
-        if (cat.children.length) {
+        if (cat.children?.length) {
           return listOfCats(cat.children);
         }
         return { id: cat.id, name: cat.name };
