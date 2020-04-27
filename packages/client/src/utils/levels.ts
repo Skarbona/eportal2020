@@ -10,6 +10,12 @@ export const setGameStatusHelper = (currentStatus: GameStatus): GameStatus => {
   return GameStatus.NewGame;
 };
 
+export const getGameStatusIndex = (currentStatus: GameStatus): number => {
+  if (currentStatus === GameStatus.Level1) return 0;
+  if (currentStatus === GameStatus.Level2) return 1;
+  return 2;
+};
+
 export const setGameTitleHelper = (
   currentStatus: GameStatus,
   levels: CategoryInterface[],

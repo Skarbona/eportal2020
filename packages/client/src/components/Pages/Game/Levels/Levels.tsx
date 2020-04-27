@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import './Levels.scss';
 import Summary from './Summary';
-import LevelsNavigation from './LevelsNavigation';
+import LevelsNavigation from './LevelsNavigation/LevelsNavigation';
 import TaskRandomization from './TaskRandomizer';
 import TaskContent from './TaskContent';
 import TaskCounter from './TaskCounter';
+import TaskActions from './TaskActions';
 import PageHeading from '../../../Shared/PageElements/PageHeading/PageHeading';
 import PageContainer from '../../../Shared/PageElements/PageContainer/PageContainer';
 import { GameStatus } from '../../../../models/game-models';
@@ -37,6 +38,9 @@ export const LevelsComponent: FC = () => {
   const prevProps = usePrevious<PreviousProps>({ currentTask });
 
   const { currentTaskNo, taskPerLevel } = taskCounter(gameStatus, posts, configLevels);
+  const shouldSeeTaskRandomization = gameStatus !== GameStatus.Summary && currentTask === null;
+  const shouldSeeTaskContent = gameStatus !== GameStatus.Summary && !!currentTask;
+  const isSummary = gameStatus === GameStatus.Summary;
 
   useEffect(() => {
     if (config) {
@@ -74,26 +78,26 @@ export const LevelsComponent: FC = () => {
   return (
     <>
       <PageHeading
-        title={
-          gameStatus === GameStatus.Summary ? t('Summary') : setGameTitleHelper(gameStatus, levels)
-        }
+        title={isSummary ? t('Summary') : setGameTitleHelper(gameStatus, levels)}
         className="game__levels-heading"
       />
       <PageContainer className={`game__levels game__levels-${gameStatus}`}>
-        {gameStatus !== GameStatus.Summary && (
+        {!isSummary && (
           <TaskCounter
             isCurrentTaskVisible={!!currentTask?.id}
             taskPerLevel={taskPerLevel}
             currentTaskNo={currentTaskNo}
           />
         )}
-        {gameStatus !== GameStatus.Summary && currentTask === null && <TaskRandomization />}
-        {gameStatus !== GameStatus.Summary && !!currentTask && <TaskContent />}
-        {gameStatus === GameStatus.Summary && <Summary />}
+        {shouldSeeTaskRandomization && <TaskRandomization />}
+        {shouldSeeTaskContent && <TaskContent />}
+        {shouldSeeTaskContent && <TaskActions />}
+        {isSummary && <Summary />}
         <LevelsNavigation
           isTheLastTask={taskPerLevel === currentTaskNo}
           currentGameStatus={gameStatus}
           currentTask={currentTask}
+          levels={levels}
         />
       </PageContainer>
     </>
