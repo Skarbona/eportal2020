@@ -57,7 +57,7 @@ export const LevelsNavigationComponent: FC<Props> = ({
   }, [currentGameStatus]);
 
   return (
-    <Grid container spacing={3} xs={12} className="levels-navigation">
+    <Grid container spacing={3} className="levels-navigation">
       {currentTask?.id && (
         <Grid item xs={12} md={4}>
           <Button

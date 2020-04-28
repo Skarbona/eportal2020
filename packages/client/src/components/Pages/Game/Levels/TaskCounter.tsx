@@ -16,7 +16,7 @@ export const TaskCounterComponent: FC<Props> = ({
   const { t } = useTranslation();
   const currentTaskNoToDisplay = isCurrentTaskVisible ? currentTaskNo : currentTaskNo + 1;
   return (
-    <Grid container xs={12} spacing={3} className="task-counter">
+    <Grid container spacing={3} className="task-counter">
       <Grid item xs={12} className="task-counter-wrapper">
         <LinearProgress
           className="task-counter__line-progress"

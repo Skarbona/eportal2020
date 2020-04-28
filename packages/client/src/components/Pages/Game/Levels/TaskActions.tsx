@@ -84,7 +84,7 @@ export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatu
   }, [seconds]);
 
   return (
-    <Grid container xs={12} spacing={3} className="task-actions primary-gradient-bg">
+    <Grid container spacing={3} className="task-actions primary-gradient-bg">
       {taskGameStatus === TaskGameStatus.BeforeGame && (
         <>
           <Grid item xs={12}>

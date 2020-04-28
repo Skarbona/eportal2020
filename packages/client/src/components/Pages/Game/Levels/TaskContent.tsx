@@ -10,7 +10,7 @@ export const TaskContentComponent: FC = () => {
   const { currentTask, she, he, allCatsMap } = useTaskContentSelector();
   const taskGender = currentTask.categories.includes(GenderIds.Woman) ? she : he;
   return (
-    <Grid container xs={12} spacing={3} className="task-content">
+    <Grid container spacing={3} className="task-content">
       {currentTask.image && (
         <Grid item xs={12} md={4}>
           <img src={currentTask.image} alt={currentTask.content.title} />
