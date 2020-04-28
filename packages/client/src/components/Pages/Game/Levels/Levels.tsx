@@ -1,6 +1,7 @@
 import React, { FC, memo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { Grid } from '@material-ui/core';
 
 import './Levels.scss';
 import Summary from './Summary';
@@ -34,6 +35,7 @@ export const LevelsComponent: FC = () => {
     config,
     configLevels,
     posts,
+    time,
   } = useLevelsSelector();
   const prevProps = usePrevious<PreviousProps>({ currentTask });
 
@@ -41,6 +43,7 @@ export const LevelsComponent: FC = () => {
   const shouldSeeTaskRandomization = gameStatus !== GameStatus.Summary && currentTask === null;
   const shouldSeeTaskContent = gameStatus !== GameStatus.Summary && !!currentTask;
   const isSummary = gameStatus === GameStatus.Summary;
+  const isTheLastTask = taskPerLevel === currentTaskNo;
 
   useEffect(() => {
     if (config) {
@@ -82,23 +85,27 @@ export const LevelsComponent: FC = () => {
         className="game__levels-heading"
       />
       <PageContainer className={`game__levels game__levels-${gameStatus}`}>
-        {!isSummary && (
-          <TaskCounter
-            isCurrentTaskVisible={!!currentTask?.id}
-            taskPerLevel={taskPerLevel}
-            currentTaskNo={currentTaskNo}
+        <Grid container spacing={1}>
+          {!isSummary && (
+            <TaskCounter
+              isCurrentTaskVisible={!!currentTask?.id}
+              taskPerLevel={taskPerLevel}
+              currentTaskNo={currentTaskNo}
+            />
+          )}
+          {shouldSeeTaskRandomization && <TaskRandomization />}
+          {shouldSeeTaskContent && <TaskContent />}
+          {shouldSeeTaskContent && (
+            <TaskActions time={time} gameStatus={gameStatus} isTheLastTask={isTheLastTask} />
+          )}
+          {isSummary && <Summary />}
+          <LevelsNavigation
+            isTheLastTask={isTheLastTask}
+            currentGameStatus={gameStatus}
+            currentTask={currentTask}
+            levels={levels}
           />
-        )}
-        {shouldSeeTaskRandomization && <TaskRandomization />}
-        {shouldSeeTaskContent && <TaskContent />}
-        {shouldSeeTaskContent && <TaskActions />}
-        {isSummary && <Summary />}
-        <LevelsNavigation
-          isTheLastTask={taskPerLevel === currentTaskNo}
-          currentGameStatus={gameStatus}
-          currentTask={currentTask}
-          levels={levels}
-        />
+        </Grid>
       </PageContainer>
     </>
   );

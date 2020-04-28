@@ -8,12 +8,12 @@ $light-gray: rgba(255, 255, 255, 0.7);
 $transparent-gray: rgba(255, 255, 255, 0.3);
 $gray: #d1d1d1;
 
-$error: #f44336;
-$error900: #b71c1c;
-$success: #4caf50;
-$success900: #1b5e20;
-$warning: #ff9e80;
-$warning900: #ff5722;
+$error: #b71c1c;
+$error-secondary: #f44336;
+$success: #1b5e20;
+$success-secondary: #4caf50;
+$warning: #ff5722;
+$warning-secondary: #ff9e80;
 
 $primary-gradient-bg: linear-gradient(90deg, $primary700 0%, $primary400 100%);
 $main-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),

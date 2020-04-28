@@ -1,4 +1,4 @@
-import { GameStatus, Gender, Levels } from '../models/game-models';
+import { GameStatus, Gender, Levels, TimeMode } from '../models/game-models';
 import { CategoryInterface } from '../store/categories/initialState.interface';
 import { GameStateInterface } from '../store/game/initialState.interface';
 import { FormValues } from '../../../service/src/models/shared-interfaces/user';
@@ -50,3 +50,19 @@ export const taskCounter = (
   if (gameStatus === GameStatus.Level2) return taskCounterReturnHandler(Levels.L2);
   return taskCounterReturnHandler(Levels.L3);
 };
+
+export const randomizeTime = (time: GameStateInterface['config']['time']): number => {
+  if (time.type === TimeMode.Single) return time.value[0];
+
+  return Math.floor(Math.random() * time.value[1]) + time.value[0];
+};
+
+export const convertSecondsToMinutes = (seconds: number): string => {
+  const min = Math.floor(seconds / 60);
+  const sec = Math.floor(seconds % 60);
+  // eslint-disable-next-line: prefer-template
+  return `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
+};
+
+export const convertSecondsToPercent = (seconds: number, gameTime: number): number =>
+  100 - (seconds / (gameTime * 60)) * 100;

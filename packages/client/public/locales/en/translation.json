@@ -80,5 +80,14 @@
   "Select the person for the next task": "Select the person for the next task",
   "Randomize person": "Randomize person",
   "Task No": "Task No",
-  "The task is performed by": "The task is performed by"
+  "The task is performed by": "The task is performed by",
+  "Start a Task!": "Start a Task!",
+  "Personalize time if you want": "Personalize time if you want",
+  "Has been task completed?": "Has been task completed?",
+  "Fully (3 points)": "Fully (3 points)",
+  "Partly (1 point)": "Partly (1 point)",
+  "Task was not completed (0 points)": "Task was not completed (0 points)",
+  "Task is done!": "Task is done!",
+  "Start timer": "Start timer",
+  "Pause": "Pause"
 }

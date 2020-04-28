@@ -21,3 +21,10 @@ export enum Gender {
   'Man' = 'man',
   'Woman' = 'woman',
 }
+
+export enum TaskGameStatus {
+  BeforeGame = 'BeforeGame',
+  TimerInProgress = 'TimerInProgress',
+  TimerPaused = 'TimerPaused',
+  TimeEnd = 'TimeEnd',
+}

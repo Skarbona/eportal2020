@@ -57,11 +57,16 @@ export const LevelsNavigationComponent: FC<Props> = ({
   }, [currentGameStatus]);
 
   return (
-    <Grid container spacing={3} className="levels-navigation">
+    <Grid container spacing={3} xs={12} className="levels-navigation">
       {currentTask?.id && (
         <Grid item xs={12} md={4}>
-          <Button color="primary" variant="contained" onClick={ignoreCurrentTaskHandler}>
-            <SingleArrowIcon /> {t('Ignore current task and go to the next task')}
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={ignoreCurrentTaskHandler}
+            startIcon={<SingleArrowIcon />}
+          >
+            {t('Ignore current task and go to the next task')}
           </Button>
         </Grid>
       )}
@@ -105,10 +110,10 @@ export const LevelsNavigationComponent: FC<Props> = ({
         <Button
           onClick={finishGameHandler}
           color="primary"
-          className="delete-button"
+          className="error-button"
           variant="contained"
+          startIcon={<FinishIcon />}
         >
-          <FinishIcon />
           {t('Finish the Game')}
         </Button>
       </Grid>

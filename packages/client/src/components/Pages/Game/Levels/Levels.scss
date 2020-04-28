@@ -55,6 +55,31 @@
   }
 }
 
+.task-actions {
+  button {
+    width: 100%;
+  }
+  .line-progress__wrapper {
+    position: relative;
+  }
+  .line-progress {
+    height: 2rem;
+  }
+  .values {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .completed-header {
+    &.MuiTypography-h3 {
+      padding: 1rem 0;
+      text-align: center;
+      font-size: 2rem;
+    }
+  }
+}
+
 .task-randomization {
   button {
     width: 100%;

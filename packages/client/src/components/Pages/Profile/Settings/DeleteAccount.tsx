@@ -57,7 +57,7 @@ export const DeleteAccountComponent: FC = () => {
         type="submit"
         fullWidth
         variant="contained"
-        className="delete-button"
+        className="error-button"
       >
         {t('Delete an Account')}
       </Button>

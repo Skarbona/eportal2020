@@ -22,7 +22,7 @@ export const TaskRandomizationComponent: FC = () => {
   );
 
   return (
-    <Grid container spacing={3} className="task-randomization">
+    <Grid container xs={12} spacing={3} className="task-randomization">
       <Grid item xs={12}>
         <Typography variant="h5" color="primary">
           {t('Select the person for the next task')}:
@@ -36,8 +36,9 @@ export const TaskRandomizationComponent: FC = () => {
           name="random"
           className="success-button"
           autoFocus
+          startIcon={<ReplayIcon />}
         >
-          <ReplayIcon /> {t('Randomize person')}
+          {t('Randomize person')}
         </Button>
       </Grid>
       <Grid item xs={12} sm={4}>
