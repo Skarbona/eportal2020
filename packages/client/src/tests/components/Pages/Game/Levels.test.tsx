@@ -51,6 +51,7 @@ describe('<Levels /> component', () => {
       .mockImplementation((value) => {
         if (value === LocalStorage.CurrentTask) return JSON.stringify({ id: 'ID' });
         if (value === LocalStorage.RemovedPosts) return JSON.stringify([]);
+        return JSON.stringify([]);
       });
     saveActiveGameDataSpy = jest.spyOn(gameActions, 'saveActiveGameData');
   });
