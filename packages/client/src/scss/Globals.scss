@@ -9,31 +9,32 @@
 }
 
 .MuiButton-contained {
-  &.delete-button {
+  &.error-button {
     background-color: $error;
-    color: $light-gray;
+    color: $light;
 
     &:hover {
-      background-color: $error900;
+      color: $deep-dark;
+      background-color: $error-secondary;
     }
   }
   &.success-button {
     background-color: $success;
-    color: $deep-dark;
+    color: $light;
 
     &:hover {
-      color: $light-gray;
-      background-color: $success900;
+      color: $deep-dark;
+      background-color: $success-secondary;
     }
   }
 
   &.warning-button {
     background-color: $warning;
-    color: $deep-dark;
+    color: $light;
 
     &:hover {
-      color: $light-gray;
-      background-color: $warning900;
+      color: $deep-dark;
+      background-color: $warning-secondary;
     }
   }
 }

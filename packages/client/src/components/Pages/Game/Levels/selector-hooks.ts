@@ -6,7 +6,7 @@ import { PostResponseInterface } from '../../../../../../service/src/models/shar
 import { GameStatus } from '../../../../models/game-models';
 import { GameStateInterface } from '../../../../store/game/initialState.interface';
 
-interface PropsLevelSelector {
+export interface PropsLevelSelector {
   gameStatus: GameStatus;
   levels: CategoryInterface[];
   currentTask: PostResponseInterface;
@@ -14,6 +14,7 @@ interface PropsLevelSelector {
   config: GameStateInterface['config'];
   posts: GameStateInterface['posts'];
   configLevels: FormValues['levels'];
+  time: GameStateInterface['config']['time'];
 }
 
 export const useLevelsSelector = (): PropsLevelSelector => {
@@ -24,6 +25,7 @@ export const useLevelsSelector = (): PropsLevelSelector => {
       levels: categories.categories?.levels?.children,
       currentTask: game.currentTask,
       posts: game.posts,
+      time: game.config.time,
       configLevels: game.config?.levels,
       removedPosts: [
         game.posts.level1.removedPosts,

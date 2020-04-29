@@ -80,5 +80,14 @@
   "Select the person for the next task": "Wybierz następną osobę do zadania",
   "Randomize person": "Wylosuj osobę",
   "Task No": "Zadanie",
-  "The task is performed by": "Zadania ma wykonać"
+  "The task is performed by": "Zadania ma wykonać",
+  "Start a Task!": "Rozpocznij zadanie!",
+  "Personalize time if you want": "Możesz spersonalizować czas gry",
+  "Has been task completed?": "Czy zadanie zostało ukończone?",
+  "Fully (3 points)": "Całkowicie (3 punkty)",
+  "Partly (1 point)": "Częściowo (1 punkt)",
+  "Task was not completed (0 points)": "Nie zostało ukończone (0 punktów)",
+  "Task is done!": "Zadanie jest ukończone!",
+  "Start timer": "Rozpocznij",
+  "Pause": "Zapauzuj"
 }

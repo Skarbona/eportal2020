@@ -1,13 +1,15 @@
 import React, { FC, memo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { Grid } from '@material-ui/core';
 
 import './Levels.scss';
 import Summary from './Summary';
-import LevelsNavigation from './LevelsNavigation';
-import TaskRandomization from './TaskRandomizer';
+import LevelsNavigation from './LevelsNavigation/LevelsNavigation';
+import TaskRandomizer from './TaskRandomizer';
 import TaskContent from './TaskContent';
 import TaskCounter from './TaskCounter';
+import TaskActions from './TaskActions';
 import PageHeading from '../../../Shared/PageElements/PageHeading/PageHeading';
 import PageContainer from '../../../Shared/PageElements/PageContainer/PageContainer';
 import { GameStatus } from '../../../../models/game-models';
@@ -33,10 +35,15 @@ export const LevelsComponent: FC = () => {
     config,
     configLevels,
     posts,
+    time,
   } = useLevelsSelector();
   const prevProps = usePrevious<PreviousProps>({ currentTask });
 
   const { currentTaskNo, taskPerLevel } = taskCounter(gameStatus, posts, configLevels);
+  const shouldSeeTaskRandomization = gameStatus !== GameStatus.Summary && currentTask === null;
+  const shouldSeeTaskContent = gameStatus !== GameStatus.Summary && !!currentTask;
+  const isSummary = gameStatus === GameStatus.Summary;
+  const isTheLastTask = taskPerLevel === currentTaskNo;
 
   useEffect(() => {
     if (config) {
@@ -52,11 +59,11 @@ export const LevelsComponent: FC = () => {
     const removedPostsLS: string[][] = JSON.parse(
       window.localStorage.getItem(LocalStorage.RemovedPosts || '{}'),
     );
-
     if (currentTaskLS?.id && Array.isArray(removedPostsLS)) {
       dispatch(saveActiveGameData(currentTaskLS, removedPostsLS));
     }
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (prevProps?.currentTask === null && prevProps?.currentTask?.id !== currentTask?.id) {
@@ -74,27 +81,31 @@ export const LevelsComponent: FC = () => {
   return (
     <>
       <PageHeading
-        title={
-          gameStatus === GameStatus.Summary ? t('Summary') : setGameTitleHelper(gameStatus, levels)
-        }
+        title={isSummary ? t('Summary') : setGameTitleHelper(gameStatus, levels)}
         className="game__levels-heading"
       />
       <PageContainer className={`game__levels game__levels-${gameStatus}`}>
-        {gameStatus !== GameStatus.Summary && (
-          <TaskCounter
-            isCurrentTaskVisible={!!currentTask?.id}
-            taskPerLevel={taskPerLevel}
-            currentTaskNo={currentTaskNo}
+        <Grid container spacing={1}>
+          {!isSummary && (
+            <TaskCounter
+              isCurrentTaskVisible={!!currentTask?.id}
+              taskPerLevel={taskPerLevel}
+              currentTaskNo={currentTaskNo}
+            />
+          )}
+          {shouldSeeTaskRandomization && <TaskRandomizer />}
+          {shouldSeeTaskContent && <TaskContent />}
+          {shouldSeeTaskContent && (
+            <TaskActions time={time} gameStatus={gameStatus} isTheLastTask={isTheLastTask} />
+          )}
+          {isSummary && <Summary />}
+          <LevelsNavigation
+            isTheLastTask={isTheLastTask}
+            currentGameStatus={gameStatus}
+            currentTask={currentTask}
+            levels={levels}
           />
-        )}
-        {gameStatus !== GameStatus.Summary && currentTask === null && <TaskRandomization />}
-        {gameStatus !== GameStatus.Summary && !!currentTask && <TaskContent />}
-        {gameStatus === GameStatus.Summary && <Summary />}
-        <LevelsNavigation
-          isTheLastTask={taskPerLevel === currentTaskNo}
-          currentGameStatus={gameStatus}
-          currentTask={currentTask}
-        />
+        </Grid>
       </PageContainer>
     </>
   );
