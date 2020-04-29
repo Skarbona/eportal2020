@@ -6,7 +6,7 @@ import { PostResponseInterface } from '../../../../../../service/src/models/shar
 import { GameStatus } from '../../../../models/game-models';
 import { GameStateInterface } from '../../../../store/game/initialState.interface';
 
-interface PropsLevelSelector {
+export interface PropsLevelSelector {
   gameStatus: GameStatus;
   levels: CategoryInterface[];
   currentTask: PostResponseInterface;

@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 import './Levels.scss';
 import Summary from './Summary';
 import LevelsNavigation from './LevelsNavigation/LevelsNavigation';
-import TaskRandomization from './TaskRandomizer';
+import TaskRandomizer from './TaskRandomizer';
 import TaskContent from './TaskContent';
 import TaskCounter from './TaskCounter';
 import TaskActions from './TaskActions';
@@ -59,11 +59,11 @@ export const LevelsComponent: FC = () => {
     const removedPostsLS: string[][] = JSON.parse(
       window.localStorage.getItem(LocalStorage.RemovedPosts || '{}'),
     );
-
     if (currentTaskLS?.id && Array.isArray(removedPostsLS)) {
       dispatch(saveActiveGameData(currentTaskLS, removedPostsLS));
     }
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (prevProps?.currentTask === null && prevProps?.currentTask?.id !== currentTask?.id) {
@@ -93,7 +93,7 @@ export const LevelsComponent: FC = () => {
               currentTaskNo={currentTaskNo}
             />
           )}
-          {shouldSeeTaskRandomization && <TaskRandomization />}
+          {shouldSeeTaskRandomization && <TaskRandomizer />}
           {shouldSeeTaskContent && <TaskContent />}
           {shouldSeeTaskContent && (
             <TaskActions time={time} gameStatus={gameStatus} isTheLastTask={isTheLastTask} />

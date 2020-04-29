@@ -46,5 +46,22 @@ describe('<GameStart /> component', () => {
     expect(wrapper.find(Dialog)).toHaveLength(1);
     expect(wrapper.find(WhatWeHave)).toHaveLength(1);
     expect(wrapper.find(Alert)).toHaveLength(1);
+    expect(wrapper.find(Alert).text()).toMatch('You can still start game');
+  });
+
+  it('should render error if not task at all', () => {
+    const isReadyToStartGame = CheckIfHasEnoughPostsMock();
+    isReadyToStartGame.hasEnough = false;
+    isReadyToStartGame.canStartWithSmallerAmount = false;
+    spyStore.mockReturnValue({
+      isReadyToStartGame,
+      levelsValues: [10, 10, 10],
+      levels: ['1', '2', '3'],
+    });
+    wrapper = shallow(<GameStartComponent />);
+    expect(wrapper.find(Dialog)).toHaveLength(1);
+    expect(wrapper.find(WhatWeHave)).toHaveLength(1);
+    expect(wrapper.find(Alert)).toHaveLength(1);
+    expect(wrapper.find(Alert).text()).toMatch('Try change params');
   });
 });

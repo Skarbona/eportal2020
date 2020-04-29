@@ -11,12 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { GameStateInterface } from '../../../../store/game/initialState.interface';
-import {
-  randomizeTime,
-  convertSecondsToMinutes,
-  convertSecondsToPercent,
-  setGameStatusHelper,
-} from '../../../../utils/levels';
+import * as U from '../../../../utils/levels';
 import { setGameStatus } from '../../../../store/game/thunks/setGameStatus';
 import { cleanCurrentTask } from '../../../../store/game/action';
 import { useReduxDispatch } from '../../../../store/helpers';
@@ -56,7 +51,7 @@ export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatu
   const finishTaskHandler = useCallback(() => {
     dispatch(cleanCurrentTask());
     if (isTheLastTask) {
-      dispatch(setGameStatus(setGameStatusHelper(gameStatus)));
+      dispatch(setGameStatus(U.setGameStatusHelper(gameStatus)));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTheLastTask, gameStatus]);
@@ -70,7 +65,7 @@ export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatu
   }, []);
 
   useEffect(() => {
-    const initialTime = randomizeTime(time);
+    const initialTime = U.randomizeTime(time);
     setGameTime(initialTime);
     setSeconds(initialTime * 60);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,9 +116,9 @@ export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatu
             className="line-progress"
             variant="determinate"
             color={taskGameStatus === TaskGameStatus.TimerPaused ? 'secondary' : 'primary'}
-            value={convertSecondsToPercent(seconds, gameTime)}
+            value={U.convertSecondsToPercent(seconds, gameTime)}
           />
-          <Typography className="values">{convertSecondsToMinutes(seconds)}</Typography>
+          <Typography className="values">{U.convertSecondsToMinutes(seconds)}</Typography>
         </Grid>
       )}
       {taskGameStatus === TaskGameStatus.TimerInProgress && (
@@ -164,7 +159,7 @@ export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatu
       )}
       {taskGameStatus === TaskGameStatus.TimeEnd && (
         <>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12}>
             <Typography variant="h3" className="completed-header">
               {t('Has been task completed?')}
             </Typography>
