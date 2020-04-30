@@ -2,34 +2,33 @@ import React, { FC, memo } from 'react';
 import { Typography, Chip, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
+import './scss/TaskContent.scss';
 import { useTaskContentSelector } from './selector-hooks';
 import { GenderIds } from '../../../../constants/categoriesIds';
 
 export const TaskContentComponent: FC = () => {
   const { t } = useTranslation();
-  const { currentTask, she, he, allCatsMap } = useTaskContentSelector();
-  const taskGender = currentTask.categories.includes(GenderIds.Woman) ? she : he;
+  const { categories, content, image, she, he, allCatsMap } = useTaskContentSelector();
+
+  const taskGender = categories?.includes(GenderIds.Woman) ? she : he;
   return (
     <Grid container spacing={3} className="task-content">
-      {currentTask.image && (
+      {image && (
         <Grid item xs={12} md={4}>
-          <img src={currentTask.image} alt={currentTask.content.title} />
+          <img src={image} alt={content?.title} />
         </Grid>
       )}
-      <Grid item xs={12} md={currentTask.image ? 8 : 12}>
+      <Grid item xs={12} md={image ? 8 : 12}>
         <Typography variant="h2" color="primary" className="task-title">
-          {currentTask.content.title}
+          <span dangerouslySetInnerHTML={{ __html: content?.title }} />
           <Typography color="secondary">
             {t('The task is performed by')} <b>{taskGender}</b>
           </Typography>
         </Typography>
-        <Typography
-          dangerouslySetInnerHTML={{ __html: currentTask.content.content }}
-          color="primary"
-        />
+        <Typography dangerouslySetInnerHTML={{ __html: content?.content }} color="primary" />
       </Grid>
       <Grid item xs={12} className="categories-badges">
-        {currentTask.categories.map((cat) => (
+        {categories?.map((cat) => (
           <Chip key={cat} size="small" color="primary" label={allCatsMap.get(cat)} />
         ))}
       </Grid>

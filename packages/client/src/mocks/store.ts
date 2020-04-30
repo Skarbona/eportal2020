@@ -105,6 +105,10 @@ export const mockedStore = (): RootState => ({
     allCatsMap: null,
   },
   game: {
+    points: {
+      man: 0,
+      woman: 0,
+    },
     currentTask: null,
     isReadyToStartGame: null,
     gameStatus: GameStatus.NewGame,

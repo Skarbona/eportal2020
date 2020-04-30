@@ -14,7 +14,6 @@ export interface PropsLevelSelector {
   config: GameStateInterface['config'];
   posts: GameStateInterface['posts'];
   configLevels: FormValues['levels'];
-  time: GameStateInterface['config']['time'];
 }
 
 export const useLevelsSelector = (): PropsLevelSelector => {
@@ -25,7 +24,6 @@ export const useLevelsSelector = (): PropsLevelSelector => {
       levels: categories.categories?.levels?.children,
       currentTask: game.currentTask,
       posts: game.posts,
-      time: game.config.time,
       configLevels: game.config?.levels,
       removedPosts: [
         game.posts.level1.removedPosts,
@@ -39,6 +37,8 @@ export const useLevelsSelector = (): PropsLevelSelector => {
 interface PropsTaskRandomizationSelector {
   she: string;
   he: string;
+  gameStatus: GameStatus;
+  points: GameStateInterface['points'];
 }
 
 export const useTaskRandomizationSelector = (): PropsTaskRandomizationSelector => {
@@ -46,13 +46,17 @@ export const useTaskRandomizationSelector = (): PropsTaskRandomizationSelector =
     ({ game }): PropsTaskRandomizationSelector => ({
       she: game.config?.names.she,
       he: game.config?.names.he,
+      gameStatus: game.gameStatus,
+      points: game.points,
     }),
   );
 };
 
 interface PropsTaskContentSelector {
   allCatsMap: Map<string, string>;
-  currentTask: PostResponseInterface;
+  categories: PostResponseInterface['categories'];
+  content: PostResponseInterface['content'];
+  image: PostResponseInterface['image'];
   she: string;
   he: string;
 }
@@ -61,9 +65,43 @@ export const useTaskContentSelector = (): PropsTaskContentSelector => {
   return useSelector<RootState, PropsTaskContentSelector>(
     ({ game, categories }): PropsTaskContentSelector => ({
       allCatsMap: categories.allCatsMap,
-      currentTask: game.currentTask,
+      categories: game.currentTask?.categories,
+      content: game.currentTask?.content,
+      image: game.currentTask?.image,
       she: game.config?.names.she,
       he: game.config?.names.he,
+    }),
+  );
+};
+
+interface PropsTaskPointsSelector {
+  she: string;
+  he: string;
+  points: { man: number; woman: number };
+}
+
+export const useTaskPointsSelector = (): PropsTaskPointsSelector => {
+  return useSelector<RootState, PropsTaskPointsSelector>(
+    ({ game }): PropsTaskPointsSelector => ({
+      she: game.config?.names.she,
+      he: game.config?.names.he,
+      points: game.points,
+    }),
+  );
+};
+
+interface PropsTaskActionsSelector {
+  time: GameStateInterface['config']['time'];
+  gameStatus: GameStatus;
+  currentTask: GameStateInterface['currentTask'];
+}
+
+export const useTaskActionsSelector = (): PropsTaskActionsSelector => {
+  return useSelector<RootState, PropsTaskActionsSelector>(
+    ({ game }): PropsTaskActionsSelector => ({
+      time: game.config.time,
+      gameStatus: game.gameStatus,
+      currentTask: game.currentTask,
     }),
   );
 };

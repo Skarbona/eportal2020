@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Filter1, Filter2, Filter3 } from '@material-ui/icons';
 
 interface StepIcons {
@@ -7,7 +7,7 @@ interface StepIcons {
   icon: number;
 }
 
-export const StepperIcons = ({ active, completed, icon }: StepIcons) => {
+export const StepperIcons: FC<StepIcons> = ({ active, completed, icon }) => {
   const icons: { [index: string]: React.ReactElement } = {
     1: <Filter1 />,
     2: <Filter2 />,

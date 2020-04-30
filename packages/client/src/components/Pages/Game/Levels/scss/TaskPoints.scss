@@ -1,0 +1,39 @@
+@import '../../../../../scss/Variables';
+
+.task-points {
+  &.MuiGrid-root.MuiGrid-container {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .task-points__player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .task-points__avatar {
+    background: $light;
+    box-shadow: $main-shadow;
+    border: 5px solid $primary;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .points-label {
+    font-size: 2rem;
+    padding: 1rem;
+    background: $primary-gradient-bg;
+  }
+
+  .player-name {
+    color: $primary;
+    font-size: 2rem;
+
+    &.MuiTypography-root.MuiTypography-h3 {
+      padding: 0.5rem;
+    }
+  }
+}

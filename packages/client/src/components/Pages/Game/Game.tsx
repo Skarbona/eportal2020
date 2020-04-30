@@ -60,7 +60,7 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
   }, []);
 
   useEffect(() => {
-    if (config && !hasPosts && ![GameStatus.NewGame, GameStatus.Summary].includes(gameStatus)) {
+    if (config && !hasPosts && GameStatus.NewGame !== gameStatus) {
       dispatch(fetchPostsForGame());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

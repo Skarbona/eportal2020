@@ -4,6 +4,7 @@ import { Button, Grid, Step, StepLabel, Stepper, StepConnector } from '@material
 
 import { ArrowForwardIos as SingleArrowIcon, HighlightOff as FinishIcon } from '@material-ui/icons';
 
+import '../scss/LevelsNavigation.scss';
 import { StepperIcons } from './StepperIcons';
 import { useReduxDispatch } from '../../../../../store/helpers';
 import { setGameStatus } from '../../../../../store/game/thunks/setGameStatus';
@@ -49,6 +50,7 @@ export const LevelsNavigationComponent: FC<Props> = ({
     dispatch(cleanGameData());
     window.localStorage.removeItem(LocalStorage.CurrentTask);
     window.localStorage.removeItem(LocalStorage.RemovedPosts);
+    window.localStorage.removeItem(LocalStorage.PlayersPoints);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

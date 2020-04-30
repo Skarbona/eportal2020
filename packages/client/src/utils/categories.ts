@@ -13,5 +13,5 @@ export const setCatsMap = (cats: CategoryInterface[]): CategoriesStateInterface[
         return { id: cat.id, name: cat.name };
       })
       .flat(1);
-  return new Map(listOfCats(cats).map((cat: any) => [cat.id, cat.name]));
+  return new Map(listOfCats(cats).map((cat) => [cat.id, cat.name]));
 };

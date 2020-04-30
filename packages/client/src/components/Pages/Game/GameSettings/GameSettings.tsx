@@ -38,9 +38,11 @@ export const GameSettingComponent: FC = () => {
     if (userCanStartGame) {
       dispatch(setGameStatus(GameStatus.Level1));
     }
-  }, [userCanStartGame, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userCanStartGame]);
 
-  useEffect(() => () => dispatch(cleanIsReadyToGameData()), [dispatch]);
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,react-hooks/exhaustive-deps
+  useEffect(() => () => dispatch(cleanIsReadyToGameData()), []);
 
   const errors = <ErrorHandler error={error} type={errorType} />;
 

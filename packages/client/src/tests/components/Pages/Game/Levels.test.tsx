@@ -18,7 +18,6 @@ import { GameStatus } from '../../../../models/game-models';
 import { PropsLevelSelector } from '../../../../components/Pages/Game/Levels/selector-hooks';
 import { postsResponseMock } from '../../../../mocks/responses';
 import { LocalStorage } from '../../../../models/local-storage';
-import { saveActiveGameData } from '../../../../store/game/action';
 
 describe('<Levels /> component', () => {
   let wrapper: ShallowWrapper;
@@ -36,7 +35,6 @@ describe('<Levels /> component', () => {
       levels: categories.categories.levels.children,
       currentTask: game.currentTask,
       posts: game.posts,
-      time: game.config.time,
       configLevels: game.config.levels,
       removedPosts: [
         game.posts.level1.removedPosts,

@@ -40,7 +40,7 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
   );
 };
 
-export const arePropsEqual = (prevProps: Props, nextProps: Props) =>
+export const arePropsEqual = (prevProps: Props, nextProps: Props): boolean =>
   prevProps?.accessToken?.length > 0 && nextProps?.accessToken?.length > 0;
 
 export default memo(PagesComponent, arePropsEqual);

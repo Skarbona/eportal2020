@@ -26,6 +26,10 @@ export interface CheckIfHasEnoughPosts {
 export interface GameStateInterface {
   gameStatus: GameStatus;
   currentTask: PostResponseInterface;
+  points: {
+    man: number;
+    woman: number;
+  };
   posts: {
     level1: {
       data: {

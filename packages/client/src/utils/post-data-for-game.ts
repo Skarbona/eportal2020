@@ -13,7 +13,7 @@ const setPostData = (
   gender: Gender,
   result: Posts,
   post: PostResponseInterface,
-) => ({
+): Posts => ({
   ...result,
   [level]: {
     ...result[level],
@@ -85,7 +85,11 @@ export const randomizeNewTask = (
   { gameStatus, posts }: GameStateInterface,
   gender: Gender,
 ): RandomizeNewTask => {
-  const setRandomizeData = (storePosts: Posts, level: Levels, genderToSelect: Gender) => {
+  const setRandomizeData = (
+    storePosts: Posts,
+    level: Levels,
+    genderToSelect: Gender,
+  ): RandomizeNewTask => {
     const gamePosts = {
       ...storePosts,
       [level]: {
@@ -117,10 +121,10 @@ export const randomizeNewTask = (
 };
 
 export const filterRemovedPosts = (posts: Posts): Posts => {
-  const filterData = (level: Levels, gender: Gender) =>
+  const filterData = (level: Levels, gender: Gender): Posts['level1']['data']['man'] =>
     posts[level].data[gender].filter((post) => !posts[level].removedPosts.includes(post.id));
 
-  const setLevelsData = (level: Levels) => {
+  const setLevelsData = (level: Levels): Posts['level1'] => {
     return {
       ...posts[level],
       data: {

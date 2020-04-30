@@ -36,7 +36,8 @@
     ]
   },
   "dependencies": {
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^3.1.2",

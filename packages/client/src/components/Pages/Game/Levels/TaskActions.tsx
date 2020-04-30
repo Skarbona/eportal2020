@@ -10,24 +10,25 @@ import {
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { GameStateInterface } from '../../../../store/game/initialState.interface';
+import './scss/TaskActions.scss';
 import * as U from '../../../../utils/levels';
+import Fade from '../../../Shared/UIElements/Animations/Fade';
 import { setGameStatus } from '../../../../store/game/thunks/setGameStatus';
-import { cleanCurrentTask } from '../../../../store/game/action';
+import { cleanCurrentTask, setPoints } from '../../../../store/game/action';
 import { useReduxDispatch } from '../../../../store/helpers';
-import { GameStatus, TaskGameStatus } from '../../../../models/game-models';
+import { TaskGameStatus } from '../../../../models/game-models';
+import { useTaskActionsSelector } from './selector-hooks';
+
+let interval: NodeJS.Timeout;
 
 interface Props {
-  time: GameStateInterface['config']['time'];
   isTheLastTask: boolean;
-  gameStatus: GameStatus;
 }
 
-let interval: any;
-
-export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatus }) => {
+export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
+  const { time, gameStatus, currentTask } = useTaskActionsSelector();
   const [gameTime, setGameTime] = useState<number>(2);
   const [taskGameStatus, setTaskGameStatus] = useState<TaskGameStatus>(TaskGameStatus.BeforeGame);
   const [seconds, setSeconds] = useState(2 * 60);
@@ -48,13 +49,17 @@ export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatu
     clearInterval(interval);
   }, []);
 
-  const finishTaskHandler = useCallback(() => {
-    dispatch(cleanCurrentTask());
-    if (isTheLastTask) {
-      dispatch(setGameStatus(U.setGameStatusHelper(gameStatus)));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isTheLastTask, gameStatus]);
+  const finishTaskHandler = useCallback(
+    (points: number) => {
+      const payload = U.pointsHandler(currentTask.categories, points);
+      dispatch(setPoints(payload));
+      dispatch(cleanCurrentTask());
+      if (isTheLastTask) {
+        dispatch(setGameStatus(U.setGameStatusHelper(gameStatus)));
+      }
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isTheLastTask, gameStatus, currentTask],
+  );
 
   const startTimerHandler = useCallback(() => {
     setTaskGameStatus(TaskGameStatus.TimerInProgress);
@@ -110,7 +115,11 @@ export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatu
           </Grid>
         </>
       )}
-      {[TaskGameStatus.TimerInProgress, TaskGameStatus.TimerPaused].includes(taskGameStatus) && (
+      <Fade
+        show={[TaskGameStatus.TimerInProgress, TaskGameStatus.TimerPaused].includes(taskGameStatus)}
+        classNames="transition-quick-exit"
+        timeout={0}
+      >
         <Grid item xs={12} className="line-progress__wrapper">
           <LinearProgress
             className="line-progress"
@@ -120,7 +129,7 @@ export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatu
           />
           <Typography className="values">{U.convertSecondsToMinutes(seconds)}</Typography>
         </Grid>
-      )}
+      </Fade>
       {taskGameStatus === TaskGameStatus.TimerInProgress && (
         <Grid item xs={12} md={4}>
           <Button
@@ -157,45 +166,43 @@ export const TaskActionsComponent: FC<Props> = ({ time, isTheLastTask, gameStatu
           </Button>
         </Grid>
       )}
-      {taskGameStatus === TaskGameStatus.TimeEnd && (
-        <>
-          <Grid item xs={12}>
-            <Typography variant="h3" className="completed-header">
-              {t('Has been task completed?')}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Button
-              onClick={finishTaskHandler}
-              className="success-button"
-              variant="contained"
-              startIcon={<SentimentSatisfied />}
-            >
-              {t('Fully (3 points)')}
-            </Button>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Button
-              onClick={finishTaskHandler}
-              className="warning-button"
-              variant="contained"
-              startIcon={<SentimentDissatisfied />}
-            >
-              {t('Partly (1 point)')}
-            </Button>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Button
-              onClick={finishTaskHandler}
-              className="error-button"
-              variant="contained"
-              startIcon={<SentimentVeryDissatisfied />}
-            >
-              {t('Task was not completed (0 points)')}
-            </Button>
-          </Grid>
-        </>
-      )}
+      <Fade show={taskGameStatus === TaskGameStatus.TimeEnd}>
+        <Grid item xs={12}>
+          <Typography variant="h3" className="completed-header">
+            {t('Has been task completed?')}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Button
+            onClick={(): void => finishTaskHandler(3)}
+            className="success-button"
+            variant="contained"
+            startIcon={<SentimentSatisfied />}
+          >
+            {t('Fully (3 points)')}
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Button
+            onClick={(): void => finishTaskHandler(1)}
+            className="warning-button"
+            variant="contained"
+            startIcon={<SentimentDissatisfied />}
+          >
+            {t('Partly (1 point)')}
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Button
+            onClick={(): void => finishTaskHandler(0)}
+            className="error-button"
+            variant="contained"
+            startIcon={<SentimentVeryDissatisfied />}
+          >
+            {t('Task was not completed (0 points)')}
+          </Button>
+        </Grid>
+      </Fade>
     </Grid>
   );
 };

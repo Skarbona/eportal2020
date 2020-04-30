@@ -2,6 +2,7 @@ import { GameStatus, Gender, Levels, TimeMode } from '../models/game-models';
 import { CategoryInterface } from '../store/categories/initialState.interface';
 import { GameStateInterface } from '../store/game/initialState.interface';
 import { FormValues } from '../../../service/src/models/shared-interfaces/user';
+import { GenderIds } from '../constants/categoriesIds';
 
 export const setGameStatusHelper = (currentStatus: GameStatus): GameStatus => {
   if (currentStatus === GameStatus.Level1) return GameStatus.Level2;
@@ -41,7 +42,7 @@ export const taskCounter = (
   posts: GameStateInterface['posts'],
   configLevels: FormValues['levels'],
 ): TaskCounter => {
-  const taskCounterReturnHandler = (level: Levels) => ({
+  const taskCounterReturnHandler = (level: Levels): TaskCounter => ({
     currentTaskNo: posts[level].removedPosts.length,
     taskPerLevel: configLevels[level],
   });
@@ -66,3 +67,17 @@ export const convertSecondsToMinutes = (seconds: number): string => {
 
 export const convertSecondsToPercent = (seconds: number, gameTime: number): number =>
   100 - (seconds / (gameTime * 60)) * 100;
+
+export const pointsHandler = (cats: string[], points: number): GameStateInterface['points'] => {
+  const taskGender = cats.includes(GenderIds.Woman) ? Gender.Woman : Gender.Man;
+  return {
+    man: taskGender === Gender.Man ? points : 0,
+    woman: taskGender === Gender.Woman ? points : 0,
+  };
+};
+
+export const whoIsWinnerHandler = (points: GameStateInterface['points']): Gender => {
+  if (points.man === points.woman) return null;
+  if (points.man > points.woman) return Gender.Man;
+  return Gender.Woman;
+};

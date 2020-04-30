@@ -1,0 +1,11 @@
+.task-randomization {
+  button {
+    width: 100%;
+  }
+  &.level3-first-task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}

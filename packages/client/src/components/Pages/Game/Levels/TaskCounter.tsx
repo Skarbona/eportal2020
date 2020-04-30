@@ -2,6 +2,8 @@ import React, { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LinearProgress, Typography, Grid } from '@material-ui/core';
 
+import './scss/TaskCounter.scss';
+
 interface Props {
   currentTaskNo: number;
   taskPerLevel: number;
