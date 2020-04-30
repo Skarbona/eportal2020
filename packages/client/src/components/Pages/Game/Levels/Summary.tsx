@@ -7,7 +7,7 @@ export const SummaryComponent: FC = () => {
   return (
     <Grid container spacing={3} className="summary">
       <Typography variant="h3" color="primary">
-        {t('Points below contain also points from the last level')}
+        {t('Points above contain also points from the last level')}
       </Typography>
     </Grid>
   );
