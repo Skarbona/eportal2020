@@ -1,25 +1,30 @@
 @import '../../../../../scss/Variables';
 
 .levels-navigation {
+  background: $light-gray;
+
   button {
     width: 100%;
   }
-  background: $light-gray;
+
   .levels-stepper {
     background: transparent;
+
     .steps-wrapper {
-      background: $gray;
-      width: 3rem;
-      height: 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
       z-index: 1;
+      border-radius: 50%;
+      background: $gray;
+      width: 3rem;
+      height: 3rem;
     }
+
     .active-step {
-      box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+      box-shadow: $secondary-shadow;
     }
+
     .active-step,
     .completed-step {
       background: $primary-gradient-bg;
@@ -35,13 +40,15 @@
     }
 
     .connector {
-      height: 0.3rem;
-      background-color: $gray;
       top: 1.4rem;
+      background-color: $gray;
+      height: 0.3rem;
+
       &.MuiStepConnector-active,
       &.MuiStepConnector-completed {
         background: $primary-gradient-bg;
       }
+
       .MuiStepConnector-line {
         border: 0;
       }

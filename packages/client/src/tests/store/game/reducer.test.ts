@@ -96,7 +96,7 @@ describe('Reducer: Game', () => {
       type: GameEnum.CleanGameData,
     };
     const state = gameReducer(initialState, action);
-    expect(state).toEqual(initialState);
+    expect(state).toEqual({ ...initialState, gameStatus: GameStatus.NewGame });
   });
 
   it('should handle CleanIsReadyToGameData', () => {
@@ -106,6 +106,7 @@ describe('Reducer: Game', () => {
     const expectedState: GameStateInterface = {
       ...initialState,
       isReadyToStartGame: null,
+      gameStatus: GameStatus.NewGame,
     };
     const state = gameReducer(initialState, action);
     expect(state).toEqual(expectedState);

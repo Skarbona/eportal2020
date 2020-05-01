@@ -14,17 +14,18 @@
     color: $light;
 
     &:hover {
-      color: $deep-dark;
       background-color: $error-secondary;
+      color: $deep-dark;
     }
   }
+
   &.success-button {
     background-color: $success;
     color: $light;
 
     &:hover {
-      color: $deep-dark;
       background-color: $success-secondary;
+      color: $deep-dark;
     }
   }
 
@@ -33,8 +34,8 @@
     color: $light;
 
     &:hover {
-      color: $deep-dark;
       background-color: $warning-secondary;
+      color: $deep-dark;
     }
   }
 }
