@@ -4,7 +4,6 @@ import { gameInitialState } from '../store/game/initialState';
 import { PostResponseInterface } from '../../../service/src/models/shared-interfaces/post';
 import { FormValues } from '../../../service/src/models/shared-interfaces/user';
 import { GameStatus, Gender, Levels } from '../models/game-models';
-import { CategoriesStateInterface } from '../store/categories/initialState.interface';
 
 type Posts = GameStateInterface['posts'];
 
@@ -82,7 +81,7 @@ interface RandomizeNewTask {
 }
 
 export const randomizeNewTask = (
-  { gameStatus, posts }: GameStateInterface,
+  { gameStatus, posts }: Partial<GameStateInterface>,
   gender: Gender,
 ): RandomizeNewTask => {
   const setRandomizeData = (
@@ -158,6 +157,3 @@ export const checkIfHasPosts = (
     !error
   );
 };
-
-export const checkIfHasCategories = (cats: CategoriesStateInterface['categories']): boolean =>
-  Object.values(cats).every((cat) => !!cat?.name);

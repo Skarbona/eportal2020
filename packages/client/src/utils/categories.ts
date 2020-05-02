@@ -15,3 +15,6 @@ export const setCatsMap = (cats: CategoryInterface[]): CategoriesStateInterface[
       .flat(1);
   return new Map(listOfCats(cats).map((cat) => [cat.id, cat.name]));
 };
+
+export const checkIfHasCategories = (cats: CategoriesStateInterface['categories']): boolean =>
+  Object.values(cats).every((cat) => !!cat?.name);

@@ -31,6 +31,18 @@ describe('Reducer: User', () => {
     expect(state).toEqual(expectedState);
   });
 
+  it('should handle SuccessDeleteUser', () => {
+    const action: I.SuccessDeleteUser = {
+      type: UserEnum.SuccessDeleteUser,
+    };
+    const state = userReducer(initialState, action);
+    const expectedState: UserStateInterface = {
+      ...initialState,
+      loading: false,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
   it('should handle SuccessFetchUserData', () => {
     const {
       user: { userData },
@@ -68,9 +80,40 @@ describe('Reducer: User', () => {
     expect(state).toEqual(expectedState);
   });
 
+  it('should handle FailFetchUserData', () => {
+    const error = { response: { status: 500 } } as NetworkError;
+    const action: I.FailFetchUserData = {
+      type: UserEnum.FailFetchUserData,
+      data: {
+        error,
+      },
+    };
+    const state = userReducer(initialState, action);
+    const expectedState = {
+      ...initialState,
+      loading: false,
+      error,
+      errorType: ErrorTypes.ServerError,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
   it('should handle InitSetUserData', () => {
     const action: I.InitSetUserData = {
       type: UserEnum.InitSetUserData,
+    };
+    const state = userReducer(initialState, action);
+    const expectedState: UserStateInterface = {
+      ...initialState,
+      loading: true,
+      error: null,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle InitDeleteUser', () => {
+    const action: I.InitDeleteUser = {
+      type: UserEnum.InitDeleteUser,
     };
     const state = userReducer(initialState, action);
     const expectedState: UserStateInterface = {

@@ -11,7 +11,7 @@ import { Gender, GameStatus } from '../../../../models/game-models';
 import { randomizeUser, whoIsWinnerHandler } from '../../../../utils/levels';
 import { useTaskRandomizationSelector } from './selector-hooks';
 
-interface Props {
+export interface Props {
   currentTaskNo: number;
 }
 

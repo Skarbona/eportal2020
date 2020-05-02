@@ -23,7 +23,9 @@ export const TaskPointsComponent: FC<{}> = () => {
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem(LocalStorage.PlayersPoints, JSON.stringify(points));
+    if (points) {
+      window.localStorage.setItem(LocalStorage.PlayersPoints, JSON.stringify(points));
+    }
   }, [points]);
 
   return (

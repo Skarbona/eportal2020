@@ -4,7 +4,7 @@ import gameReducer from '../../../store/game/reducer';
 import { GameEnum } from '../../../store/game/enum';
 import * as I from '../../../store/game/action.interface';
 import { postsResponseMock } from '../../../mocks/responses';
-import { convertPosts } from '../../../utils/post-data-for-game';
+import { convertPosts } from '../../../utils/posts';
 import { ErrorTypes, NetworkError } from '../../../models/errors';
 import { GameStatus, Gender } from '../../../models/game-models';
 import { mockedStore, mockPost } from '../../../mocks/store';
@@ -157,5 +157,35 @@ describe('Reducer: Game', () => {
     const state = gameReducer(stateForGameInProgress, action);
     expect(state.currentTask).toBeTruthy();
     expect(state.posts.level1.removedPosts).toHaveLength(1);
+  });
+
+  it('should handle CleanCurrentTask', () => {
+    const action: I.CleanCurrentTask = {
+      type: GameEnum.CleanCurrentTask,
+    };
+
+    const state = gameReducer(initialState, action);
+    expect(state).toEqual(initialState);
+  });
+
+  it('should handle SetPoints', () => {
+    const action: I.SetPoints = {
+      type: GameEnum.SetPoints,
+      data: {
+        man: 3,
+        woman: 3,
+      },
+    };
+
+    const state = gameReducer(initialState, action);
+    const expectedState: GameStateInterface = {
+      ...initialState,
+      points: {
+        man: 3,
+        woman: 3,
+      },
+    };
+
+    expect(state).toEqual(expectedState);
   });
 });

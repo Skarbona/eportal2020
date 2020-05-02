@@ -1,14 +1,18 @@
 import React, { FC } from 'react';
 import { Filter1, Filter2, Filter3 } from '@material-ui/icons';
 
-interface StepIcons {
+export interface Props {
   active: boolean;
   completed: boolean;
   icon: number;
 }
 
-export const StepperIcons: FC<StepIcons> = ({ active, completed, icon }) => {
-  const icons: { [index: string]: React.ReactElement } = {
+interface Icons {
+  [index: string]: React.ReactElement;
+}
+
+export const StepperIcons: FC<Props> = ({ active, completed, icon }) => {
+  const icons: Icons = {
     1: <Filter1 />,
     2: <Filter2 />,
     3: <Filter3 />,
@@ -16,7 +20,9 @@ export const StepperIcons: FC<StepIcons> = ({ active, completed, icon }) => {
 
   return (
     <div
-      className={`steps-wrapper ${active ? 'active-step' : ''}${completed ? 'completed-step' : ''}`}
+      className={`steps-wrapper ${active ? 'active-step' : ''} ${
+        completed ? 'completed-step' : ''
+      }`}
     >
       {icons[String(icon)]}
     </div>

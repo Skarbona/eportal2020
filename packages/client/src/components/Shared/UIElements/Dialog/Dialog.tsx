@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogActions } from '@material-ui/core';
 import './Dialog.scss';
 import DialogTitle from './DialogTitle';
 
-interface Props {
+export interface Props {
   onClose(): void;
   title: string;
   children: ReactNode;

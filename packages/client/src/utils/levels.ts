@@ -55,7 +55,7 @@ export const taskCounter = (
 export const randomizeTime = (time: GameStateInterface['config']['time']): number => {
   if (time.type === TimeMode.Single) return time.value[0];
 
-  return Math.floor(Math.random() * time.value[1]) + time.value[0];
+  return Math.floor(Math.random() * (time.value[1] - time.value[0] + 1)) + time.value[0];
 };
 
 export const convertSecondsToMinutes = (seconds: number): string => {
@@ -65,8 +65,8 @@ export const convertSecondsToMinutes = (seconds: number): string => {
   return `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
 };
 
-export const convertSecondsToPercent = (seconds: number, gameTime: number): number =>
-  100 - (seconds / (gameTime * 60)) * 100;
+export const convertSecondsToPercent = (seconds: number, gameTimeInMinutes: number): number =>
+  100 - (seconds / (gameTimeInMinutes * 60)) * 100;
 
 export const pointsHandler = (cats: string[], points: number): GameStateInterface['points'] => {
   const taskGender = cats.includes(GenderIds.Woman) ? Gender.Woman : Gender.Man;

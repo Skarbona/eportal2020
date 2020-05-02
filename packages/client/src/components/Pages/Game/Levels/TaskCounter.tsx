@@ -4,7 +4,7 @@ import { LinearProgress, Typography, Grid } from '@material-ui/core';
 
 import './scss/TaskCounter.scss';
 
-interface Props {
+export interface Props {
   currentTaskNo: number;
   taskPerLevel: number;
   isCurrentTaskVisible: boolean;

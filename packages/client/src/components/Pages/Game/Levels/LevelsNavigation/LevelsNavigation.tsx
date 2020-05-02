@@ -15,7 +15,7 @@ import { LocalStorage } from '../../../../../models/local-storage';
 import { GameStateInterface } from '../../../../../store/game/initialState.interface';
 import { CategoryInterface } from '../../../../../store/categories/initialState.interface';
 
-interface Props {
+export interface Props {
   isTheLastTask: boolean;
   currentGameStatus: GameStatus;
   currentTask: GameStateInterface['currentTask'];
@@ -35,7 +35,8 @@ export const LevelsNavigationComponent: FC<Props> = ({
   const setGameStatusHandler = useCallback(() => {
     dispatch(setGameStatus(setGameStatusHelper(currentGameStatus)));
     dispatch(cleanCurrentTask());
-  }, [currentGameStatus, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentGameStatus]);
 
   const ignoreCurrentTaskHandler = useCallback(() => {
     dispatch(cleanCurrentTask());
@@ -65,6 +66,7 @@ export const LevelsNavigationComponent: FC<Props> = ({
           <Button
             color="primary"
             variant="contained"
+            className="ignore-task"
             onClick={ignoreCurrentTaskHandler}
             startIcon={<SingleArrowIcon />}
           >
@@ -90,7 +92,12 @@ export const LevelsNavigationComponent: FC<Props> = ({
       )}
       {!currentTask?.id && [GameStatus.Level1, GameStatus.Level2].includes(currentGameStatus) && (
         <Grid item xs={12} md={4}>
-          <Button onClick={setGameStatusHandler} color="primary" variant="contained">
+          <Button
+            onClick={setGameStatusHandler}
+            className="ignore-level"
+            color="primary"
+            variant="contained"
+          >
             {t('Ignore current level and go to the next level')}
           </Button>
         </Grid>

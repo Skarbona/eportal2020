@@ -34,7 +34,7 @@ export const useLevelsSelector = (): PropsLevelSelector => {
   );
 };
 
-interface PropsTaskRandomizationSelector {
+export interface PropsTaskRandomizationSelector {
   she: string;
   he: string;
   gameStatus: GameStatus;
@@ -52,7 +52,7 @@ export const useTaskRandomizationSelector = (): PropsTaskRandomizationSelector =
   );
 };
 
-interface PropsTaskContentSelector {
+export interface PropsTaskContentSelector {
   allCatsMap: Map<string, string>;
   categories: PostResponseInterface['categories'];
   content: PostResponseInterface['content'];
@@ -74,7 +74,7 @@ export const useTaskContentSelector = (): PropsTaskContentSelector => {
   );
 };
 
-interface PropsTaskPointsSelector {
+export interface PropsTaskPointsSelector {
   she: string;
   he: string;
   points: { man: number; woman: number };
@@ -90,7 +90,7 @@ export const useTaskPointsSelector = (): PropsTaskPointsSelector => {
   );
 };
 
-interface PropsTaskActionsSelector {
+export interface PropsTaskActionsSelector {
   time: GameStateInterface['config']['time'];
   gameStatus: GameStatus;
   currentTask: GameStateInterface['currentTask'];

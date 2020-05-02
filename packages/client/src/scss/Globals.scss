@@ -9,33 +9,39 @@
 }
 
 .MuiButton-contained {
+  &.Mui-disabled {
+    &.error-button,
+    &.success-button,
+    &.warning-button {
+      background: $light-gray;
+      color: $deep-dark;
+    }
+  }
+
   &.error-button {
-    background-color: $error;
+    background: $error-gradient-bg;
     color: $light;
 
     &:hover {
-      background-color: $error-secondary;
-      color: $deep-dark;
+      background: $error-secondary-gradient-bg;
     }
   }
 
   &.success-button {
-    background-color: $success;
+    background: $success-gradient-bg;
     color: $light;
 
     &:hover {
-      background-color: $success-secondary;
-      color: $deep-dark;
+      background: $success-secondary-gradient-bg;
     }
   }
 
   &.warning-button {
-    background-color: $warning;
+    background: $warning-gradient-bg;
     color: $light;
 
     &:hover {
-      background-color: $warning-secondary;
-      color: $deep-dark;
+      background: $warning-secondary-gradient-bg;
     }
   }
 }

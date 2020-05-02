@@ -2,19 +2,14 @@ import React, { memo, FC, ReactNode } from 'react';
 import { DialogTitle, IconButton, Typography } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 
-export interface DialogTitleProps {
+export interface Props {
   id: string;
   children: ReactNode;
   onClose: () => void;
   className: string;
 }
 
-export const DialogTitleComponent: FC<DialogTitleProps> = ({
-  children,
-  onClose,
-  id,
-  className,
-}) => {
+export const DialogTitleComponent: FC<Props> = ({ children, onClose, id, className }) => {
   return (
     <DialogTitle disableTypography id={id} className={className}>
       <Typography variant="h6">{children}</Typography>

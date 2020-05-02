@@ -87,7 +87,7 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
     <Grid container spacing={3} className="task-actions primary-gradient-bg">
       {taskGameStatus === TaskGameStatus.BeforeGame && (
         <>
-          <Grid item xs={12}>
+          <Grid item xs={12} className="before-game">
             <>
               <Typography>
                 {t('Personalize time if you want')}: {gameTime} min
@@ -131,7 +131,7 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
         </Grid>
       </Fade>
       {taskGameStatus === TaskGameStatus.TimerInProgress && (
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} className="timer-in-progress">
           <Button
             onClick={pauseTimerHandler}
             className="warning-button"
@@ -143,7 +143,7 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
         </Grid>
       )}
       {taskGameStatus === TaskGameStatus.TimerPaused && (
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} className="timer-paused">
           <Button
             onClick={startTimerHandler}
             className="warning-button"
@@ -155,7 +155,7 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
         </Grid>
       )}
       {[TaskGameStatus.TimerInProgress, TaskGameStatus.TimerPaused].includes(taskGameStatus) && (
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} className="task-is-done">
           <Button
             onClick={endTimerHandler}
             className="success-button"

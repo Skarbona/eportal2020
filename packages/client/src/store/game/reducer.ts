@@ -7,7 +7,7 @@ import {
   convertPosts,
   randomizeNewTask,
   filterRemovedPosts,
-} from '../../utils/post-data-for-game';
+} from '../../utils/posts';
 import { ErrorTypes } from '../../models/errors';
 import { GameStatus } from '../../models/game-models';
 
