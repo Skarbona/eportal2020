@@ -4,6 +4,7 @@ import * as I from './action.interface';
 import { GameEnum } from './enum';
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 import { GameStatus, Gender } from '../../models/game-models';
+import { GameStateInterface } from './initialState.interface';
 
 export const initFetchPosts: ActionCreator<I.InitFetchPosts> = () => ({
   type: GameEnum.InitFetchPosts,
@@ -68,5 +69,16 @@ export const randomizeTask: ActionCreator<I.RandomizeTask> = (activePerson: Gend
   type: GameEnum.RandomizeTask,
   data: {
     activePerson,
+  },
+});
+
+export const setPoints: ActionCreator<I.SetPoints> = ({
+  man,
+  woman,
+}: GameStateInterface['points']) => ({
+  type: GameEnum.SetPoints,
+  data: {
+    man,
+    woman,
   },
 });

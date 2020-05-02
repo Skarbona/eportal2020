@@ -4,7 +4,6 @@ import { gameInitialState } from '../store/game/initialState';
 import { PostResponseInterface } from '../../../service/src/models/shared-interfaces/post';
 import { FormValues } from '../../../service/src/models/shared-interfaces/user';
 import { GameStatus, Gender, Levels } from '../models/game-models';
-import { CategoriesStateInterface } from '../store/categories/initialState.interface';
 
 type Posts = GameStateInterface['posts'];
 
@@ -13,7 +12,7 @@ const setPostData = (
   gender: Gender,
   result: Posts,
   post: PostResponseInterface,
-) => ({
+): Posts => ({
   ...result,
   [level]: {
     ...result[level],
@@ -82,10 +81,14 @@ interface RandomizeNewTask {
 }
 
 export const randomizeNewTask = (
-  { gameStatus, posts }: GameStateInterface,
+  { gameStatus, posts }: Partial<GameStateInterface>,
   gender: Gender,
 ): RandomizeNewTask => {
-  const setRandomizeData = (storePosts: Posts, level: Levels, genderToSelect: Gender) => {
+  const setRandomizeData = (
+    storePosts: Posts,
+    level: Levels,
+    genderToSelect: Gender,
+  ): RandomizeNewTask => {
     const gamePosts = {
       ...storePosts,
       [level]: {
@@ -117,10 +120,10 @@ export const randomizeNewTask = (
 };
 
 export const filterRemovedPosts = (posts: Posts): Posts => {
-  const filterData = (level: Levels, gender: Gender) =>
+  const filterData = (level: Levels, gender: Gender): Posts['level1']['data']['man'] =>
     posts[level].data[gender].filter((post) => !posts[level].removedPosts.includes(post.id));
 
-  const setLevelsData = (level: Levels) => {
+  const setLevelsData = (level: Levels): Posts['level1'] => {
     return {
       ...posts[level],
       data: {
@@ -154,6 +157,3 @@ export const checkIfHasPosts = (
     !error
   );
 };
-
-export const checkIfHasCategories = (cats: CategoriesStateInterface['categories']): boolean =>
-  Object.values(cats).every((cat) => !!cat?.name);

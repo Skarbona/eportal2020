@@ -10,6 +10,7 @@ import TaskContent from '../../../../components/Pages/Game/Levels/TaskContent';
 import TaskActions from '../../../../components/Pages/Game/Levels/TaskActions';
 import Summary from '../../../../components/Pages/Game/Levels/Summary';
 import PageHeading from '../../../../components/Shared/PageElements/PageHeading/PageHeading';
+import Fade from '../../../../components/Shared/UIElements/Animations/Fade';
 import PageContainer from '../../../../components/Shared/PageElements/PageContainer/PageContainer';
 
 import * as gameActions from '../../../../store/game/action';
@@ -18,7 +19,6 @@ import { GameStatus } from '../../../../models/game-models';
 import { PropsLevelSelector } from '../../../../components/Pages/Game/Levels/selector-hooks';
 import { postsResponseMock } from '../../../../mocks/responses';
 import { LocalStorage } from '../../../../models/local-storage';
-import { saveActiveGameData } from '../../../../store/game/action';
 
 describe('<Levels /> component', () => {
   let wrapper: ShallowWrapper;
@@ -36,7 +36,6 @@ describe('<Levels /> component', () => {
       levels: categories.categories.levels.children,
       currentTask: game.currentTask,
       posts: game.posts,
-      time: game.config.time,
       configLevels: game.config.levels,
       removedPosts: [
         game.posts.level1.removedPosts,
@@ -60,33 +59,36 @@ describe('<Levels /> component', () => {
     spyStore.mockRestore();
     saveActiveGameDataSpy.mockClear();
     setItemLocalStorageSpy.mockClear();
-    mockedGetItems.mockClear();
+    mockedGetItems.mockRestore();
   });
 
   it('should render all required items', () => {
     spyStore.mockReturnValue({ ...selectorProps } as PropsLevelSelector);
     wrapper = shallow(<LevelsComponent />);
+    const FadeComponents = wrapper.find(Fade);
+    const TaskCounterFade = FadeComponents.at(0);
+    const TaskContentFade = FadeComponents.at(1);
+    const TaskActionFade = FadeComponents.at(2);
     expect(wrapper.find(PageHeading)).toHaveLength(1);
     expect(wrapper.find(PageContainer)).toHaveLength(1);
     expect(wrapper.find(LevelsNavigation)).toHaveLength(1);
-    expect(wrapper.find(TaskCounter)).toHaveLength(1);
     expect(wrapper.find(TaskRandomizer)).toHaveLength(1);
-    expect(wrapper.find(TaskActions)).toHaveLength(0);
-    expect(wrapper.find(TaskContent)).toHaveLength(0);
     expect(wrapper.find(Summary)).toHaveLength(0);
+    expect(TaskCounterFade.props().show).toEqual(true);
+    expect(TaskActionFade.props().show).toEqual(false);
+    expect(TaskContentFade.props().show).toEqual(false);
   });
 
   it('should not render any element if no levels', () => {
     spyStore.mockReturnValue({ ...selectorProps, levels: null } as PropsLevelSelector);
     wrapper = shallow(<LevelsComponent />);
+    const FadeComponents = wrapper.find(Fade);
     expect(wrapper.find(PageHeading)).toHaveLength(0);
     expect(wrapper.find(PageContainer)).toHaveLength(0);
     expect(wrapper.find(LevelsNavigation)).toHaveLength(0);
-    expect(wrapper.find(TaskCounter)).toHaveLength(0);
     expect(wrapper.find(TaskRandomizer)).toHaveLength(0);
-    expect(wrapper.find(TaskActions)).toHaveLength(0);
-    expect(wrapper.find(TaskContent)).toHaveLength(0);
     expect(wrapper.find(Summary)).toHaveLength(0);
+    expect(FadeComponents).toHaveLength(0);
   });
 
   it('should render all required items if currentTask set', () => {
@@ -95,14 +97,19 @@ describe('<Levels /> component', () => {
       currentTask: postsResponseMock()[0],
     } as PropsLevelSelector);
     wrapper = shallow(<LevelsComponent />);
+    const FadeComponents = wrapper.find(Fade);
+    const TaskCounterFade = FadeComponents.at(0);
+    const TaskContentFade = FadeComponents.at(1);
+    const TaskActionFade = FadeComponents.at(2);
     expect(wrapper.find(PageHeading)).toHaveLength(1);
     expect(wrapper.find(PageContainer)).toHaveLength(1);
     expect(wrapper.find(LevelsNavigation)).toHaveLength(1);
     expect(wrapper.find(TaskCounter)).toHaveLength(1);
     expect(wrapper.find(TaskRandomizer)).toHaveLength(0);
-    expect(wrapper.find(TaskActions)).toHaveLength(1);
-    expect(wrapper.find(TaskContent)).toHaveLength(1);
     expect(wrapper.find(Summary)).toHaveLength(0);
+    expect(TaskCounterFade.props().show).toEqual(true);
+    expect(TaskActionFade.props().show).toEqual(true);
+    expect(TaskContentFade.props().show).toEqual(true);
   });
 
   it('should render all required items for summary Page', () => {
@@ -111,14 +118,18 @@ describe('<Levels /> component', () => {
       gameStatus: GameStatus.Summary,
     } as PropsLevelSelector);
     wrapper = shallow(<LevelsComponent />);
+    const FadeComponents = wrapper.find(Fade);
+    const TaskCounterFade = FadeComponents.at(0);
+    const TaskContentFade = FadeComponents.at(1);
+    const TaskActionFade = FadeComponents.at(2);
     expect(wrapper.find(PageHeading)).toHaveLength(1);
     expect(wrapper.find(PageContainer)).toHaveLength(1);
     expect(wrapper.find(LevelsNavigation)).toHaveLength(1);
-    expect(wrapper.find(TaskCounter)).toHaveLength(0);
     expect(wrapper.find(TaskRandomizer)).toHaveLength(0);
-    expect(wrapper.find(TaskActions)).toHaveLength(0);
-    expect(wrapper.find(TaskContent)).toHaveLength(0);
     expect(wrapper.find(Summary)).toHaveLength(1);
+    expect(TaskCounterFade.props().show).toEqual(false);
+    expect(TaskActionFade.props().show).toEqual(false);
+    expect(TaskContentFade.props().show).toEqual(false);
   });
 
   it('should set config in LocalStorage', () => {

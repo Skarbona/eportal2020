@@ -1,0 +1,57 @@
+@import '../../../../../scss/Variables';
+
+.levels-navigation {
+  background: $light-gray;
+
+  button {
+    width: 100%;
+  }
+
+  .levels-stepper {
+    background: transparent;
+
+    .steps-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      border-radius: 50%;
+      background: $gray;
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .active-step {
+      box-shadow: $secondary-shadow;
+    }
+
+    .active-step,
+    .completed-step {
+      background: $primary-gradient-bg;
+    }
+
+    .MuiStepLabel-label {
+      color: $gray;
+    }
+
+    .MuiStepLabel-completed,
+    .MuiStepLabel-active {
+      color: $primary;
+    }
+
+    .connector {
+      top: 1.4rem;
+      background-color: $gray;
+      height: 0.3rem;
+
+      &.MuiStepConnector-active,
+      &.MuiStepConnector-completed {
+        background: $primary-gradient-bg;
+      }
+
+      .MuiStepConnector-line {
+        border: 0;
+      }
+    }
+  }
+}

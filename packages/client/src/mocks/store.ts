@@ -80,7 +80,7 @@ const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
       ? [
           mockedCategory('children1', nested - 1),
           mockedCategory('children2', nested - 1),
-          mockedCategory('children1', nested - 1),
+          mockedCategory('children3', nested - 1),
         ]
       : [],
 });
@@ -102,12 +102,16 @@ export const mockedStore = (): RootState => ({
       levels: mockedCategory('levels', 1),
     },
     loading: false,
-    allCatsMap: null,
+    allCatsMap: new Map(),
   },
   game: {
+    points: {
+      man: 0,
+      woman: 0,
+    },
     currentTask: null,
     isReadyToStartGame: null,
-    gameStatus: GameStatus.NewGame,
+    gameStatus: GameStatus.Summary,
     posts: {
       level1: {
         data: {

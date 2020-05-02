@@ -1,0 +1,40 @@
+.transition-animation-enter {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+.transition-animation-enter-active {
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+  opacity: 1;
+}
+
+.transition-animation-exit {
+  opacity: 1;
+}
+
+.transition-animation-exit-active {
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+  opacity: 0;
+}
+
+.transition-quick-exit-enter {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+.transition-quick-exit-enter-active {
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+  opacity: 1;
+}
+
+.transition-quick-exit-exit {
+  opacity: 0;
+}
+
+.transition-quick-exit-active {
+  transform: scale(0.9);
+  opacity: 0;
+}

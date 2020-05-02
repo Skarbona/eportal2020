@@ -89,5 +89,10 @@
   "Task was not completed (0 points)": "Nie zostało ukończone (0 punktów)",
   "Task is done!": "Zadanie jest ukończone!",
   "Start timer": "Rozpocznij",
-  "Pause": "Zapauzuj"
+  "Pause": "Zapauzuj",
+  "who will do the last task": "kto będzie wykonywać zadanie karne",
+  "will do the last task": "będzie wykonować zadanie karne",
+  "We do not have winner": "Jest Remis!",
+  "The winner is": "Grę wygrał/a",
+  "Points above contain also points from the last level": "Punktacja powyżej zawiera również punkty za ostatni poziom"
 }

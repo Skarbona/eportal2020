@@ -12,13 +12,14 @@ import { LocalStorage } from '../../../models/local-storage';
 import { saveActiveGameData, setFormValues } from '../../../store/game/action';
 import { fetchPostsForGame } from '../../../store/game/thunks/fetchPostsForGame';
 import { FormValues } from '../../../../../service/src/models/shared-interfaces/user';
-import { checkIfHasPosts, checkIfHasCategories } from '../../../utils/post-data-for-game';
+import { checkIfHasPosts } from '../../../utils/posts';
+import { checkIfHasCategories } from '../../../utils/categories';
 
 interface Props {
   accessToken: string;
 }
 
-interface SelectorProps {
+export interface SelectorProps {
   gameStatus: GameStatus;
   config: FormValues;
   hasPosts: boolean;
@@ -47,7 +48,8 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
   useEffect(() => {
     const statusOfGame = window.localStorage.getItem(LocalStorage.GameStatus || '{}');
     const gameConfig = window.localStorage.getItem(LocalStorage.GameConfig || '{}');
-    if (statusOfGame && gameConfig) {
+
+    if (!!statusOfGame && !!gameConfig) {
       dispatch(setGameStatus(statusOfGame as GameStatus));
       dispatch(setFormValues(JSON.parse(gameConfig)));
     } else {
@@ -60,7 +62,7 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
   }, []);
 
   useEffect(() => {
-    if (config && !hasPosts && ![GameStatus.NewGame, GameStatus.Summary].includes(gameStatus)) {
+    if (accessToken && config && !hasPosts && GameStatus.NewGame !== gameStatus) {
       dispatch(fetchPostsForGame());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

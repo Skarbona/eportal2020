@@ -7,8 +7,9 @@ import {
   convertPosts,
   randomizeNewTask,
   filterRemovedPosts,
-} from '../../utils/post-data-for-game';
+} from '../../utils/posts';
 import { ErrorTypes } from '../../models/errors';
+import { GameStatus } from '../../models/game-models';
 
 const gameReducer = (state = gameInitialState, action: GameActions): GameStateInterface => {
   switch (action.type) {
@@ -57,7 +58,10 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
         },
       };
     case GameEnum.CleanGameData:
-      return gameInitialState;
+      return {
+        ...gameInitialState,
+        gameStatus: GameStatus.NewGame,
+      };
     case GameEnum.CleanIsReadyToGameData: {
       return {
         ...state,
@@ -103,6 +107,16 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
       return {
         ...state,
         currentTask: null,
+      };
+    }
+    case GameEnum.SetPoints: {
+      const { man, woman } = action.data;
+      return {
+        ...state,
+        points: {
+          man: state.points.man + man,
+          woman: state.points.woman + woman,
+        },
       };
     }
     case GameEnum.RandomizeTask: {

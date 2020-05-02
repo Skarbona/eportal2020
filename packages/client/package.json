@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "private": true,
   "repository": {
     "type": "git",
@@ -36,7 +36,8 @@
     ]
   },
   "dependencies": {
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^3.1.2",

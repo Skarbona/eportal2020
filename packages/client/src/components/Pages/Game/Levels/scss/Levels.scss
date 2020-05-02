@@ -1,0 +1,15 @@
+@import '../../../../../scss/Variables';
+
+.game__levels-heading {
+  .MuiTypography-h2 {
+    font-size: 2rem;
+  }
+}
+
+.summary {
+  .MuiTypography-root.MuiTypography-h3 {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 2rem;
+  }
+}

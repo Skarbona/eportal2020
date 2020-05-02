@@ -68,6 +68,14 @@ export interface CleanCurrentTask extends ActionInterface {
   type: GameEnum.CleanCurrentTask;
 }
 
+export interface SetPoints extends ActionInterface {
+  type: GameEnum.SetPoints;
+  data: {
+    man: number;
+    woman: number;
+  };
+}
+
 export type GameActions =
   | InitFetchPosts
   | SuccessFetchPosts
@@ -78,4 +86,5 @@ export type GameActions =
   | RandomizeTask
   | CleanCurrentTask
   | SaveActiveGameData
+  | SetPoints
   | CleanGameData;

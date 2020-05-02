@@ -5,4 +5,5 @@ export enum LocalStorage {
   GameStatus = 'GameStatus',
   CurrentTask = 'CurrentTask',
   RemovedPosts = 'RemovedPosts',
+  PlayersPoints = 'PlayersPoints',
 }
