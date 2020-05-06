@@ -4,10 +4,10 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
   z-index: 100;
-  background: $primary-gradient-bg;
   border-top: 2px solid $light;
+  background: $primary-gradient-bg;
+  width: 100%;
 
   .active,
   .MuiBottomNavigationAction-root.Mui-selected {

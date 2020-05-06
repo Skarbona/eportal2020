@@ -2,8 +2,8 @@
 @import '../../../../scss/Variables';
 
 .footer {
-  margin-bottom: 56px;
   margin-top: auto;
+  margin-bottom: 56px;
   background: $primary-gradient-bg;
 
   .svg__revert-wave1 {
@@ -12,8 +12,5 @@
 
   @include md {
     margin-bottom: 0;
-  }
-
-  .footer-container {
   }
 }
