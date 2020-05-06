@@ -94,5 +94,11 @@
   "will do the last task": "będzie wykonować zadanie karne",
   "We do not have winner": "Jest Remis!",
   "The winner is": "Grę wygrał/a",
-  "Points above contain also points from the last level": "Punktacja powyżej zawiera również punkty za ostatni poziom"
+  "Points above contain also points from the last level": "Punktacja powyżej zawiera również punkty za ostatni poziom",
+  "Sorry but we cannot found this page": "Przepraszamy, ale nie możemy znaleźć tej strony",
+  "Privacy Policy": "Polityka Prywatności",
+  "Cookies policy short description": "Na stronie są używane ciasteczka i tzw. localStorage. Ich wyłączenie uniemożliwi korzystania ze strony. Ciateczka są wykorzystywane jedynie w celach zbierania anonimowych danych statystycznych. Żadne dane nie są przekazywane do innych podmiotów.",
+  "More info in Privacy Policy": "Więcej informacji w Polityce Prywatności",
+  "Short menu": "Skróty",
+  "Rules": "Zasady"
 }

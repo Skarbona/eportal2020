@@ -18,18 +18,16 @@ export const TaskCounterComponent: FC<Props> = ({
   const { t } = useTranslation();
   const currentTaskNoToDisplay = isCurrentTaskVisible ? currentTaskNo : currentTaskNo + 1;
   return (
-    <Grid container spacing={3} className="task-counter">
-      <Grid item xs={12} className="task-counter-wrapper">
-        <LinearProgress
-          className="task-counter__line-progress"
-          variant="determinate"
-          color="primary"
-          value={(currentTaskNoToDisplay / taskPerLevel) * 100}
-        />
-        <Typography className="task-counter__values">
-          {t('Task No')}: {currentTaskNoToDisplay}/{taskPerLevel}
-        </Typography>
-      </Grid>
+    <Grid item xs={12} className="task-counter">
+      <LinearProgress
+        className="task-counter__line-progress"
+        variant="determinate"
+        color="primary"
+        value={(currentTaskNoToDisplay / taskPerLevel) * 100}
+      />
+      <Typography className="task-counter__values">
+        {t('Task No')}: {currentTaskNoToDisplay}/{taskPerLevel}
+      </Typography>
     </Grid>
   );
 };

@@ -1,0 +1,16 @@
+@import '../../../../scss/Variables';
+
+.main-bottom-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: $primary-gradient-bg;
+  border-top: 2px solid $light;
+
+  .active,
+  .MuiBottomNavigationAction-root.Mui-selected {
+    color: $light;
+  }
+}

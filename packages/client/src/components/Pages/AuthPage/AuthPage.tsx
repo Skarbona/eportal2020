@@ -2,13 +2,14 @@ import React, { FC, memo, useCallback, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Container, Link, Button, FormControl, Grid, Typography, Avatar } from '@material-ui/core';
+import { Link, Button, FormControl, Grid, Typography, Avatar } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 import './AuthPage.scss';
 import Inputs from './Inputs';
 import ErrorHandler from '../../Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
+import PageContainer from '../../Shared/PageElements/PageContainer/PageContainer';
 import { SubmitEvent } from '../../../models/typescript-events';
 import { RootState } from '../../../store/store.interface';
 import { authorizeUser } from '../../../store/user/thunks/authorizeUser';
@@ -93,7 +94,7 @@ export const AuthPageComponent: FC = () => {
   );
 
   return (
-    <Container maxWidth="xs" className="auth-page">
+    <PageContainer maxWidth="xs" className="auth-page">
       <div className="auth-page__form-wrapper">
         <form onSubmit={handleSubmit}>
           <FormControl>
@@ -124,7 +125,7 @@ export const AuthPageComponent: FC = () => {
           </FormControl>
         </form>
       </div>
-    </Container>
+    </PageContainer>
   );
 };
 

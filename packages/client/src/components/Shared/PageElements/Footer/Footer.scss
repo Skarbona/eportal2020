@@ -1,0 +1,19 @@
+@import '../../../../scss/BreakPoints';
+@import '../../../../scss/Variables';
+
+.footer {
+  margin-bottom: 56px;
+  margin-top: auto;
+  background: $primary-gradient-bg;
+
+  .svg__revert-wave1 {
+    fill: $main-bg-color;
+  }
+
+  @include md {
+    margin-bottom: 0;
+  }
+
+  .footer-container {
+  }
+}

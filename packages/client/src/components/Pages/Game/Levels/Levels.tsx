@@ -88,7 +88,7 @@ export const LevelsComponent: FC = () => {
         className="game__levels-heading"
       />
       <PageContainer className={`game__levels game__levels-${gameStatus}`}>
-        <Grid container spacing={1} ref={containerRef}>
+        <Grid container spacing={3} ref={containerRef} className="game__levels-container">
           <Fade show={!isSummary}>
             <TaskCounter
               isCurrentTaskVisible={!!currentTask?.id}

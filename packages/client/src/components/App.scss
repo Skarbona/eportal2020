@@ -3,6 +3,9 @@
 .eportal {
   background: $main-bg-color;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 
   .eportal__main {
     display: flex;

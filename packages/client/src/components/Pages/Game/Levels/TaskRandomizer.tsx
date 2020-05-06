@@ -75,36 +75,39 @@ export const TaskRandomizationComponent: FC<Props> = ({ currentTaskNo }) => {
   );
 
   return (
-    <Grid
-      container
-      spacing={3}
-      className={`task-randomization ${isTheFirstTaskForLevel3 ? 'level3-first-task' : ''}`}
-    >
-      {!isTheFirstTaskForLevel3 && (
-        <>
-          <Grid item xs={12}>
-            <Typography variant="h5" color="primary">
-              {t('Select the person for the next task')}
-            </Typography>
-          </Grid>
-          {randomButton}
-          {womanButton}
-          {manButton}
-        </>
-      )}
-      {isTheFirstTaskForLevel3 && (
-        <>
-          <Grid item xs={12}>
-            <Typography variant="h5" color="primary">
-              {!whoIsWinner && t('We do not have winner')}
-              {!!whoIsWinner && `${t('The winner is')}: ${whoIsWinner === Gender.Woman ? she : he}`}
-            </Typography>
-          </Grid>
-          {!whoIsWinner && randomButton}
-          {whoIsWinner === Gender.Woman && manButton}
-          {whoIsWinner === Gender.Man && womanButton}
-        </>
-      )}
+    <Grid item xs={12}>
+      <Grid
+        container
+        spacing={3}
+        className={`task-randomization ${isTheFirstTaskForLevel3 ? 'level3-first-task' : ''}`}
+      >
+        {!isTheFirstTaskForLevel3 && (
+          <>
+            <Grid item xs={12}>
+              <Typography variant="h5" color="primary">
+                {t('Select the person for the next task')}
+              </Typography>
+            </Grid>
+            {randomButton}
+            {womanButton}
+            {manButton}
+          </>
+        )}
+        {isTheFirstTaskForLevel3 && (
+          <>
+            <Grid item xs={12}>
+              <Typography variant="h5" color="primary">
+                {!whoIsWinner && t('We do not have winner')}
+                {!!whoIsWinner &&
+                  `${t('The winner is')}: ${whoIsWinner === Gender.Woman ? she : he}`}
+              </Typography>
+            </Grid>
+            {!whoIsWinner && randomButton}
+            {whoIsWinner === Gender.Woman && manButton}
+            {whoIsWinner === Gender.Man && womanButton}
+          </>
+        )}
+      </Grid>
     </Grid>
   );
 };

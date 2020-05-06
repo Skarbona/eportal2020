@@ -13,9 +13,6 @@ export const theme = createMuiTheme({
         '&.MuiGrid-container': {
           padding: '1.5rem 0',
         },
-        '&.MuiGrid-spacing-xs-3': {
-          margin: '12px',
-        },
       },
     },
     MuiAvatar: {

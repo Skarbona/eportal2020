@@ -1,21 +1,18 @@
 .task-counter {
+  position: relative;
   &.MuiGrid-root.MuiGrid-container {
     margin-bottom: 0;
     padding: 0;
   }
 
-  .task-counter-wrapper {
-    position: relative;
+  .task-counter__values {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-    .task-counter__values {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .task-counter__line-progress {
-      height: 2rem;
-    }
+  .task-counter__line-progress {
+    height: 2rem;
   }
 }

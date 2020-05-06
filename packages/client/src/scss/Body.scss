@@ -1,7 +1,16 @@
 html,
 body {
   margin: 0;
-  height: 100%;
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   scroll-behavior: smooth;
+  overflow: hidden;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  box-sizing: border-box;
 }

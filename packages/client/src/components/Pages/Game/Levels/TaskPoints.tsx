@@ -29,20 +29,28 @@ export const TaskPointsComponent: FC<{}> = () => {
   }, [points]);
 
   return (
-    <Grid container spacing={3} className="task-points" justify="space-around" alignItems="center">
-      <Grid item className="task-points__player">
-        <Avatar src="./media/icons/female.png" className="task-points__avatar" />
-        <Chip color="primary" label={points.woman} className="points-label" />
-        <Typography variant="h3" className="player-name">
-          {she}
-        </Typography>
-      </Grid>
-      <Grid item className="task-points__player">
-        <Avatar src="./media/icons/male.png" className="task-points__avatar" />
-        <Chip color="primary" label={points.man} className="points-label" />
-        <Typography variant="h3" className="player-name">
-          {he}
-        </Typography>
+    <Grid item xs={12}>
+      <Grid
+        container
+        spacing={3}
+        className="task-points"
+        justify="space-around"
+        alignItems="center"
+      >
+        <Grid item className="task-points__player">
+          <Avatar src="./media/icons/female.png" className="task-points__avatar" />
+          <Chip color="primary" label={points.woman} className="points-label" />
+          <Typography variant="h3" className="player-name">
+            {she}
+          </Typography>
+        </Grid>
+        <Grid item className="task-points__player">
+          <Avatar src="./media/icons/male.png" className="task-points__avatar" />
+          <Chip color="primary" label={points.man} className="points-label" />
+          <Typography variant="h3" className="player-name">
+            {he}
+          </Typography>
+        </Grid>
       </Grid>
     </Grid>
   );
