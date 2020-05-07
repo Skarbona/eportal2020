@@ -8,6 +8,13 @@ import * as logoutThunk from '../../../store/app/thunks/logout';
 import * as refreshThunk from '../../../store/app/thunks/refreshTokens';
 import { LocalStorage } from '../../../models/local-storage';
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: jest.fn(() => ({
+    push: (path: string) => {},
+  })),
+}));
+
 describe('<AuthHOC> Hoc component', () => {
   let wrapper: ShallowWrapper;
   let spyStore: any;

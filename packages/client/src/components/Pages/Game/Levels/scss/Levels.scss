@@ -6,10 +6,18 @@
   }
 }
 
-.summary {
-  .MuiTypography-root.MuiTypography-h3 {
-    padding: 0.5rem;
-    text-align: center;
-    font-size: 2rem;
+.game__levels {
+  .game__levels-container {
+    > .MuiGrid-item {
+      margin-bottom: 24px;
+    }
+  }
+
+  .summary {
+    .MuiTypography-root.MuiTypography-h3 {
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 2rem;
+    }
   }
 }

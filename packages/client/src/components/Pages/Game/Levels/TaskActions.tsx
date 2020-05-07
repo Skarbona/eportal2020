@@ -84,125 +84,129 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
   }, [seconds]);
 
   return (
-    <Grid container spacing={3} className="task-actions primary-gradient-bg">
-      {taskGameStatus === TaskGameStatus.BeforeGame && (
-        <>
-          <Grid item xs={12} className="before-game">
-            <>
-              <Typography>
-                {t('Personalize time if you want')}: {gameTime} min
-              </Typography>
-              <Slider
-                value={gameTime}
-                onChange={setGameTimeHandler}
-                valueLabelDisplay="auto"
-                step={1}
-                min={1}
-                max={10}
-                marks
-              />
-            </>
+    <Grid item xs={12}>
+      <Grid container spacing={3} className="task-actions primary-gradient-bg">
+        {taskGameStatus === TaskGameStatus.BeforeGame && (
+          <>
+            <Grid item xs={12} className="before-game">
+              <>
+                <Typography>
+                  {t('Personalize time if you want')}: {gameTime} min
+                </Typography>
+                <Slider
+                  value={gameTime}
+                  onChange={setGameTimeHandler}
+                  valueLabelDisplay="auto"
+                  step={1}
+                  min={1}
+                  max={10}
+                  marks
+                />
+              </>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                onClick={startTimerHandler}
+                className="success-button"
+                variant="contained"
+                startIcon={<StartIcon />}
+              >
+                {t('Start a Task!')}
+              </Button>
+            </Grid>
+          </>
+        )}
+        <Fade
+          show={[TaskGameStatus.TimerInProgress, TaskGameStatus.TimerPaused].includes(
+            taskGameStatus,
+          )}
+          classNames="transition-quick-exit"
+          timeout={0}
+        >
+          <Grid item xs={12} className="line-progress__wrapper">
+            <LinearProgress
+              className="line-progress"
+              variant="determinate"
+              color={taskGameStatus === TaskGameStatus.TimerPaused ? 'secondary' : 'primary'}
+              value={U.convertSecondsToPercent(seconds, gameTime)}
+            />
+            <Typography className="values">{U.convertSecondsToMinutes(seconds)}</Typography>
           </Grid>
-          <Grid item xs={12}>
+        </Fade>
+        {taskGameStatus === TaskGameStatus.TimerInProgress && (
+          <Grid item xs={12} md={4} className="timer-in-progress">
+            <Button
+              onClick={pauseTimerHandler}
+              className="warning-button"
+              variant="contained"
+              startIcon={<PauseIcon />}
+            >
+              {t('Pause')}
+            </Button>
+          </Grid>
+        )}
+        {taskGameStatus === TaskGameStatus.TimerPaused && (
+          <Grid item xs={12} md={4} className="timer-paused">
             <Button
               onClick={startTimerHandler}
-              className="success-button"
+              className="warning-button"
               variant="contained"
               startIcon={<StartIcon />}
             >
-              {t('Start a Task!')}
+              {t('Start timer')}
             </Button>
           </Grid>
-        </>
-      )}
-      <Fade
-        show={[TaskGameStatus.TimerInProgress, TaskGameStatus.TimerPaused].includes(taskGameStatus)}
-        classNames="transition-quick-exit"
-        timeout={0}
-      >
-        <Grid item xs={12} className="line-progress__wrapper">
-          <LinearProgress
-            className="line-progress"
-            variant="determinate"
-            color={taskGameStatus === TaskGameStatus.TimerPaused ? 'secondary' : 'primary'}
-            value={U.convertSecondsToPercent(seconds, gameTime)}
-          />
-          <Typography className="values">{U.convertSecondsToMinutes(seconds)}</Typography>
-        </Grid>
-      </Fade>
-      {taskGameStatus === TaskGameStatus.TimerInProgress && (
-        <Grid item xs={12} md={4} className="timer-in-progress">
-          <Button
-            onClick={pauseTimerHandler}
-            className="warning-button"
-            variant="contained"
-            startIcon={<PauseIcon />}
-          >
-            {t('Pause')}
-          </Button>
-        </Grid>
-      )}
-      {taskGameStatus === TaskGameStatus.TimerPaused && (
-        <Grid item xs={12} md={4} className="timer-paused">
-          <Button
-            onClick={startTimerHandler}
-            className="warning-button"
-            variant="contained"
-            startIcon={<StartIcon />}
-          >
-            {t('Start timer')}
-          </Button>
-        </Grid>
-      )}
-      {[TaskGameStatus.TimerInProgress, TaskGameStatus.TimerPaused].includes(taskGameStatus) && (
-        <Grid item xs={12} md={4} className="task-is-done">
-          <Button
-            onClick={endTimerHandler}
-            className="success-button"
-            variant="contained"
-            startIcon={<DoneIcon />}
-          >
-            {t('Task is done!')}
-          </Button>
-        </Grid>
-      )}
-      <Fade show={taskGameStatus === TaskGameStatus.TimeEnd}>
-        <Grid item xs={12}>
-          <Typography variant="h3" className="completed-header">
-            {t('Has been task completed?')}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Button
-            onClick={(): void => finishTaskHandler(3)}
-            className="success-button"
-            variant="contained"
-            startIcon={<SentimentSatisfied />}
-          >
-            {t('Fully (3 points)')}
-          </Button>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Button
-            onClick={(): void => finishTaskHandler(1)}
-            className="warning-button"
-            variant="contained"
-            startIcon={<SentimentDissatisfied />}
-          >
-            {t('Partly (1 point)')}
-          </Button>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Button
-            onClick={(): void => finishTaskHandler(0)}
-            className="error-button"
-            variant="contained"
-            startIcon={<SentimentVeryDissatisfied />}
-          >
-            {t('Task was not completed (0 points)')}
-          </Button>
-        </Grid>
-      </Fade>
+        )}
+        {[TaskGameStatus.TimerInProgress, TaskGameStatus.TimerPaused].includes(taskGameStatus) && (
+          <Grid item xs={12} md={4} className="task-is-done">
+            <Button
+              onClick={endTimerHandler}
+              className="success-button"
+              variant="contained"
+              startIcon={<DoneIcon />}
+            >
+              {t('Task is done!')}
+            </Button>
+          </Grid>
+        )}
+        <Fade show={taskGameStatus === TaskGameStatus.TimeEnd}>
+          <Grid item xs={12}>
+            <Typography variant="h3" className="completed-header">
+              {t('Has been task completed?')}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Button
+              onClick={(): void => finishTaskHandler(3)}
+              className="success-button"
+              variant="contained"
+              startIcon={<SentimentSatisfied />}
+            >
+              {t('Fully (3 points)')}
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Button
+              onClick={(): void => finishTaskHandler(1)}
+              className="warning-button"
+              variant="contained"
+              startIcon={<SentimentDissatisfied />}
+            >
+              {t('Partly (1 point)')}
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Button
+              onClick={(): void => finishTaskHandler(0)}
+              className="error-button"
+              variant="contained"
+              startIcon={<SentimentVeryDissatisfied />}
+            >
+              {t('Task was not completed (0 points)')}
+            </Button>
+          </Grid>
+        </Fade>
+      </Grid>
     </Grid>
   );
 };

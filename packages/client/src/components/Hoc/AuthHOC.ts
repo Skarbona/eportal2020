@@ -1,5 +1,6 @@
 import { useEffect, FC, memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { logout } from '../../store/app/thunks/logout';
 import { login } from '../../store/app/thunks/login';
@@ -22,6 +23,7 @@ let refreshTokenTimeout: number;
 export const AuthHOC: FC = () => {
   const [accTokenRemainingTime, setAccTokenRemainingTime] = useState<number>(null);
   const [refTokenRemainingTime, setRefTokenRemainingTime] = useState<number>(null);
+  const history = useHistory();
 
   const dispatch = useReduxDispatch();
   const { accToken, accTokenExpiration, refToken, refTokenExpiration } = useSelector<
@@ -131,6 +133,7 @@ export const AuthHOC: FC = () => {
       );
     } else {
       dispatch(logout());
+      history.push('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

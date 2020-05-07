@@ -5,3 +5,12 @@ body {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   scroll-behavior: smooth;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}

@@ -60,71 +60,73 @@ export const LevelsNavigationComponent: FC<Props> = ({
   }, [currentGameStatus]);
 
   return (
-    <Grid container spacing={3} className="levels-navigation">
-      {currentTask?.id && (
-        <Grid item xs={12} md={4}>
-          <Button
-            color="primary"
-            variant="contained"
-            className="ignore-task"
-            onClick={ignoreCurrentTaskHandler}
-            startIcon={<SingleArrowIcon />}
-          >
-            {t('Ignore current task and go to the next task')}
-          </Button>
-        </Grid>
-      )}
-      {currentGameStatus !== GameStatus.Summary && (
-        <Grid item xs={12}>
-          <Stepper
-            alternativeLabel
-            activeStep={activeStep}
-            className="levels-stepper"
-            connector={<StepConnector className="connector" />}
-          >
-            {levels.map((level) => (
-              <Step key={level.name}>
-                <StepLabel StepIconComponent={StepperIcons}>{level.name}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </Grid>
-      )}
-      {!currentTask?.id && [GameStatus.Level1, GameStatus.Level2].includes(currentGameStatus) && (
-        <Grid item xs={12} md={4}>
-          <Button
-            onClick={setGameStatusHandler}
-            className="ignore-level"
-            color="primary"
-            variant="contained"
-          >
-            {t('Ignore current level and go to the next level')}
-          </Button>
-        </Grid>
-      )}
-      {currentGameStatus === GameStatus.Level3 && (
-        <Grid item xs={12} md={4}>
-          <Button
-            onClick={setGameStatusHandler}
-            color="primary"
-            className="warning-button"
-            variant="contained"
-          >
-            {t('Go to Summary')}
-          </Button>
-        </Grid>
-      )}
+    <Grid item xs={12}>
+      <Grid container spacing={3} className="levels-navigation">
+        {currentTask?.id && (
+          <Grid item xs={12} md={4}>
+            <Button
+              color="primary"
+              variant="contained"
+              className="ignore-task"
+              onClick={ignoreCurrentTaskHandler}
+              startIcon={<SingleArrowIcon />}
+            >
+              {t('Ignore current task and go to the next task')}
+            </Button>
+          </Grid>
+        )}
+        {currentGameStatus !== GameStatus.Summary && (
+          <Grid item xs={12}>
+            <Stepper
+              alternativeLabel
+              activeStep={activeStep}
+              className="levels-stepper"
+              connector={<StepConnector className="connector" />}
+            >
+              {levels.map((level) => (
+                <Step key={level.name}>
+                  <StepLabel StepIconComponent={StepperIcons}>{level.name}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+          </Grid>
+        )}
+        {!currentTask?.id && [GameStatus.Level1, GameStatus.Level2].includes(currentGameStatus) && (
+          <Grid item xs={12} md={4}>
+            <Button
+              onClick={setGameStatusHandler}
+              className="ignore-level"
+              color="primary"
+              variant="contained"
+            >
+              {t('Ignore current level and go to the next level')}
+            </Button>
+          </Grid>
+        )}
+        {currentGameStatus === GameStatus.Level3 && (
+          <Grid item xs={12} md={4}>
+            <Button
+              onClick={setGameStatusHandler}
+              color="primary"
+              className="warning-button"
+              variant="contained"
+            >
+              {t('Go to Summary')}
+            </Button>
+          </Grid>
+        )}
 
-      <Grid item xs={12} md={4}>
-        <Button
-          onClick={finishGameHandler}
-          color="primary"
-          className="error-button"
-          variant="contained"
-          startIcon={<FinishIcon />}
-        >
-          {t('Finish the Game')}
-        </Button>
+        <Grid item xs={12} md={4}>
+          <Button
+            onClick={finishGameHandler}
+            color="primary"
+            className="error-button"
+            variant="contained"
+            startIcon={<FinishIcon />}
+          >
+            {t('Finish the Game')}
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   );

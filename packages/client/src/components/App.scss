@@ -1,8 +1,11 @@
 @import '../scss/Variables';
 
 .eportal {
+  display: flex;
+  flex-direction: column;
   background: $main-bg-color;
   min-height: 100%;
+  overflow: hidden;
 
   .eportal__main {
     display: flex;
