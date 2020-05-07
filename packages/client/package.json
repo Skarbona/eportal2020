@@ -40,6 +40,8 @@
     "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
+    "@types/css-mediaquery": "^0.1.0",
+    "css-mediaquery": "^0.1.2",
     "eslint-plugin-prettier": "^3.1.2",
     "node-sass": "^4.13.1",
     "prettier": "^2.0.2",

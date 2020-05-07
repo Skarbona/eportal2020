@@ -31,6 +31,7 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
   const setItemHandler = useCallback((event, newValue) => {
     setItem(newValue);
   }, []);
+
   return (
     <BottomNavigation
       value={selectedItem}

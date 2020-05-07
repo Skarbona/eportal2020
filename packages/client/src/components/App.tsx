@@ -30,7 +30,7 @@ export const App: FC = () => {
       expirationTokenDate: app.auth.accessTokenExpiration,
     }),
   );
-  const mobileScreens = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useReduxDispatch();
   useEffect(() => {
     if (accessToken && !id && new Date(expirationTokenDate) > new Date()) {
@@ -49,7 +49,7 @@ export const App: FC = () => {
           <SnackBarErrorHandler />
         </Container>
         <Footer />
-        {mobileScreens && <BottomNavigation accessToken={accessToken} />}
+        {isMobile && <BottomNavigation accessToken={accessToken} />}
       </>
     </ThemeProvider>
   );

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import './Footer.scss';
 import { ReactComponent as WaveSVG } from '../../../../media/svg/revert-wave1.svg';
 
-export const FooterComponent: FC<{}> = () => {
+export const FooterComponent: FC = () => {
   const { t } = useTranslation();
   return (
     <footer className="footer">

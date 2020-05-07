@@ -6,6 +6,7 @@ import { PagesComponent, arePropsEqual } from '../../../components/Pages/Pages';
 import Game from '../../../components/Pages/Game/Game';
 import Main from '../../../components/Pages/Main/Main';
 import AuthPage from '../../../components/Pages/AuthPage/AuthPage';
+import NotFound from '../../../components/Pages/404/404';
 
 describe('<Pages > component', () => {
   let wrapper: ShallowWrapper;
@@ -14,7 +15,8 @@ describe('<Pages > component', () => {
     wrapper = shallow(<PagesComponent accessToken="TOKEN" />);
     expect(wrapper.find(Game)).toHaveLength(1);
     expect(wrapper.find(Main)).toHaveLength(1);
-    expect(wrapper.find(Route)).toHaveLength(3);
+    expect(wrapper.find(NotFound)).toHaveLength(1);
+    expect(wrapper.find(Route)).toHaveLength(4);
 
     expect(wrapper.find(AuthPage)).toHaveLength(0);
   });
@@ -23,7 +25,8 @@ describe('<Pages > component', () => {
     wrapper = shallow(<PagesComponent accessToken="" />);
     expect(wrapper.find(Main)).toHaveLength(1);
     expect(wrapper.find(AuthPage)).toHaveLength(1);
-    expect(wrapper.find(Route)).toHaveLength(2);
+    expect(wrapper.find(NotFound)).toHaveLength(1);
+    expect(wrapper.find(Route)).toHaveLength(3);
 
     expect(wrapper.find(Game)).toHaveLength(0);
   });

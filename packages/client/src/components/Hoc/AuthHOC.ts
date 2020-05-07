@@ -1,6 +1,6 @@
 import { useEffect, FC, memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 import { logout } from '../../store/app/thunks/logout';
 import { login } from '../../store/app/thunks/login';

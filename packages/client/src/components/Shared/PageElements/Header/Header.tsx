@@ -17,20 +17,26 @@ interface Props {
 export const HeaderComponent: FC<Props> = ({ accessToken }) => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
-  const mobileScreens = useMediaQuery(theme.breakpoints.down('sm'));
-  const logoutHandler = useCallback(() => dispatch(logout()), [dispatch]);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const logoutHandler = useCallback(
+    () => dispatch(logout()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
   return (
     <AppBar position="static" className="header">
       <Toolbar>
-        {mobileScreens && (
+        {isMobile && (
           <IconButton edge="start" className="menu-bottom" aria-label="menu">
             <MenuIcon />
           </IconButton>
         )}
         <Typography variant="h6" className="title">
-          <Link to="/">{t('Portal Name')}</Link>
+          <Link to="/" className="portal-name">
+            {t('Portal Name')}
+          </Link>
         </Typography>
-        {accessToken && !mobileScreens && (
+        {accessToken && !isMobile && (
           <>
             <Link to="/gra" className="btn__start-game">
               <Button>{t('Play!')}</Button>
