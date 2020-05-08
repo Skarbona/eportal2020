@@ -47,14 +47,14 @@ export const AuthHOC: FC = () => {
 
   useEffect(() => {
     // Logout User on expired access tokens
-    if (accToken && accTokenExpiration) {
+    if (accToken && accTokenExpiration && accTokenRemainingTime > 0) {
       const remainingTime = accTokenExpiration.getTime() - new Date().getTime();
       accessTokenTimeout = window.setTimeout(logoutHandler, remainingTime);
     } else {
       window.clearTimeout(accessTokenTimeout);
     }
     return (): void => window.clearTimeout(accessTokenTimeout);
-  }, [accToken, accTokenExpiration, logoutHandler]);
+  }, [accToken, accTokenExpiration, logoutHandler, accTokenRemainingTime]);
 
   useEffect(() => {
     // Logout User on expired refresh token
@@ -105,7 +105,7 @@ export const AuthHOC: FC = () => {
       dispatch(refreshTokens());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accTokenRemainingTime]);
+  }, [accToken, refToken, accTokenRemainingTime]);
 
   useEffect(() => {
     // Login if Access Token in LocalStorage

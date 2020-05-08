@@ -9,10 +9,11 @@ import NotFound from './404/404';
 
 interface Props {
   accessToken: string;
+  expirationDate: Date;
 }
 // TODO: Add lazy loading for pages
 // TODO: Scroll to TOP after page changed
-export const PagesComponent: FC<Props> = ({ accessToken }) => {
+export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
   return (
     <>
       {accessToken && (
@@ -24,7 +25,7 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
             <Profile />
           </Route>
           <Route path="/gra" exact>
-            <Game accessToken={accessToken} />
+            <Game accessToken={accessToken} expirationDate={expirationDate} />
           </Route>
           <Route path="*">
             <NotFound />

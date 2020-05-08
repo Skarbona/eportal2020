@@ -56,7 +56,7 @@ describe('<App > component', () => {
     spyStore.mockReturnValue({
       accessToken: 'TOKEN',
       id: null,
-      expirationTokenDate: new Date().getTime() + 360000,
+      expirationTokenDate: new Date(2030, 10, 10),
     });
     wrapper = shallow(<App />);
     expect(spyFetchUserData).toHaveBeenCalled();
@@ -65,6 +65,7 @@ describe('<App > component', () => {
   it('should not try fetch user Data if no access token', () => {
     spyStore.mockReturnValue({
       accessToken: null,
+      expirationTokenDate: null,
       id: null,
     });
     wrapper = shallow(<App />);
@@ -74,6 +75,7 @@ describe('<App > component', () => {
   it('should not try fetch user Data if data already in store', () => {
     spyStore.mockReturnValue({
       accessToken: 'TOKEN',
+      expirationTokenDate: new Date().getTime() + 360000,
       id: 'ID',
     });
     wrapper = shallow(<App />);

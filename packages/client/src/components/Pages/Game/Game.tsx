@@ -14,9 +14,11 @@ import { fetchPostsForGame } from '../../../store/game/thunks/fetchPostsForGame'
 import { FormValues } from '../../../../../service/src/models/shared-interfaces/user';
 import { checkIfHasPosts } from '../../../utils/posts';
 import { checkIfHasCategories } from '../../../utils/categories';
+import { checkIfTokenIsValid } from '../../../utils/auth';
 
 interface Props {
   accessToken: string;
+  expirationDate: Date;
 }
 
 export interface SelectorProps {
@@ -26,7 +28,7 @@ export interface SelectorProps {
   hasCategories: boolean;
 }
 
-export const GameComponent: FC<Props> = ({ accessToken }) => {
+export const GameComponent: FC<Props> = ({ accessToken, expirationDate }) => {
   const dispatch = useReduxDispatch();
 
   const { gameStatus, hasPosts, config, hasCategories } = useSelector<RootState, SelectorProps>(
@@ -39,11 +41,23 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
   );
 
   useEffect(() => {
-    if (accessToken) {
+    if (checkIfTokenIsValid(accessToken, expirationDate)) {
       dispatch(fetchCategories(accessToken));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken]);
+  }, [accessToken, expirationDate]);
+
+  useEffect(() => {
+    if (
+      checkIfTokenIsValid(accessToken, expirationDate) &&
+      config &&
+      !hasPosts &&
+      GameStatus.NewGame !== gameStatus
+    ) {
+      dispatch(fetchPostsForGame());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameStatus, config, hasPosts, expirationDate, accessToken]);
 
   useEffect(() => {
     const statusOfGame = window.localStorage.getItem(LocalStorage.GameStatus || '{}');
@@ -60,13 +74,6 @@ export const GameComponent: FC<Props> = ({ accessToken }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (accessToken && config && !hasPosts && GameStatus.NewGame !== gameStatus) {
-      dispatch(fetchPostsForGame());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameStatus, config, hasPosts]);
 
   return (
     <>
