@@ -39,6 +39,11 @@ export const FooterComponent: FC = () => {
               </Link>
             </Typography>
           </Grid>
+          <Grid item xs={12}>
+            <Typography gutterBottom align="right">
+              {t('App version')}: {process.env.REACT_APP_VERSION}
+            </Typography>
+          </Grid>
         </Grid>
       </Container>
     </footer>
