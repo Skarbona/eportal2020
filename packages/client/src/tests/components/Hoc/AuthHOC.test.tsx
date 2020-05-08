@@ -63,7 +63,7 @@ describe('<AuthHOC> Hoc component', () => {
   it('should set accessToken Timeout', () => {
     spyStore.mockReturnValue({
       accToken: 'TOKEN',
-      accTokenExpiration: new Date(),
+      accTokenExpiration: new Date(2030, 10, 10),
     });
     wrapper = shallow(<AuthHOC />);
     expect(setTimeoutSpy).toHaveBeenCalled();
