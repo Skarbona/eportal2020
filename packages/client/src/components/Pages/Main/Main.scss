@@ -1,0 +1,29 @@
+@import '../../../scss/BreakPoints';
+
+.home-page {
+  background-image: url('../../../media/svg/home.svg');
+  background-repeat: no-repeat;
+  background-position: 120% 130%;
+  padding-bottom: 0;
+  background-size: 80%;
+  padding-top: 2rem;
+}
+
+.home-page__secondary {
+  .action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4rem;
+  }
+
+  .title {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 300;
+
+    @include md {
+      font-size: 4rem;
+    }
+  }
+}

@@ -19,7 +19,7 @@ export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
       {accessToken && (
         <Switch>
           <Route path="/" exact>
-            <Main />
+            <Main isLoggedIn={!!accessToken?.length} />
           </Route>
           <Route path="/profil" exact>
             <Profile />
@@ -35,7 +35,7 @@ export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
       {!accessToken && (
         <Switch>
           <Route path="/" exact>
-            <Main />
+            <Main isLoggedIn={!!accessToken?.length} />
           </Route>
           <Route path="/autentykacja/:mode" exact>
             <AuthPage />

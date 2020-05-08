@@ -15,9 +15,8 @@ $success-secondary: #4caf50;
 $warning: #ff5722;
 $warning-secondary: #ff9e80;
 
-// TODO: USUN KONTO ZLE PRZYCISK DZIALA!!!!1
-
 $primary-gradient-bg: linear-gradient(90deg, $primary700 0%, $primary400 100%);
+$secondary-gradient-bg: linear-gradient(90deg, #512da86b 0%, #7e57c2a6 100%);
 $error-gradient-bg: linear-gradient(90deg, $error 0%, $error-secondary 100%);
 $error-secondary-gradient-bg: linear-gradient(90deg, $error 50%, $error-secondary 100%);
 $success-gradient-bg: linear-gradient(90deg, $success 0%, $success-secondary 100%);
