@@ -1,4 +1,4 @@
-import React, { useEffect, FC, memo } from 'react';
+import { useEffect, FC, memo } from 'react';
 import { useHistory } from 'react-router-dom';
 
 export const ScrollToTopComponent: FC = () => {
@@ -7,6 +7,7 @@ export const ScrollToTopComponent: FC = () => {
     const unListen = history.listen(() => {
       window.scrollTo(0, 0);
     });
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     return () => unListen();
   }, [history]);
 
