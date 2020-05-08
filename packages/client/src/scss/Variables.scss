@@ -3,6 +3,7 @@ $deep-dark: #212121;
 $primary: #673ab7;
 $primary700: #512da8;
 $primary400: #7e57c2;
+$primary200: #b39ddb;
 $light: #ffffff;
 $light-gray: rgba(255, 255, 255, 0.7);
 $transparent-gray: rgba(255, 255, 255, 0.3);
@@ -15,9 +16,8 @@ $success-secondary: #4caf50;
 $warning: #ff5722;
 $warning-secondary: #ff9e80;
 
-// TODO: USUN KONTO ZLE PRZYCISK DZIALA!!!!1
-
 $primary-gradient-bg: linear-gradient(90deg, $primary700 0%, $primary400 100%);
+$secondary-gradient-bg: linear-gradient(90deg, $primary400 0%, $primary200 100%);
 $error-gradient-bg: linear-gradient(90deg, $error 0%, $error-secondary 100%);
 $error-secondary-gradient-bg: linear-gradient(90deg, $error 50%, $error-secondary 100%);
 $success-gradient-bg: linear-gradient(90deg, $success 0%, $success-secondary 100%);

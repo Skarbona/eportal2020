@@ -4,8 +4,8 @@ import { AppBar, Button, IconButton, Toolbar, Typography, useMediaQuery } from '
 import { AccountCircle as AccountIcon, Menu as MenuIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-import { logout } from '../../../../store/app/thunks/logout';
 import './Header.scss';
+import { logout } from '../../../../store/app/thunks/logout';
 import { PageParams } from '../../../../models/page-types';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { theme } from '../../../../settings/theme-settings';
@@ -33,7 +33,7 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
         )}
         <Typography variant="h6" className="title">
           <Link to="/" className="portal-name">
-            {t('Portal Name')}
+            {process.env.REACT_APP_PORTAL_NAME}
           </Link>
         </Typography>
         {accessToken && !isMobile && (
