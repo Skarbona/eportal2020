@@ -6,6 +6,13 @@ import HttpError from '../models/http-error';
 
 config();
 
+interface DecodedToken {
+  userId: string;
+  email: string;
+  iat: number;
+  exp: number;
+}
+
 export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   if (req.method === 'OPTIONS') {
     return next();
@@ -16,10 +23,11 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
     if (!accessToken || split[0] !== 'Bearer') {
       throw new Error();
     }
-    const decodedToken = jwt.verify(
-      accessToken,
-      process.env.JWT_ACCESS_TOKEN,
-    ) as Request['userData'];
+    const decodedToken = jwt.verify(accessToken, process.env.JWT_ACCESS_TOKEN) as DecodedToken;
+
+    if (new Date().getTime() > decodedToken.exp * 1000) {
+      throw new Error();
+    }
     req.userData = { userId: decodedToken.userId, email: decodedToken.email };
     next();
   } catch (e) {
@@ -37,10 +45,12 @@ export const authRefreshMiddleware = (req: Request, res: Response, next: NextFun
     if (!refreshToken || split[0] !== 'Bearer') {
       throw new Error();
     }
-    const decodedToken = jwt.verify(
-      refreshToken,
-      process.env.JWT_REFRESH_TOKEN,
-    ) as Request['userData'];
+    const decodedToken = jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN) as DecodedToken;
+
+    if (new Date().getTime() > decodedToken.exp * 1000) {
+      throw new Error();
+    }
+
     req.userData = { userId: decodedToken.userId, email: decodedToken.email };
     next();
   } catch (e) {

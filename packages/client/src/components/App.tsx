@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react';
 import { Container, useMediaQuery } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
+import { useSelector } from 'react-redux';
 
 import './App.scss';
 
-import { useSelector } from 'react-redux';
 import { theme } from '../settings/theme-settings';
 import { useReduxDispatch } from '../store/helpers';
 import { fetchUserData } from '../store/user/thunks/fetchUserData';
@@ -15,6 +15,7 @@ import BottomNavigation from './Shared/PageElements/BottomNavigation/BottomNavig
 import Footer from './Shared/PageElements/Footer/Footer';
 import AuthHOC from './Hoc/AuthHOC';
 import { RootState } from '../store/store.interface';
+import { checkIfTokenIsValid } from '../utils/auth';
 
 interface AppSelector {
   id: string;
@@ -33,11 +34,11 @@ export const App: FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useReduxDispatch();
   useEffect(() => {
-    if (accessToken && !id && new Date(expirationTokenDate) > new Date()) {
+    if (!id && checkIfTokenIsValid(accessToken, expirationTokenDate)) {
       dispatch(fetchUserData(accessToken));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken]);
+  }, [accessToken, expirationTokenDate, id]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -45,7 +46,7 @@ export const App: FC = () => {
         <AuthHOC />
         <Header accessToken={accessToken} />
         <Container component="main" className="eportal__main" maxWidth={false} disableGutters>
-          <Pages accessToken={accessToken} />
+          <Pages accessToken={accessToken} expirationDate={expirationTokenDate} />
           <SnackBarErrorHandler />
         </Container>
         <Footer />
