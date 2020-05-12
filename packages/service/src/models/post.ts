@@ -11,7 +11,7 @@ export interface PostDocumentInterface extends PostBasicInterface, Document {
 
 export const PostSchema = new Schema({
   date: { type: Date, required: true },
-  slug: { type: String, required: true },
+  slug: { type: String, required: true, unique: true },
   status: { type: PostStatus, required: true },
   content: {
     title: { type: String, required: true },

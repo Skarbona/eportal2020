@@ -16,13 +16,12 @@ export const createPosts = async (
     return res.status(422).json({ errors: errors.array() });
   }
   const { posts } = req.body;
-  // TODO: ONLY ADMIN
 
   const createdPosts = posts.map(({ content, categories, image, author }: PostRequestInterface) => {
     const post = new Post({
       date: new Date(),
       slug: stringToSlug(content.title),
-      status: PostStatus.Publish, // TODO: Auto set depends on situation
+      status: PostStatus.AwaitingForApproval,
       content: {
         title: content.title,
         content: content.content,
@@ -39,7 +38,7 @@ export const createPosts = async (
     const posts = await Post.insertMany(createdPosts);
     res.status(201).json({ posts });
   } catch (e) {
-    return next(new HttpError('Something went wrong, could not find posts', 500));
+    return next(new HttpError('Something went wrong, could not create posts', 500));
   }
 };
 

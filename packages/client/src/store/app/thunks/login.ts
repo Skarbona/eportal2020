@@ -26,7 +26,7 @@ export const login = ({ userId, accessTokenData, refreshTokenData }: Login): App
     const { refreshToken, refreshTokenExpiration } = refreshTokenData;
     const refreshTokenExpirationDate = refreshTokenExpiration
       ? new Date(refreshTokenExpiration)
-      : new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 14);
+      : new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
     dispatch(
       setRefreshTokenData({ refreshToken, refreshTokenExpiration: refreshTokenExpirationDate }),
     );

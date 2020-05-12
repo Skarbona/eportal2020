@@ -1,5 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import request, { Response } from 'supertest';
 import { Server } from 'http';
+
+export const getCategories = (server: Server, token: string): Promise<Response> => {
+  return request(server).get('/api/categories').set('Authorization', `Bearer ${token}`);
+};
 
 export const createCategories = (server: Server, token: string, body?: any): Promise<Response> => {
   const sendBody = {
@@ -20,4 +25,49 @@ export const signUpUser = (server: Server): Promise<Response> => {
     userName: 'AAAA',
     email: 'test@test.pl',
   });
+};
+
+export const getPage = (server: Server, token: string, slug: string): Promise<Response> => {
+  return request(server)
+    .get('/api/pages/' + slug)
+    .set('Authorization', `Bearer ${token}`);
+};
+
+export const createPage = (
+  server: Server,
+  token: string,
+  authorId: string,
+  body?: any,
+): Promise<Response> => {
+  const sendBody = {
+    content: {
+      content: 'CONTENT',
+      title: 'TITLE',
+    },
+    author: authorId,
+  };
+
+  return request(server)
+    .post('/api/pages')
+    .send(!body ? sendBody : { ...body })
+    .set('Authorization', `Bearer ${token}`);
+};
+
+export const updatePage = (
+  server: Server,
+  token: string,
+  slug: string,
+  body?: any,
+): Promise<Response> => {
+  const sendBody = {
+    content: {
+      content: 'UPDATED CONTENT',
+      title: 'UPDATED TITLE',
+    },
+  };
+
+  return request(server)
+    .patch('/api/pages/' + slug)
+    .send(!body ? sendBody : { ...body })
+    .set('Authorization', `Bearer ${token}`);
 };
