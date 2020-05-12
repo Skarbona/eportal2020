@@ -1,4 +1,3 @@
-import request from 'supertest';
 import mongoose from 'mongoose';
 import { Server } from 'http';
 
@@ -6,8 +5,6 @@ import appStartUp from '../../../app';
 import Page from '../../../models/page';
 import User from '../../../models/user';
 import { signUpUser, createPage, getPage, updatePage } from '../../../utils/test-basic-calls';
-
-const endpoint = '/api/pages/';
 
 describe('Controller: Page', () => {
   let server: Server;

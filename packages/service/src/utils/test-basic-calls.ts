@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import request, { Response } from 'supertest';
 import { Server } from 'http';
 
-export const getCategories = (server: Server, token: string, body?: any): Promise<Response> => {
+export const getCategories = (server: Server, token: string): Promise<Response> => {
   return request(server).get('/api/categories').set('Authorization', `Bearer ${token}`);
 };
 

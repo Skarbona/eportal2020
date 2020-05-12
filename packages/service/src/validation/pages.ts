@@ -5,7 +5,7 @@ import { PageRequestInterface } from '../models/shared-interfaces/page';
 
 const author = {
   custom: {
-    options: (author: string) => {
+    options: (author: string): boolean => {
       if (!author || !Types.ObjectId.isValid(author)) throw new Error('Author is not valid');
       return true;
     },
@@ -14,7 +14,7 @@ const author = {
 
 const content = {
   custom: {
-    options: (values: PageRequestInterface['content']) => {
+    options: (values: PageRequestInterface['content']): boolean => {
       if (!values?.title?.length || typeof values?.title !== 'string')
         throw new Error('Title cannot be empty');
       if (!values?.content?.length) throw new Error('Content cannot be empty');
