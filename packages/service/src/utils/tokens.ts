@@ -6,6 +6,7 @@ export const createTokens = (user: UserDocument): { accessToken: string; refresh
     {
       userId: user.id,
       email: user.email,
+      type: user.type,
     },
     process.env.JWT_ACCESS_TOKEN,
     { expiresIn: '3h' },
@@ -15,6 +16,7 @@ export const createTokens = (user: UserDocument): { accessToken: string; refresh
     {
       userId: user.id,
       email: user.email,
+      type: user.type,
     },
     process.env.JWT_REFRESH_TOKEN,
     { expiresIn: '1d' },

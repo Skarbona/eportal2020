@@ -7,7 +7,8 @@ export interface PostBasicInterface {
 }
 
 export enum PostStatus {
-  Publish = 'publish',
+  Publish = 'Publish',
+  AwaitingForApproval = 'AwaitingForApproval',
 }
 
 export interface PostRequestInterface extends PostBasicInterface {
