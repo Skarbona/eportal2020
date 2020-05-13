@@ -11,7 +11,6 @@ export const createCategories = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  // TODO: ONLY ADMIN
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });

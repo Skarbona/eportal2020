@@ -22,6 +22,7 @@ export const signUp = async (
   }
 
   const { userName, email, password } = req.body;
+  const userType = req.userData?.type;
 
   let existingUser;
   try {
@@ -46,7 +47,10 @@ export const signUp = async (
     date: new Date(),
     email,
     name: userName,
-    type: UserType.User,
+    type:
+      req.route.path === '/signup-admin' && userType === UserType.Admin
+        ? UserType.Admin
+        : UserType.User,
     password: hashedPassword,
     gameDefaults: {
       names: {

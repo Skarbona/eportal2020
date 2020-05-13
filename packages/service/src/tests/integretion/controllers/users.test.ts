@@ -4,7 +4,7 @@ import { Server } from 'http';
 
 import appStartUp from '../../../app';
 import User from '../../../models/user';
-import { signUpUser } from '../../../utils/test-basic-calls';
+import { loginAdmin, signUpUser } from '../../../utils/test-basic-calls';
 
 const endpoint = '/api/users/';
 
@@ -16,7 +16,7 @@ describe('Controller: Users', () => {
   });
 
   afterEach(async () => {
-    await User.deleteMany({});
+    await User.deleteMany({ name: { $ne: 'eportal_admin' } });
   });
 
   afterAll(async () => {
@@ -38,6 +38,43 @@ describe('Controller: Users', () => {
       expect(response.body.userData.password).not.toBeDefined();
       expect(response.body.accessToken).toBeDefined();
       expect(response.body.refreshToken).toBeDefined();
+    });
+
+    it('should signUp Admin User', async () => {
+      const admin = await loginAdmin(server);
+      const response = await request(server)
+        .post('/api/users/signup-admin')
+        .send({
+          password: 'aaAA1111',
+          userName: 'NewAdmin',
+          email: 'admin@test.pl',
+        })
+        .set('Authorization', `Bearer ${admin.body.accessToken}`);
+
+      expect(response.status).toEqual(201);
+      expect(response.body.userData.gameDefaults).toBeDefined();
+      expect(response.body.userData.email).toEqual('admin@test.pl');
+      expect(response.body.userData.name).toEqual('NewAdmin');
+      expect(response.body.userData.type).toEqual('admin');
+      expect(response.body.userData.id).toBeDefined();
+      expect(response.body.userData.date).toBeDefined();
+      expect(response.body.userData.password).not.toBeDefined();
+      expect(response.body.accessToken).toBeDefined();
+      expect(response.body.refreshToken).toBeDefined();
+    });
+
+    it('should NOT signUp Admin User if not admin user sending request', async () => {
+      const user = await signUpUser(server);
+      const response = await request(server)
+        .post('/api/users/signup-admin')
+        .send({
+          password: 'aaAA1111',
+          userName: 'NewAdmin',
+          email: 'admin@test.pl',
+        })
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      expect(response.status).toEqual(401);
     });
 
     it('should NOT signUp user if body data are not correct', async () => {
