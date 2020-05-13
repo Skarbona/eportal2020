@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request, { Response } from 'supertest';
 import { Server } from 'http';
+import { config } from 'dotenv';
+
+config();
 
 export const getCategories = (server: Server, token: string): Promise<Response> => {
   return request(server).get('/api/categories').set('Authorization', `Bearer ${token}`);
@@ -24,6 +27,13 @@ export const signUpUser = (server: Server): Promise<Response> => {
     password: 'aaAA1111',
     userName: 'AAAA',
     email: 'test@test.pl',
+  });
+};
+
+export const loginAdmin = (server: Server): Promise<Response> => {
+  return request(server).post('/api/users/login').send({
+    password: process.env.ADMIN_TEST_PASS,
+    email: process.env.ADMIN_TEST_USER,
   });
 };
 

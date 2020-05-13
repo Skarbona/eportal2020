@@ -3,12 +3,14 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 
 import HttpError from '../models/http-error';
+import { UserType } from '../models/shared-interfaces/user';
 
 config();
 
 interface DecodedToken {
   userId: string;
   email: string;
+  type: UserType;
   iat: number;
   exp: number;
 }
@@ -28,7 +30,11 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
     if (new Date().getTime() > decodedToken.exp * 1000) {
       throw new Error();
     }
-    req.userData = { userId: decodedToken.userId, email: decodedToken.email };
+    req.userData = {
+      userId: decodedToken.userId,
+      email: decodedToken.email,
+      type: decodedToken.type,
+    };
     next();
   } catch (e) {
     return next(new HttpError('Invalid Access Token', 401));
@@ -51,9 +57,35 @@ export const authRefreshMiddleware = (req: Request, res: Response, next: NextFun
       throw new Error();
     }
 
-    req.userData = { userId: decodedToken.userId, email: decodedToken.email };
+    req.userData = {
+      userId: decodedToken.userId,
+      email: decodedToken.email,
+      type: decodedToken.type,
+    };
     next();
   } catch (e) {
     return next(new HttpError('Invalid Refresh Token', 401));
+  }
+};
+
+export const isAdminMiddleWare = (req: Request, res: Response, next: NextFunction): void => {
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
+  try {
+    const split = req.headers.authorization.split(' ');
+    const accessToken = split[1];
+    if (!accessToken || split[0] !== 'Bearer') {
+      throw new Error();
+    }
+    const decodedToken = jwt.verify(accessToken, process.env.JWT_ACCESS_TOKEN) as DecodedToken;
+
+    if (decodedToken.type !== UserType.Admin) {
+      throw new Error();
+    }
+
+    next();
+  } catch (e) {
+    return next(new HttpError('You do not have permissions', 401));
   }
 };
