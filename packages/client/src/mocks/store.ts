@@ -86,6 +86,9 @@ const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
 });
 
 export const mockedStore = (): RootState => ({
+  pages: {
+    page: {},
+  },
   app: {
     auth: {
       accessToken: chance.string(),
