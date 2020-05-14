@@ -86,14 +86,6 @@ describe('Controller: Page', () => {
       expect(page.body.page.content.content).toEqual('CONTENT');
       expect(page.body.page.slug).toEqual('title');
     });
-
-    it('should NOT return page data if access token not provided', async () => {
-      const admin = await loginAdmin(server);
-      await createPage(server, admin.body.accessToken, admin.body.userData.id);
-      const page = await getPage(server, 'BAD-TOKEN', 'title');
-
-      expect(page.status).toEqual(401);
-    });
   });
 
   describe('updatePage Controller', () => {

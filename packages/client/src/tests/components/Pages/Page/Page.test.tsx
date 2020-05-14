@@ -1,11 +1,12 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 
-import { MainComponent } from '../../../../components/Pages/Main/Main';
+import { PageComponent } from '../../../../components/Pages/Page/Page';
 import PageContainer from '../../../../components/Shared/PageElements/PageContainer/PageContainer';
 import * as getPageThunk from '../../../../store/pages/thunks/getPageData';
+import { PageNames } from '../../../../store/pages/initialState.interface';
 
-describe('<Main > component', () => {
+describe('<Page > component', () => {
   let wrapper: ShallowWrapper;
   let getPageThunkSpy: any;
 
@@ -18,12 +19,12 @@ describe('<Main > component', () => {
   });
 
   it('should have all required elements', () => {
-    wrapper = shallow(<MainComponent isLoggedIn />);
-    expect(wrapper.find(PageContainer)).toHaveLength(2);
+    wrapper = shallow(<PageComponent slug={PageNames.Rules} />);
+    expect(wrapper.find(PageContainer)).toHaveLength(1);
   });
 
   it('should call getPageData', () => {
-    wrapper = shallow(<MainComponent isLoggedIn />);
+    wrapper = shallow(<PageComponent slug={PageNames.Rules} />);
     expect(getPageThunkSpy).toHaveBeenCalledTimes(1);
   });
 });

@@ -3,49 +3,48 @@ import { Switch, Route } from 'react-router-dom';
 
 import Game from './Game/Game';
 import AuthPage from './AuthPage/AuthPage';
+import Page from './Page/Page';
 import Main from './Main/Main';
 import Profile from './Profile/Profile';
 import NotFound from './404/404';
+import { PageNames } from '../../store/pages/initialState.interface';
 
 interface Props {
   accessToken: string;
   expirationDate: Date;
 }
 // TODO: Add lazy loading for pages
-// TODO: Scroll to TOP after page changed
 export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
   return (
-    <>
+    <Switch>
+      <Route path="/" exact>
+        <Main isLoggedIn={!!accessToken?.length} />
+      </Route>
       {accessToken && (
-        <Switch>
-          <Route path="/" exact>
-            <Main isLoggedIn={!!accessToken?.length} />
-          </Route>
-          <Route path="/profil" exact>
-            <Profile />
-          </Route>
-          <Route path="/gra" exact>
-            <Game accessToken={accessToken} expirationDate={expirationDate} />
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
+        <Route path="/profil" exact>
+          <Profile />
+        </Route>
+      )}
+      {accessToken && (
+        <Route path="/gra" exact>
+          <Game accessToken={accessToken} expirationDate={expirationDate} />
+        </Route>
       )}
       {!accessToken && (
-        <Switch>
-          <Route path="/" exact>
-            <Main isLoggedIn={!!accessToken?.length} />
-          </Route>
-          <Route path="/autentykacja/:mode" exact>
-            <AuthPage />
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
+        <Route path="/autentykacja/:mode" exact>
+          <AuthPage />
+        </Route>
       )}
-    </>
+      <Route exact key="privacy-policy" path="/polityka-prywatnosci">
+        <Page slug={PageNames.PrivacyPolicy} />
+      </Route>
+      <Route exact key="rules" path="/zasady">
+        <Page slug={PageNames.Rules} />
+      </Route>
+      <Route path="*">
+        <NotFound />
+      </Route>
+    </Switch>
   );
 };
 
