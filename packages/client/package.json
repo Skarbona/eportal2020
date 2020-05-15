@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test:react": "react-scripts test",
     "test:watch": "npm run test:react -- --watch=true --runInBand=true",
     "test": "npm run test:react -- --coverage --watchAll=false",
