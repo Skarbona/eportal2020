@@ -1,20 +1,17 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "lib": ["es6"],
     "target": "es5",
-    "allowJs": true,
-    "skipLibCheck": true,
     "esModuleInterop": true,
     "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true
+    "outDir": "./build"
   },
-  "include": ["packages"],
-  "exclude": ["node_modules"]
+  "files": ["./src/app.ts"],
+  "exclude": ["node_modules", "./src/tests"],
+  "include": ["custum.d.ts", "global.d.ts"]
 }
