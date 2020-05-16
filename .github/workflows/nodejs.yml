@@ -37,6 +37,13 @@ jobs:
           ADMIN_TEST_USER: ${{ secrets.ADMIN_TEST_USER }}
           ADMIN_TEST_PASS: ${{ secrets.ADMIN_TEST_PASS }}
       - run: npm run lerna:build
+        env:
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          JWT_ACCESS_TOKEN: ${{ secrets.JWT_ACCESS_TOKEN }}
+          JWT_REFRESH_TOKEN: ${{ secrets.JWT_REFRESH_TOKEN }}
       - run: npm run test:coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
