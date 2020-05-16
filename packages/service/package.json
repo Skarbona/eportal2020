@@ -1,6 +1,6 @@
 {
   "name": "service",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "private": true,
   "repository": {
     "type": "git",
@@ -10,7 +10,9 @@
     "url": "https://github.com/Skarbona/eportal2020/issues"
   },
   "scripts": {
+    "tsc": "tsc",
     "start": "ts-node-dev --respawn --transpileOnly --notify=false src/app.ts",
+    "build": "tsc -p tsconfig.production.json && node ./build/service/src/app.js",
     "test": "jest --coverage --forceExit --detectOpenHandles --maxWorkers=1",
     "test:watch": "jest --watch --detectOpenHandles --maxWorkers=1",
     "lint": "npm run lint:src",
@@ -28,6 +30,7 @@
     "jest": "^25.3.0",
     "prettier": "^2.0.2",
     "supertest": "^4.0.2",
-    "ts-jest": "^25.3.1"
+    "ts-jest": "^25.3.1",
+    "typescript": "^3.7.5"
   }
 }
