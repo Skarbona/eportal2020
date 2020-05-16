@@ -8,6 +8,7 @@ import Main from './Main/Main';
 import Profile from './Profile/Profile';
 import NotFound from './404/404';
 import { PageNames } from '../../store/pages/initialState.interface';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   accessToken: string;
@@ -15,6 +16,8 @@ interface Props {
 }
 // TODO: Add lazy loading for pages
 export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
+  const history = useHistory();
+  console.log(history);
   return (
     <Switch>
       <Route path="/" exact>
