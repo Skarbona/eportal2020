@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { Container, useMediaQuery } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import './App.scss';
 
@@ -25,6 +26,7 @@ interface AppSelector {
 }
 
 export const App: FC = () => {
+  let location = useLocation();
   const { id, accessToken, expirationTokenDate } = useSelector<RootState, AppSelector>(
     ({ user, app }) => ({
       id: user.userData.id,
