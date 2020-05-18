@@ -27,6 +27,7 @@ interface AppSelector {
 
 export const App: FC = () => {
   let location = useLocation();
+  console.log('LOCATION', location);
   const { id, accessToken, expirationTokenDate } = useSelector<RootState, AppSelector>(
     ({ user, app }) => ({
       id: user.userData.id,
