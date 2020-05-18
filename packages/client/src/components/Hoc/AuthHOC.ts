@@ -133,7 +133,7 @@ export const AuthHOC: FC = () => {
       );
     } else {
       dispatch(logout());
-      history.push('/');
+      // history.push('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
