@@ -11,7 +11,7 @@ i18n
   .init({
     lng: 'pl',
     fallbackLng,
-    debug: true,
+    debug: process.env.NODE_ENV === 'development',
     whitelist: availableLanguages,
     interpolation: {
       escapeValue: false,
