@@ -10,12 +10,17 @@ import { useReduxDispatch } from '../../store/helpers';
 import { RootState } from '../../store/store.interface';
 import { Login } from '../../store/app/action.interface';
 import { PageParams } from '../../models/page-types';
+import { usePrevious } from '../../hooks/previous-state';
 
 interface AuthSelector {
   accToken: string;
   accTokenExpiration: Date;
   refToken: string;
   refTokenExpiration: Date;
+}
+
+interface PreviousProps {
+  accToken: string;
 }
 
 let accessTokenTimeout: number;
@@ -26,7 +31,6 @@ export const AuthHOC: FC = () => {
   const [refTokenRemainingTime, setRefTokenRemainingTime] = useState<number>(null);
   const history = useHistory();
   const { pathname } = useLocation();
-
   const dispatch = useReduxDispatch();
   const { accToken, accTokenExpiration, refToken, refTokenExpiration } = useSelector<
     RootState,
@@ -37,6 +41,7 @@ export const AuthHOC: FC = () => {
     refToken: auth.refreshToken,
     refTokenExpiration: auth.refreshTokenExpiration,
   }));
+  const prevAccToken = usePrevious<PreviousProps>({ accToken });
 
   const logoutHandler = useCallback(() => dispatch(logout()), [dispatch]);
   const refreshTokenIntervalHandler = useCallback(
@@ -135,10 +140,19 @@ export const AuthHOC: FC = () => {
       );
     } else if (![PageParams.Register, PageParams.Login].includes(pathname as PageParams)) {
       dispatch(logout());
-      history.push(PageParams.Home);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (
+      !accToken?.length &&
+      !!prevAccToken?.accToken?.length &&
+      ![PageParams.Register, PageParams.Login].includes(pathname as PageParams)
+    ) {
+      history.push(PageParams.Home);
+    }
+  }, [prevAccToken, accToken, pathname, history]);
 
   return null;
 };
