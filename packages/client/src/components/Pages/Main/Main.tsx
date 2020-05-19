@@ -58,7 +58,7 @@ export const MainComponent: FC<Props> = ({ isLoggedIn }) => {
             variant="contained"
             size="large"
             component={Link}
-            to={isLoggedIn ? '/gra' : `/autentykacja/${PageParams.Register as string}`}
+            to={isLoggedIn ? PageParams.Game : PageParams.Register}
           >
             {t('Play for free!')}
           </Button>

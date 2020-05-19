@@ -1,5 +1,5 @@
 import React, { FC, memo, useCallback, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link, Button, FormControl, Grid, Typography, Avatar } from '@material-ui/core';
@@ -15,10 +15,10 @@ import { RootState } from '../../../store/store.interface';
 import { authorizeUser } from '../../../store/user/thunks/authorizeUser';
 import { useReduxDispatch } from '../../../store/helpers';
 import { AuthorizationEndpoints } from '../../../models/endpoint-models';
-import { PageParams } from '../../../models/page-types';
 import { ErrorTypes } from '../../../models/errors';
 import { useForm } from '../../../hooks/form/form-hook';
 import { InputKeys } from '../../../hooks/form/state/interface';
+import { PageParams } from '../../../models/page-types';
 
 interface SelectorProps {
   error: Error;
@@ -30,10 +30,10 @@ const registerInputs = [...loginInputs, InputKeys.ConfirmedEmail, InputKeys.User
 
 export const AuthPageComponent: FC = () => {
   const history = useHistory();
-  const { mode } = useParams();
+  const { pathname } = useLocation();
   const dispatch = useReduxDispatch();
   const { t } = useTranslation();
-  const isRegisterMode = mode === PageParams.Register;
+  const isRegisterMode = pathname === PageParams.Register;
   const {
     state: { inputs, isFormValid },
     handlers: { setVisibleInputs, inputChanged, recaptchaChanged },
@@ -49,13 +49,8 @@ export const AuthPageComponent: FC = () => {
     // eslint-disable-next-line
   }, [isRegisterMode]);
 
-  const setModeHandler = (): void => {
-    if (isRegisterMode) {
-      history.push(`/autentykacja/${PageParams.Login}`);
-    } else {
-      history.push(`/autentykacja/${PageParams.Register}`);
-    }
-  };
+  const setModeHandler = (): void =>
+    history.push(isRegisterMode ? PageParams.Login : PageParams.Register);
 
   const handleSubmit = useCallback(
     async (e: SubmitEvent) => {
@@ -69,7 +64,7 @@ export const AuthPageComponent: FC = () => {
         email: inputs.email.value,
       };
       const success = await dispatch(authorizeUser(requestType, body));
-      if (success) history.push('/gra');
+      if (success) history.push(PageParams.Game);
     },
     [isRegisterMode, inputs, dispatch, history],
   );

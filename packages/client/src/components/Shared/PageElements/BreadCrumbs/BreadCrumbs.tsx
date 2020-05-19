@@ -4,6 +4,7 @@ import { Link as RouterLink, Route, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import './BreadCrumbs.scss';
+import { PageParams } from '../../../../models/page-types';
 
 export const BreadcrumbsComponent: FC = () => {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ export const BreadcrumbsComponent: FC = () => {
   return (
     <Route>
       <MaterialBreadcrumbs aria-label="Breadcrumb" className="breadcrumb">
-        <RouterLink color="inherit" to="/">
+        <RouterLink color="inherit" to={PageParams.Home}>
           {t('Home')}
         </RouterLink>
         {links}

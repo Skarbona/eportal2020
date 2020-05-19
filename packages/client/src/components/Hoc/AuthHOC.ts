@@ -1,6 +1,6 @@
 import { useEffect, FC, memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { logout } from '../../store/app/thunks/logout';
 import { login } from '../../store/app/thunks/login';
@@ -9,6 +9,7 @@ import { LocalStorage } from '../../models/local-storage';
 import { useReduxDispatch } from '../../store/helpers';
 import { RootState } from '../../store/store.interface';
 import { Login } from '../../store/app/action.interface';
+import { PageParams } from '../../models/page-types';
 
 interface AuthSelector {
   accToken: string;
@@ -23,7 +24,8 @@ let refreshTokenTimeout: number;
 export const AuthHOC: FC = () => {
   const [accTokenRemainingTime, setAccTokenRemainingTime] = useState<number>(null);
   const [refTokenRemainingTime, setRefTokenRemainingTime] = useState<number>(null);
-  // const history = useHistory(); // TODO: Check if need to history.push
+  const history = useHistory();
+  const { pathname } = useLocation();
 
   const dispatch = useReduxDispatch();
   const { accToken, accTokenExpiration, refToken, refTokenExpiration } = useSelector<
@@ -131,9 +133,9 @@ export const AuthHOC: FC = () => {
           refreshTokenData: { refreshToken, refreshTokenExpiration: refreshTokenExpirationDate },
         } as Login),
       );
-    } else {
+    } else if (![PageParams.Register, PageParams.Login].includes(pathname as PageParams)) {
       dispatch(logout());
-      // history.push('/');
+      history.push(PageParams.Home);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
