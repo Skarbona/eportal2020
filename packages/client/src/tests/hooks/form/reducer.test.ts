@@ -9,7 +9,6 @@ import {
 } from '../../../hooks/form/state/interface';
 import { initialState } from '../../../hooks/form/state/initialState';
 import { formReducer } from '../../../hooks/form/state/reducer';
-import * as I from '../../../hooks/form/state/interface';
 
 describe('AuthPage State: reducer', () => {
   let state: FormState;
@@ -150,9 +149,9 @@ describe('AuthPage State: reducer', () => {
 
   it('should handle checkbox input', () => {
     const action: CheckBoxChanged = {
-      type: I.FormActionsEnum.CheckBoxChanged,
+      type: FormActionsEnum.CheckBoxChanged,
       data: {
-        inputKey: I.InputKeys.PrivacyPolicy,
+        inputKey: InputKeys.PrivacyPolicy,
         value: true,
       },
     };
