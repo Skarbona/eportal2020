@@ -27,6 +27,7 @@ jest.mock('./store/helpers', () => ({
 jest.mock('./settings/translation-settings', () => ({
   t: jest.fn((string) => string),
   on: jest.fn((method, callback) => callback()),
+  isInitialized: true,
 }));
 
 jest.mock('react-i18next', () => ({

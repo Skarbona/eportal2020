@@ -34,6 +34,7 @@ describe('isFormValidHandler utility function', () => {
       userName: { ...initialState.inputs.userName, valid: true },
       recaptcha: { ...initialState.inputs.recaptcha, valid: true },
       confirmAccountDelete: { ...initialState.inputs.confirmAccountDelete, valid: true },
+      privacyPolicy: { ...initialState.inputs.privacyPolicy, valid: true, value: true },
     };
     const isFormValid = isFormValidHandler(inputs);
     expect(isFormValid).toEqual(true);
@@ -48,6 +49,7 @@ describe('isFormValidHandler utility function', () => {
       userName: { ...initialState.inputs.userName, valid: true },
       recaptcha: { ...initialState.inputs.recaptcha, valid: true },
       confirmAccountDelete: { ...initialState.inputs.confirmAccountDelete, valid: true },
+      privacyPolicy: { ...initialState.inputs.privacyPolicy, valid: true, value: true },
     };
     const isFormValid = isFormValidHandler(inputs);
     expect(isFormValid).toEqual(true);

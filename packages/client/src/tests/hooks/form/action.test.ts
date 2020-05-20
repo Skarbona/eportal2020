@@ -1,6 +1,6 @@
 import * as I from '../../../hooks/form/state/interface';
 import * as A from '../../../hooks/form/state/actions';
-import { InputChangeEvent } from '../../../models/typescript-events';
+import { InputChangeEvent, CheckboxChangeEvent } from '../../../models/typescript-events';
 
 describe('Form State: actions', () => {
   it('should create InputChanged action for confirmedEmail', () => {
@@ -90,6 +90,22 @@ describe('Form State: actions', () => {
     };
 
     const action = A.recaptchaChanged(payload);
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create checkBoxChanged action', () => {
+    const event = {
+      target: { checked: true, name: I.InputKeys.PrivacyPolicy },
+    } as CheckboxChangeEvent;
+    const expectedAction: I.CheckBoxChanged = {
+      type: I.FormActionsEnum.CheckBoxChanged,
+      data: {
+        inputKey: I.InputKeys.PrivacyPolicy,
+        value: true,
+      },
+    };
+
+    const action = A.checkBoxChanged(event);
     expect(action).toEqual(expectedAction);
   });
 });

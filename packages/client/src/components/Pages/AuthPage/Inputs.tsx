@@ -128,6 +128,7 @@ export const InputsComponent: FC<Props> = ({
       {isRegisterMode && (
         <FormControlLabel
           className="primary-checkbox privacy-policy__checkbox"
+          id="privacy-policy"
           control={
             <Checkbox
               checked={inputs.privacyPolicy?.value}

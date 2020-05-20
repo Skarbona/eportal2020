@@ -11,6 +11,7 @@ describe('<Inputs /> component', () => {
   beforeEach(() => {
     props = {
       inputChanged: jest.fn(),
+      checkBoxChanged: jest.fn(),
       inputs: initialState.inputs,
       isRegisterMode: true,
     };
@@ -22,6 +23,8 @@ describe('<Inputs /> component', () => {
     expect(wrapper.find('#confirmed-email')).toHaveLength(1);
     expect(wrapper.find('#username')).toHaveLength(1);
     expect(wrapper.find('#password')).toHaveLength(1);
+    expect(wrapper.find('#password')).toHaveLength(1);
+    expect(wrapper.find('#privacy-policy')).toHaveLength(1);
   });
 
   it('should render all required elements (Login Page)', () => {
@@ -31,6 +34,7 @@ describe('<Inputs /> component', () => {
     expect(wrapper.find('#confirmed-email')).toHaveLength(0);
     expect(wrapper.find('#username')).toHaveLength(0);
     expect(wrapper.find('#password')).toHaveLength(1);
+    expect(wrapper.find('#privacy-policy')).toHaveLength(0);
   });
 
   it('should call handler on email changed', () => {
@@ -71,5 +75,12 @@ describe('<Inputs /> component', () => {
   it('should call handler on password blurred', () => {
     wrapper.find('#password').simulate('blur');
     expect(props.inputChanged).toHaveBeenCalled();
+  });
+
+  it('should call handler on checkbox changed', () => {
+    const checkbox = wrapper.find('#privacy-policy') as any;
+    checkbox.prop('control').props.onChange({ target: { checked: true }, persist: jest.fn() });
+
+    expect(props.checkBoxChanged).toHaveBeenCalled();
   });
 });

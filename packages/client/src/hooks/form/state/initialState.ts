@@ -21,7 +21,7 @@ export const initialState: FormState = {
     privacyPolicy: {
       valid: false,
       visible: true,
-      required: false,
+      required: true,
       value: false,
     },
   },
