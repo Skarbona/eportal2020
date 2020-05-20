@@ -26,7 +26,12 @@ interface SelectorProps {
 }
 
 const loginInputs = [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha];
-const registerInputs = [...loginInputs, InputKeys.ConfirmedEmail, InputKeys.Username];
+const registerInputs = [
+  ...loginInputs,
+  InputKeys.ConfirmedEmail,
+  InputKeys.Username,
+  InputKeys.PrivacyPolicy,
+];
 
 export const AuthPageComponent: FC = () => {
   const history = useHistory();
@@ -36,7 +41,7 @@ export const AuthPageComponent: FC = () => {
   const isRegisterMode = pathname === PageParams.Register;
   const {
     state: { inputs, isFormValid },
-    handlers: { setVisibleInputs, inputChanged, recaptchaChanged },
+    handlers: { setVisibleInputs, inputChanged, recaptchaChanged, checkBoxChanged },
   } = useForm(registerInputs, false);
 
   const { error, errorType } = useSelector<RootState, SelectorProps>(({ user }) => ({
@@ -99,7 +104,12 @@ export const AuthPageComponent: FC = () => {
             <Typography variant="h3" component="h1" className="auth-page__title">
               {isRegisterMode ? t('Register') : t('Log in')}
             </Typography>
-            <Inputs inputChanged={inputChanged} inputs={inputs} isRegisterMode={isRegisterMode} />
+            <Inputs
+              inputChanged={inputChanged}
+              inputs={inputs}
+              isRegisterMode={isRegisterMode}
+              checkBoxChanged={checkBoxChanged}
+            />
             <Grid container> {infoAction}</Grid>
             <Grid container justify="center">
               <ReCAPTCHA

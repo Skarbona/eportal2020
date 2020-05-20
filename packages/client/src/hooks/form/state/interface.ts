@@ -8,6 +8,13 @@ export interface InputState {
   blurred: boolean;
 }
 
+export interface CheckBoxState {
+  value: boolean;
+  valid: boolean;
+  visible: boolean;
+  required: boolean;
+}
+
 export interface FormState {
   inputs: {
     password?: InputState;
@@ -16,12 +23,14 @@ export interface FormState {
     userName?: InputState;
     recaptcha?: InputState;
     confirmAccountDelete?: InputState;
+    privacyPolicy?: CheckBoxState;
   };
   isFormValid: boolean;
 }
 
 export enum FormActionsEnum {
   InputChanged = 'INPUT_CHANGED',
+  CheckBoxChanged = 'CHECKBOX_CHANGED',
   SetVisibleInputs = 'SET_VISIBLE_INPUTS',
   RecaptchaChanged = 'RECAPTCHA_CHANGED',
   ConfirmAccountDeleteChanged = 'CONFIRM_ACCOUNT_DELETE_CHANGED',
@@ -34,6 +43,14 @@ export enum InputKeys {
   'Email' = 'email',
   'Recaptcha' = 'recaptcha',
   'ConfirmAccountDelete' = 'confirmAccountDelete',
+  'PrivacyPolicy' = 'privacyPolicy',
+}
+export interface CheckBoxChanged {
+  type: FormActionsEnum.CheckBoxChanged;
+  data: {
+    inputKey: InputKeys;
+    value: boolean;
+  };
 }
 
 export interface InputChanged {
@@ -71,4 +88,5 @@ export type FormActions =
   | SetVisibleInputs
   | RecaptchaChanged
   | InputChanged
+  | CheckBoxChanged
   | ConfirmAccountDeleteChanged;

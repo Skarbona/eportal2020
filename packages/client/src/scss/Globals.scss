@@ -8,6 +8,13 @@
   background-color: $main-bg-color;
 }
 
+.primary-checkbox {
+  .MuiTypography-root,
+  .MuiCheckbox-root {
+    color: $primary;
+  }
+}
+
 .MuiButton-contained {
   &.Mui-disabled {
     &.error-button,

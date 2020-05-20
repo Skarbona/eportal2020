@@ -5,12 +5,13 @@ import { formReducer } from './state/reducer';
 import { initialState } from './state/initialState';
 import * as I from './state/interface';
 import * as A from './state/actions';
-import { InputChangeEvent } from '../../models/typescript-events';
+import { InputChangeEvent, CheckboxChangeEvent } from '../../models/typescript-events';
 
 interface UseForm {
   state: Partial<I.FormState>;
   handlers: {
     inputChanged(event: InputChangeEvent, blurred?: boolean): void;
+    checkBoxChanged(event: CheckboxChangeEvent): void;
     recaptchaChanged(value: string): void;
     setVisibleInputs(inputKeys: I.InputKeys[]): void;
     confirmAccountDeleteChanged(value: string, userEmail: string): void;
@@ -27,6 +28,11 @@ export const useForm = (inputs: I.InputKeys[], isFormValid = false): UseForm => 
   const inputChanged = useCallback(
     (event: InputChangeEvent, blurred?: boolean): void =>
       formDispatch(A.inputChanged(event, blurred)),
+    [],
+  );
+
+  const checkBoxChanged = useCallback(
+    (event: CheckboxChangeEvent): void => formDispatch(A.checkBoxChanged(event)),
     [],
   );
 
@@ -53,6 +59,7 @@ export const useForm = (inputs: I.InputKeys[], isFormValid = false): UseForm => 
       recaptchaChanged,
       setVisibleInputs,
       confirmAccountDeleteChanged,
+      checkBoxChanged,
     },
   };
 };

@@ -22,6 +22,22 @@ export const formReducer = (
       newState.isFormValid = U.isFormValidHandler(newState.inputs);
       return newState;
     }
+    case I.FormActionsEnum.CheckBoxChanged: {
+      const { value, inputKey } = action.data;
+      const newState = {
+        ...state,
+        inputs: {
+          ...state.inputs,
+          [inputKey]: {
+            ...state.inputs[inputKey],
+            valid: value,
+            value,
+          },
+        },
+      };
+      newState.isFormValid = U.isFormValidHandler(newState.inputs);
+      return newState;
+    }
     case I.FormActionsEnum.InputChanged: {
       const { value, blurred, inputKey } = action.data;
       const validation = U.validateByKey({ inputKey, blurred, value, oldState: { ...state } });

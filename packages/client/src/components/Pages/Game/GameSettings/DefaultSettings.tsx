@@ -29,7 +29,7 @@ export const DefaultSettingsComponent: FC = () => {
       <FormGroup>
         <FormControlLabel
           color="primary"
-          className="default-settings__label"
+          className="primary-checkbox"
           control={
             <Checkbox
               id="default-option"

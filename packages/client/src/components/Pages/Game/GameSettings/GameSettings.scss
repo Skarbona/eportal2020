@@ -13,13 +13,6 @@
     }
   }
 
-  .default-settings__label {
-    .MuiTypography-root,
-    .MuiCheckbox-root {
-      color: $primary;
-    }
-  }
-
   .game__time {
     .MuiSwitch-colorPrimary {
       &.Mui-checked + .MuiSwitch-track {
