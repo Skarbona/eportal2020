@@ -180,6 +180,10 @@ describe('AuthPage State: reducer', () => {
           ...state.inputs.confirmAccountDelete,
           visible: false,
         },
+        privacyPolicy: {
+          ...state.inputs.privacyPolicy,
+          visible: false,
+        },
       },
     };
     const reducer = formReducer(state, action);

@@ -13,6 +13,9 @@ jest.mock('react-router-dom', () => ({
   useHistory: jest.fn(() => ({
     push: (path: string) => {},
   })),
+  useLocation: jest.fn(() => ({
+    pathname: '/',
+  })),
 }));
 
 describe('<AuthHOC> Hoc component', () => {
