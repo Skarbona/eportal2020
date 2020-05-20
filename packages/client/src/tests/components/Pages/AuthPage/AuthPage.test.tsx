@@ -12,9 +12,9 @@ import { mockedEvent } from '../../../../mocks/event';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useParams: () => ({
-    mode: 'rejestracja',
-  }),
+  useLocation: jest.fn(() => ({
+    pathname: '/autentykacja/rejestracja',
+  })),
   useHistory: jest.fn(() => ({
     push: (path: string) => {},
   })),

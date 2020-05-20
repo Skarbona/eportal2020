@@ -5,6 +5,7 @@ import {
   InputKeys,
   FormActionsEnum,
   FormState,
+  CheckBoxChanged,
 } from '../../../hooks/form/state/interface';
 import { initialState } from '../../../hooks/form/state/initialState';
 import { formReducer } from '../../../hooks/form/state/reducer';
@@ -146,6 +147,30 @@ describe('AuthPage State: reducer', () => {
     expect(reducer).toEqual(expectedState);
   });
 
+  it('should handle checkbox input', () => {
+    const action: CheckBoxChanged = {
+      type: FormActionsEnum.CheckBoxChanged,
+      data: {
+        inputKey: InputKeys.PrivacyPolicy,
+        value: true,
+      },
+    };
+    const expectedState = {
+      ...state,
+      inputs: {
+        ...state.inputs,
+        privacyPolicy: {
+          value: true,
+          valid: true,
+          required: true,
+          visible: true,
+        },
+      },
+    };
+    const reducer = formReducer(state, action);
+    expect(reducer).toEqual(expectedState);
+  });
+
   it('should handle SetVisibleInputs', () => {
     const action: SetVisibleInputs = {
       type: FormActionsEnum.SetVisibleInputs,
@@ -178,6 +203,10 @@ describe('AuthPage State: reducer', () => {
         },
         confirmAccountDelete: {
           ...state.inputs.confirmAccountDelete,
+          visible: false,
+        },
+        privacyPolicy: {
+          ...state.inputs.privacyPolicy,
           visible: false,
         },
       },

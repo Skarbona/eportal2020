@@ -33,6 +33,11 @@ export const theme = createMuiTheme({
         },
       },
     },
+    MuiMenuItem: {
+      root: {
+        whiteSpace: 'normal',
+      },
+    },
     MuiBackdrop: {
       root: {
         zIndex: 100,
@@ -54,6 +59,13 @@ export const theme = createMuiTheme({
         '&.MuiButton-contained.Mui-disabled': {
           backgroundColor: 'rgba(255, 255, 255, 0.7)',
           color: '#212121',
+        },
+      },
+    },
+    MuiSelect: {
+      root: {
+        '&.MuiSelect-selectMenu': {
+          whiteSpace: 'normal',
         },
       },
     },

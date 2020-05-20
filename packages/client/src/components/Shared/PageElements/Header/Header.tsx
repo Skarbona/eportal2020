@@ -32,16 +32,16 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
           </IconButton>
         )}
         <Typography variant="h6" className="title">
-          <Link to="/" className="portal-name">
+          <Link to={PageParams.Home} className="portal-name">
             {process.env.REACT_APP_PORTAL_NAME}
           </Link>
         </Typography>
         {accessToken && !isMobile && (
           <>
-            <Link to="/gra" className="btn__start-game">
+            <Link to={PageParams.Game} className="btn__start-game">
               <Button>{t('Play!')}</Button>
             </Link>
-            <Link to="/profil" className="btn__profile-page">
+            <Link to={PageParams.Profile} className="btn__profile-page">
               <IconButton>
                 <AccountIcon color="inherit" />
               </IconButton>
@@ -49,16 +49,16 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
           </>
         )}
         {accessToken && (
-          <Link to="/" onClick={logoutHandler} className="btn__logout">
+          <Link to={PageParams.Home} onClick={logoutHandler} className="btn__logout">
             <Button>{t('Logout')}</Button>
           </Link>
         )}
         {!accessToken && (
           <>
-            <Link to={`/autentykacja/${PageParams.Login as string}`} className="btn__log-in">
+            <Link to={PageParams.Login} className="btn__log-in">
               <Button>{t('Log in')}</Button>
             </Link>
-            <Link to={`/autentykacja/${PageParams.Register as string}`} className="btn__register">
+            <Link to={PageParams.Register} className="btn__register">
               <Button>{t('Register')}</Button>
             </Link>
           </>

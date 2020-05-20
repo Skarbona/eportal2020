@@ -1,12 +1,13 @@
 import {
   FormActionsEnum,
   InputKeys,
+  CheckBoxChanged,
   InputChanged,
   SetVisibleInputs,
   RecaptchaChanged,
   ConfirmAccountDeleteChanged,
 } from './interface';
-import { InputChangeEvent } from '../../../models/typescript-events';
+import { CheckboxChangeEvent, InputChangeEvent } from '../../../models/typescript-events';
 
 export const inputChanged = (event: InputChangeEvent, blurred?: boolean): InputChanged => ({
   type: FormActionsEnum.InputChanged,
@@ -14,6 +15,14 @@ export const inputChanged = (event: InputChangeEvent, blurred?: boolean): InputC
     inputKey: event.target.name as InputKeys,
     value: event.target.value,
     blurred,
+  },
+});
+
+export const checkBoxChanged = (event: CheckboxChangeEvent): CheckBoxChanged => ({
+  type: FormActionsEnum.CheckBoxChanged,
+  data: {
+    inputKey: event.target.name as InputKeys,
+    value: event.target.checked,
   },
 });
 

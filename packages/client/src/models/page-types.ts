@@ -1,4 +1,9 @@
 export enum PageParams {
-  Register = 'rejestracja',
-  Login = 'logowanie',
+  Register = '/autentykacja/rejestracja',
+  Login = '/autentykacja/logowanie',
+  Game = '/gra',
+  Profile = '/profil',
+  Rules = '/zasady',
+  PrivacyPolice = '/polityka-prywatnosci',
+  Home = '/',
 }

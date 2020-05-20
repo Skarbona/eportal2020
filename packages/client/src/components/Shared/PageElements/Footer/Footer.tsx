@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import './Footer.scss';
 import { ReactComponent as WaveSVG } from '../../../../media/svg/revert-wave1.svg';
+import { PageParams } from '../../../../models/page-types';
 
 export const FooterComponent: FC = () => {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ export const FooterComponent: FC = () => {
             </Typography>
             <Typography gutterBottom>{t('Cookies policy short description')}</Typography>
             <Typography gutterBottom>
-              <Link to="/polityka-prywatnosci" component={RouterLink} color="inherit">
+              <Link to={PageParams.PrivacyPolice} component={RouterLink} color="inherit">
                 {t('More info in Privacy Policy')}
               </Link>
             </Typography>
@@ -29,12 +30,12 @@ export const FooterComponent: FC = () => {
               {t('Short menu')}
             </Typography>
             <Typography gutterBottom>
-              <Link to="/polityka-prywatnosci" component={RouterLink} color="inherit">
+              <Link to={PageParams.PrivacyPolice} component={RouterLink} color="inherit">
                 {t('Privacy Policy')}
               </Link>
             </Typography>
             <Typography gutterBottom>
-              <Link to="/zasady" component={RouterLink} color="inherit">
+              <Link to={PageParams.Rules} component={RouterLink} color="inherit">
                 {t('Rules')}
               </Link>
             </Typography>

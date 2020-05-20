@@ -34,7 +34,7 @@ export const PageComponent: FC<Props> = ({ slug }) => {
   return (
     <>
       <PageHeading title={title} className="single-page-heading" />
-      <PageContainer className={`single-page page-${slug}`}>
+      <PageContainer className={`single-page page-${slug}`} maxWidth="lg">
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </PageContainer>
     </>

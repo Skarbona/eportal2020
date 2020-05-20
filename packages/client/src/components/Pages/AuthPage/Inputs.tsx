@@ -1,18 +1,33 @@
 import React, { FC, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField, InputAdornment, IconButton } from '@material-ui/core';
+import {
+  TextField,
+  InputAdornment,
+  IconButton,
+  FormControlLabel,
+  Checkbox,
+  Link,
+} from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { FormState } from '../../../hooks/form/state/interface';
-import { InputChangeEvent } from '../../../models/typescript-events';
+import { CheckboxChangeEvent, InputChangeEvent } from '../../../models/typescript-events';
+import { PageParams } from '../../../models/page-types';
 
 export interface Props {
   inputChanged(value: InputChangeEvent, blurred?: boolean): void;
+  checkBoxChanged(value: CheckboxChangeEvent): void;
   inputs: FormState['inputs'];
   isRegisterMode: boolean;
 }
 
-export const InputsComponent: FC<Props> = ({ inputChanged, inputs, isRegisterMode }) => {
+export const InputsComponent: FC<Props> = ({
+  inputChanged,
+  checkBoxChanged,
+  inputs,
+  isRegisterMode,
+}) => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -28,6 +43,18 @@ export const InputsComponent: FC<Props> = ({ inputChanged, inputs, isRegisterMod
         {showPassword ? <Visibility /> : <VisibilityOff />}
       </IconButton>
     </InputAdornment>
+  );
+
+  const privacyPolicyLabel = (
+    <>
+      {t('I accept')}{' '}
+      {
+        <Link to={PageParams.PrivacyPolice} component={RouterLink} color="inherit" target="_blank">
+          {t('Privacy Policy')}
+        </Link>
+      }{' '}
+      *
+    </>
   );
 
   return (
@@ -98,6 +125,21 @@ export const InputsComponent: FC<Props> = ({ inputChanged, inputs, isRegisterMod
           endAdornment: showPasswordIcon,
         }}
       />
+      {isRegisterMode && (
+        <FormControlLabel
+          className="primary-checkbox privacy-policy__checkbox"
+          id="privacy-policy"
+          control={
+            <Checkbox
+              checked={inputs.privacyPolicy?.value}
+              onChange={checkBoxChanged}
+              name="privacyPolicy"
+              color="primary"
+            />
+          }
+          label={privacyPolicyLabel}
+        />
+      )}
     </>
   );
 };

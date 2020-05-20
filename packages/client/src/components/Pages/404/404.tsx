@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import './404.scss';
 import PageContainer from '../../Shared/PageElements/PageContainer/PageContainer';
+import { PageParams } from '../../../models/page-types';
 
 export const NotFoundComponent: FC = () => {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ export const NotFoundComponent: FC = () => {
           404
         </Typography>
         <Typography color="primary">{t('Sorry but we cannot found this page')}</Typography>
-        <Link to="/">{t('Home')}</Link>
+        <Link to={PageParams.Home}>{t('Home')}</Link>
       </>
     </PageContainer>
   );

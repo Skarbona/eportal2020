@@ -18,6 +18,12 @@ export const initialState: FormState = {
     userName: initialInputState,
     recaptcha: initialInputState,
     confirmAccountDelete: initialInputState,
+    privacyPolicy: {
+      valid: false,
+      visible: true,
+      required: true,
+      value: false,
+    },
   },
   isFormValid: false,
 };

@@ -43,16 +43,16 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
         label={t('Home')}
         icon={<HomeIcon />}
         component={Link}
-        to="/"
-        value="/"
+        to={PageParams.Home}
+        value={PageParams.Home}
       />
       {accessToken && (
         <BottomNavigationAction
           label={t('Play!')}
           icon={<GameIcon />}
           component={Link}
-          value="/gra"
-          to="/gra"
+          value={PageParams.Game}
+          to={PageParams.Game}
         />
       )}
       {accessToken && (
@@ -60,8 +60,8 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
           label={t('Profile')}
           icon={<AccountIcon />}
           component={Link}
-          to="/profil"
-          value="/profil"
+          to={PageParams.Profile}
+          value={PageParams.Profile}
         />
       )}
 
@@ -70,8 +70,8 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
           label={t('Log in')}
           icon={<LoginIcon />}
           component={Link}
-          to={`/autentykacja/${PageParams.Login as string}`}
-          value={`/autentykacja/${PageParams.Login as string}`}
+          to={PageParams.Login}
+          value={PageParams.Login}
         />
       )}
       {!accessToken && (
@@ -79,8 +79,8 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
           label={t('Register')}
           icon={<AddIcon />}
           component={Link}
-          to={`/autentykacja/${PageParams.Register as string}`}
-          value={`/autentykacja/${PageParams.Register as string}`}
+          to={PageParams.Register}
+          value={PageParams.Register}
         />
       )}
     </BottomNavigation>
