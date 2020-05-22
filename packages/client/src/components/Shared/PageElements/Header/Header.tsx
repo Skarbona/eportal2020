@@ -1,14 +1,24 @@
-import React, { FC, memo, useCallback } from 'react';
+import React, { FC, memo, useCallback, useState, KeyboardEvent, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Button, IconButton, Toolbar, Typography, useMediaQuery } from '@material-ui/core';
-import { AccountCircle as AccountIcon, Menu as MenuIcon } from '@material-ui/icons';
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Typography,
+  Drawer,
+  useMediaQuery,
+  List,
+  ListItem,
+} from '@material-ui/core';
+import { Menu as MenuIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import './Header.scss';
-import { logout } from '../../../../store/app/thunks/logout';
+import * as logoutThunk from '../../../../store/app/thunks/logout';
 import { PageParams } from '../../../../models/page-types';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { theme } from '../../../../settings/theme-settings';
+import * as links from './links';
 
 interface Props {
   accessToken: string;
@@ -17,17 +27,53 @@ interface Props {
 export const HeaderComponent: FC<Props> = ({ accessToken }) => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
+  const [isDrawerVisible, setDrawerVisibility] = useState<boolean>(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const logoutHandler = useCallback(
-    () => dispatch(logout()),
+    () => dispatch(logoutThunk.logout()),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
+
+  const game = links.GameLink(t('Play!'));
+  const profile = links.ProfileLink(t('Profile'), isMobile);
+  const logout = links.LogoutLink(t('Logout'), logoutHandler);
+  const login = links.LoginLink(t('Log in'));
+  const register = links.RegisterLink(t('Register'));
+  const itemsForMobileMenu = accessToken ? [game, profile, logout] : [login, register];
+
+  const toggleDrawer = (openDrawer: boolean) => (event: KeyboardEvent | MouseEvent) => {
+    if (
+      event.type === 'keydown' &&
+      ((event as KeyboardEvent).key === 'Tab' || (event as KeyboardEvent).key === 'Shift')
+    )
+      return;
+
+    setDrawerVisibility(openDrawer);
+  };
+
   return (
     <AppBar position="static" className="header">
+      {isMobile && (
+        <Drawer open={isDrawerVisible} onClose={toggleDrawer(false)} className="header__drawer">
+          <List onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+            {itemsForMobileMenu.map((el, index) => (
+              <ListItem button key={index}>
+                {el}
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+      )}
       <Toolbar>
         {isMobile && (
-          <IconButton edge="start" className="menu-bottom" aria-label="menu">
+          <IconButton
+            edge="start"
+            className="menu-bottom"
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+          >
             <MenuIcon />
           </IconButton>
         )}
@@ -38,31 +84,17 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
         </Typography>
         {accessToken && !isMobile && (
           <>
-            <Link to={PageParams.Game} className="btn__start-game">
-              <Button>{t('Play!')}</Button>
-            </Link>
-            <Link to={PageParams.Profile} className="btn__profile-page">
-              <IconButton>
-                <AccountIcon color="inherit" />
-              </IconButton>
-            </Link>
+            {game}
+            {profile}
           </>
         )}
-        {accessToken && (
-          <Link to={PageParams.Home} onClick={logoutHandler} className="btn__logout">
-            <Button>{t('Logout')}</Button>
-          </Link>
-        )}
-        {!accessToken && (
+        {!accessToken && !isMobile && (
           <>
-            <Link to={PageParams.Login} className="btn__log-in">
-              <Button>{t('Log in')}</Button>
-            </Link>
-            <Link to={PageParams.Register} className="btn__register">
-              <Button>{t('Register')}</Button>
-            </Link>
+            {login}
+            {register}
           </>
         )}
+        {accessToken && logout}
       </Toolbar>
     </AppBar>
   );

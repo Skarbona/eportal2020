@@ -1,0 +1,42 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button, IconButton } from '@material-ui/core';
+import { AccountCircle as AccountIcon } from '@material-ui/icons';
+
+import { PageParams } from '../../../../models/page-types';
+
+export const GameLink = (text: string) => (
+  <Link to={PageParams.Game} className="btn__start-game">
+    <Button>{text}</Button>
+  </Link>
+);
+
+export const ProfileLink = (text: string, isMobile: boolean) => (
+  <Link to={PageParams.Profile} className="btn__profile-page">
+    {isMobile ? (
+      <Button>{text}</Button>
+    ) : (
+      <IconButton>
+        <AccountIcon color="inherit" />
+      </IconButton>
+    )}
+  </Link>
+);
+
+export const LogoutLink = (text: string, logoutHandler: () => void) => (
+  <Link to={PageParams.Home} onClick={logoutHandler} className="btn__logout">
+    <Button>{text}</Button>
+  </Link>
+);
+
+export const LoginLink = (text: string) => (
+  <Link to={PageParams.Login} className="btn__log-in">
+    <Button>{text}</Button>
+  </Link>
+);
+
+export const RegisterLink = (text: string) => (
+  <Link to={PageParams.Register} className="btn__register">
+    <Button>{text}</Button>
+  </Link>
+);
