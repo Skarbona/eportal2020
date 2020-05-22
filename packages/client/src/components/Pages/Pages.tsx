@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Game from './Game/Game';
 import AuthPage from './AuthPage/AuthPage';
@@ -41,9 +41,10 @@ export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
       <Route exact key="rules" path="/zasady">
         <Page slug={PageNames.Rules} />
       </Route>
-      <Route path="*">
+      <Route path="/404">
         <NotFound />
       </Route>
+      <Redirect to="/404" />
     </Switch>
   );
 };
