@@ -2,21 +2,21 @@ import React, { FC, memo, useState, useCallback, useEffect } from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
 
-import './ErrorHandlers.scss';
+import './AlertHandlers.scss';
 import { useSelector } from 'react-redux';
-import { ErrorHandlingMap, ErrorTypes, ErrorsSize } from '../../../../models/errors';
+import { AlertMap, AlertTypes, AlertSizes } from '../../../../models/alerts';
 import { RootState } from '../../../../store/store.interface';
 
 export interface Props {
-  type: ErrorTypes;
+  type: AlertTypes;
   error: Error | boolean;
 }
 
-export const SnackBarErrorHandlerComponent: FC = () => {
+export const SnackBarAlertHandlerComponent: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const { error, type } = useSelector<RootState, Props>(({ user, app }) => ({
     error: user.error || app.error,
-    type: user.errorType || app.errorType,
+    type: user.alertType || app.alertType,
   }));
 
   useEffect(() => {
@@ -26,11 +26,11 @@ export const SnackBarErrorHandlerComponent: FC = () => {
   const closeHandler = useCallback(() => setIsOpen(false), []);
 
   if (!error || !type) return null;
-  const errorValues = ErrorHandlingMap?.get(type || ErrorTypes.ServerError);
-  if (!errorValues) return null;
-  const { message, severity, header, size } = errorValues;
+  const alertValues = AlertMap?.get(type || AlertTypes.ServerError);
+  if (!alertValues) return null;
+  const { message, severity, header, size } = alertValues;
   return (
-    size === ErrorsSize.Snackbar && (
+    size === AlertSizes.Snackbar && (
       <Snackbar autoHideDuration={6000} open={isOpen} onClose={closeHandler}>
         <Alert severity={severity} onClose={closeHandler}>
           <AlertTitle>{header}</AlertTitle>
@@ -41,4 +41,4 @@ export const SnackBarErrorHandlerComponent: FC = () => {
   );
 };
 
-export default memo(SnackBarErrorHandlerComponent);
+export default memo(SnackBarAlertHandlerComponent);

@@ -2,7 +2,7 @@ import { AppActions } from './action.interface';
 import { AppEnum } from './enum';
 import { appInitialState } from './initialState';
 import { AppStateInterface } from './initialState.interface';
-import { ErrorTypes } from '../../models/errors';
+import { AlertTypes } from '../../models/alerts';
 
 const appReducer = (state = appInitialState, action: AppActions): AppStateInterface => {
   switch (action.type) {
@@ -32,7 +32,7 @@ const appReducer = (state = appInitialState, action: AppActions): AppStateInterf
       return {
         ...state,
         error: action.data.error,
-        errorType: ErrorTypes.UnAuthorizedWarning,
+        alertType: AlertTypes.UnAuthorizedWarning,
       };
     }
     case AppEnum.CleanAppData:

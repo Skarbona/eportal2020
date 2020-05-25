@@ -1,6 +1,6 @@
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
-import { ErrorTypes, NetworkError } from '../../models/errors';
+import { AlertTypes, NetworkError } from '../../models/alerts';
 import { GameStatus } from '../../models/game-models';
 
 export interface CheckIfHasEnoughPosts {
@@ -57,5 +57,5 @@ export interface GameStateInterface {
   config: FormValues;
   loading: boolean;
   error?: NetworkError;
-  errorType?: ErrorTypes;
+  alertType?: AlertTypes;
 }

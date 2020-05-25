@@ -5,7 +5,7 @@ import { CategoriesEnum } from '../../../store/categories/enum';
 import * as I from '../../../store/categories/action.interface';
 import { categoryResponseMock } from '../../../mocks/responses';
 import { mainCategories } from '../../../constants/categoriesIds';
-import { ErrorTypes, NetworkError } from '../../../models/errors';
+import { AlertTypes, NetworkError } from '../../../models/alerts';
 import { setCatsMap } from '../../../utils/categories';
 
 describe('Reducer: Categories', () => {
@@ -67,7 +67,7 @@ describe('Reducer: Categories', () => {
       ...initialState,
       loading: false,
       error,
-      errorType: ErrorTypes.FetchingCategories,
+      alertType: AlertTypes.FetchingCategories,
     };
     expect(state).toEqual(expectedState);
   });

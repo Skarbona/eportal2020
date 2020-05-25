@@ -5,5 +5,7 @@ export enum PageParams {
   Profile = '/profil',
   Rules = '/zasady',
   PrivacyPolice = '/polityka-prywatnosci',
+  ResetPassword = '/reset',
+  Page404 = '/404',
   Home = '/',
 }

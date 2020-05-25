@@ -1,6 +1,6 @@
 import { CategoriesEnum } from './enum';
 import { CategoryInterface } from './initialState.interface';
-import { NetworkError } from '../../models/errors';
+import { NetworkError } from '../../models/alerts';
 
 interface ActionInterface {
   type: CategoriesEnum;

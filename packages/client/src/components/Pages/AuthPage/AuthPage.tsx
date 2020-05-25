@@ -1,5 +1,5 @@
 import React, { FC, memo, useCallback, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link, Button, FormControl, Grid, Typography, Avatar } from '@material-ui/core';
@@ -8,21 +8,21 @@ import ReCAPTCHA from 'react-google-recaptcha';
 
 import './AuthPage.scss';
 import Inputs from './Inputs';
-import ErrorHandler from '../../Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
+import AlertHandler from '../../Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import PageContainer from '../../Shared/PageElements/PageContainer/PageContainer';
 import { SubmitEvent } from '../../../models/typescript-events';
 import { RootState } from '../../../store/store.interface';
 import { authorizeUser } from '../../../store/user/thunks/authorizeUser';
 import { useReduxDispatch } from '../../../store/helpers';
 import { AuthorizationEndpoints } from '../../../models/endpoint-models';
-import { ErrorTypes } from '../../../models/errors';
+import { AlertTypes } from '../../../models/alerts';
 import { useForm } from '../../../hooks/form/form-hook';
 import { InputKeys } from '../../../hooks/form/state/interface';
 import { PageParams } from '../../../models/page-types';
 
 interface SelectorProps {
   error: Error;
-  errorType: ErrorTypes;
+  alertType: AlertTypes;
 }
 
 const loginInputs = [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha];
@@ -44,9 +44,9 @@ export const AuthPageComponent: FC = () => {
     handlers: { setVisibleInputs, inputChanged, recaptchaChanged, checkBoxChanged },
   } = useForm(registerInputs, false);
 
-  const { error, errorType } = useSelector<RootState, SelectorProps>(({ user }) => ({
+  const { error, alertType } = useSelector<RootState, SelectorProps>(({ user }) => ({
     error: user.error,
-    errorType: user.errorType,
+    alertType: user.alertType,
   }));
 
   useEffect(() => {
@@ -78,7 +78,12 @@ export const AuthPageComponent: FC = () => {
     <>
       {!isRegisterMode && (
         <Grid item xs>
-          <Link href="#" variant="body2" className="link__forgot-password">
+          <Link
+            to={PageParams.ResetPassword}
+            component={RouterLink}
+            variant="body2"
+            className="link__forgot-password"
+          >
             {t('Forgot password?')}
           </Link>
         </Grid>
@@ -95,7 +100,7 @@ export const AuthPageComponent: FC = () => {
 
   return (
     <PageContainer maxWidth="xs" className="auth-page">
-      <div className="auth-page__form-wrapper">
+      <div className="auth-page__form-wrapper inputs-for-light-bg">
         <form onSubmit={handleSubmit}>
           <FormControl>
             <Avatar className="avatar">
@@ -117,7 +122,7 @@ export const AuthPageComponent: FC = () => {
                 onChange={recaptchaChanged}
               />
             </Grid>
-            <ErrorHandler error={error} type={errorType} />
+            <AlertHandler error={error} type={alertType} />
             <Button
               disabled={!isFormValid}
               type="submit"

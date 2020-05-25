@@ -8,7 +8,7 @@ import Footer from '../../components/Shared/PageElements/Footer/Footer';
 import BottomNavigation from '../../components/Shared/PageElements/BottomNavigation/BottomNavigation';
 import Pages from '../../components/Pages/Pages';
 import AutoHOC from '../../components/Hoc/AuthHOC';
-import SnackBarErrorHandler from '../../components/Shared/UIElements/ErrorHandlerInfo/SnackBarErrorHandler';
+import SnackBarAlertHandler from '../../components/Shared/UIElements/AlertHandlerInfo/SnackBarAlertHandler';
 import { App } from '../../components/App';
 import * as fetchUserDataThunk from '../../store/user/thunks/fetchUserData';
 import { createMatchMedia } from '../helpers';
@@ -35,7 +35,7 @@ describe('<App > component', () => {
     expect(wrapper.find(AutoHOC)).toHaveLength(1);
     expect(wrapper.find(Header)).toHaveLength(1);
     expect(wrapper.find(Pages)).toHaveLength(1);
-    expect(wrapper.find(SnackBarErrorHandler)).toHaveLength(1);
+    expect(wrapper.find(SnackBarAlertHandler)).toHaveLength(1);
     expect(wrapper.find(Footer)).toHaveLength(1);
     expect(wrapper.find(BottomNavigation)).toHaveLength(0);
   });
@@ -47,7 +47,7 @@ describe('<App > component', () => {
     expect(wrapper.find(AutoHOC)).toHaveLength(1);
     expect(wrapper.find(Header)).toHaveLength(1);
     expect(wrapper.find(Pages)).toHaveLength(1);
-    expect(wrapper.find(SnackBarErrorHandler)).toHaveLength(1);
+    expect(wrapper.find(SnackBarAlertHandler)).toHaveLength(1);
     expect(wrapper.find(Footer)).toHaveLength(1);
     expect(wrapper.find(BottomNavigation)).toHaveLength(1);
   });

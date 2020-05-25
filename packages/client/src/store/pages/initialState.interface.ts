@@ -1,4 +1,4 @@
-import { ErrorTypes, NetworkError } from '../../models/errors';
+import { AlertTypes, NetworkError } from '../../models/alerts';
 
 export enum PageNames {
   Home = 'home',
@@ -21,6 +21,6 @@ export interface PagesStateInterface {
     [PageNames.Rules]?: SinglePageData;
   };
   error?: NetworkError;
-  errorType?: ErrorTypes;
+  alertType?: AlertTypes;
   loading?: boolean;
 }

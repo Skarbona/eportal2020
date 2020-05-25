@@ -3,6 +3,21 @@ import { ActionCreator } from 'redux';
 import * as I from './action.interface';
 import { UserEnum } from './enum';
 
+export const initGetResetPasswordLink: ActionCreator<I.InitGetResetPasswordLink> = () => ({
+  type: UserEnum.InitGetResetPasswordLink,
+});
+
+export const successGetResetPasswordLink: ActionCreator<I.SuccessGetResetPasswordLink> = () => ({
+  type: UserEnum.SuccessGetResetPasswordLink,
+});
+
+export const failGetResetPasswordLink: ActionCreator<I.FailGetResetPasswordLink> = (error) => ({
+  type: UserEnum.FailGetResetPasswordLink,
+  data: {
+    error,
+  },
+});
+
 export const initFetchUserData: ActionCreator<I.InitFetchUserData> = () => ({
   type: UserEnum.InitFetchUserData,
 });

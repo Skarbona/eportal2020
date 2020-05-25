@@ -1,5 +1,5 @@
 import { AppEnum } from './enum';
-import { NetworkError } from '../../models/errors';
+import { NetworkError } from '../../models/alerts';
 
 interface ActionInterface {
   type: AppEnum;

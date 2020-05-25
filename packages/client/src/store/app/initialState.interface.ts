@@ -1,4 +1,4 @@
-import { ErrorTypes, NetworkError } from '../../models/errors';
+import { AlertTypes, NetworkError } from '../../models/alerts';
 
 export interface AppStateInterface {
   auth: {
@@ -8,5 +8,5 @@ export interface AppStateInterface {
     refreshTokenExpiration: Date;
   };
   error?: NetworkError;
-  errorType?: ErrorTypes;
+  alertType?: AlertTypes;
 }

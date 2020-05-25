@@ -2,12 +2,15 @@ import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { config } from 'dotenv';
 import { validationResult } from 'express-validator';
+import { createTransport } from 'nodemailer';
 
 import HttpError from '../models/http-error';
 import User, { UserDocument } from '../models/user';
 import { UserType } from '../models/shared-interfaces/user';
 import { TimeMode } from '../../../client/src/models/game-models';
 import { createTokens } from '../utils/tokens';
+import { resetPasswordTemplate } from '../templetes/emails/reset-password';
+import { Language } from '../models/languages';
 
 config();
 
@@ -119,6 +122,68 @@ export const Login = async (
     res.json({ userData, accessToken, refreshToken });
   } catch (e) {
     return next(new HttpError('Cannot sign up', 500));
+  }
+};
+
+export const resetPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void | Response> => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email } = req.body;
+  const { lang } = req.query;
+
+  let user;
+
+  try {
+    user = await User.findOne({ email });
+    if (!user) {
+      throw new Error('User does not exist');
+    }
+  } catch (e) {
+    return next(new HttpError('User does not exist', 401));
+  }
+
+  try {
+    const transporter = createTransport({
+      host: process.env.EMAIL_HOST,
+      port: 465,
+      secure: true,
+      debug: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+
+    const { resetToken } = createTokens(user);
+
+    user.resetPassword = {
+      token: resetToken,
+      expired: Date.now() + 360000,
+    };
+
+    const { subject, text } = resetPasswordTemplate(resetToken, lang as Language);
+
+    await transporter.sendMail({
+      from: `<${process.env.EMAIL_USER}>`,
+      to: email,
+      subject,
+      text,
+    });
+
+    res.status(202).json({ msg: 'Check your email with new Password' });
+  } catch (e) {
+    console.log(e);
+    return next(new HttpError('Something went wrong, could not reset password', 500));
   }
 };
 

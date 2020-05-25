@@ -1,3 +1,5 @@
+import { SuccessGetResetPasswordLink } from './action.interface';
+
 export enum UserEnum {
   InitFetchUserData = 'initFetchUserData',
   SuccessFetchUserData = 'successFetchUserData',
@@ -12,4 +14,7 @@ export enum UserEnum {
   InitDeleteUser = 'initDeleteUser',
   SuccessDeleteUser = 'successDeleteUser',
   FailDeleteUser = 'failDeleteUser',
+  InitGetResetPasswordLink = 'InitGetResetPasswordLink',
+  SuccessGetResetPasswordLink = 'SuccessGetResetPasswordLink',
+  FailGetResetPasswordLink = 'FailGetResetPasswordLink',
 }

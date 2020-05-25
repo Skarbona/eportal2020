@@ -1,7 +1,7 @@
 import { GameEnum } from './enum';
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
-import { NetworkError } from '../../models/errors';
+import { NetworkError } from '../../models/alerts';
 import { GameStatus, Gender } from '../../models/game-models';
 
 interface ActionInterface {

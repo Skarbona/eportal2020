@@ -3,7 +3,7 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import { TextField, Button, Typography } from '@material-ui/core';
 
 import { DeleteAccountComponent } from '../../../../components/Pages/Profile/Settings/DeleteAccount';
-import ErrorHandlerInfo from '../../../../components/Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
+import AlertHandlerInfo from '../../../../components/Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import * as deleteUserThunk from '../../../../store/user/thunks/deleteUser';
 import { mockedEvent, MockedEventWithValues } from '../../../../mocks/event';
 import * as useFormActions from '../../../../hooks/form/state/actions';
@@ -25,7 +25,7 @@ describe('<DeleteAccount > component', () => {
   });
 
   it('should have all required elements', () => {
-    expect(wrapper.find(ErrorHandlerInfo)).toHaveLength(1);
+    expect(wrapper.find(AlertHandlerInfo)).toHaveLength(1);
     expect(wrapper.find(TextField)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);
     expect(wrapper.find(Typography)).toHaveLength(1);

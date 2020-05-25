@@ -5,7 +5,7 @@ import { GameEnum } from '../../../store/game/enum';
 import * as I from '../../../store/game/action.interface';
 import { postsResponseMock } from '../../../mocks/responses';
 import { convertPosts } from '../../../utils/posts';
-import { ErrorTypes, NetworkError } from '../../../models/errors';
+import { AlertTypes, NetworkError } from '../../../models/alerts';
 import { GameStatus, Gender } from '../../../models/game-models';
 import { mockedStore, mockPost } from '../../../mocks/store';
 
@@ -67,7 +67,7 @@ describe('Reducer: Game', () => {
       ...initialState,
       loading: false,
       error,
-      errorType: ErrorTypes.FetchingPosts,
+      alertType: AlertTypes.FetchingPosts,
     };
     expect(state).toEqual(expectedState);
   });

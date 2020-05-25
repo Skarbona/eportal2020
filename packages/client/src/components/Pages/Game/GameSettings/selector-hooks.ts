@@ -3,7 +3,7 @@ import { CheckIfHasEnoughPosts } from '../../../../store/game/initialState.inter
 import { RootState } from '../../../../store/store.interface';
 import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
 import { CategoriesStateInterface } from '../../../../store/categories/initialState.interface';
-import { ErrorTypes } from '../../../../models/errors';
+import { AlertTypes } from '../../../../models/alerts';
 
 interface SelectorGameStartProps {
   isReadyToStartGame: CheckIfHasEnoughPosts;
@@ -27,7 +27,7 @@ export interface SelectorGameSettingsProps {
   cats: CategoriesStateInterface['categories'];
   loading: boolean;
   error: Error;
-  errorType: ErrorTypes;
+  alertType: AlertTypes;
   defaults: FormValues;
   userCanStartGame: boolean;
 }
@@ -37,7 +37,7 @@ export const useGameSettingsSelector = (): SelectorGameSettingsProps => {
     cats: categories.categories,
     loading: categories.loading || game.loading,
     error: categories.error || game.error || user.error,
-    errorType: categories.errorType || game.errorType || user.errorType,
+    alertType: categories.alertType || game.alertType || user.alertType,
     defaults: user.userData.gameDefaults,
     accessToken: app.auth.accessToken,
     userCanStartGame: game.isReadyToStartGame?.hasEnough,

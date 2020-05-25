@@ -5,7 +5,7 @@ import { Button, Avatar } from '@material-ui/core';
 
 import { AuthPageComponent } from '../../../../components/Pages/AuthPage/AuthPage';
 import Inputs from '../../../../components/Pages/AuthPage/Inputs';
-import ErrorHandler from '../../../../components/Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
+import AlertHandler from '../../../../components/Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import * as A from '../../../../hooks/form/state/actions';
 import * as authorizeUserThunk from '../../../../store/user/thunks/authorizeUser';
 import { mockedEvent } from '../../../../mocks/event';
@@ -29,7 +29,7 @@ describe('<AuthPage /> component', () => {
     expect(wrapper.find(Avatar)).toHaveLength(1);
     expect(wrapper.find(Inputs)).toHaveLength(1);
     expect(wrapper.find(ReCAPTCHA)).toHaveLength(1);
-    expect(wrapper.find(ErrorHandler)).toHaveLength(1);
+    expect(wrapper.find(AlertHandler)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);
     expect(wrapper.find('.link__switch-mode')).toHaveLength(1);
     expect(wrapper.find('.link__forgot-password')).toHaveLength(0);

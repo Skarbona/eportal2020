@@ -8,7 +8,7 @@ import {
   randomizeNewTask,
   filterRemovedPosts,
 } from '../../utils/posts';
-import { ErrorTypes } from '../../models/errors';
+import { AlertTypes } from '../../models/alerts';
 import { GameStatus } from '../../models/game-models';
 
 const gameReducer = (state = gameInitialState, action: GameActions): GameStateInterface => {
@@ -33,20 +33,20 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
     }
     case GameEnum.FailFetchPosts: {
       const { error } = action.data;
-      let errorType = ErrorTypes.ServerError;
+      let alertType = AlertTypes.ServerError;
       const errorStatus = error.response?.status;
       if (!errorStatus || errorStatus >= 500) {
-        errorType = ErrorTypes.ServerError;
+        alertType = AlertTypes.ServerError;
       } else if (errorStatus === 401) {
-        errorType = ErrorTypes.UnAuthorized;
+        alertType = AlertTypes.UnAuthorized;
       } else {
-        errorType = ErrorTypes.FetchingPosts;
+        alertType = AlertTypes.FetchingPosts;
       }
       return {
         ...state,
         loading: false,
         error,
-        errorType,
+        alertType,
       };
     }
     case GameEnum.SetFormValues:

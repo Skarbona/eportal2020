@@ -1,4 +1,4 @@
-import { ErrorTypes } from '../../models/errors';
+import { AlertTypes } from '../../models/alerts';
 
 export interface CategoryInterface {
   id: string;
@@ -18,5 +18,5 @@ export interface CategoriesStateInterface {
   allCatsMap: Map<string, string>;
   loading: boolean;
   error?: Error;
-  errorType?: ErrorTypes;
+  alertType?: AlertTypes;
 }

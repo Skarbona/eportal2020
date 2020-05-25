@@ -3,6 +3,10 @@ import { UserBasic } from './shared-interfaces/user';
 
 export interface UserDocument extends UserBasic, Document {
   password: string;
+  resetPassword: {
+    token: string;
+    expired: number;
+  };
 }
 
 export const UserSchema = new Schema({
@@ -30,6 +34,10 @@ export const UserSchema = new Schema({
       type: { type: String },
       value: [{ type: Number }],
     },
+  },
+  resetPassword: {
+    token: { type: String },
+    expired: { type: Number },
   },
 });
 

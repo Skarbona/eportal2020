@@ -2,7 +2,7 @@ import { PagesActions } from './action.interface';
 import { PagesEnum } from './enum';
 import { pagesInitialState } from './initialState';
 import { PagesStateInterface } from './initialState.interface';
-import { ErrorTypes } from '../../models/errors';
+import { AlertTypes } from '../../models/alerts';
 
 const pagesReducer = (state = pagesInitialState, action: PagesActions): PagesStateInterface => {
   switch (action.type) {
@@ -29,7 +29,7 @@ const pagesReducer = (state = pagesInitialState, action: PagesActions): PagesSta
       return {
         ...state,
         error: action.data.error,
-        errorType: ErrorTypes.ServerError, // TODO: Small error
+        alertType: AlertTypes.ServerError, // TODO: Small error
         loading: false,
       };
     }

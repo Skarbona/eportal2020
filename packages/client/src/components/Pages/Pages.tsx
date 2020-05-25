@@ -7,7 +7,9 @@ import Page from './Page/Page';
 import Main from './Main/Main';
 import Profile from './Profile/Profile';
 import NotFound from './404/404';
+import InitResetPassword from './ResetPassword/Init';
 import { PageNames } from '../../store/pages/initialState.interface';
+import { PageParams } from '../../models/page-types';
 
 interface Props {
   accessToken: string;
@@ -17,16 +19,16 @@ interface Props {
 export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
   return (
     <Switch>
-      <Route path="/" exact>
+      <Route path={PageParams.Home} exact>
         <Main isLoggedIn={!!accessToken?.length} />
       </Route>
       {accessToken && (
-        <Route path="/profil" exact>
+        <Route path={PageParams.Profile} exact>
           <Profile />
         </Route>
       )}
       {accessToken && (
-        <Route path="/gra" exact>
+        <Route path={PageParams.Game} exact>
           <Game accessToken={accessToken} expirationDate={expirationDate} />
         </Route>
       )}
@@ -35,16 +37,21 @@ export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
           <AuthPage />
         </Route>
       )}
-      <Route exact key="privacy-policy" path="/polityka-prywatnosci">
+      {!accessToken && (
+        <Route path={PageParams.ResetPassword} exact>
+          <InitResetPassword />
+        </Route>
+      )}
+      <Route exact key="privacy-policy" path={PageParams.PrivacyPolice}>
         <Page slug={PageNames.PrivacyPolicy} />
       </Route>
-      <Route exact key="rules" path="/zasady">
+      <Route exact key="rules" path={PageParams.Rules}>
         <Page slug={PageNames.Rules} />
       </Route>
-      <Route path="/404">
+      <Route path={PageParams.Page404}>
         <NotFound />
       </Route>
-      <Redirect to="/404" />
+      <Redirect to={PageParams.Page404} />
     </Switch>
   );
 };

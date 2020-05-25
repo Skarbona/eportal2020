@@ -3,7 +3,7 @@ import { appInitialState as initialState } from '../../../store/app/initialState
 import appReducer from '../../../store/app/reducer';
 import { AppEnum } from '../../../store/app/enum';
 import * as I from '../../../store/app/action.interface';
-import { ErrorTypes } from '../../../models/errors';
+import { AlertTypes } from '../../../models/alerts';
 
 describe('Reducer: App', () => {
   let reducerState: AppStateInterface;
@@ -69,7 +69,7 @@ describe('Reducer: App', () => {
     const expectedState: AppStateInterface = {
       ...initialState,
       error: data.error,
-      errorType: ErrorTypes.UnAuthorizedWarning,
+      alertType: AlertTypes.UnAuthorizedWarning,
     };
     expect(state).toEqual(expectedState);
   });

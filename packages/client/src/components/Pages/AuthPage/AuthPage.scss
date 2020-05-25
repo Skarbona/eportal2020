@@ -2,25 +2,6 @@
 
 .auth-page {
   .auth-page__form-wrapper {
-    .MuiFilledInput-root,
-    .MuiFormLabel-root,
-    .MuiFormHelperText-root,
-    .MuiFilledInput-underline {
-      color: $primary;
-
-      &::before {
-        color: $primary;
-
-        &.Mui-error {
-          color: $error;
-        }
-      }
-    }
-
-    .MuiFilledInput-underline {
-      background-color: $transparent-gray;
-    }
-
     .MuiFormControl-root {
       display: flex;
       flex-direction: column;
