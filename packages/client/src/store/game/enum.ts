@@ -10,4 +10,5 @@ export enum GameEnum {
   RandomizeTask = 'RandomizeTask',
   CleanCurrentTask = 'CleanCurrentTask',
   SetPoints = 'SetPoints',
+  CleanGameAlerts = 'CleanGameAlerts',
 }

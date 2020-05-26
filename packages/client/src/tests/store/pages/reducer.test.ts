@@ -3,7 +3,7 @@ import { pagesInitialState as initialState } from '../../../store/pages/initialS
 import pagesReducer from '../../../store/pages/reducer';
 import { PagesEnum } from '../../../store/pages/enum';
 import * as I from '../../../store/pages/action.interface';
-import { ErrorTypes } from '../../../models/errors';
+import { AlertTypes } from '../../../models/alerts';
 
 describe('Reducer: Pages', () => {
   let reducerState: PagesStateInterface;
@@ -58,7 +58,7 @@ describe('Reducer: Pages', () => {
     const expectedState: PagesStateInterface = {
       ...initialState,
       error: data.error,
-      errorType: ErrorTypes.ServerError,
+      alertType: AlertTypes.ServerError,
     };
     expect(state).toEqual(expectedState);
   });

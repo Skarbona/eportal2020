@@ -8,6 +8,7 @@ const router = Router();
 
 router.post('/signup', validate.signUp, usersControllers.signUp);
 router.post('/login', validate.login, usersControllers.Login);
+router.post('/reset-password', validate.resetPassword, usersControllers.resetPassword);
 
 router.use(authMiddleware);
 

@@ -4,7 +4,7 @@ import userReducer from '../../../store/user/reducer';
 import { UserEnum } from '../../../store/user/enum';
 import * as I from '../../../store/user/action.interface';
 import { mockedStore } from '../../../mocks/store';
-import { ErrorTypes, NetworkError } from '../../../models/errors';
+import { AlertTypes, NetworkError } from '../../../models/alerts';
 
 describe('Reducer: User', () => {
   let reducerState: UserStateInterface;
@@ -75,7 +75,7 @@ describe('Reducer: User', () => {
       ...initialState,
       loading: false,
       error,
-      errorType: ErrorTypes.UnAuthorized,
+      alertType: AlertTypes.UnAuthorized,
     };
     expect(state).toEqual(expectedState);
   });
@@ -93,7 +93,7 @@ describe('Reducer: User', () => {
       ...initialState,
       loading: false,
       error,
-      errorType: ErrorTypes.ServerError,
+      alertType: AlertTypes.ServerError,
     };
     expect(state).toEqual(expectedState);
   });
@@ -156,7 +156,7 @@ describe('Reducer: User', () => {
       ...initialState,
       loading: false,
       error,
-      errorType: ErrorTypes.CannotSetUserDataWarning,
+      alertType: AlertTypes.CannotSetUserDataWarning,
     };
     expect(state).toEqual(expectedState);
   });
@@ -206,7 +206,7 @@ describe('Reducer: User', () => {
       ...initialState,
       loading: false,
       error,
-      errorType: ErrorTypes.WrongRegisterInputs,
+      alertType: AlertTypes.WrongRegisterInputs,
     };
     expect(state).toEqual(expectedState);
   });

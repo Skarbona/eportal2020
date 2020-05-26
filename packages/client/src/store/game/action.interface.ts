@@ -1,11 +1,15 @@
 import { GameEnum } from './enum';
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
-import { NetworkError } from '../../models/errors';
+import { NetworkError } from '../../models/alerts';
 import { GameStatus, Gender } from '../../models/game-models';
 
 interface ActionInterface {
   type: GameEnum;
+}
+
+export interface CleanGameAlerts extends ActionInterface {
+  type: GameEnum.CleanGameAlerts;
 }
 
 export interface InitFetchPosts extends ActionInterface {
@@ -87,4 +91,5 @@ export type GameActions =
   | CleanCurrentTask
   | SaveActiveGameData
   | SetPoints
-  | CleanGameData;
+  | CleanGameData
+  | CleanGameAlerts;

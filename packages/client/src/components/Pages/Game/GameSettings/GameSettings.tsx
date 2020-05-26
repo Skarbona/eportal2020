@@ -5,7 +5,7 @@ import './GameSettings.scss';
 
 import { SubmitEvent } from '../../../../models/typescript-events';
 
-import ErrorHandler from '../../../Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
+import AlertHandler from '../../../Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import CircleLoading from '../../../Shared/UIElements/Loading/CircleLoading';
 import PageHeading from '../../../Shared/PageElements/PageHeading/PageHeading';
 import PageContainer from '../../../Shared/PageElements/PageContainer/PageContainer';
@@ -27,7 +27,7 @@ import { useGameSettingsSelector } from './selector-hooks';
 export const GameSettingComponent: FC = () => {
   const dispatch = useReduxDispatch();
   const [isFormValid, setFormValidation] = useState<boolean>(false);
-  const { cats, loading, error, errorType, defaults, userCanStartGame } = useGameSettingsSelector();
+  const { cats, loading, error, alertType, defaults, userCanStartGame } = useGameSettingsSelector();
 
   const onSubmitHandler = (event: SubmitEvent): void => {
     event.preventDefault();
@@ -44,7 +44,7 @@ export const GameSettingComponent: FC = () => {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,react-hooks/exhaustive-deps
   useEffect(() => () => dispatch(cleanIsReadyToGameData()), []);
 
-  const errors = <ErrorHandler error={error} type={errorType} />;
+  const errors = <AlertHandler error={error} type={alertType} />;
 
   return (
     <>

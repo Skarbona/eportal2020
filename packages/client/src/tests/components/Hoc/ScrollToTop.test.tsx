@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 
-import { ScrollToTopComponent } from '../../../components/Hoc/ScrollToTop';
+import { OnRouteChangedComponent } from '../../../components/Hoc/OnRouteChanged';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -10,7 +10,7 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
-describe('<ScrollToTop /> HOC component', () => {
+describe('<OnRouteChanged /> HOC component', () => {
   let wrapper: ShallowWrapper;
   let scrollToTopSpy: any;
 
@@ -24,7 +24,7 @@ describe('<ScrollToTop /> HOC component', () => {
   });
 
   it('should scroll to top', () => {
-    wrapper = shallow(<ScrollToTopComponent />);
+    wrapper = shallow(<OnRouteChangedComponent />);
     expect(scrollToTopSpy).toHaveBeenCalledWith(0, 0);
   });
 });

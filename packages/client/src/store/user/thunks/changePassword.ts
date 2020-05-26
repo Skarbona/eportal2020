@@ -5,7 +5,10 @@ import { AppThunk } from '../../store.interface';
 import * as A from '../action';
 import { logout } from '../../app/thunks/logout';
 
-export const changePassword = (password: string): AppThunk => async (dispatch, getState) => {
+export const changePassword = (password: string, token?: string): AppThunk => async (
+  dispatch,
+  getState,
+) => {
   dispatch(A.initSetUserData());
   const {
     user: { userData },
@@ -14,12 +17,17 @@ export const changePassword = (password: string): AppThunk => async (dispatch, g
   try {
     const requestBody = { password };
 
-    await axios.patch(`${process.env.REACT_APP_BACKEND_API}/users/${userData.id}`, requestBody, {
-      headers: {
-        Authorization: `Bearer ${auth.accessToken}`,
+    await axios.patch(
+      `${process.env.REACT_APP_BACKEND_API}/users/${userData?.id || ''}`,
+      requestBody,
+      {
+        headers: {
+          Authorization: `Bearer ${token || auth.accessToken}`,
+        },
       },
-    });
-    dispatch(logout());
+    );
+    dispatch(A.successSetPassword());
+    if (!token) dispatch(logout());
   } catch (e) {
     dispatch(A.failSetUserData(e));
   }

@@ -1,5 +1,5 @@
 import { PagesEnum } from './enum';
-import { NetworkError } from '../../models/errors';
+import { NetworkError } from '../../models/alerts';
 import { SinglePageData } from './initialState.interface';
 
 interface ActionInterface {

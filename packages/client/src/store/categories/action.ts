@@ -3,6 +3,10 @@ import { ActionCreator } from 'redux';
 import * as I from './action.interface';
 import { CategoriesEnum } from './enum';
 
+export const cleanCategoriesAlerts: ActionCreator<I.CleanCategoriesAlerts> = () => ({
+  type: CategoriesEnum.CleanCategoriesAlerts,
+});
+
 export const initFetchCategories: ActionCreator<I.InitFetchCategories> = () => ({
   type: CategoriesEnum.InitFetchCategories,
 });

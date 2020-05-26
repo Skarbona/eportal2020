@@ -10,11 +10,11 @@ import { useReduxDispatch } from '../store/helpers';
 import { fetchUserData } from '../store/user/thunks/fetchUserData';
 import Pages from './Pages/Pages';
 import Header from './Shared/PageElements/Header/Header';
-import SnackBarErrorHandler from './Shared/UIElements/ErrorHandlerInfo/SnackBarErrorHandler';
+import SnackBarAlertHandler from './Shared/UIElements/AlertHandlerInfo/SnackBarAlertHandler';
 import BottomNavigation from './Shared/PageElements/BottomNavigation/BottomNavigation';
 import Footer from './Shared/PageElements/Footer/Footer';
 import AuthHOC from './Hoc/AuthHOC';
-import ScrollToTop from './Hoc/ScrollToTop';
+import OnRouteChanged from './Hoc/OnRouteChanged';
 import { RootState } from '../store/store.interface';
 import { checkIfTokenIsValid } from '../utils/auth';
 
@@ -45,11 +45,11 @@ export const App: FC = () => {
     <ThemeProvider theme={theme}>
       <>
         <AuthHOC />
-        <ScrollToTop />
+        <OnRouteChanged />
         <Header accessToken={accessToken} />
         <Container component="main" className="eportal__main" maxWidth={false} disableGutters>
           <Pages accessToken={accessToken} expirationDate={expirationTokenDate} />
-          <SnackBarErrorHandler />
+          <SnackBarAlertHandler />
         </Container>
         <Footer />
         {isMobile && <BottomNavigation accessToken={accessToken} />}

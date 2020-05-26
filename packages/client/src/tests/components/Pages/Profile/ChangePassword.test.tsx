@@ -3,7 +3,7 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import { TextField, Button, Typography } from '@material-ui/core';
 
 import { ChangePasswordComponent } from '../../../../components/Pages/Profile/Settings/ChangePassword';
-import ErrorHandler from '../../../../components/Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
+import AlertHandler from '../../../../components/Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import * as changePasswordThunk from '../../../../store/user/thunks/changePassword';
 import { mockedEvent, MockedEventWithValues } from '../../../../mocks/event';
 import * as useFormActions from '../../../../hooks/form/state/actions';
@@ -25,7 +25,7 @@ describe('<ChangePassword > component', () => {
   });
 
   it('should have all required elements', () => {
-    expect(wrapper.find(ErrorHandler)).toHaveLength(1);
+    expect(wrapper.find(AlertHandler)).toHaveLength(1);
     expect(wrapper.find(TextField)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);
     expect(wrapper.find(Typography)).toHaveLength(1);

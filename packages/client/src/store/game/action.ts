@@ -6,6 +6,10 @@ import { PostResponseInterface } from '../../../../service/src/models/shared-int
 import { GameStatus, Gender } from '../../models/game-models';
 import { GameStateInterface } from './initialState.interface';
 
+export const cleanGameAlerts: ActionCreator<I.CleanGameAlerts> = () => ({
+  type: GameEnum.CleanGameAlerts,
+});
+
 export const initFetchPosts: ActionCreator<I.InitFetchPosts> = () => ({
   type: GameEnum.InitFetchPosts,
 });

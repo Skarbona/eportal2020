@@ -2,10 +2,18 @@ import { AppActions } from './action.interface';
 import { AppEnum } from './enum';
 import { appInitialState } from './initialState';
 import { AppStateInterface } from './initialState.interface';
-import { ErrorTypes } from '../../models/errors';
+import { AlertTypes } from '../../models/alerts';
 
 const appReducer = (state = appInitialState, action: AppActions): AppStateInterface => {
   switch (action.type) {
+    case AppEnum.CleanAppAlerts: {
+      return {
+        ...state,
+        error: null,
+        alert: null,
+        alertType: null,
+      };
+    }
     case AppEnum.SetAccessTokenData: {
       const { accessToken, accessTokenExpiration } = action.data;
       return {
@@ -32,7 +40,7 @@ const appReducer = (state = appInitialState, action: AppActions): AppStateInterf
       return {
         ...state,
         error: action.data.error,
-        errorType: ErrorTypes.UnAuthorizedWarning,
+        alertType: AlertTypes.UnAuthorizedWarning,
       };
     }
     case AppEnum.CleanAppData:

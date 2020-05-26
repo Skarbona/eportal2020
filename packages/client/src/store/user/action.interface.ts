@@ -1,10 +1,15 @@
 import { UserEnum } from './enum';
 import { UserResponse } from '../../../../service/src/models/shared-interfaces/user';
-import { NetworkError } from '../../models/errors';
+import { NetworkError } from '../../models/alerts';
 
 interface ActionInterface {
   type: UserEnum;
 }
+
+export interface CleanUserAlerts extends ActionInterface {
+  type: UserEnum.CleanUserAlerts;
+}
+
 export interface InitFetchUserData extends ActionInterface {
   type: UserEnum.InitFetchUserData;
 }
@@ -18,6 +23,25 @@ export interface SuccessFetchUserData extends ActionInterface {
 
 export interface FailFetchUserData extends ActionInterface {
   type: UserEnum.FailFetchUserData;
+  data: {
+    error: NetworkError;
+  };
+}
+
+export interface InitGetResetPasswordLink extends ActionInterface {
+  type: UserEnum.InitGetResetPasswordLink;
+}
+
+export interface SuccessGetResetPasswordLink extends ActionInterface {
+  type: UserEnum.SuccessGetResetPasswordLink;
+}
+
+export interface SuccessSetPassword extends ActionInterface {
+  type: UserEnum.SuccessSetPassword;
+}
+
+export interface FailGetResetPasswordLink extends ActionInterface {
+  type: UserEnum.FailGetResetPasswordLink;
   data: {
     error: NetworkError;
   };
@@ -79,6 +103,11 @@ export interface CleanUserData extends ActionInterface {
 }
 
 export type UserActions =
+  | CleanUserAlerts
+  | SuccessSetPassword
+  | InitGetResetPasswordLink
+  | SuccessGetResetPasswordLink
+  | FailGetResetPasswordLink
   | InitDeleteUser
   | SuccessDeleteUser
   | FailDeleteUser

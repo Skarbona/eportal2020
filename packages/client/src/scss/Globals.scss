@@ -15,6 +15,27 @@
   }
 }
 
+.inputs-for-light-bg {
+  .MuiFilledInput-root,
+  .MuiFormLabel-root,
+  .MuiFormHelperText-root,
+  .MuiFilledInput-underline {
+    color: $primary;
+
+    &::before {
+      color: $primary;
+
+      &.Mui-error {
+        color: $error;
+      }
+    }
+  }
+
+  .MuiFilledInput-underline {
+    background-color: $transparent-gray;
+  }
+}
+
 .MuiButton-contained {
   &.Mui-disabled {
     &.error-button,

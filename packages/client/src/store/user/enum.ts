@@ -12,4 +12,9 @@ export enum UserEnum {
   InitDeleteUser = 'initDeleteUser',
   SuccessDeleteUser = 'successDeleteUser',
   FailDeleteUser = 'failDeleteUser',
+  InitGetResetPasswordLink = 'InitGetResetPasswordLink',
+  SuccessGetResetPasswordLink = 'SuccessGetResetPasswordLink',
+  FailGetResetPasswordLink = 'FailGetResetPasswordLink',
+  SuccessSetPassword = 'SuccessSetPassword',
+  CleanUserAlerts = 'CleanUserAlerts',
 }

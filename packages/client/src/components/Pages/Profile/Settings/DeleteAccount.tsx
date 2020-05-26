@@ -6,16 +6,16 @@ import { useSelector } from 'react-redux';
 import { useForm } from '../../../../hooks/form/form-hook';
 import { InputKeys } from '../../../../hooks/form/state/interface';
 import { RootState } from '../../../../store/store.interface';
-import ErrorHandler from '../../../Shared/UIElements/ErrorHandlerInfo/ErrorHandlerInfo';
+import AlertHandler from '../../../Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import { deleteUser } from '../../../../store/user/thunks/deleteUser';
 import { useReduxDispatch } from '../../../../store/helpers';
-import { ErrorTypes } from '../../../../models/errors';
+import { AlertTypes } from '../../../../models/alerts';
 import { InputChangeEvent } from '../../../../models/typescript-events';
 
 interface DeleteAccountSelectorProps {
   email: string;
   error: Error;
-  type: ErrorTypes;
+  type: AlertTypes;
 }
 
 export const DeleteAccountComponent: FC = () => {
@@ -24,7 +24,7 @@ export const DeleteAccountComponent: FC = () => {
   const { email, error, type } = useSelector<RootState, DeleteAccountSelectorProps>(({ user }) => ({
     email: user.userData.email,
     error: user.error,
-    type: user.errorType,
+    type: user.alertType,
   }));
   const {
     state: { inputs, isFormValid },
@@ -51,7 +51,7 @@ export const DeleteAccountComponent: FC = () => {
         value={inputs.confirmAccountDelete?.value}
         onChange={(e: InputChangeEvent): void => confirmAccountDeleteChanged(e.target.value, email)}
       />
-      <ErrorHandler error={error} type={type} />
+      <AlertHandler error={error} type={type} />
       <Button
         disabled={!isFormValid}
         type="submit"
