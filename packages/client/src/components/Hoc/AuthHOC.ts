@@ -141,7 +141,6 @@ export const AuthHOC: FC = () => {
       );
     } else if (![PageParams.Register, PageParams.Login].includes(pathname as PageParams)) {
       dispatch(logout());
-      dispatch(finishAuthorization());
     } else {
       dispatch(finishAuthorization());
     }
