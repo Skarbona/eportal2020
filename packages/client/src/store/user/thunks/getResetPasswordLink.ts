@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import axios from 'axios';
 
-import { ReturnAppThunk } from '../../store.interface';
+import { AppThunk } from '../../store.interface';
 import * as A from '../action';
 import i18n from '../../../settings/translation-settings';
 
-export const getResetPasswordLink = (email: string): ReturnAppThunk<boolean> => async (
-  dispatch,
-) => {
+export const getResetPasswordLink = (email: string): AppThunk => async (dispatch) => {
   dispatch(A.initGetResetPasswordLink());
   try {
     const requestBody = { email };
@@ -17,7 +15,6 @@ export const getResetPasswordLink = (email: string): ReturnAppThunk<boolean> => 
       requestBody,
     );
     dispatch(A.successGetResetPasswordLink());
-    return true;
   } catch (e) {
     dispatch(A.failGetResetPasswordLink(e));
   }

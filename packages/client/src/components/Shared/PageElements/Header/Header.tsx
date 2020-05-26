@@ -43,7 +43,7 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
   const register = links.RegisterLink(t('Register'));
   const itemsForMobileMenu = accessToken ? [game, profile, logout] : [login, register];
 
-  const toggleDrawer = (openDrawer: boolean) => (event: KeyboardEvent | MouseEvent) => {
+  const toggleDrawer = (openDrawer: boolean) => (event: KeyboardEvent | MouseEvent): void => {
     if (
       event.type === 'keydown' &&
       ((event as KeyboardEvent).key === 'Tab' || (event as KeyboardEvent).key === 'Shift')

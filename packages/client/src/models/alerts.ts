@@ -39,7 +39,7 @@ interface AlertHandlingMapInterface {
 
 export const AlertMap = new Map<AlertTypes, AlertHandlingMapInterface>();
 
-export const setAlertMap = () => {
+export const setAlertMap = (): void => {
   AlertMap.set(AlertTypes.NewUserDataSet, {
     header: i18n.t('Success'),
     message: i18n.t('New user data was set successfully'),
