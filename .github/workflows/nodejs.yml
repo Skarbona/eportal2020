@@ -35,6 +35,7 @@ jobs:
           JWT_ACCESS_TOKEN: ${{ secrets.JWT_ACCESS_TOKEN_TEST }}
           JWT_REFRESH_TOKEN: ${{ secrets.JWT_REFRESH_TOKEN_TEST }}
           ADMIN_TEST_USER: ${{ secrets.ADMIN_TEST_USER }}
+          ADMIN_TEST_PASS: ${{ secrets.ADMIN_TEST_PASS }}
           PORTAL_ADRESS: ${{ secrets.PORTAL_ADRESS }}
           EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
