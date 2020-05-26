@@ -11,6 +11,7 @@ import { RootState } from '../../store/store.interface';
 import { Login } from '../../store/app/action.interface';
 import { PageParams } from '../../models/page-types';
 import { usePrevious } from '../../hooks/previous-state';
+import { finishAuthorization } from '../../store/app/action';
 
 interface AuthSelector {
   accToken: string;
@@ -140,6 +141,9 @@ export const AuthHOC: FC = () => {
       );
     } else if (![PageParams.Register, PageParams.Login].includes(pathname as PageParams)) {
       dispatch(logout());
+      dispatch(finishAuthorization());
+    } else {
+      dispatch(finishAuthorization());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -5,4 +5,5 @@ export enum AppEnum {
   InitRefreshTokens = 'initRefreshTokens',
   FailRefreshTokens = 'failRefreshTokens',
   CleanAppAlerts = 'CleanAppAlerts',
+  FinishAuthorization = 'FinishAuthorization',
 }

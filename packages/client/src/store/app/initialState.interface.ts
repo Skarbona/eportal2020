@@ -2,6 +2,7 @@ import { AlertTypes, NetworkError } from '../../models/alerts';
 
 export interface AppStateInterface {
   auth: {
+    isAuthorizationDone: boolean;
     accessToken: string;
     accessTokenExpiration: Date;
     refreshToken: string;

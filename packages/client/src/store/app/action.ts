@@ -3,6 +3,10 @@ import { ActionCreator } from 'redux';
 import * as I from './action.interface';
 import { AppEnum } from './enum';
 
+export const finishAuthorization: ActionCreator<I.FinishAuthorization> = () => ({
+  type: AppEnum.FinishAuthorization,
+});
+
 export const cleanAppAlerts: ActionCreator<I.CleanAppAlerts> = () => ({
   type: AppEnum.CleanAppAlerts,
 });

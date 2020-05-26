@@ -5,6 +5,10 @@ interface ActionInterface {
   type: AppEnum;
 }
 
+export interface FinishAuthorization extends ActionInterface {
+  type: AppEnum.FinishAuthorization;
+}
+
 export interface CleanAppAlerts extends ActionInterface {
   type: AppEnum.CleanAppAlerts;
 }
@@ -41,6 +45,7 @@ export interface SetRefreshTokenData extends ActionInterface {
 }
 
 export type AppActions =
+  | FinishAuthorization
   | CleanAppAlerts
   | CleanAppData
   | SetAccessTokenData

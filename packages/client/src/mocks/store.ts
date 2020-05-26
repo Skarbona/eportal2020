@@ -91,6 +91,7 @@ export const mockedStore = (): RootState => ({
   },
   app: {
     auth: {
+      isAuthorizationDone: true,
       accessToken: chance.string(),
       accessTokenExpiration: new Date(),
       refreshToken: chance.string(),
