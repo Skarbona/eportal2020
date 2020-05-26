@@ -14,7 +14,7 @@ import SnackBarAlertHandler from './Shared/UIElements/AlertHandlerInfo/SnackBarA
 import BottomNavigation from './Shared/PageElements/BottomNavigation/BottomNavigation';
 import Footer from './Shared/PageElements/Footer/Footer';
 import AuthHOC from './Hoc/AuthHOC';
-import ScrollToTop from './Hoc/ScrollToTop';
+import OnRouteChanged from './Hoc/OnRouteChanged';
 import { RootState } from '../store/store.interface';
 import { checkIfTokenIsValid } from '../utils/auth';
 
@@ -45,7 +45,7 @@ export const App: FC = () => {
     <ThemeProvider theme={theme}>
       <>
         <AuthHOC />
-        <ScrollToTop />
+        <OnRouteChanged />
         <Header accessToken={accessToken} />
         <Container component="main" className="eportal__main" maxWidth={false} disableGutters>
           <Pages accessToken={accessToken} expirationDate={expirationTokenDate} />

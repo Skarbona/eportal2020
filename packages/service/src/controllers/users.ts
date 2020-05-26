@@ -166,11 +166,6 @@ export const resetPassword = async (
 
     const { resetToken } = createTokens(user);
 
-    user.resetPassword = {
-      token: resetToken,
-      expired: Date.now() + 360000,
-    };
-
     const { subject, text } = resetPasswordTemplate(resetToken, lang as Language);
 
     await transporter.sendMail({

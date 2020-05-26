@@ -103,5 +103,13 @@
   "Rules": "Rules",
   "Play for free!": "Play for free!",
   "App version": "App version",
-  "I accept": "I accept"
+  "I accept": "I accept",
+  "Reset Password": "Reset Password",
+  "We got your request": "We got your request",
+  "Please check your email for the next steps": "Please check your email for the next steps",
+  "User does not exist": "User does not exist",
+  "Please check your email field": "Please check your email field",
+  "Set New Password": "Set New Password",
+  "Success": "Success",
+  "New user data was set successfully": "New user data was set successfully"
 }

@@ -57,5 +57,6 @@ export interface GameStateInterface {
   config: FormValues;
   loading: boolean;
   error?: NetworkError;
+  alert?: boolean;
   alertType?: AlertTypes;
 }

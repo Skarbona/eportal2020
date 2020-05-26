@@ -34,7 +34,7 @@ export const createTokens = (user: UserDocument): Tokens => {
       email: user.email,
       type: user.type,
     },
-    process.env.JWT_REFRESH_TOKEN,
+    process.env.JWT_ACCESS_TOKEN,
     { expiresIn: '1h' },
   );
 

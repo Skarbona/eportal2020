@@ -9,7 +9,8 @@ export default (): Error | void => {
     !process.env.DB_NAME ||
     !process.env.DB_HOST ||
     !process.env.JWT_ACCESS_TOKEN ||
-    !process.env.JWT_REFRESH_TOKEN
+    !process.env.JWT_REFRESH_TOKEN ||
+    !process.env.PORTAL_ADRESS
   ) {
     throw new Error(
       `Not all required envs defined! 
@@ -18,7 +19,8 @@ export default (): Error | void => {
         DB_NAME: ${!!process.env.DB_NAME}, 
         DB_HOST: ${!!process.env.DB_HOST},
         JWT_ACCESS_TOKEN: ${!!process.env.JWT_ACCESS_TOKEN},
-        JWT_REFRESH_TOKEN: ${!!process.env.JWT_REFRESH_TOKEN}`,
+        JWT_REFRESH_TOKEN: ${!!process.env.JWT_REFRESH_TOKEN},
+        PORTAL_ADRESS: ${!!process.env.PORTAL_ADRESS}`,
     );
   }
 };

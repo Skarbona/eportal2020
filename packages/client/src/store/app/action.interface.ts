@@ -5,6 +5,10 @@ interface ActionInterface {
   type: AppEnum;
 }
 
+export interface CleanAppAlerts extends ActionInterface {
+  type: AppEnum.CleanAppAlerts;
+}
+
 export interface CleanAppData extends ActionInterface {
   type: AppEnum.CleanAppData;
 }
@@ -37,6 +41,7 @@ export interface SetRefreshTokenData extends ActionInterface {
 }
 
 export type AppActions =
+  | CleanAppAlerts
   | CleanAppData
   | SetAccessTokenData
   | SetRefreshTokenData

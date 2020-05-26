@@ -8,6 +8,7 @@ import Main from './Main/Main';
 import Profile from './Profile/Profile';
 import NotFound from './404/404';
 import InitResetPassword from './ResetPassword/Init';
+import SetNewPassword from './ResetPassword/SetNewPassword';
 import { PageNames } from '../../store/pages/initialState.interface';
 import { PageParams } from '../../models/page-types';
 
@@ -40,6 +41,11 @@ export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
       {!accessToken && (
         <Route path={PageParams.ResetPassword} exact>
           <InitResetPassword />
+        </Route>
+      )}
+      {!accessToken && (
+        <Route path={`${PageParams.ResetPassword}/:token`} exact>
+          <SetNewPassword />
         </Route>
       )}
       <Route exact key="privacy-policy" path={PageParams.PrivacyPolice}>

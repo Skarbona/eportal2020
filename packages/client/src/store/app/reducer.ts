@@ -6,6 +6,14 @@ import { AlertTypes } from '../../models/alerts';
 
 const appReducer = (state = appInitialState, action: AppActions): AppStateInterface => {
   switch (action.type) {
+    case AppEnum.CleanAppAlerts: {
+      return {
+        ...state,
+        error: null,
+        alert: null,
+        alertType: null,
+      };
+    }
     case AppEnum.SetAccessTokenData: {
       const { accessToken, accessTokenExpiration } = action.data;
       return {

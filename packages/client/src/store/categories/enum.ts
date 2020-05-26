@@ -3,4 +3,5 @@ export enum CategoriesEnum {
   SuccessFetchCategories = 'successFetchCategories',
   FailFetchCategories = 'failFetchCategories',
   CleanCategoriesData = 'cleanCategoriesData',
+  CleanCategoriesAlerts = 'CleanCategoriesAlerts',
 }

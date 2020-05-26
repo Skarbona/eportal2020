@@ -8,5 +8,6 @@ export interface AppStateInterface {
     refreshTokenExpiration: Date;
   };
   error?: NetworkError;
+  alert?: boolean;
   alertType?: AlertTypes;
 }

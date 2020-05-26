@@ -6,6 +6,10 @@ interface ActionInterface {
   type: UserEnum;
 }
 
+export interface CleanUserAlerts extends ActionInterface {
+  type: UserEnum.CleanUserAlerts;
+}
+
 export interface InitFetchUserData extends ActionInterface {
   type: UserEnum.InitFetchUserData;
 }
@@ -30,6 +34,10 @@ export interface InitGetResetPasswordLink extends ActionInterface {
 
 export interface SuccessGetResetPasswordLink extends ActionInterface {
   type: UserEnum.SuccessGetResetPasswordLink;
+}
+
+export interface SuccessSetPassword extends ActionInterface {
+  type: UserEnum.SuccessSetPassword;
 }
 
 export interface FailGetResetPasswordLink extends ActionInterface {
@@ -95,6 +103,8 @@ export interface CleanUserData extends ActionInterface {
 }
 
 export type UserActions =
+  | CleanUserAlerts
+  | SuccessSetPassword
   | InitGetResetPasswordLink
   | SuccessGetResetPasswordLink
   | FailGetResetPasswordLink

@@ -18,5 +18,6 @@ export interface CategoriesStateInterface {
   allCatsMap: Map<string, string>;
   loading: boolean;
   error?: Error;
+  alert?: boolean;
   alertType?: AlertTypes;
 }

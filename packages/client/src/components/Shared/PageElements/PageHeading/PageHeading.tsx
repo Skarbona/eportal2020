@@ -11,6 +11,7 @@ export interface Props {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   component?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   className?: string;
+  disableBreadCrumbs?: boolean;
 }
 
 export const PageHeadingComponent: FC<Props> = ({
@@ -18,6 +19,7 @@ export const PageHeadingComponent: FC<Props> = ({
   variant = 'h2',
   component = 'h1',
   className = '',
+  disableBreadCrumbs = false,
 }) => {
   const { t } = useTranslation();
   return (
@@ -26,7 +28,7 @@ export const PageHeadingComponent: FC<Props> = ({
         <Container>
           <Typography variant={variant} component={component}>
             {t(title)}
-            <Breadcrumbs />
+            {!disableBreadCrumbs && <Breadcrumbs />}
           </Typography>
         </Container>
       </div>

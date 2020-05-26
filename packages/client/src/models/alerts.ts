@@ -22,6 +22,7 @@ export enum AlertTypes {
   UnAuthorizedWarning = 'UnAuthorizedWarning',
   UserDoesNotExist = 'UserDoesNotExist',
   CheckYourEmail = 'CheckYourEmail',
+  NewUserDataSet = 'NewUserDataSet',
 }
 
 export enum AlertSizes {
@@ -39,6 +40,13 @@ interface AlertHandlingMapInterface {
 export const AlertMap = new Map<AlertTypes, AlertHandlingMapInterface>();
 
 export const setAlertMap = () => {
+  AlertMap.set(AlertTypes.NewUserDataSet, {
+    header: i18n.t('Success'),
+    message: i18n.t('New user data was set successfully'),
+    size: AlertSizes.Big,
+    severity: 'success',
+  });
+
   AlertMap.set(AlertTypes.CheckYourEmail, {
     header: i18n.t('We got your request'),
     message: i18n.t('Please check your email for the next steps'),
@@ -48,7 +56,7 @@ export const setAlertMap = () => {
 
   AlertMap.set(AlertTypes.UserDoesNotExist, {
     header: i18n.t('User does not exist'),
-    message: i18n.t('Please check your email'),
+    message: i18n.t('Please check your email field'),
     size: AlertSizes.Big,
     severity: 'error',
   });
@@ -116,3 +124,12 @@ export const setAlertMap = () => {
     severity: 'warning',
   });
 };
+
+i18n.on('initialized', () => {
+  setAlertMap();
+});
+
+i18n.on('languageChanged', () => {
+  if (!i18n.isInitialized) return;
+  setAlertMap();
+});

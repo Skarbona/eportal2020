@@ -6,6 +6,10 @@ interface ActionInterface {
   type: CategoriesEnum;
 }
 
+export interface CleanCategoriesAlerts extends ActionInterface {
+  type: CategoriesEnum.CleanCategoriesAlerts;
+}
+
 export interface InitFetchCategories extends ActionInterface {
   type: CategoriesEnum.InitFetchCategories;
 }
@@ -29,6 +33,7 @@ export interface CleanCategoriesData extends ActionInterface {
 }
 
 export type CategoriesActions =
+  | CleanCategoriesAlerts
   | InitFetchCategories
   | SuccessFetchCategories
   | FailFetchCategories

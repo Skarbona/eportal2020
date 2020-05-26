@@ -13,6 +13,14 @@ import { GameStatus } from '../../models/game-models';
 
 const gameReducer = (state = gameInitialState, action: GameActions): GameStateInterface => {
   switch (action.type) {
+    case GameEnum.CleanGameAlerts: {
+      return {
+        ...state,
+        error: null,
+        alert: null,
+        alertType: null,
+      };
+    }
     case GameEnum.InitFetchPosts:
       return {
         ...state,

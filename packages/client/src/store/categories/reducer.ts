@@ -11,6 +11,14 @@ const categoriesReducer = (
   action: CategoriesActions,
 ): CategoriesStateInterface => {
   switch (action.type) {
+    case CategoriesEnum.CleanCategoriesAlerts: {
+      return {
+        ...state,
+        error: null,
+        alert: null,
+        alertType: null,
+      };
+    }
     case CategoriesEnum.InitFetchCategories:
       return {
         ...state,

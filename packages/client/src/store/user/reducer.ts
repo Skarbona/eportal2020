@@ -6,6 +6,14 @@ import { AlertTypes } from '../../models/alerts';
 
 const userReducer = (state = userInitialState, action: UserActions): UserStateInterface => {
   switch (action.type) {
+    case UserEnum.CleanUserAlerts: {
+      return {
+        ...state,
+        error: null,
+        alert: null,
+        alertType: null,
+      };
+    }
     case UserEnum.InitGetResetPasswordLink:
     case UserEnum.InitAuthorization:
     case UserEnum.InitSetUserData:
@@ -28,6 +36,14 @@ const userReducer = (state = userInitialState, action: UserActions): UserStateIn
       return {
         ...state,
         loading: false,
+      };
+    }
+    case UserEnum.SuccessSetPassword: {
+      return {
+        ...state,
+        loading: false,
+        alert: true,
+        alertType: AlertTypes.NewUserDataSet,
       };
     }
     case UserEnum.SuccessAuthorization:

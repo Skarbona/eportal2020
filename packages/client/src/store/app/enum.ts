@@ -4,4 +4,5 @@ export enum AppEnum {
   SetRefreshTokenData = 'setRefreshTokenData',
   InitRefreshTokens = 'initRefreshTokens',
   FailRefreshTokens = 'failRefreshTokens',
+  CleanAppAlerts = 'CleanAppAlerts',
 }

@@ -29,7 +29,7 @@ describe('<Pages > component', () => {
     expect(wrapper.find(AuthPage)).toHaveLength(1);
     expect(wrapper.find(NotFound)).toHaveLength(1);
     expect(wrapper.find(Page)).toHaveLength(2);
-    expect(wrapper.find(Route)).toHaveLength(5);
+    expect(wrapper.find(Route)).toHaveLength(7);
 
     expect(wrapper.find(Game)).toHaveLength(0);
   });

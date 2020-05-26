@@ -8,6 +8,10 @@ interface ActionInterface {
   type: GameEnum;
 }
 
+export interface CleanGameAlerts extends ActionInterface {
+  type: GameEnum.CleanGameAlerts;
+}
+
 export interface InitFetchPosts extends ActionInterface {
   type: GameEnum.InitFetchPosts;
 }
@@ -87,4 +91,5 @@ export type GameActions =
   | CleanCurrentTask
   | SaveActiveGameData
   | SetPoints
-  | CleanGameData;
+  | CleanGameData
+  | CleanGameAlerts;

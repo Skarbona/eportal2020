@@ -51,7 +51,7 @@
   "This is probably issue with Internet connection or server": "Proszę sprawdź połączenie internetowe. Jeżeli nie pomoże, skontaktuj się ze wsparciem technicznym",
   "We cannot save user data": "Nie możemy zapisać nowych danych",
   "Your permissions are not valid": "Nie możemy Ciebie zweryfikować",
-  "Please login again": "Proszę zaloguj się ponownie",
+  "Please login again": "Wygenerowany token stracił swoją ważność. Proszę skorzystaj z opcji resetowania hasła albo zaloguj się ponownie.",
   "Some features may be not available": "Niektóre funkcjonalności mogą być ograniczone. Proszę zaloguj się ponownie",
   "Profile": "Profil",
   "Home": "Strona główna",
@@ -103,5 +103,13 @@
   "Rules": "Zasady",
   "Play for free!": "Graj za darmo!",
   "App version": "Wersja aplikacji",
-  "I accept": "Zapoznałem się i akceptuje"
+  "I accept": "Zapoznałem się i akceptuje",
+  "Reset Password": "Resetowanie hasła",
+  "We got your request": "Potwierdzenie dostarczenia",
+  "Please check your email for the next steps": "Proszę sprawdzić skrzynkę pocztową i postępować według dalszych kroków opisanych w mailu.",
+  "User does not exist": "Użytkownik o podanym mailu nie jest zarejestrowany na portalu",
+  "Please check your email field": "Proszę sprawdź czy podany email jest na pewno poprawny.",
+  "Set New Password": "Ustaw nowe hasło",
+  "Success": "Sukces",
+  "New user data was set successfully": "Twoja dane zostały pomyśle zaktualizowane"
 }
