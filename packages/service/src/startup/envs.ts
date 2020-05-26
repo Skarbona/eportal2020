@@ -29,4 +29,13 @@ export default (): Error | void => {
         EMAIL_PASS: ${!!process.env.EMAIL_PASS}`,
     );
   }
+
+  if (
+    process.env.NODE_ENV === 'test' &&
+    (!process.env.ADMIN_TEST_USER || !process.env.ADMIN_TEST_PASS)
+  ) {
+    throw new Error(`Not all required envs defined for Test env! 
+        ADMIN_TEST_USER: ${!!process.env.ADMIN_TEST_USER}, 
+        ADMIN_TEST_PASS: ${!!process.env.ADMIN_TEST_PASS},`);
+  }
 };
