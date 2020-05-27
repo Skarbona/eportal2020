@@ -31,6 +31,7 @@ describe('Reducer: App', () => {
       ...initialState,
       auth: {
         ...initialState.auth,
+        isAuthorizationDone: true,
         ...data,
       },
     };
@@ -51,6 +52,7 @@ describe('Reducer: App', () => {
       ...initialState,
       auth: {
         ...initialState.auth,
+        isAuthorizationDone: true,
         ...data,
       },
     };

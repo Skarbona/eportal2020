@@ -6,7 +6,7 @@ import { OnRouteChangedComponent } from '../../../components/Hoc/OnRouteChanged'
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useHistory: () => ({
-    listen: (f) => f(),
+    listen: (f: any) => f(),
   }),
 }));
 
