@@ -22,6 +22,7 @@ const appReducer = (state = appInitialState, action: AppActions): AppStateInterf
           ...state.auth,
           accessToken,
           accessTokenExpiration,
+          isAuthorizationDone: true,
         },
       };
     }
@@ -33,6 +34,7 @@ const appReducer = (state = appInitialState, action: AppActions): AppStateInterf
           ...state.auth,
           refreshToken,
           refreshTokenExpiration,
+          isAuthorizationDone: true,
         },
       };
     }
@@ -41,6 +43,15 @@ const appReducer = (state = appInitialState, action: AppActions): AppStateInterf
         ...state,
         error: action.data.error,
         alertType: AlertTypes.UnAuthorizedWarning,
+      };
+    }
+    case AppEnum.FinishAuthorization: {
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          isAuthorizationDone: true,
+        },
       };
     }
     case AppEnum.CleanAppData:

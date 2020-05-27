@@ -48,13 +48,13 @@ export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
           <SetNewPassword />
         </Route>
       )}
-      <Route exact key="privacy-policy" path={PageParams.PrivacyPolice}>
+      <Route key="privacy-policy" path={PageParams.PrivacyPolice} exact>
         <Page slug={PageNames.PrivacyPolicy} />
       </Route>
-      <Route exact key="rules" path={PageParams.Rules}>
+      <Route key="rules" path={PageParams.Rules} exact>
         <Page slug={PageNames.Rules} />
       </Route>
-      <Route path={PageParams.Page404}>
+      <Route path={PageParams.Page404} exact>
         <NotFound />
       </Route>
       <Redirect to={PageParams.Page404} />

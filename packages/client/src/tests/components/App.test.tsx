@@ -29,6 +29,9 @@ describe('<App > component', () => {
   });
 
   it('should have all required elements on Big Screens', () => {
+    spyStore.mockReturnValue({
+      isAuthorizationDone: true,
+    });
     window.matchMedia = createMatchMedia(1280) as any;
     wrapper = shallow(<App />);
     expect(wrapper.find(ThemeProvider)).toHaveLength(1);
@@ -41,6 +44,9 @@ describe('<App > component', () => {
   });
 
   it('should have all required elements on Small Screens', () => {
+    spyStore.mockReturnValue({
+      isAuthorizationDone: true,
+    });
     window.matchMedia = createMatchMedia(600) as any;
     wrapper = shallow(<App />);
     expect(wrapper.find(ThemeProvider)).toHaveLength(1);

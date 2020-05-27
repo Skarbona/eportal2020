@@ -22,16 +22,19 @@ interface AppSelector {
   id: string;
   accessToken: string;
   expirationTokenDate: Date;
+  isAuthorizationDone: boolean;
 }
 
 export const App: FC = () => {
-  const { id, accessToken, expirationTokenDate } = useSelector<RootState, AppSelector>(
-    ({ user, app }) => ({
-      id: user.userData.id,
-      accessToken: app.auth.accessToken,
-      expirationTokenDate: app.auth.accessTokenExpiration,
-    }),
-  );
+  const { id, accessToken, expirationTokenDate, isAuthorizationDone } = useSelector<
+    RootState,
+    AppSelector
+  >(({ user, app }) => ({
+    id: user.userData.id,
+    accessToken: app.auth.accessToken,
+    expirationTokenDate: app.auth.accessTokenExpiration,
+    isAuthorizationDone: app.auth.isAuthorizationDone,
+  }));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useReduxDispatch();
   useEffect(() => {
@@ -48,7 +51,9 @@ export const App: FC = () => {
         <OnRouteChanged />
         <Header accessToken={accessToken} />
         <Container component="main" className="eportal__main" maxWidth={false} disableGutters>
-          <Pages accessToken={accessToken} expirationDate={expirationTokenDate} />
+          {isAuthorizationDone && (
+            <Pages accessToken={accessToken} expirationDate={expirationTokenDate} />
+          )}
           <SnackBarAlertHandler />
         </Container>
         <Footer />
