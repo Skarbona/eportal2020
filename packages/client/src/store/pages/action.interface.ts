@@ -6,6 +6,10 @@ interface ActionInterface {
   type: PagesEnum;
 }
 
+export interface CleanPagesAlerts extends ActionInterface {
+  type: PagesEnum.CleanPagesAlerts;
+}
+
 export interface InitGetPage extends ActionInterface {
   type: PagesEnum.InitGetPage;
 }
@@ -24,4 +28,4 @@ export interface SuccessGetPage extends ActionInterface {
   };
 }
 
-export type PagesActions = InitGetPage | SuccessGetPage | FailGetPage;
+export type PagesActions = CleanPagesAlerts | InitGetPage | SuccessGetPage | FailGetPage;

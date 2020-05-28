@@ -83,4 +83,33 @@ describe('Reducer: App', () => {
     const state = appReducer(initialState, action);
     expect(state).toEqual(initialState);
   });
+
+  it('should handle CleanAppAlerts', () => {
+    const action: I.CleanAppAlerts = {
+      type: AppEnum.CleanAppAlerts,
+    };
+    const expectedState: AppStateInterface = {
+      ...initialState,
+      error: null,
+      alert: null,
+      alertType: null,
+    };
+    const state = appReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle FinishAuthorization', () => {
+    const action: I.FinishAuthorization = {
+      type: AppEnum.FinishAuthorization,
+    };
+    const expectedState: AppStateInterface = {
+      ...initialState,
+      auth: {
+        ...initialState.auth,
+        isAuthorizationDone: true,
+      },
+    };
+    const state = appReducer(initialState, action);
+    expect(state).toEqual(expectedState);
+  });
 });

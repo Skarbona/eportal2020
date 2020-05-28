@@ -23,6 +23,7 @@ export enum AlertTypes {
   UserDoesNotExist = 'UserDoesNotExist',
   CheckYourEmail = 'CheckYourEmail',
   NewUserDataSet = 'NewUserDataSet',
+  ServerErrorSnackBar = 'ServerErrorSnackBar',
 }
 
 export enum AlertSizes {
@@ -100,6 +101,13 @@ export const setAlertMap = (): void => {
     header: i18n.t('Server cannot response'),
     message: i18n.t('This is probably issue with Internet connection or server'),
     size: AlertSizes.Big,
+    severity: 'error',
+  });
+
+  AlertMap.set(AlertTypes.ServerErrorSnackBar, {
+    header: i18n.t('Server cannot response'),
+    message: i18n.t('This is probably issue with Internet connection or server'),
+    size: AlertSizes.Snackbar,
     severity: 'error',
   });
 

@@ -4,6 +4,54 @@ import * as A from '../../../store/user/action';
 import { mockedStore } from '../../../mocks/store';
 
 describe('Actions: User', () => {
+  it('should create initGetResetPasswordLink action', () => {
+    const expectedAction: I.InitGetResetPasswordLink = {
+      type: UserEnum.InitGetResetPasswordLink,
+    };
+
+    const action = A.initGetResetPasswordLink();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create successGetResetPasswordLink action', () => {
+    const expectedAction: I.SuccessGetResetPasswordLink = {
+      type: UserEnum.SuccessGetResetPasswordLink,
+    };
+
+    const action = A.successGetResetPasswordLink();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create successSetPassword action', () => {
+    const expectedAction: I.SuccessSetPassword = {
+      type: UserEnum.SuccessSetPassword,
+    };
+
+    const action = A.successSetPassword();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create cleanUserAlerts action', () => {
+    const expectedAction: I.CleanUserAlerts = {
+      type: UserEnum.CleanUserAlerts,
+    };
+
+    const action = A.cleanUserAlerts();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create failGetResetPasswordLink action', () => {
+    const error = new Error();
+    const expectedAction: I.FailGetResetPasswordLink = {
+      type: UserEnum.FailGetResetPasswordLink,
+      data: {
+        error,
+      },
+    };
+    const action = A.failGetResetPasswordLink(error);
+    expect(action).toEqual(expectedAction);
+  });
+
   it('should create initFetchUserData action', () => {
     const expectedAction: I.InitFetchUserData = {
       type: UserEnum.InitFetchUserData,

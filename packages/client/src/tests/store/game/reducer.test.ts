@@ -21,6 +21,20 @@ describe('Reducer: Game', () => {
     expect(state).toEqual(initialState);
   });
 
+  it('should handle CleanGameAlerts', () => {
+    const action: I.CleanGameAlerts = {
+      type: GameEnum.CleanGameAlerts,
+    };
+    const state = gameReducer(initialState, action);
+    const expectedState: GameStateInterface = {
+      ...initialState,
+      alertType: null,
+      error: null,
+      alert: null,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
   it('should handle InitFetchPosts', () => {
     const action: I.InitFetchPosts = {
       type: GameEnum.InitFetchPosts,

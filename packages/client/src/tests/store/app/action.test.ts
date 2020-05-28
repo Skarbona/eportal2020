@@ -3,6 +3,24 @@ import { AppEnum } from '../../../store/app/enum';
 import * as A from '../../../store/app/action';
 
 describe('Actions: App', () => {
+  it('should create finishAuthorization action', () => {
+    const expectedAction: I.FinishAuthorization = {
+      type: AppEnum.FinishAuthorization,
+    };
+
+    const action = A.finishAuthorization();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create cleanAppAlerts action', () => {
+    const expectedAction: I.CleanAppAlerts = {
+      type: AppEnum.CleanAppAlerts,
+    };
+
+    const action = A.cleanAppAlerts();
+    expect(action).toEqual(expectedAction);
+  });
+
   it('should create cleanAppData action', () => {
     const expectedAction: I.CleanAppData = {
       type: AppEnum.CleanAppData,

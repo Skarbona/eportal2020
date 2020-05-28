@@ -5,6 +5,7 @@ import * as deleteUserThunk from '../../../store/user/thunks/deleteUser';
 import * as fetchUserDataThunk from '../../../store/user/thunks/fetchUserData';
 import * as authorizeUserThunk from '../../../store/user/thunks/authorizeUser';
 import * as changePasswordThunk from '../../../store/user/thunks/changePassword';
+import * as getResetPasswordLinkThunk from '../../../store/user/thunks/getResetPasswordLink';
 import * as logoutThunk from '../../../store/app/thunks/logout';
 import * as userActions from '../../../store/user/action';
 
@@ -26,10 +27,18 @@ describe('Thunk: User', () => {
   let successDeleteUserSpy: any;
   let failDeleteUserSpy: any;
   let logoutSpy: any;
+  let failGetResetPasswordLinkSpy: any;
+  let successGetResetPasswordLinkSpy: any;
+  let initGetResetPasswordLinkSpy: any;
+  let successSetPasswordSpy: any;
 
   beforeEach(() => {
     dispatch = jest.fn();
     initSetUserDataSpy = jest.spyOn(userActions, 'initSetUserData');
+    initGetResetPasswordLinkSpy = jest.spyOn(userActions, 'initGetResetPasswordLink');
+    successGetResetPasswordLinkSpy = jest.spyOn(userActions, 'successGetResetPasswordLink');
+    failGetResetPasswordLinkSpy = jest.spyOn(userActions, 'failGetResetPasswordLink');
+    successSetPasswordSpy = jest.spyOn(userActions, 'successSetPassword');
     successSetUserDataSpy = jest.spyOn(userActions, 'successSetUserData');
     failSetUserDataSpy = jest.spyOn(userActions, 'failSetUserData');
     initFetchUserDataSpy = jest.spyOn(userActions, 'initFetchUserData');
@@ -58,6 +67,35 @@ describe('Thunk: User', () => {
     successDeleteUserSpy.mockClear();
     failDeleteUserSpy.mockClear();
     logoutSpy.mockClear();
+    failGetResetPasswordLinkSpy.mockClear();
+    successGetResetPasswordLinkSpy.mockClear();
+    initGetResetPasswordLinkSpy.mockClear();
+    successSetPasswordSpy.mockClear();
+  });
+
+  describe('getResetPasswordLink thunk', () => {
+    it('should call all required action in success path', async () => {
+      jest.spyOn(axios, 'post').mockImplementation(() => Promise.resolve());
+      await getResetPasswordLinkThunk.getResetPasswordLink('test@test.pl')(
+        dispatch,
+        () => initialRootState,
+        null,
+      );
+      expect(initGetResetPasswordLinkSpy).toHaveBeenCalled();
+      expect(successGetResetPasswordLinkSpy).toHaveBeenCalled();
+    });
+
+    it('should call all required action in fail path', async () => {
+      const error = new Error();
+      jest.spyOn(axios, 'post').mockImplementation(() => Promise.reject(error));
+      await getResetPasswordLinkThunk.getResetPasswordLink('test@test.pl')(
+        dispatch,
+        () => initialRootState,
+        null,
+      );
+      expect(initGetResetPasswordLinkSpy).toHaveBeenCalled();
+      expect(failGetResetPasswordLinkSpy).toHaveBeenCalledWith(error);
+    });
   });
 
   describe('setUserData thunk', () => {
@@ -153,6 +191,7 @@ describe('Thunk: User', () => {
         null,
       );
       expect(initSetUserDataSpy).toHaveBeenCalled();
+      expect(successSetPasswordSpy).toHaveBeenCalled();
       expect(logoutSpy).toHaveBeenCalled();
     });
 
