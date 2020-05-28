@@ -4,6 +4,10 @@ import * as I from './action.interface';
 import { PagesEnum } from './enum';
 import { SinglePageData } from './initialState.interface';
 
+export const cleanPagesAlerts: ActionCreator<I.CleanPagesAlerts> = () => ({
+  type: PagesEnum.CleanPagesAlerts,
+});
+
 export const initGetPage: ActionCreator<I.InitGetPage> = () => ({
   type: PagesEnum.InitGetPage,
 });

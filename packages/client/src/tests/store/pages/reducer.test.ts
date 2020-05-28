@@ -58,7 +58,7 @@ describe('Reducer: Pages', () => {
     const expectedState: PagesStateInterface = {
       ...initialState,
       error: data.error,
-      alertType: AlertTypes.ServerError,
+      alertType: AlertTypes.ServerErrorSnackBar,
     };
     expect(state).toEqual(expectedState);
   });

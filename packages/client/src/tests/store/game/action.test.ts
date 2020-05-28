@@ -5,6 +5,15 @@ import * as A from '../../../store/game/action';
 import { postsResponseMock } from '../../../mocks/responses';
 
 describe('Actions: Game', () => {
+  it('should create cleanGameAlerts action', () => {
+    const expectedAction: I.CleanGameAlerts = {
+      type: GameEnum.CleanGameAlerts,
+    };
+
+    const action = A.cleanGameAlerts();
+    expect(action).toEqual(expectedAction);
+  });
+
   it('should create initFetchPosts action', () => {
     const expectedAction: I.InitFetchPosts = {
       type: GameEnum.InitFetchPosts,

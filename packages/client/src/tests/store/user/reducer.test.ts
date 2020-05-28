@@ -18,6 +18,79 @@ describe('Reducer: User', () => {
     expect(state).toEqual(initialState);
   });
 
+  it('should handle CleanUserAlerts', () => {
+    const action: I.CleanUserAlerts = {
+      type: UserEnum.CleanUserAlerts,
+    };
+    const state = userReducer(initialState, action);
+    const expectedState: UserStateInterface = {
+      ...initialState,
+      error: null,
+      alert: null,
+      alertType: null,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle InitGetResetPasswordLink', () => {
+    const action: I.InitGetResetPasswordLink = {
+      type: UserEnum.InitGetResetPasswordLink,
+    };
+    const state = userReducer(initialState, action);
+    const expectedState: UserStateInterface = {
+      ...initialState,
+      loading: true,
+      error: null,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle SuccessGetResetPasswordLink', () => {
+    const action: I.SuccessGetResetPasswordLink = {
+      type: UserEnum.SuccessGetResetPasswordLink,
+    };
+    const state = userReducer(initialState, action);
+    const expectedState: UserStateInterface = {
+      ...initialState,
+      loading: false,
+      alert: true,
+      alertType: AlertTypes.CheckYourEmail,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle SuccessSetPassword', () => {
+    const action: I.SuccessSetPassword = {
+      type: UserEnum.SuccessSetPassword,
+    };
+    const state = userReducer(initialState, action);
+    const expectedState: UserStateInterface = {
+      ...initialState,
+      loading: false,
+      alert: true,
+      alertType: AlertTypes.NewUserDataSet,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should handle FailGetResetPasswordLink', () => {
+    const error = { response: { status: 401 } } as NetworkError;
+    const action: I.FailGetResetPasswordLink = {
+      type: UserEnum.FailGetResetPasswordLink,
+      data: {
+        error,
+      },
+    };
+    const state = userReducer(initialState, action);
+    const expectedState = {
+      ...initialState,
+      loading: false,
+      error,
+      alertType: AlertTypes.UserDoesNotExist,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
   it('should handle InitFetchUserData', () => {
     const action: I.InitFetchUserData = {
       type: UserEnum.InitFetchUserData,

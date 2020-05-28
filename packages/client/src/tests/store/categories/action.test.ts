@@ -4,6 +4,15 @@ import * as A from '../../../store/categories/action';
 import { categoryResponseMock } from '../../../mocks/responses';
 
 describe('Actions: Categories', () => {
+  it('should create cleanCategoriesAlerts action', () => {
+    const expectedAction: I.CleanCategoriesAlerts = {
+      type: CategoriesEnum.CleanCategoriesAlerts,
+    };
+
+    const action = A.cleanCategoriesAlerts();
+    expect(action).toEqual(expectedAction);
+  });
+
   it('should create initFetchCategories action', () => {
     const expectedAction: I.InitFetchCategories = {
       type: CategoriesEnum.InitFetchCategories,

@@ -15,15 +15,15 @@ export const successGetResetPasswordLink: ActionCreator<I.SuccessGetResetPasswor
   type: UserEnum.SuccessGetResetPasswordLink,
 });
 
-export const successSetPassword: ActionCreator<I.SuccessSetPassword> = () => ({
-  type: UserEnum.SuccessSetPassword,
-});
-
 export const failGetResetPasswordLink: ActionCreator<I.FailGetResetPasswordLink> = (error) => ({
   type: UserEnum.FailGetResetPasswordLink,
   data: {
     error,
   },
+});
+
+export const successSetPassword: ActionCreator<I.SuccessSetPassword> = () => ({
+  type: UserEnum.SuccessSetPassword,
 });
 
 export const initFetchUserData: ActionCreator<I.InitFetchUserData> = () => ({

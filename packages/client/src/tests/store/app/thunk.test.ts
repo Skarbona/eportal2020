@@ -4,12 +4,14 @@ import * as logoutThunk from '../../../store/app/thunks/logout';
 import * as loginThunk from '../../../store/app/thunks/login';
 import * as refreshThunk from '../../../store/app/thunks/refreshTokens';
 import * as cleanThunk from '../../../store/app/thunks/cleanAppDataHandler';
+import * as cleanAlertsThunk from '../../../store/app/thunks/cleanAlerts';
 
 import { initialRootState } from '../../../store/store';
 import * as appActions from '../../../store/app/action';
 import * as categoriesActions from '../../../store/categories/action';
 import * as gameActions from '../../../store/game/action';
 import * as userActions from '../../../store/user/action';
+import * as pagesActions from '../../../store/pages/action';
 
 describe('Thunk: App', () => {
   let dispatch: any;
@@ -18,17 +20,55 @@ describe('Thunk: App', () => {
     dispatch = jest.fn();
   });
 
+  describe('cleanAlerts thunk', () => {
+    let cleanAppAlertsSpy: any;
+    let cleanCategoriesAlertsSpy: any;
+    let cleanGameAlertsSpy: any;
+    let cleanUserAlertsSpy: any;
+    let cleanPagesAlertsSpy: any;
+    let cleanAlertsSpy: any;
+
+    beforeEach(() => {
+      cleanAppAlertsSpy = jest.spyOn(appActions, 'cleanAppAlerts');
+      cleanCategoriesAlertsSpy = jest.spyOn(categoriesActions, 'cleanCategoriesAlerts');
+      cleanGameAlertsSpy = jest.spyOn(gameActions, 'cleanGameAlerts');
+      cleanUserAlertsSpy = jest.spyOn(userActions, 'cleanUserAlerts');
+      cleanPagesAlertsSpy = jest.spyOn(pagesActions, 'cleanPagesAlerts');
+      cleanAlertsSpy = jest.spyOn(cleanAlertsThunk, 'cleanAlertsHandler');
+    });
+
+    afterEach(() => {
+      cleanAppAlertsSpy.mockClear();
+      cleanCategoriesAlertsSpy.mockClear();
+      cleanGameAlertsSpy.mockClear();
+      cleanUserAlertsSpy.mockClear();
+      cleanPagesAlertsSpy.mockClear();
+      cleanAlertsSpy.mockClear();
+    });
+
+    it('should call all required actions', () => {
+      cleanAlertsThunk.cleanAlertsHandler()(dispatch, () => initialRootState, null);
+      expect(cleanAppAlertsSpy).toHaveBeenCalledTimes(1);
+      expect(cleanCategoriesAlertsSpy).toHaveBeenCalledTimes(1);
+      expect(cleanGameAlertsSpy).toHaveBeenCalledTimes(1);
+      expect(cleanUserAlertsSpy).toHaveBeenCalledTimes(1);
+      expect(cleanPagesAlertsSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('cleanAppDataHandler thunk', () => {
     let cleanAppDataSpy: any;
     let cleanCategoriesDataSpy: any;
     let cleanGameDataSpy: any;
     let cleanUserDataSpy: any;
+    let cleanAlertsSpy: any;
 
     beforeEach(() => {
       cleanAppDataSpy = jest.spyOn(appActions, 'cleanAppData');
       cleanCategoriesDataSpy = jest.spyOn(categoriesActions, 'cleanCategoriesData');
       cleanGameDataSpy = jest.spyOn(gameActions, 'cleanGameData');
       cleanUserDataSpy = jest.spyOn(userActions, 'cleanUserData');
+      cleanAlertsSpy = jest.spyOn(cleanAlertsThunk, 'cleanAlertsHandler');
     });
 
     afterEach(() => {
@@ -36,6 +76,7 @@ describe('Thunk: App', () => {
       cleanCategoriesDataSpy.mockClear();
       cleanGameDataSpy.mockClear();
       cleanUserDataSpy.mockClear();
+      cleanAlertsSpy.mockClear();
     });
 
     it('should call all required actions', () => {
@@ -88,13 +129,17 @@ describe('Thunk: App', () => {
   describe('logout thunk', () => {
     let cleanAppDataHandler: any;
     let clearItemsLocalStorageSpy: any;
+    let finishAuthorizationSpy: any;
 
     beforeEach(() => {
       cleanAppDataHandler = jest.spyOn(cleanThunk, 'cleanAppDataHandler');
+      finishAuthorizationSpy = jest.spyOn(appActions, 'finishAuthorization');
       clearItemsLocalStorageSpy = jest.spyOn(window.localStorage.__proto__, 'clear');
     });
 
     afterEach(() => {
+      finishAuthorizationSpy.mockClear();
+
       cleanAppDataHandler.mockClear();
       clearItemsLocalStorageSpy.mockClear();
     });
@@ -103,6 +148,7 @@ describe('Thunk: App', () => {
       logoutThunk.logout()(dispatch, () => initialRootState, null);
       expect(clearItemsLocalStorageSpy).toHaveBeenCalledTimes(1);
       expect(cleanAppDataHandler).toHaveBeenCalled();
+      expect(finishAuthorizationSpy).toHaveBeenCalled();
     });
   });
 

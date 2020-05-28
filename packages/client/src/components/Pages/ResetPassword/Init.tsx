@@ -34,9 +34,9 @@ export const InitResetPasswordComponent: FC = () => {
   } = useForm([InputKeys.Email], false);
 
   const handleSubmit = useCallback(
-    async (e: SubmitEvent) => {
+    (e: SubmitEvent) => {
       e.preventDefault();
-      await dispatch(getResetPasswordLink(inputs.email.value));
+      dispatch(getResetPasswordLink(inputs.email.value));
     },
     [dispatch, inputs.email.value],
   );

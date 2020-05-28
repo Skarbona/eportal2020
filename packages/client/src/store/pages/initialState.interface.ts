@@ -21,6 +21,7 @@ export interface PagesStateInterface {
     [PageNames.Rules]?: SinglePageData;
   };
   error?: NetworkError;
+  alert?: boolean;
   alertType?: AlertTypes;
   loading?: boolean;
 }

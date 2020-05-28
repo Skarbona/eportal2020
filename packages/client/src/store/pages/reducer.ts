@@ -6,6 +6,14 @@ import { AlertTypes } from '../../models/alerts';
 
 const pagesReducer = (state = pagesInitialState, action: PagesActions): PagesStateInterface => {
   switch (action.type) {
+    case PagesEnum.CleanPagesAlerts: {
+      return {
+        ...state,
+        alertType: null,
+        alert: null,
+        error: null,
+      };
+    }
     case PagesEnum.InitGetPage: {
       return {
         ...state,
@@ -29,7 +37,7 @@ const pagesReducer = (state = pagesInitialState, action: PagesActions): PagesSta
       return {
         ...state,
         error: action.data.error,
-        alertType: AlertTypes.ServerError, // TODO: Small error
+        alertType: AlertTypes.ServerErrorSnackBar,
         loading: false,
       };
     }

@@ -20,6 +20,20 @@ describe('Reducer: Categories', () => {
     expect(state).toEqual(initialState);
   });
 
+  it('should handle CleanCategoriesAlerts', () => {
+    const action: I.CleanCategoriesAlerts = {
+      type: CategoriesEnum.CleanCategoriesAlerts,
+    };
+    const state = categoriesReducer(initialState, action);
+    const expectedState: CategoriesStateInterface = {
+      ...initialState,
+      alert: null,
+      alertType: null,
+      error: null,
+    };
+    expect(state).toEqual(expectedState);
+  });
+
   it('should handle InitFetchCategories', () => {
     const action: I.InitFetchCategories = {
       type: CategoriesEnum.InitFetchCategories,
