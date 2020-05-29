@@ -200,6 +200,40 @@ describe('Controller: Users', () => {
     });
   });
 
+  describe('resetPassword Controller', () => {
+    it('should send an email', async () => {
+      await signUpUser(server, 'test@chiliit.pl');
+
+      const response = await request(server)
+        .post(endpoint + '/reset-password/')
+        .send({
+          email: 'test@chiliit.pl',
+        });
+
+      expect(response.status).toEqual(202);
+      expect(response.body.msg).toBeDefined();
+    });
+
+    it('should not send an email if no email provided', async () => {
+      await signUpUser(server);
+
+      const response = await request(server).post(endpoint + '/reset-password/');
+      expect(response.status).toEqual(400);
+    });
+
+    it('should not send an email if user not exist', async () => {
+      await signUpUser(server);
+
+      const response = await request(server)
+        .post(endpoint + '/reset-password/')
+        .send({
+          email: 'test2@test2.pl',
+        });
+
+      expect(response.status).toEqual(401);
+    });
+  });
+
   describe('getUserData Controller', () => {
     it('should return userData', async () => {
       const user = await signUpUser(server);
