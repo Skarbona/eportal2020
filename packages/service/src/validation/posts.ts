@@ -6,8 +6,10 @@ const catsQueryRules = {
   optional: { options: { nullable: true } },
   custom: {
     options: (cats: string): boolean => {
-      const hasInvalidIds = cats?.split(',').find((cat) => !Types.ObjectId.isValid(cat));
-      if (hasInvalidIds) {
+      const catsIds = cats?.split(',');
+      let hasInvalidIds = catsIds.every((cat) => Types.ObjectId.isValid(cat));
+
+      if (!hasInvalidIds) {
         throw new Error('Provided Ids are not valid');
       }
       return true;

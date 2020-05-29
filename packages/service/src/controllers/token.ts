@@ -16,6 +16,6 @@ export const refresh = async (
     const { accessToken, refreshToken } = createTokens(user);
     res.json({ accessToken, refreshToken });
   } catch (e) {
-    return next(new HttpError('Cannot sign up', 500));
+    return next(new HttpError('Cannot refresh token', 500));
   }
 };

@@ -51,11 +51,11 @@ export const getPosts = async (
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.array() });
   }
-
+  // TODO: Add option for posts not in Waiting for Approval State
   const { catsIncludeStrict, catsInclude, catsExclude } = req.query;
   try {
     let posts;
-    if (req.query) {
+    if (catsIncludeStrict || catsInclude || catsExclude) {
       let options: {};
       if (catsIncludeStrict) {
         options = { $eq: catsIncludeStrict };
@@ -66,18 +66,18 @@ export const getPosts = async (
       }
 
       if (catsInclude) {
-        options = { ...options, $nin: (catsInclude as string).split(',') };
+        options = { ...options, $in: (catsInclude as string).split(',') };
       }
       posts = await Post.find({
         categories: options,
       });
+    } else {
+      posts = await Post.find();
     }
 
-    if (!req.query) {
-      posts = await Post.find().populate('categories');
-    }
-
-    res.json({ posts: posts.map((post) => post.toObject({ getters: true })) });
+    res.json({
+      posts: posts.map((post) => post.toObject({ getters: true })),
+    });
   } catch (e) {
     // TODO: Add errors logging
     console.log(e);

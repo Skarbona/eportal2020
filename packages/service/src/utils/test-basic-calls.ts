@@ -2,6 +2,7 @@
 import request, { Response } from 'supertest';
 import { Server } from 'http';
 import { config } from 'dotenv';
+import mongoose from 'mongoose';
 
 config();
 
@@ -22,11 +23,11 @@ export const createCategories = (server: Server, token: string, body?: any): Pro
     .set('Authorization', `Bearer ${token}`);
 };
 
-export const signUpUser = (server: Server): Promise<Response> => {
+export const signUpUser = (server: Server, email = 'test@test.pl'): Promise<Response> => {
   return request(server).post('/api/users/signup').send({
     password: 'aaAA1111',
     userName: 'AAAA',
-    email: 'test@test.pl',
+    email,
   });
 };
 
@@ -79,5 +80,46 @@ export const updatePage = (
   return request(server)
     .patch('/api/pages/' + slug)
     .send(!body ? sendBody : { ...body })
+    .set('Authorization', `Bearer ${token}`);
+};
+
+export const createPosts = (
+  server: Server,
+  token: string,
+  authorId: string,
+  body?: any,
+): Promise<Response> => {
+  const sendBody = {
+    posts: [
+      {
+        content: {
+          content: 'CONTENT',
+          title: 'TITLE',
+        },
+        author: authorId,
+        image: '',
+        categories: [mongoose.Types.ObjectId()],
+      },
+      {
+        content: {
+          content: 'CONTENT2',
+          title: 'TITLE2',
+        },
+        author: authorId,
+        image: '',
+        categories: [mongoose.Types.ObjectId()],
+      },
+    ],
+  };
+
+  return request(server)
+    .post('/api/posts')
+    .send(!body ? sendBody : { ...body })
+    .set('Authorization', `Bearer ${token}`);
+};
+
+export const getPosts = (server: Server, token: string, query = ''): Promise<Response> => {
+  return request(server)
+    .get('/api/posts/' + query)
     .set('Authorization', `Bearer ${token}`);
 };

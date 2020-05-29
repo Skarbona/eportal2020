@@ -54,7 +54,7 @@ describe('Controller: Category', () => {
       expect(categories.status).toEqual(401);
     });
 
-    it('should NOT return userData if access token not provided', async () => {
+    it('should NOT return data if access token not provided', async () => {
       const response = await request(server)
         .post(endpoint)
         .send({
