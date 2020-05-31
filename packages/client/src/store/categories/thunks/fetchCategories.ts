@@ -5,14 +5,17 @@ import { categoriesIds } from '../../../constants/categoriesIds';
 import { initFetchCategories, successFetchCategories, failFetchCategories } from '../action';
 import { AppThunk } from '../../store.interface';
 
-export const fetchCategories = (token: string): AppThunk => async (dispatch) => {
+export const fetchCategories = (): AppThunk => async (dispatch, getState) => {
   dispatch(initFetchCategories());
   try {
+    const {
+      app: { auth },
+    } = getState();
     const { data } = await axios.get(
       `${process.env.REACT_APP_BACKEND_API}/categories?ids=${categoriesIds.toString()}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${auth.accessToken}`,
         },
       },
     );

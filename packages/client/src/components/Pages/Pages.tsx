@@ -14,10 +14,9 @@ import { PageParams } from '../../models/page-types';
 
 interface Props {
   accessToken: string;
-  expirationDate: Date;
 }
 // TODO: Add lazy loading for pages
-export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
+export const PagesComponent: FC<Props> = ({ accessToken }) => {
   return (
     <Switch>
       <Route path={PageParams.Home} exact>
@@ -30,7 +29,7 @@ export const PagesComponent: FC<Props> = ({ accessToken, expirationDate }) => {
       )}
       {accessToken && (
         <Route path={PageParams.Game} exact>
-          <Game accessToken={accessToken} expirationDate={expirationDate} />
+          <Game />
         </Route>
       )}
       {!accessToken && (
