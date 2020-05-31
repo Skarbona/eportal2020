@@ -39,8 +39,9 @@ describe('<Game > component', () => {
       config: game.config,
       hasPosts: false,
       hasCategories: false,
+      expirationDate: new Date(2030, 10, 10),
+      accessToken: 'TOKEN',
     };
-    spyStore.mockReturnValue(selectorProps);
   });
 
   afterEach(() => {
@@ -55,18 +56,14 @@ describe('<Game > component', () => {
   });
 
   it('should have all required elements', () => {
-    wrapper = shallow(
-      <GameComponent accessToken="TOKEN" expirationDate={new Date(2030, 10, 10)} />,
-    );
+    wrapper = shallow(<GameComponent />);
     expect(wrapper.find(GameSettings)).toHaveLength(0);
     expect(wrapper.find(Levels)).toHaveLength(0);
   });
 
   it('should render GameSetting if has all required props', () => {
     spyStore.mockReturnValue({ ...selectorProps, gameStatus: GameStatus.NewGame });
-    wrapper = shallow(
-      <GameComponent accessToken="TOKEN" expirationDate={new Date(2030, 10, 10)} />,
-    );
+    wrapper = shallow(<GameComponent />);
   });
 
   it('should render Levels if has all required props', () => {
@@ -76,36 +73,33 @@ describe('<Game > component', () => {
       hasPosts: true,
       hasCategories: true,
     });
-    wrapper = shallow(
-      <GameComponent accessToken="TOKEN" expirationDate={new Date(2030, 10, 10)} />,
-    );
-  });
-
-  it('should call fetchCategories', () => {
-    wrapper = shallow(
-      <GameComponent accessToken="TOKEN" expirationDate={new Date(2030, 10, 10)} />,
-    );
-    expect(spyFetchCategories).toHaveBeenCalled();
+    wrapper = shallow(<GameComponent />);
   });
 
   it('should not call fetchCategories if no tokens', () => {
-    wrapper = shallow(<GameComponent accessToken="" expirationDate={null} />);
+    spyStore.mockReturnValue({
+      ...selectorProps,
+      expirationDate: null,
+      accessToken: null,
+    });
+    wrapper = shallow(<GameComponent />);
     expect(spyFetchCategories).not.toHaveBeenCalled();
   });
 
   it('should not call fetchCategories if token expired', () => {
-    wrapper = shallow(
-      <GameComponent accessToken="TOKEN" expirationDate={new Date(2019, 10, 10)} />,
-    );
+    spyStore.mockReturnValue({
+      ...selectorProps,
+      expirationDate: new Date(2018, 10, 10),
+      accessToken: null,
+    });
+    wrapper = shallow(<GameComponent />);
     expect(spyFetchCategories).not.toHaveBeenCalled();
   });
 
   it('should reset basic Game data on load/reload of page', () => {
     spyStore.mockReturnValue(selectorProps);
 
-    wrapper = shallow(
-      <GameComponent accessToken="TOKEN" expirationDate={new Date(2030, 10, 10)} />,
-    );
+    wrapper = shallow(<GameComponent />);
     expect(setGameStatusSpy).toHaveBeenCalled();
     expect(saveActiveGameDataSpy).toHaveBeenCalled();
     expect(removeItemLocalStorageSpy).toHaveBeenCalledTimes(2);
@@ -116,9 +110,7 @@ describe('<Game > component', () => {
 
     getItemLocalStorageSpy.mockReturnValue(true);
 
-    wrapper = shallow(
-      <GameComponent accessToken="TOKEN" expirationDate={new Date(2030, 10, 10)} />,
-    );
+    wrapper = shallow(<GameComponent />);
     expect(setGameStatusSpy).toHaveBeenCalled();
     expect(setFormValuesSpy).toHaveBeenCalled();
   });
@@ -128,9 +120,7 @@ describe('<Game > component', () => {
       ...selectorProps,
       gameStatus: GameStatus.Level3,
     });
-    wrapper = shallow(
-      <GameComponent accessToken="TOKEN" expirationDate={new Date(2030, 10, 10)} />,
-    );
+    wrapper = shallow(<GameComponent />);
     expect(fetchPostsForGameSpy).toHaveBeenCalled();
   });
 
@@ -140,9 +130,7 @@ describe('<Game > component', () => {
       gameStatus: GameStatus.Level3,
       hasPosts: true,
     });
-    wrapper = shallow(
-      <GameComponent accessToken="TOKEN" expirationDate={new Date(2030, 10, 10)} />,
-    );
+    wrapper = shallow(<GameComponent />);
     expect(fetchPostsForGameSpy).not.toHaveBeenCalled();
   });
 });

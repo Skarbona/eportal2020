@@ -15,7 +15,7 @@ export const fetchPostsForGame = (makeCheck?: boolean): AppThunk => async (dispa
       app: { auth },
     } = getState();
     const { data } = await axios.get(
-      `${process.env.REACT_APP_BACKEND_API}/posts?catsIncludeStrict=${place}&catsExclude=${catsQuery.catsExclude}`,
+      `${process.env.REACT_APP_BACKEND_API}/posts?catsIncludeStrict=${place}&catsInclude=${catsQuery.catsInclude}&catsExclude=${catsQuery.catsExclude}`,
       {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,

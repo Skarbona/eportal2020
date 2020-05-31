@@ -61,13 +61,14 @@ export const getPosts = async (
         options = { $eq: catsIncludeStrict };
       }
 
+      if (catsInclude) {
+        options = { ...options, $in: (catsInclude as string).split(',') };
+      }
+
       if (catsExclude) {
         options = { ...options, $nin: (catsExclude as string).split(',') };
       }
 
-      if (catsInclude) {
-        options = { ...options, $in: (catsInclude as string).split(',') };
-      }
       posts = await Post.find({
         categories: options,
       });

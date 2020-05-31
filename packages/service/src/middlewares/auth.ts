@@ -28,7 +28,9 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
     const decodedToken = jwt.verify(accessToken, process.env.JWT_ACCESS_TOKEN) as DecodedToken;
 
     if (new Date().getTime() > decodedToken.exp * 1000) {
-      throw new Error();
+      throw new Error(
+        `Access Token expired for user ${decodedToken.email} with id: ${decodedToken.userId}`,
+      );
     }
     req.userData = {
       userId: decodedToken.userId,
@@ -54,7 +56,9 @@ export const authRefreshMiddleware = (req: Request, res: Response, next: NextFun
     const decodedToken = jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN) as DecodedToken;
 
     if (new Date().getTime() > decodedToken.exp * 1000) {
-      throw new Error();
+      throw new Error(
+        `Access Token expired for user ${decodedToken.email} with id: ${decodedToken.userId}`,
+      );
     }
 
     req.userData = {

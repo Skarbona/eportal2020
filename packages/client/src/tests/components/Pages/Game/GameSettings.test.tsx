@@ -106,7 +106,7 @@ describe('<GameSettings > component', () => {
     expect(wrapper.find(CircleLoading)).toHaveLength(0);
   });
 
-  it('should call fetchCategories', () => {
+  it('should call startGame', () => {
     const { categories, user } = mockedStore();
     spyStore.mockReturnValue({
       cats: categories.categories,

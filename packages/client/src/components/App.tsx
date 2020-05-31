@@ -51,9 +51,7 @@ export const App: FC = () => {
         <OnRouteChanged />
         <Header accessToken={accessToken} />
         <Container component="main" className="eportal__main" maxWidth={false} disableGutters>
-          {isAuthorizationDone && (
-            <Pages accessToken={accessToken} expirationDate={expirationTokenDate} />
-          )}
+          {isAuthorizationDone && <Pages accessToken={accessToken} />}
           <SnackBarAlertHandler />
         </Container>
         <Footer />

@@ -12,6 +12,7 @@ import { Login } from '../../store/app/action.interface';
 import { PageParams } from '../../models/page-types';
 import { usePrevious } from '../../hooks/previous-state';
 import { finishAuthorization } from '../../store/app/action';
+import { checkIfTokenIsValid } from '../../utils/auth';
 
 interface AuthSelector {
   accToken: string;
@@ -109,11 +110,16 @@ export const AuthHOC: FC = () => {
 
   useEffect(() => {
     // Refresh Access Token
-    if (accTokenRemainingTime > 0 && accTokenRemainingTime < 1000 * 60) {
+    // if time remain or on first login when access token is not valid anymore (but refresh it is)
+    if (
+      (checkIfTokenIsValid(refToken, refTokenExpiration) &&
+        !checkIfTokenIsValid(accToken, accTokenExpiration)) ||
+      (accTokenRemainingTime > 0 && accTokenRemainingTime < 1000 * 60)
+    ) {
       dispatch(refreshTokens());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accToken, refToken, accTokenRemainingTime]);
+  }, [accToken, refToken, accTokenRemainingTime, accTokenExpiration, refTokenExpiration]);
 
   useEffect(() => {
     // Login if Access Token in LocalStorage
@@ -148,6 +154,7 @@ export const AuthHOC: FC = () => {
   }, []);
 
   useEffect(() => {
+    // Redirect after Log off
     if (
       !accToken?.length &&
       !!prevAccToken?.accToken?.length &&
