@@ -1,0 +1,49 @@
+[{
+  "_id": {
+    "$oid": "5ebcf6c934dfbb46548838ec"
+  },
+  "date": {
+    "$date": "2020-05-14T07:44:09.116Z"
+  },
+  "slug": "home",
+  "content": {
+    "title": "Game for pairs",
+    "content": "Home"
+  },
+  "author": {
+    "$oid": "5e6e45dfdfec533ce0ebc6ee"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ebcfb0fe399801f842c8e36"
+  },
+  "date": {
+    "$date": "2020-05-14T08:02:23.300Z"
+  },
+  "slug": "rules",
+  "content": {
+    "title": "Game rules",
+    "content": "<h2>Start a Game</h2><h3>Names</h3><p>You can choose name of players. If you left names empty, the names will be set with default values</p><h3>Preferences</h3><p>You can choose preferences. You should choose as many as possible preferences.</p><h3>Localization</h3><p>You can choose place of game</p><h3>Time of Game</h3><p>You can choose how many time you will have to finish current task.</p><h3>Task per level</h3><p>You can choose how many task you will have per level</p><h2>During the game</h2><p>After start, every player has 0 points and game has 3 levels. You choose who should start next task and you can random a player.</p><p>Next, selected player doing the task in selected period of time. You start a task.</p><p>If task is finished, second player selecting how task was done. </p>"
+  },
+  "author": {
+    "$oid": "5e6e45dfdfec533ce0ebc6ee"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5ebcfb25e399801f842c8e37"
+  },
+  "date": {
+    "$date": "2020-05-14T08:02:45.859Z"
+  },
+  "slug": "privacy-policy",
+  "content": {
+    "title": "Privacy Policy",
+    "content": "<p>Privacy Policy Content</p>"
+  },
+  "author": {
+    "$oid": "5e6e45dfdfec533ce0ebc6ee"
+  },
+  "__v": 0
+}]
