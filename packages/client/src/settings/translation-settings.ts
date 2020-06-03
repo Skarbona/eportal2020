@@ -9,7 +9,7 @@ i18n
   .use(Backend)
   .use(initReactI18next)
   .init({
-    lng: 'pl',
+    lng: process.env.REACT_APP_LANGUAGE || 'en',
     fallbackLng,
     debug: process.env.NODE_ENV === 'development',
     whitelist: availableLanguages,
