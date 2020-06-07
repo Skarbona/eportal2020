@@ -1,5 +1,7 @@
 import { checkSchema } from 'express-validator';
+
 import { FormValues } from '../models/shared-interfaces/user';
+import { email } from './shared';
 
 const userName = {
   isLength: {
@@ -10,12 +12,6 @@ const userName = {
     options: /[`~,.<>;':"/[\]|{}()=_+-]/,
     errorMessage: 'Username cannot include some of special characters',
     negated: true,
-  },
-};
-
-const email = {
-  isEmail: {
-    errorMessage: 'Please provide valid email',
   },
 };
 

@@ -209,10 +209,9 @@ export const deleteUser = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const { userId } = req.userData;
+  const { userId, email } = req.userData;
   // const { userId } = req.params;
   // TODO: ADD ADMIN POSSIBILITY TO DELETE USER
-  // TODO: Send email to Admin
   let user;
   try {
     user = await User.findById(userId);
@@ -220,9 +219,20 @@ export const deleteUser = async (
       return next(new HttpError('User does not exist', 404));
     }
     await user.remove();
+    res.status(200).json({ msg: 'User Removed' });
   } catch (e) {
     return next(new HttpError('Something went wrong', 500));
   }
 
-  res.status(200).json({ msg: 'User Removed' });
+  try {
+    const transporter = createEmailTransporter();
+    await transporter.sendMail({
+      from: `<${EMAIL_USER}>`,
+      to: EMAIL_USER,
+      subject: 'Account removed',
+      text: `Account of ${email} was removed`,
+    });
+  } catch (e) {
+    return next();
+  }
 };
