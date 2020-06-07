@@ -35,14 +35,20 @@ describe('<WhatWeHave /> component', () => {
 
     expect(ListItemWrapper.at(0).props().className).toEqual('task-success');
     expect(ListItemTextWrapper.at(0).props().primary).toEqual('level1');
-    expect(ListItemTextWrapper.at(0).props().secondary).toEqual('20 tasks (expected: 10)');
+    expect(shallow(ListItemTextWrapper.at(0).props().secondary as any).text()).toEqual(
+      '20 tasks (expected: 10)',
+    );
 
     expect(ListItemWrapper.at(1).props().className).toEqual('task-warning');
     expect(ListItemTextWrapper.at(1).props().primary).toEqual('level2');
-    expect(ListItemTextWrapper.at(1).props().secondary).toEqual('4 tasks (expected: 5)');
+    expect(shallow(ListItemTextWrapper.at(1).props().secondary as any).text()).toEqual(
+      '4 tasks (expected: 5)',
+    );
 
     expect(ListItemWrapper.at(2).props().className).toEqual('task-error');
     expect(ListItemTextWrapper.at(2).props().primary).toEqual('level3');
-    expect(ListItemTextWrapper.at(2).props().secondary).toEqual('0 tasks (expected: 12)');
+    expect(shallow(ListItemTextWrapper.at(2).props().secondary as any).text()).toEqual(
+      '0 tasks (expected: 12)',
+    );
   });
 });
