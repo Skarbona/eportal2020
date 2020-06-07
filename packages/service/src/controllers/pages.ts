@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import { validationResult } from 'express-validator';
 
 import { stringToSlug } from '../utils/slug';
 import Page from '../models/page';
@@ -10,11 +9,6 @@ export const getPage = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-
   const { slug } = req.params;
 
   try {
@@ -30,11 +24,6 @@ export const createPage = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-
   const { content, author } = req.body;
 
   const createdPage = new Page({
@@ -60,11 +49,6 @@ export const updatePage = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-
   const { slug } = req.params;
   const { content } = req.body;
 

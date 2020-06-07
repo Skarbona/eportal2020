@@ -6,6 +6,7 @@ import userRoutes from './routes/users';
 import categoriesRoutes from './routes/categories';
 import tokenRoutes from './routes/token';
 import pagesRoutes from './routes/pages';
+import emailsRoutes from './routes/emails';
 
 import errorHandler from './middlewares/error-handler';
 import unHandledRoutes from './middlewares/un-handled-routes';
@@ -23,6 +24,7 @@ app.use('/api/pages', pagesRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/token', tokenRoutes);
+app.use('/api/emails', emailsRoutes);
 app.use(unHandledRoutes);
 app.use(errorHandler);
 
