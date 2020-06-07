@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import './main.scss';
+import * as serviceWorker from './serviceWorker';
 import './settings/translation-settings';
 import App from './components/App';
 import CircleLoading from './components/Shared/UIElements/Loading/CircleLoading';
@@ -20,3 +21,5 @@ export const Index: FC = () => (
 );
 
 ReactDOM.render(<Index />, document.getElementById('root'));
+
+serviceWorker.register();
