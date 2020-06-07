@@ -54,7 +54,7 @@ describe('Controller: Page', () => {
       expect(page.status).toEqual(401);
     });
 
-    it('should return 422 if body is not valid', async () => {
+    it('should return 400 if body is not valid', async () => {
       const admin = await loginAdmin(server);
       const withoutAuthor = await createPage(server, admin.body.accessToken, '');
       const withoutContent = await createPage(server, admin.body.accessToken, '', {
@@ -66,9 +66,9 @@ describe('Controller: Page', () => {
         author: admin.body.userData.id,
       });
 
-      expect(withoutAuthor.status).toEqual(422);
-      expect(withoutContent.status).toEqual(422);
-      expect(withoutEmptyTitle.status).toEqual(422);
+      expect(withoutAuthor.status).toEqual(400);
+      expect(withoutContent.status).toEqual(400);
+      expect(withoutEmptyTitle.status).toEqual(400);
     });
   });
 

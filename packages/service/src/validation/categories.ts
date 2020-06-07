@@ -25,6 +25,7 @@ const categories = {
 };
 
 const categoriesIds = {
+  optional: { options: { nullable: true } },
   isString: {
     errorMessage: 'Please provide valid ids string',
   },
