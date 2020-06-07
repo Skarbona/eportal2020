@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { UserDocument } from '../models/user';
 
+import { JWT_ACCESS_TOKEN, JWT_REFRESH_TOKEN } from '../constants/envs';
+
 interface Tokens {
   accessToken?: string;
   refreshToken?: string;
@@ -14,7 +16,7 @@ export const createTokens = (user: UserDocument): Tokens => {
       email: user.email,
       type: user.type,
     },
-    process.env.JWT_ACCESS_TOKEN,
+    JWT_ACCESS_TOKEN,
     { expiresIn: '3h' },
   );
 
@@ -24,7 +26,7 @@ export const createTokens = (user: UserDocument): Tokens => {
       email: user.email,
       type: user.type,
     },
-    process.env.JWT_REFRESH_TOKEN,
+    JWT_REFRESH_TOKEN,
     { expiresIn: '1d' },
   );
 
@@ -34,7 +36,7 @@ export const createTokens = (user: UserDocument): Tokens => {
       email: user.email,
       type: user.type,
     },
-    process.env.JWT_ACCESS_TOKEN,
+    JWT_ACCESS_TOKEN,
     { expiresIn: '1h' },
   );
 

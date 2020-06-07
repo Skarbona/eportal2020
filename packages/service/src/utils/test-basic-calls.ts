@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request, { Response } from 'supertest';
 import { Server } from 'http';
-import { config } from 'dotenv';
 import mongoose from 'mongoose';
 
-config();
+import { ADMIN_TEST_PASS, ADMIN_TEST_USER } from '../constants/envs';
 
 export const getCategories = (server: Server, token: string): Promise<Response> => {
   return request(server).get('/api/categories').set('Authorization', `Bearer ${token}`);
@@ -33,8 +32,8 @@ export const signUpUser = (server: Server, email = 'test@test.pl'): Promise<Resp
 
 export const loginAdmin = (server: Server): Promise<Response> => {
   return request(server).post('/api/users/login').send({
-    password: process.env.ADMIN_TEST_PASS,
-    email: process.env.ADMIN_TEST_USER,
+    password: ADMIN_TEST_PASS,
+    email: ADMIN_TEST_USER,
   });
 };
 

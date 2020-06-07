@@ -1,8 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import { config } from 'dotenv';
-import { validationResult } from 'express-validator';
-import { createTransport } from 'nodemailer';
 
 import HttpError from '../models/http-error';
 import User, { UserDocument } from '../models/user';
@@ -11,19 +8,14 @@ import { TimeMode } from '../../../client/src/models/game-models';
 import { createTokens } from '../utils/tokens';
 import { resetPasswordTemplate } from '../templetes/emails/reset-password';
 import { Language } from '../models/languages';
-
-config();
+import { EMAIL_USER } from '../constants/envs';
+import createEmailTransporter from '../utils/create-transport';
 
 export const signUp = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   const { userName, email, password } = req.body;
   const userType = req.userData?.type;
 
@@ -92,11 +84,6 @@ export const Login = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   const { email, password } = req.body;
   let user;
 
@@ -130,11 +117,6 @@ export const resetPassword = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   const { email } = req.body;
   const { lang } = req.query;
 
@@ -150,26 +132,14 @@ export const resetPassword = async (
   }
 
   try {
-    const transporter = createTransport({
-      host: process.env.EMAIL_HOST,
-      port: 465,
-      secure: true,
-      debug: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
+    const transporter = createEmailTransporter();
 
     const { resetToken } = createTokens(user);
 
     const { subject, text } = resetPasswordTemplate(resetToken, lang as Language);
 
     await transporter.sendMail({
-      from: `<${process.env.EMAIL_USER}>`,
+      from: `<${EMAIL_USER}>`,
       to: email,
       subject,
       text,
@@ -187,11 +157,6 @@ export const getUserData = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   const { userId } = req.userData;
   // const { userId } = req.params;
   // TODO: ADD ADMIN POSSIBILITY TO FETCH USER DATA
@@ -214,11 +179,6 @@ export const updateUser = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   const { userId } = req.userData;
   const { gameDefaults, password } = req.body;
   // TODO: ADD ADMIN POSSIBILITY TO UPDATE USER DATA
@@ -249,15 +209,9 @@ export const deleteUser = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  const { userId } = req.userData;
+  const { userId, email } = req.userData;
   // const { userId } = req.params;
   // TODO: ADD ADMIN POSSIBILITY TO DELETE USER
-  // TODO: Send email to Admin
   let user;
   try {
     user = await User.findById(userId);
@@ -265,9 +219,20 @@ export const deleteUser = async (
       return next(new HttpError('User does not exist', 404));
     }
     await user.remove();
+    res.status(200).json({ msg: 'User Removed' });
   } catch (e) {
     return next(new HttpError('Something went wrong', 500));
   }
 
-  res.status(200).json({ msg: 'User Removed' });
+  try {
+    const transporter = createEmailTransporter();
+    await transporter.sendMail({
+      from: `<${EMAIL_USER}>`,
+      to: EMAIL_USER,
+      subject: 'Account removed',
+      text: `Account of ${email} was removed`,
+    });
+  } catch (e) {
+    return next();
+  }
 };

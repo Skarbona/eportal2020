@@ -4,17 +4,12 @@ import Post from '../models/post';
 import { PostRequestInterface, PostStatus } from '../models/shared-interfaces/post';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
-import { validationResult } from 'express-validator';
 
 export const createPosts = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
   const { posts } = req.body;
 
   const createdPosts = posts.map(({ content, categories, image, author }: PostRequestInterface) => {
@@ -47,10 +42,6 @@ export const getPosts = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
   // TODO: Add option for posts not in Waiting for Approval State
   const { catsIncludeStrict, catsInclude, catsExclude } = req.query;
   try {

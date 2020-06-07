@@ -67,7 +67,7 @@ describe('Controller: Category', () => {
       expect(response.status).toEqual(401);
     });
 
-    it('should return 422 if body is not valid', async () => {
+    it('should return 400 if body is not valid', async () => {
       const admin = await loginAdmin(server);
       const withOutNames = await createCategories(server, admin.body.accessToken, {
         categories: [{ description: 'description1' }, { name: '', description: 'description2' }],
@@ -77,8 +77,8 @@ describe('Controller: Category', () => {
         categories: [{ description: 'description1' }, { name: '', description: 'description2' }],
       });
 
-      expect(withOutNames.status).toEqual(422);
-      expect(emptyCategories.status).toEqual(422);
+      expect(withOutNames.status).toEqual(400);
+      expect(emptyCategories.status).toEqual(400);
     });
 
     it('should update parent categories with new childs', async () => {

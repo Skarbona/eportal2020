@@ -45,10 +45,10 @@ describe('Controller: Post', () => {
       expect(posts.status).toEqual(401);
     });
 
-    it('should return 422 if body is not valid', async () => {
+    it('should return 400 if body is not valid', async () => {
       const user = await signUpUser(server);
       const posts = await createPosts(server, user.body.accessToken, user.body.userData.id, {});
-      expect(posts.status).toEqual(422);
+      expect(posts.status).toEqual(400);
     });
   });
 
@@ -227,10 +227,10 @@ describe('Controller: Post', () => {
       expect(posts.status).toEqual(401);
     });
 
-    it('should return 422 if query has not valid IDs', async () => {
+    it('should return 400 if query has not valid IDs', async () => {
       const user = await signUpUser(server);
       const posts = await getPosts(server, user.body.accessToken, '?catsIncludeStrict=NOT_VALID');
-      expect(posts.status).toEqual(422);
+      expect(posts.status).toEqual(400);
     });
   });
 });

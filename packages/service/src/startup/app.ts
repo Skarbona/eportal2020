@@ -1,11 +1,10 @@
-import { config } from 'dotenv';
 import { Express } from 'express';
 import dbConnection from './db';
 import { Server } from 'http';
 
-config();
+import { PORT } from '../constants/envs';
 
-export const appServer = (app: Express): Server => app.listen(process.env.PORT || 5000);
+export const appServer = (app: Express): Server => app.listen(PORT || 5000);
 
 export default async (app: Express): Promise<Server> => {
   try {

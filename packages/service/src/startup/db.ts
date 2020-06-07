@@ -1,12 +1,11 @@
 import mongoose from 'mongoose';
-import { config } from 'dotenv';
 
-config();
+import { DB_USER, DB_PASS, DB_HOST, DB_NAME } from '../constants/envs';
 
 export default async (): Promise<void> => {
   try {
     await mongoose.connect(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+      `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

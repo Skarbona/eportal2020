@@ -1,16 +1,14 @@
-import { config } from 'dotenv';
-
 import { BasicEmailTemplate } from '../../models/emails';
 import { Language } from '../../models/languages';
 
-config();
+import { PORTAL_ADRESS } from '../../constants/envs';
 
 export const resetPasswordTemplate = (token: string, lang: Language): BasicEmailTemplate => {
   switch (lang) {
     case Language.PL:
       return {
         subject: 'Link do resetu hasła',
-        text: `Dostałeś tego emaila ponieważ użyłeś funkcji resetowanie do dla swojego konta.\n\nProszę kliknij na link poniżej (lub go skopiuj) aby zresetować hasło do swojego konta:\n\n${process.env.PORTAL_ADRESS}/reset/${token} \n\nJeśli tego jednak nie zrobiłeś, to zignoruj tego maila, a hasło nie zostanie zmienione. \n`,
+        text: `Dostałeś tego emaila ponieważ użyłeś funkcji resetowanie do dla swojego konta.\n\nProszę kliknij na link poniżej (lub go skopiuj) aby zresetować hasło do swojego konta:\n\n${PORTAL_ADRESS}/reset/${token} \n\nJeśli tego jednak nie zrobiłeś, to zignoruj tego maila, a hasło nie zostanie zmienione. \n`,
       };
     default:
       return {

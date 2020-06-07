@@ -4,18 +4,12 @@ import mongoose from 'mongoose';
 import Category, { CategoryRequestInterface } from '../models/category';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
-import { validationResult } from 'express-validator';
 
 export const createCategories = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-
   const categories: CategoryRequestInterface[] = req.body.categories;
 
   try {
