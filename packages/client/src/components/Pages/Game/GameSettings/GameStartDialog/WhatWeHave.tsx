@@ -31,9 +31,11 @@ export const WhatWeHaveComponent: FC<Props> = ({ isReadyToStartGame, levels }) =
               </ListItemAvatar>
               <ListItemText
                 primary={level}
-                secondary={`${levelValues.has} ${t('tasks')} (${t('expected')}: ${
-                  levelValues.expected
-                })`}
+                secondary={
+                  <span>
+                    {levelValues.has} {t('tasks')} <br />({t('expected')}: {levelValues.expected})
+                  </span>
+                }
               />
             </ListItem>
             <Divider variant="inset" component="li" />

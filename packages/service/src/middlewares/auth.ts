@@ -1,11 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { config } from 'dotenv';
 
 import HttpError from '../models/http-error';
 import { UserType } from '../models/shared-interfaces/user';
-
-config();
+import { JWT_ACCESS_TOKEN, JWT_REFRESH_TOKEN } from '../constants/envs';
 
 interface DecodedToken {
   userId: string;
@@ -25,7 +23,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
     if (!accessToken || split[0] !== 'Bearer') {
       throw new Error();
     }
-    const decodedToken = jwt.verify(accessToken, process.env.JWT_ACCESS_TOKEN) as DecodedToken;
+    const decodedToken = jwt.verify(accessToken, JWT_ACCESS_TOKEN) as DecodedToken;
 
     if (new Date().getTime() > decodedToken.exp * 1000) {
       throw new Error(
@@ -53,7 +51,7 @@ export const authRefreshMiddleware = (req: Request, res: Response, next: NextFun
     if (!refreshToken || split[0] !== 'Bearer') {
       throw new Error();
     }
-    const decodedToken = jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN) as DecodedToken;
+    const decodedToken = jwt.verify(refreshToken, JWT_REFRESH_TOKEN) as DecodedToken;
 
     if (new Date().getTime() > decodedToken.exp * 1000) {
       throw new Error(
@@ -82,7 +80,7 @@ export const isAdminMiddleWare = (req: Request, res: Response, next: NextFunctio
     if (!accessToken || split[0] !== 'Bearer') {
       throw new Error();
     }
-    const decodedToken = jwt.verify(accessToken, process.env.JWT_ACCESS_TOKEN) as DecodedToken;
+    const decodedToken = jwt.verify(accessToken, JWT_ACCESS_TOKEN) as DecodedToken;
 
     if (decodedToken.type !== UserType.Admin) {
       throw new Error();

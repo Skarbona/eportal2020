@@ -3,19 +3,19 @@
 .game-start-dialog {
   .task-error {
     .MuiListItemText-secondary {
-      color: $error;
+      color: $error-secondary;
     }
   }
 
   .task-success {
     .MuiListItemText-secondary {
-      color: $success;
+      color: $success-secondary;
     }
   }
 
   .task-warning {
     .MuiListItemText-secondary {
-      color: $warning;
+      color: $warning-secondary;
     }
   }
 

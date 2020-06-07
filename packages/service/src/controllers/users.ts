@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import { config } from 'dotenv';
 import { validationResult } from 'express-validator';
 import { createTransport } from 'nodemailer';
 
@@ -11,8 +10,7 @@ import { TimeMode } from '../../../client/src/models/game-models';
 import { createTokens } from '../utils/tokens';
 import { resetPasswordTemplate } from '../templetes/emails/reset-password';
 import { Language } from '../models/languages';
-
-config();
+import { EMAIL_HOST, EMAIL_PASS, EMAIL_USER } from '../constants/envs';
 
 export const signUp = async (
   req: Request,
@@ -151,13 +149,13 @@ export const resetPassword = async (
 
   try {
     const transporter = createTransport({
-      host: process.env.EMAIL_HOST,
+      host: EMAIL_HOST,
       port: 465,
       secure: true,
       debug: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
       },
       tls: {
         rejectUnauthorized: false,
@@ -169,7 +167,7 @@ export const resetPassword = async (
     const { subject, text } = resetPasswordTemplate(resetToken, lang as Language);
 
     await transporter.sendMail({
-      from: `<${process.env.EMAIL_USER}>`,
+      from: `<${EMAIL_USER}>`,
       to: email,
       subject,
       text,

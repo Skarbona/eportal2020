@@ -1,41 +1,36 @@
-import { config } from 'dotenv';
-
-config();
+import * as CNST from '../constants/envs';
 
 export default (): Error | void => {
   if (
-    !process.env.DB_USER ||
-    !process.env.DB_PASS ||
-    !process.env.DB_NAME ||
-    !process.env.DB_HOST ||
-    !process.env.JWT_ACCESS_TOKEN ||
-    !process.env.JWT_REFRESH_TOKEN ||
-    !process.env.PORTAL_ADRESS ||
-    !process.env.EMAIL_HOST ||
-    !process.env.EMAIL_USER ||
-    !process.env.EMAIL_PASS
+    !CNST.DB_USER ||
+    !CNST.DB_PASS ||
+    !CNST.DB_NAME ||
+    !CNST.DB_HOST ||
+    !CNST.JWT_ACCESS_TOKEN ||
+    !CNST.JWT_REFRESH_TOKEN ||
+    !CNST.PORTAL_ADRESS ||
+    !CNST.EMAIL_HOST ||
+    !CNST.EMAIL_USER ||
+    !CNST.EMAIL_PASS
   ) {
     throw new Error(
       `Not all required envs defined! 
-        DB_USER: ${!!process.env.DB_USER}, 
-        DB_PASS: ${!!process.env.DB_PASS},
-        DB_NAME: ${!!process.env.DB_NAME}, 
-        DB_HOST: ${!!process.env.DB_HOST},
-        JWT_ACCESS_TOKEN: ${!!process.env.JWT_ACCESS_TOKEN},
-        JWT_REFRESH_TOKEN: ${!!process.env.JWT_REFRESH_TOKEN},
-        PORTAL_ADRESS: ${!!process.env.PORTAL_ADRESS},
-        EMAIL_HOST: ${!!process.env.EMAIL_HOST},
-        EMAIL_USER: ${!!process.env.EMAIL_USER},
-        EMAIL_PASS: ${!!process.env.EMAIL_PASS}`,
+        DB_USER: ${!!CNST.DB_USER}, 
+        DB_PASS: ${!!CNST.DB_PASS},
+        DB_NAME: ${!!CNST.DB_NAME}, 
+        DB_HOST: ${!!CNST.DB_HOST},
+        JWT_ACCESS_TOKEN: ${!!CNST.JWT_ACCESS_TOKEN},
+        JWT_REFRESH_TOKEN: ${!!CNST.JWT_REFRESH_TOKEN},
+        PORTAL_ADRESS: ${!!CNST.PORTAL_ADRESS},
+        EMAIL_HOST: ${!!CNST.EMAIL_HOST},
+        EMAIL_USER: ${!!CNST.EMAIL_USER},
+        EMAIL_PASS: ${!!CNST.EMAIL_PASS}`,
     );
   }
 
-  if (
-    process.env.NODE_ENV === 'test' &&
-    (!process.env.ADMIN_TEST_USER || !process.env.ADMIN_TEST_PASS)
-  ) {
+  if (CNST.NODE_ENV === 'test' && (!CNST.ADMIN_TEST_USER || !CNST.ADMIN_TEST_PASS)) {
     throw new Error(`Not all required envs defined for Test env! 
-        ADMIN_TEST_USER: ${!!process.env.ADMIN_TEST_USER}, 
-        ADMIN_TEST_PASS: ${!!process.env.ADMIN_TEST_PASS},`);
+        ADMIN_TEST_USER: ${!!CNST.ADMIN_TEST_USER}, 
+        ADMIN_TEST_PASS: ${!!CNST.ADMIN_TEST_PASS},`);
   }
 };

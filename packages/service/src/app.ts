@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { config } from 'dotenv';
 
 import postsRoutes from './routes/posts';
 import userRoutes from './routes/users';
@@ -14,7 +13,6 @@ import corsHeaders from './middlewares/cors';
 import appStartUp from './startup/app';
 import envsCheck from './startup/envs';
 
-config();
 envsCheck();
 const app = express();
 
