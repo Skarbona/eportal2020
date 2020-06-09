@@ -8,4 +8,5 @@ export const appInitialState: AppStateInterface = {
     refreshToken: null,
     refreshTokenExpiration: null,
   },
+  showContactForm: false,
 };

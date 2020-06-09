@@ -19,6 +19,7 @@ import { PageParams } from '../../../../models/page-types';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { theme } from '../../../../settings/theme-settings';
 import * as links from './links';
+import { PORTAL_NAME } from '../../../../constants/envs';
 
 interface Props {
   accessToken: string;
@@ -79,7 +80,7 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
         )}
         <Typography variant="h6" className="title">
           <Link to={PageParams.Home} className="portal-name">
-            {process.env.REACT_APP_PORTAL_NAME}
+            {PORTAL_NAME}
           </Link>
         </Typography>
         {accessToken && !isMobile && (

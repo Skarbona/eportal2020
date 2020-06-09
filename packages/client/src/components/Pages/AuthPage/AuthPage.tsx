@@ -19,6 +19,7 @@ import { AlertTypes } from '../../../models/alerts';
 import { useForm } from '../../../hooks/form/form-hook';
 import { InputKeys } from '../../../hooks/form/state/interface';
 import { PageParams } from '../../../models/page-types';
+import { GOOGLE_RECAPTCHA } from '../../../constants/envs';
 
 interface SelectorProps {
   error: Error;
@@ -117,10 +118,7 @@ export const AuthPageComponent: FC = () => {
             />
             <Grid container> {infoAction}</Grid>
             <Grid container justify="center">
-              <ReCAPTCHA
-                sitekey={process.env.REACT_APP_GOOGLE_RECAPTCHA}
-                onChange={recaptchaChanged}
-              />
+              <ReCAPTCHA sitekey={GOOGLE_RECAPTCHA} onChange={recaptchaChanged} />
             </Grid>
             <AlertHandler error={error} type={alertType} />
             <Button

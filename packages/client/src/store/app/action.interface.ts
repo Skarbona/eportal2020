@@ -5,6 +5,13 @@ interface ActionInterface {
   type: AppEnum;
 }
 
+export interface SetContactFormVisibility extends ActionInterface {
+  type: AppEnum.SetContactFormVisibility;
+  data: {
+    showContactForm: boolean;
+  };
+}
+
 export interface FinishAuthorization extends ActionInterface {
   type: AppEnum.FinishAuthorization;
 }
@@ -46,6 +53,7 @@ export interface SetRefreshTokenData extends ActionInterface {
 
 export type AppActions =
   | FinishAuthorization
+  | SetContactFormVisibility
   | CleanAppAlerts
   | CleanAppData
   | SetAccessTokenData

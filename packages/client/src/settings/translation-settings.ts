@@ -2,6 +2,8 @@ import i18n from 'i18next';
 import Backend from 'i18next-xhr-backend';
 import { initReactI18next } from 'react-i18next';
 
+import { LANGUAGE, NODE_ENV } from '../constants/envs';
+
 const fallbackLng = ['en'];
 const availableLanguages = ['en', 'pl'];
 
@@ -9,9 +11,9 @@ i18n
   .use(Backend)
   .use(initReactI18next)
   .init({
-    lng: process.env.REACT_APP_LANGUAGE || 'en',
+    lng: LANGUAGE || 'en',
     fallbackLng,
-    debug: process.env.NODE_ENV === 'development',
+    debug: NODE_ENV === 'development',
     whitelist: availableLanguages,
     interpolation: {
       escapeValue: false,

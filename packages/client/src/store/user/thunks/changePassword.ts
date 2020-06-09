@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AppThunk } from '../../store.interface';
 import * as A from '../action';
 import { logout } from '../../app/thunks/logout';
+import { BACKEND_API } from '../../../constants/envs';
 
 export const changePassword = (password: string, token?: string): AppThunk => async (
   dispatch,
@@ -17,15 +18,11 @@ export const changePassword = (password: string, token?: string): AppThunk => as
   try {
     const requestBody = { password };
 
-    await axios.patch(
-      `${process.env.REACT_APP_BACKEND_API}/users/${userData?.id || ''}`,
-      requestBody,
-      {
-        headers: {
-          Authorization: `Bearer ${token || auth.accessToken}`,
-        },
+    await axios.patch(`${BACKEND_API}/users/${userData?.id || ''}`, requestBody, {
+      headers: {
+        Authorization: `Bearer ${token || auth.accessToken}`,
       },
-    );
+    });
     dispatch(A.successSetPassword());
     if (!token) dispatch(logout());
   } catch (e) {

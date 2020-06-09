@@ -6,6 +6,12 @@ import { AlertTypes } from '../../models/alerts';
 
 const appReducer = (state = appInitialState, action: AppActions): AppStateInterface => {
   switch (action.type) {
+    case AppEnum.SetContactFormVisibility: {
+      return {
+        ...state,
+        showContactForm: action.data.showContactForm,
+      };
+    }
     case AppEnum.CleanAppAlerts: {
       return {
         ...state,
