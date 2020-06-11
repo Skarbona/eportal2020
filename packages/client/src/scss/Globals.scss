@@ -8,6 +8,13 @@
   background-color: $main-bg-color;
 }
 
+.secondary-checkbox {
+  .MuiTypography-root,
+  .MuiCheckbox-root {
+    color: $light;
+  }
+}
+
 .primary-checkbox {
   .MuiTypography-root,
   .MuiCheckbox-root {

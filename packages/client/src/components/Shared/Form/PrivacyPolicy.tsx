@@ -10,13 +10,18 @@ import { CheckboxChangeEvent } from '../../../models/typescript-events';
 interface Props {
   checkBoxChanged(value: CheckboxChangeEvent): void;
   privacyPolicy: FormState['inputs']['privacyPolicy'];
+  className?: string;
 }
 
-export const PrivacyPolicyComponent: FC<Props> = ({ privacyPolicy, checkBoxChanged }) => {
+export const PrivacyPolicyComponent: FC<Props> = ({
+  privacyPolicy,
+  checkBoxChanged,
+  className = 'primary-checkbox',
+}) => {
   const { t } = useTranslation();
   return (
     <FormControlLabel
-      className="primary-checkbox privacy-policy__checkbox"
+      className={className}
       id="privacy-policy"
       control={
         <Checkbox

@@ -12,6 +12,7 @@ import { GOOGLE_RECAPTCHA } from '../../../../constants/envs';
 import { theme } from '../../../../settings/theme-settings';
 import PrivacyPolicy from '../../Form/PrivacyPolicy';
 import Email from '../../Form/Email';
+import Message from '../../Form/Message';
 
 export const ContactFormComponent: FC<{}> = () => {
   const dispatch = useDispatch();
@@ -20,13 +21,23 @@ export const ContactFormComponent: FC<{}> = () => {
   const {
     state: { inputs, isFormValid },
     handlers: { inputChanged, recaptchaChanged, checkBoxChanged },
-  } = useForm([InputKeys.Email, InputKeys.Recaptcha, InputKeys.PrivacyPolicy], false);
+  } = useForm(
+    [InputKeys.Email, InputKeys.Recaptcha, InputKeys.PrivacyPolicy, InputKeys.Message],
+    false,
+  );
   return (
-    <Dialog onClose={() => dispatch(setContactFormVisibility(false))} title="Contact Form">
+    <Dialog
+      className="contact-form"
+      onClose={() => dispatch(setContactFormVisibility(false))}
+      title={t('Contact Form')}
+    >
       <form>
         <Grid container spacing={3} alignItems="center">
           <Grid item xs={12}>
             <Email email={inputs?.email} inputChanged={inputChanged} />
+          </Grid>
+          <Grid item xs={12}>
+            <Message message={inputs?.message} inputChanged={inputChanged} />
           </Grid>
           <Grid item xs={12}>
             <ReCAPTCHA
@@ -37,6 +48,7 @@ export const ContactFormComponent: FC<{}> = () => {
           </Grid>
           <Grid item xs={12}>
             <PrivacyPolicy
+              className="secondary-checkbox"
               privacyPolicy={inputs?.privacyPolicy}
               checkBoxChanged={checkBoxChanged}
             />

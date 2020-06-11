@@ -17,6 +17,7 @@ interface Props {
 }
 // TODO: Add lazy loading for pages
 export const PagesComponent: FC<Props> = ({ accessToken }) => {
+  console.log('no rerender me');
   return (
     <Switch>
       <Route path={PageParams.Home} exact>

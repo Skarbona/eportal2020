@@ -42,6 +42,26 @@ export const isPasswordValidHandler = (password: string, blurred: boolean): Part
   };
 };
 
+export const messageValidHandler = (message: string, blurred: boolean): Partial<InputState> => {
+  let errorMsg = '';
+
+  if (!/^(.{4,})$/.test(message)) {
+    errorMsg = i18n.t('Message must include at least 4 characters');
+  } else if (/[`~,.<>;':"/[\]|{}()=_+-]/.test(message)) {
+    errorMsg = i18n.t('Message cannot include some of special characters');
+  } else {
+    errorMsg = '';
+  }
+
+  return {
+    value: message,
+    error: errorMsg.length > 0 && blurred,
+    valid: errorMsg.length === 0,
+    blurred: !!blurred,
+    errorMsg,
+  };
+};
+
 export const isUserNameValidHandler = (userName: string, blurred: boolean): Partial<InputState> => {
   let errorMsg = '';
 
@@ -162,6 +182,8 @@ export const validateByKey = ({
       return isConfirmedEmailValidHandler(value, blurred, oldState.inputs.email.value);
     case InputKeys.Recaptcha:
       return isRecaptchaValidHandler(value);
+    case InputKeys.Message:
+      return messageValidHandler(value, blurred);
     default:
       return initialInputState;
   }

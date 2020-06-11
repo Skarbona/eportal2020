@@ -111,5 +111,11 @@
   "Please check your email field": "Proszę sprawdź czy podany email jest na pewno poprawny.",
   "Set New Password": "Ustaw nowe hasło",
   "Success": "Sukces",
-  "New user data was set successfully": "Twoja dane zostały pomyśle zaktualizowane"
+  "New user data was set successfully": "Twoja dane zostały pomyśle zaktualizowane",
+  "Contact": "Kontakt",
+  "Message": "Wiadomość",
+  "Message must include at least 4 characters": "Wiadomość musi zawierać przynajmniej 4 litery",
+  "Message cannot include some of special characters": "Wiadomość nie może zawierać znaków specjalnych",
+  "Send message": "Wyślij wiadomość",
+  "Contact Form": "Formularz Kontaktowy"
 }

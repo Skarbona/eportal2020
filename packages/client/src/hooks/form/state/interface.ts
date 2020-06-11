@@ -21,6 +21,7 @@ export interface FormState {
     confirmedEmail?: InputState;
     email?: InputState;
     userName?: InputState;
+    message?: InputState;
     recaptcha?: InputState;
     confirmAccountDelete?: InputState;
     privacyPolicy?: CheckBoxState;
@@ -39,6 +40,7 @@ export enum FormActionsEnum {
 export enum InputKeys {
   'Password' = 'password',
   'Username' = 'userName',
+  'Message' = 'message',
   'ConfirmedEmail' = 'confirmedEmail',
   'Email' = 'email',
   'Recaptcha' = 'recaptcha',

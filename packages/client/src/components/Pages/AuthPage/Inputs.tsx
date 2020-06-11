@@ -30,7 +30,11 @@ export const InputsComponent: FC<Props> = ({
       {isRegisterMode && <UserName userName={inputs?.userName} inputChanged={inputChanged} />}
       <Password password={inputs?.password} inputChanged={inputChanged} />
       {isRegisterMode && (
-        <PrivacyPolicy privacyPolicy={inputs?.privacyPolicy} checkBoxChanged={checkBoxChanged} />
+        <PrivacyPolicy
+          className="primary-checkbox privacy-policy__checkbox"
+          privacyPolicy={inputs?.privacyPolicy}
+          checkBoxChanged={checkBoxChanged}
+        />
       )}
     </>
   );
