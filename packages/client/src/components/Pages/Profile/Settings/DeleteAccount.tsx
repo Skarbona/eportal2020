@@ -1,5 +1,5 @@
 import React, { FC, memo, useCallback } from 'react';
-import { Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { useSelector } from 'react-redux';
@@ -11,21 +11,26 @@ import { deleteUser } from '../../../../store/user/thunks/deleteUser';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { AlertTypes } from '../../../../models/alerts';
 import ConfirmAccountDelete from '../../../Shared/Form/ConfirmAccountDelete';
+import LoadingButton from '../../../Shared/Form/LoadingButton';
 
 interface DeleteAccountSelectorProps {
   email: string;
   error: Error;
   type: AlertTypes;
+  isLoading: boolean;
 }
 
 export const DeleteAccountComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
-  const { email, error, type } = useSelector<RootState, DeleteAccountSelectorProps>(({ user }) => ({
-    email: user.userData.email,
-    error: user.error,
-    type: user.alertType,
-  }));
+  const { email, error, type, isLoading } = useSelector<RootState, DeleteAccountSelectorProps>(
+    ({ user }) => ({
+      email: user.userData.email,
+      error: user.error,
+      type: user.alertType,
+      isLoading: user.loading,
+    }),
+  );
   const {
     state: { inputs, isFormValid },
     handlers: { confirmAccountDeleteChanged },
@@ -46,15 +51,9 @@ export const DeleteAccountComponent: FC = () => {
         email={email}
       />
       <AlertHandler error={error} type={type} />
-      <Button
-        disabled={!isFormValid}
-        type="submit"
-        fullWidth
-        variant="contained"
-        className="error-button"
-      >
+      <LoadingButton disabled={!isFormValid} isLoading={isLoading}>
         {t('Delete an Account')}
-      </Button>
+      </LoadingButton>
     </form>
   );
 };

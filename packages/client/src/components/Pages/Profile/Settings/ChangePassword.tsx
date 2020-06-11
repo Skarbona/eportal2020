@@ -1,5 +1,5 @@
 import React, { FC, memo, useCallback } from 'react';
-import { Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { useSelector } from 'react-redux';
@@ -11,10 +11,12 @@ import AlertHandler from '../../../Shared/UIElements/AlertHandlerInfo/AlertHandl
 import { RootState } from '../../../../store/store.interface';
 import { AlertTypes } from '../../../../models/alerts';
 import Password from '../../../Shared/Form/Password';
+import LoadingButton from '../../../Shared/Form/LoadingButton';
 
 interface ChangePasswordProp {
   error: Error;
   type: AlertTypes;
+  isLoading: boolean;
 }
 
 export const ChangePasswordComponent: FC = () => {
@@ -25,9 +27,10 @@ export const ChangePasswordComponent: FC = () => {
     state: { inputs, isFormValid },
     handlers: { inputChanged },
   } = useForm([InputKeys.Password], false);
-  const { error, type } = useSelector<RootState, ChangePasswordProp>(({ user }) => ({
+  const { error, type, isLoading } = useSelector<RootState, ChangePasswordProp>(({ user }) => ({
     error: user.error,
     type: user.alertType,
+    isLoading: user.loading,
   }));
 
   const handleSubmit = useCallback(
@@ -43,9 +46,9 @@ export const ChangePasswordComponent: FC = () => {
       <Typography>{t('After password changed you will be log off')}</Typography>
       <Password inputChanged={inputChanged} password={inputs.password} />
       <AlertHandler error={error} type={type} />
-      <Button disabled={!isFormValid} type="submit" fullWidth variant="contained" color="primary">
+      <LoadingButton disabled={!isFormValid} isLoading={isLoading}>
         {t('Change password')}
-      </Button>
+      </LoadingButton>
     </form>
   );
 };

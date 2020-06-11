@@ -1,7 +1,6 @@
 import React, { FC, memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 
 import PageHeading from '../../Shared/PageElements/PageHeading/PageHeading';
@@ -15,21 +14,24 @@ import { InputKeys } from '../../../hooks/form/state/interface';
 import { changePassword } from '../../../store/user/thunks/changePassword';
 import { AlertTypes } from '../../../models/alerts';
 import Password from '../../Shared/Form/Password';
+import LoadingButton from '../../Shared/Form/LoadingButton';
 
 interface SelectorProp {
   error: Error;
   alert: boolean;
   type: AlertTypes;
+  isLoading: boolean;
 }
 
 export const SetNewPasswordComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const { token } = useParams();
-  const { alert, error, type } = useSelector<RootState, SelectorProp>(({ user }) => ({
+  const { alert, error, type, isLoading } = useSelector<RootState, SelectorProp>(({ user }) => ({
     error: user.error,
     alert: user.alert,
     type: user.alertType,
+    isLoading: user.loading,
   }));
   const {
     state: { inputs, isFormValid },
@@ -59,15 +61,12 @@ export const SetNewPasswordComponent: FC = () => {
         <form onSubmit={handleSubmit}>
           <Password password={inputs?.password} inputChanged={inputChanged} />
           <AlertHandler error={error} alert={alert} type={type} />
-          <Button
-            disabled={!isFormValid}
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
+          <LoadingButton
+            disabled={!isFormValid || type === AlertTypes.NewUserDataSet}
+            isLoading={isLoading}
           >
             {t('Set New Password')}
-          </Button>
+          </LoadingButton>
         </form>
       </PageContainer>
     </>

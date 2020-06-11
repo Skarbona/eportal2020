@@ -35,6 +35,10 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
     setItem(newValue);
   }, []);
 
+  const OpenContactHandler = useCallback(() => {
+    dispatch(setContactFormVisibility(true));
+  }, [dispatch]);
+
   return (
     <BottomNavigation
       value={selectedItem}
@@ -82,7 +86,7 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
       <BottomNavigationAction
         label={t('Contact')}
         icon={<EmailIcon />}
-        onClick={() => dispatch(setContactFormVisibility(true))}
+        onClick={OpenContactHandler}
       />
     </BottomNavigation>
   );
