@@ -1,6 +1,5 @@
-import React, { FC, memo, useState, useCallback } from 'react';
-import { TextField, Button, Typography, InputAdornment, IconButton } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import React, { FC, memo, useCallback } from 'react';
+import { Button, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import { useSelector } from 'react-redux';
@@ -11,6 +10,7 @@ import { useReduxDispatch } from '../../../../store/helpers';
 import AlertHandler from '../../../Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import { RootState } from '../../../../store/store.interface';
 import { AlertTypes } from '../../../../models/alerts';
+import Password from '../../../Shared/Form/Password';
 
 interface ChangePasswordProp {
   error: Error;
@@ -25,24 +25,10 @@ export const ChangePasswordComponent: FC = () => {
     state: { inputs, isFormValid },
     handlers: { inputChanged },
   } = useForm([InputKeys.Password], false);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
   const { error, type } = useSelector<RootState, ChangePasswordProp>(({ user }) => ({
     error: user.error,
     type: user.alertType,
   }));
-
-  const setShowPasswordHandler = (): void => setShowPassword((prevProps) => !prevProps);
-  const showPasswordIcon = (
-    <InputAdornment position="end">
-      <IconButton
-        aria-label="toggle password visibility"
-        onClick={setShowPasswordHandler}
-        color="primary"
-      >
-        {showPassword ? <Visibility /> : <VisibilityOff />}
-      </IconButton>
-    </InputAdornment>
-  );
 
   const handleSubmit = useCallback(
     (e) => {
@@ -55,24 +41,7 @@ export const ChangePasswordComponent: FC = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Typography>{t('After password changed you will be log off')}</Typography>
-      <TextField
-        variant="filled"
-        margin="normal"
-        required
-        fullWidth
-        name="password"
-        label={t('New password')}
-        type={showPassword ? 'text' : 'password'}
-        id="password"
-        value={inputs.password?.value}
-        error={inputs.password?.error}
-        helperText={inputs.password?.errorMsg}
-        onChange={inputChanged}
-        onBlur={(e): void => inputChanged(e, true)}
-        InputProps={{
-          endAdornment: showPasswordIcon,
-        }}
-      />
+      <Password inputChanged={inputChanged} password={inputs.password} />
       <AlertHandler error={error} type={type} />
       <Button disabled={!isFormValid} type="submit" fullWidth variant="contained" color="primary">
         {t('Change password')}
