@@ -2,15 +2,17 @@ import React, { FC, memo, useCallback, useEffect, useState } from 'react';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {
   AccountCircle as AccountIcon,
   SportsEsports as GameIcon,
   LockOpen as LoginIcon,
   Add as AddIcon,
-  Home as HomeIcon,
+  Email as EmailIcon,
 } from '@material-ui/icons';
 
 import './BottomNavigation.scss';
+import { setContactFormVisibility } from '../../../../store/app/action';
 import { PageParams } from '../../../../models/page-types';
 
 interface Props {
@@ -19,6 +21,7 @@ interface Props {
 
 export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [selectedItem, setItem] = useState<string>('/gra');
   const {
     location: { pathname },
@@ -32,6 +35,10 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
     setItem(newValue);
   }, []);
 
+  const OpenContactHandler = useCallback(() => {
+    dispatch(setContactFormVisibility(true));
+  }, [dispatch]);
+
   return (
     <BottomNavigation
       value={selectedItem}
@@ -39,13 +46,6 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
       showLabels
       className="main-bottom-navigation"
     >
-      <BottomNavigationAction
-        label={t('Home')}
-        icon={<HomeIcon />}
-        component={Link}
-        to={PageParams.Home}
-        value={PageParams.Home}
-      />
       {accessToken && (
         <BottomNavigationAction
           label={t('Play!')}
@@ -83,6 +83,11 @@ export const BottomNavigationComponent: FC<Props> = ({ accessToken }) => {
           value={PageParams.Register}
         />
       )}
+      <BottomNavigationAction
+        label={t('Contact')}
+        icon={<EmailIcon />}
+        onClick={OpenContactHandler}
+      />
     </BottomNavigation>
   );
 };

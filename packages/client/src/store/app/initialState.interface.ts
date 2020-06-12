@@ -11,4 +11,5 @@ export interface AppStateInterface {
   error?: NetworkError;
   alert?: boolean;
   alertType?: AlertTypes;
+  showContactForm: boolean;
 }

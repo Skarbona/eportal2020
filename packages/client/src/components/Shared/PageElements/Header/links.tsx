@@ -1,8 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, IconButton } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { AccountCircle as AccountIcon } from '@material-ui/icons';
 
+import { setContactFormVisibility } from '../../../../store/app/action';
 import { PageParams } from '../../../../models/page-types';
 
 export const GameLink = (text: string): ReactNode => (
@@ -40,3 +42,11 @@ export const RegisterLink = (text: string): ReactNode => (
     <Button>{text}</Button>
   </Link>
 );
+
+export const ContactLink = (text: string): ReactNode => {
+  const dispatch = useDispatch();
+  const openContactHandler = useCallback(() => {
+    dispatch(setContactFormVisibility(true));
+  }, [dispatch]);
+  return <Button onClick={openContactHandler}>{text}</Button>;
+};

@@ -3,11 +3,12 @@ import axios from 'axios';
 
 import * as A from '../action';
 import { AppThunk } from '../../store.interface';
+import { BACKEND_API } from '../../../constants/envs';
 
 export const fetchUserData = (token: string, userId = ''): AppThunk => async (dispatch) => {
   dispatch(A.initFetchUserData());
   try {
-    const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`, {
+    const { data } = await axios.get(`${BACKEND_API}/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

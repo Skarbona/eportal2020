@@ -1,11 +1,13 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import { TextField, Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import { ChangePasswordComponent } from '../../../../components/Pages/Profile/Settings/ChangePassword';
 import AlertHandler from '../../../../components/Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import * as changePasswordThunk from '../../../../store/user/thunks/changePassword';
-import { mockedEvent, MockedEventWithValues } from '../../../../mocks/event';
+import { mockedEvent } from '../../../../mocks/event';
+import Password from '../../../../components/Shared/Form/Password';
+import LoadingButton from '../../../../components/Shared/Form/LoadingButton';
 import * as useFormActions from '../../../../hooks/form/state/actions';
 
 describe('<ChangePassword > component', () => {
@@ -26,20 +28,15 @@ describe('<ChangePassword > component', () => {
 
   it('should have all required elements', () => {
     expect(wrapper.find(AlertHandler)).toHaveLength(1);
-    expect(wrapper.find(TextField)).toHaveLength(1);
-    expect(wrapper.find(Button)).toHaveLength(1);
+    expect(wrapper.find(Password)).toHaveLength(1);
+    expect(wrapper.find(LoadingButton)).toHaveLength(1);
     expect(wrapper.find(Typography)).toHaveLength(1);
     expect(wrapper.find('form')).toHaveLength(1);
-    expect(wrapper.find(Button).props().disabled).toEqual(true);
+    expect(wrapper.find(LoadingButton).props().disabled).toEqual(true);
   });
 
   it('should handle submit event', () => {
     wrapper.find('form').simulate('submit', mockedEvent);
     expect(changePasswordSpy).toHaveBeenCalled();
-  });
-
-  it('should handle TextField change event', () => {
-    wrapper.find(TextField).simulate('change', MockedEventWithValues());
-    expect(inputChangedSpy).toHaveBeenCalled();
   });
 });

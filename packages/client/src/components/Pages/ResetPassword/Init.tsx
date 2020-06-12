@@ -1,6 +1,5 @@
 import React, { FC, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, TextField } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
 import PageHeading from '../../Shared/PageElements/PageHeading/PageHeading';
@@ -13,20 +12,24 @@ import { useReduxDispatch } from '../../../store/helpers';
 import { getResetPasswordLink } from '../../../store/user/thunks/getResetPasswordLink';
 import { RootState } from '../../../store/store.interface';
 import { AlertTypes } from '../../../models/alerts';
+import LoadingButton from '../../Shared/Form/LoadingButton';
+import Email from '../../Shared/Form/Email';
 
 interface SelectorProp {
   error: Error;
   alert: boolean;
   type: AlertTypes;
+  isLoading: boolean;
 }
 
 export const InitResetPasswordComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
-  const { alert, error, type } = useSelector<RootState, SelectorProp>(({ user }) => ({
+  const { alert, error, type, isLoading } = useSelector<RootState, SelectorProp>(({ user }) => ({
     error: user.error,
     alert: user.alert,
     type: user.alertType,
+    isLoading: user.loading,
   }));
   const {
     state: { inputs, isFormValid },
@@ -49,31 +52,14 @@ export const InitResetPasswordComponent: FC = () => {
         maxWidth="lg"
       >
         <form onSubmit={handleSubmit}>
-          <TextField
-            variant="filled"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label={t('Email')}
-            name="email"
-            autoComplete="email"
-            value={inputs.email?.value}
-            error={inputs.email?.error}
-            helperText={inputs.email?.errorMsg}
-            onChange={inputChanged}
-            onBlur={(e): void => inputChanged(e, true)}
-          />
+          <Email email={inputs.email} inputChanged={inputChanged} />
           <AlertHandler error={error} alert={alert} type={type} />
-          <Button
-            disabled={!isFormValid}
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
+          <LoadingButton
+            disabled={!isFormValid || type === AlertTypes.CheckYourEmail}
+            isLoading={isLoading}
           >
             {t('Reset Password')}
-          </Button>
+          </LoadingButton>
         </form>
       </PageContainer>
     </>

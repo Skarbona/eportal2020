@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AppThunk } from '../../store.interface';
 import { PostResponseInterface } from '../../../../../service/src/models/shared-interfaces/post';
 import { failFetchPosts, initFetchPosts, successFetchPosts } from '../action';
+import { BACKEND_API } from '../../../constants/envs';
 
 export const fetchPostsForGame = (makeCheck?: boolean): AppThunk => async (dispatch, getState) => {
   dispatch(initFetchPosts());
@@ -15,7 +16,7 @@ export const fetchPostsForGame = (makeCheck?: boolean): AppThunk => async (dispa
       app: { auth },
     } = getState();
     const { data } = await axios.get(
-      `${process.env.REACT_APP_BACKEND_API}/posts?catsIncludeStrict=${place}&catsInclude=${catsQuery.catsInclude}&catsExclude=${catsQuery.catsExclude}`,
+      `${BACKEND_API}/posts?catsIncludeStrict=${place}&catsInclude=${catsQuery.catsInclude}&catsExclude=${catsQuery.catsExclude}`,
       {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,

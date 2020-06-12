@@ -1,8 +1,6 @@
-import React, { FC, memo, useCallback, useState } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Button, TextField, InputAdornment, IconButton } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useParams } from 'react-router-dom';
 
 import PageHeading from '../../Shared/PageElements/PageHeading/PageHeading';
@@ -15,41 +13,30 @@ import { useForm } from '../../../hooks/form/form-hook';
 import { InputKeys } from '../../../hooks/form/state/interface';
 import { changePassword } from '../../../store/user/thunks/changePassword';
 import { AlertTypes } from '../../../models/alerts';
+import Password from '../../Shared/Form/Password';
+import LoadingButton from '../../Shared/Form/LoadingButton';
 
 interface SelectorProp {
   error: Error;
   alert: boolean;
   type: AlertTypes;
+  isLoading: boolean;
 }
 
 export const SetNewPasswordComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const { token } = useParams();
-  const { alert, error, type } = useSelector<RootState, SelectorProp>(({ user }) => ({
+  const { alert, error, type, isLoading } = useSelector<RootState, SelectorProp>(({ user }) => ({
     error: user.error,
     alert: user.alert,
     type: user.alertType,
+    isLoading: user.loading,
   }));
   const {
     state: { inputs, isFormValid },
     handlers: { inputChanged },
   } = useForm([InputKeys.Password], false);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-
-  const setShowPasswordHandler = (): void => setShowPassword((prevProps) => !prevProps);
-
-  const showPasswordIcon = (
-    <InputAdornment position="end">
-      <IconButton
-        aria-label="toggle password visibility"
-        onClick={setShowPasswordHandler}
-        color="primary"
-      >
-        {showPassword ? <Visibility /> : <VisibilityOff />}
-      </IconButton>
-    </InputAdornment>
-  );
 
   const handleSubmit = useCallback(
     (e: SubmitEvent) => {
@@ -72,35 +59,14 @@ export const SetNewPasswordComponent: FC = () => {
         maxWidth="lg"
       >
         <form onSubmit={handleSubmit}>
-          <TextField
-            variant="filled"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label={t('Password')}
-            type={showPassword ? 'text' : 'password'}
-            id="password"
-            autoComplete="current-password"
-            value={inputs.password?.value}
-            error={inputs.password?.error}
-            helperText={inputs.password?.errorMsg}
-            onChange={inputChanged}
-            onBlur={(e): void => inputChanged(e, true)}
-            InputProps={{
-              endAdornment: showPasswordIcon,
-            }}
-          />
+          <Password password={inputs?.password} inputChanged={inputChanged} />
           <AlertHandler error={error} alert={alert} type={type} />
-          <Button
-            disabled={!isFormValid}
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
+          <LoadingButton
+            disabled={!isFormValid || type === AlertTypes.NewUserDataSet}
+            isLoading={isLoading}
           >
             {t('Set New Password')}
-          </Button>
+          </LoadingButton>
         </form>
       </PageContainer>
     </>

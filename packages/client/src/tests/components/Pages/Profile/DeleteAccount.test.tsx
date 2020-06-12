@@ -1,12 +1,14 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import { TextField, Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import { DeleteAccountComponent } from '../../../../components/Pages/Profile/Settings/DeleteAccount';
 import AlertHandlerInfo from '../../../../components/Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import * as deleteUserThunk from '../../../../store/user/thunks/deleteUser';
-import { mockedEvent, MockedEventWithValues } from '../../../../mocks/event';
+import { mockedEvent } from '../../../../mocks/event';
 import * as useFormActions from '../../../../hooks/form/state/actions';
+import ConfirmAccountDelete from '../../../../components/Shared/Form/ConfirmAccountDelete';
+import LoadingButton from '../../../../components/Shared/Form/LoadingButton';
 
 describe('<DeleteAccount > component', () => {
   let wrapper: ShallowWrapper;
@@ -26,20 +28,15 @@ describe('<DeleteAccount > component', () => {
 
   it('should have all required elements', () => {
     expect(wrapper.find(AlertHandlerInfo)).toHaveLength(1);
-    expect(wrapper.find(TextField)).toHaveLength(1);
-    expect(wrapper.find(Button)).toHaveLength(1);
+    expect(wrapper.find(ConfirmAccountDelete)).toHaveLength(1);
+    expect(wrapper.find(LoadingButton)).toHaveLength(1);
     expect(wrapper.find(Typography)).toHaveLength(1);
     expect(wrapper.find('form')).toHaveLength(1);
-    expect(wrapper.find(Button).props().disabled).toEqual(true);
+    expect(wrapper.find(LoadingButton).props().disabled).toEqual(true);
   });
 
   it('should handle submit event', () => {
     wrapper.find('form').simulate('submit', mockedEvent);
     expect(deleteUserThunkSpy).toHaveBeenCalled();
-  });
-
-  it('should handle TextField change event', () => {
-    wrapper.find(TextField).simulate('change', MockedEventWithValues());
-    expect(confirmAccountDeleteChanged).toHaveBeenCalled();
   });
 });

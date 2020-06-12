@@ -14,6 +14,7 @@ import SnackBarAlertHandler from './Shared/UIElements/AlertHandlerInfo/SnackBarA
 import BottomNavigation from './Shared/PageElements/BottomNavigation/BottomNavigation';
 import Footer from './Shared/PageElements/Footer/Footer';
 import AuthHOC from './Hoc/AuthHOC';
+import ContactForm from './Shared/PageElements/ContactForm/ContactForm';
 import OnRouteChanged from './Hoc/OnRouteChanged';
 import { RootState } from '../store/store.interface';
 import { checkIfTokenIsValid } from '../utils/auth';
@@ -23,17 +24,22 @@ interface AppSelector {
   accessToken: string;
   expirationTokenDate: Date;
   isAuthorizationDone: boolean;
+  showContactForm: boolean;
 }
 
 export const App: FC = () => {
-  const { id, accessToken, expirationTokenDate, isAuthorizationDone } = useSelector<
-    RootState,
-    AppSelector
-  >(({ user, app }) => ({
+  const {
+    id,
+    accessToken,
+    expirationTokenDate,
+    isAuthorizationDone,
+    showContactForm,
+  } = useSelector<RootState, AppSelector>(({ user, app }) => ({
     id: user.userData.id,
     accessToken: app.auth.accessToken,
     expirationTokenDate: app.auth.accessTokenExpiration,
     isAuthorizationDone: app.auth.isAuthorizationDone,
+    showContactForm: app.showContactForm,
   }));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useReduxDispatch();
@@ -56,6 +62,7 @@ export const App: FC = () => {
         </Container>
         <Footer />
         {isMobile && <BottomNavigation accessToken={accessToken} />}
+        {showContactForm && <ContactForm />}
       </>
     </ThemeProvider>
   );

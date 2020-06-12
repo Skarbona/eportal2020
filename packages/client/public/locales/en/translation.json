@@ -111,5 +111,14 @@
   "Please check your email field": "Please check your email field",
   "Set New Password": "Set New Password",
   "Success": "Success",
-  "New user data was set successfully": "New user data was set successfully"
+  "New user data was set successfully": "New user data was set successfully",
+  "Contact": "Contact",
+  "Message": "Message",
+  "Message must include at least 4 characters": "Message must include at least 4 characters",
+  "Message cannot include some of special characters": "Message cannot include some of special characters",
+  "Send message": "Send message",
+  "Contact Form": "Contact Form",
+  "Success! Your message were send": "Success! Your message were send",
+  "Action was succesfull": "Action was succesfull",
+  "Please wait for our feedback": "Please wait for our feedback"
 }

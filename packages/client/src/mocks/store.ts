@@ -90,6 +90,7 @@ export const mockedStore = (): RootState => ({
     page: {},
   },
   app: {
+    showContactForm: false,
     auth: {
       isAuthorizationDone: true,
       accessToken: chance.string(),

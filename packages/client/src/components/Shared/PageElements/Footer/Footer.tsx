@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import './Footer.scss';
 import { ReactComponent as WaveSVG } from '../../../../media/svg/revert-wave1.svg';
 import { PageParams } from '../../../../models/page-types';
+import { APP_VERSION } from '../../../../constants/envs';
 
 export const FooterComponent: FC = () => {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ export const FooterComponent: FC = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography gutterBottom align="right">
-              {t('App version')}: {process.env.REACT_APP_VERSION}
+              {t('App version')}: {APP_VERSION}
             </Typography>
           </Grid>
         </Grid>

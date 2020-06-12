@@ -68,7 +68,7 @@ export const GameSettingComponent: FC = () => {
             </Grid>
             <DefaultSettings />
             {errors}
-            <StartButton isFormValid={isFormValid} />
+            <StartButton isFormValid={isFormValid} isLoading={loading} />
           </form>
         )}
       </PageContainer>

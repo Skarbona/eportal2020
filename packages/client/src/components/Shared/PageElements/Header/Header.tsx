@@ -19,6 +19,7 @@ import { PageParams } from '../../../../models/page-types';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { theme } from '../../../../settings/theme-settings';
 import * as links from './links';
+import { PORTAL_NAME } from '../../../../constants/envs';
 
 interface Props {
   accessToken: string;
@@ -41,7 +42,10 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
   const logout = links.LogoutLink(t('Logout'), logoutHandler);
   const login = links.LoginLink(t('Log in'));
   const register = links.RegisterLink(t('Register'));
-  const itemsForMobileMenu = accessToken ? [game, profile, logout] : [login, register];
+  const contact = links.ContactLink(t('Contact'));
+  const itemsForMobileMenu = accessToken
+    ? [game, profile, contact, logout]
+    : [login, register, contact];
 
   const toggleDrawer = (openDrawer: boolean) => (event: KeyboardEvent | MouseEvent): void => {
     if (
@@ -79,7 +83,7 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
         )}
         <Typography variant="h6" className="title">
           <Link to={PageParams.Home} className="portal-name">
-            {process.env.REACT_APP_PORTAL_NAME}
+            {PORTAL_NAME}
           </Link>
         </Typography>
         {accessToken && !isMobile && (
@@ -94,6 +98,7 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
             {register}
           </>
         )}
+        {!isMobile && contact}
         {accessToken && logout}
       </Toolbar>
     </AppBar>

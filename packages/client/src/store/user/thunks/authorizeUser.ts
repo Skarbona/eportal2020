@@ -6,6 +6,7 @@ import * as A from '../action';
 import { ReturnAppThunk } from '../../store.interface';
 import { AuthorizationEndpoints } from '../../../models/endpoint-models';
 import { login } from '../../app/thunks/login';
+import { BACKEND_API } from '../../../constants/envs';
 
 export const authorizeUser = (
   type: AuthorizationEndpoints,
@@ -13,7 +14,7 @@ export const authorizeUser = (
 ): ReturnAppThunk<boolean> => async (dispatch) => {
   dispatch(A.initAuthorization());
   try {
-    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_API}/users/${type}`, {
+    const { data } = await axios.post(`${BACKEND_API}/users/${type}`, {
       ...requestData,
     });
     const { userData, accessToken, refreshToken } = data;

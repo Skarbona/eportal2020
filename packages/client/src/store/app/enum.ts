@@ -6,4 +6,5 @@ export enum AppEnum {
   FailRefreshTokens = 'failRefreshTokens',
   CleanAppAlerts = 'CleanAppAlerts',
   FinishAuthorization = 'FinishAuthorization',
+  SetContactFormVisibility = 'SetContactFormVisibility',
 }

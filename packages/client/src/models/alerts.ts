@@ -24,6 +24,8 @@ export enum AlertTypes {
   CheckYourEmail = 'CheckYourEmail',
   NewUserDataSet = 'NewUserDataSet',
   ServerErrorSnackBar = 'ServerErrorSnackBar',
+  Success = 'Success',
+  SuccessEmail = 'SuccessEmail',
 }
 
 export enum AlertSizes {
@@ -41,6 +43,20 @@ interface AlertHandlingMapInterface {
 export const AlertMap = new Map<AlertTypes, AlertHandlingMapInterface>();
 
 export const setAlertMap = (): void => {
+  AlertMap.set(AlertTypes.SuccessEmail, {
+    header: i18n.t('Success! Your message were send'),
+    message: i18n.t('Please wait for our feedback'),
+    size: AlertSizes.Big,
+    severity: 'success',
+  });
+
+  AlertMap.set(AlertTypes.Success, {
+    header: i18n.t('Success'),
+    message: i18n.t('Action was succesfull'),
+    size: AlertSizes.Big,
+    severity: 'success',
+  });
+
   AlertMap.set(AlertTypes.NewUserDataSet, {
     header: i18n.t('Success'),
     message: i18n.t('New user data was set successfully'),

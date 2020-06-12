@@ -2,7 +2,7 @@ import React, { FC, memo, useCallback, useEffect } from 'react';
 import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Link, Button, FormControl, Grid, Typography, Avatar } from '@material-ui/core';
+import { Link, FormControl, Grid, Typography, Avatar } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -19,10 +19,13 @@ import { AlertTypes } from '../../../models/alerts';
 import { useForm } from '../../../hooks/form/form-hook';
 import { InputKeys } from '../../../hooks/form/state/interface';
 import { PageParams } from '../../../models/page-types';
+import { GOOGLE_RECAPTCHA } from '../../../constants/envs';
+import LoadingButton from '../../Shared/Form/LoadingButton';
 
 interface SelectorProps {
   error: Error;
   alertType: AlertTypes;
+  isLoading: boolean;
 }
 
 const loginInputs = [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha];
@@ -44,9 +47,10 @@ export const AuthPageComponent: FC = () => {
     handlers: { setVisibleInputs, inputChanged, recaptchaChanged, checkBoxChanged },
   } = useForm(registerInputs, false);
 
-  const { error, alertType } = useSelector<RootState, SelectorProps>(({ user }) => ({
+  const { error, alertType, isLoading } = useSelector<RootState, SelectorProps>(({ user }) => ({
     error: user.error,
     alertType: user.alertType,
+    isLoading: user.loading,
   }));
 
   useEffect(() => {
@@ -117,21 +121,12 @@ export const AuthPageComponent: FC = () => {
             />
             <Grid container> {infoAction}</Grid>
             <Grid container justify="center">
-              <ReCAPTCHA
-                sitekey={process.env.REACT_APP_GOOGLE_RECAPTCHA}
-                onChange={recaptchaChanged}
-              />
+              <ReCAPTCHA sitekey={GOOGLE_RECAPTCHA} onChange={recaptchaChanged} />
             </Grid>
             <AlertHandler error={error} type={alertType} />
-            <Button
-              disabled={!isFormValid}
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
+            <LoadingButton disabled={!isFormValid} isLoading={isLoading}>
               {isRegisterMode ? t('Sign Up') : t('Sign In')}
-            </Button>
+            </LoadingButton>
           </FormControl>
         </form>
       </div>

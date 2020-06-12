@@ -3,6 +3,15 @@ import { ActionCreator } from 'redux';
 import * as I from './action.interface';
 import { AppEnum } from './enum';
 
+export const setContactFormVisibility: ActionCreator<I.SetContactFormVisibility> = (
+  showContactForm,
+) => ({
+  type: AppEnum.SetContactFormVisibility,
+  data: {
+    showContactForm,
+  },
+});
+
 export const finishAuthorization: ActionCreator<I.FinishAuthorization> = () => ({
   type: AppEnum.FinishAuthorization,
 });

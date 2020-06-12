@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { AppThunk } from '../../store.interface';
 import * as A from '../action';
+import { BACKEND_API } from '../../../constants/envs';
 
 export const setUserData = (): AppThunk => async (dispatch, getState) => {
   dispatch(A.initSetUserData());
@@ -14,15 +15,11 @@ export const setUserData = (): AppThunk => async (dispatch, getState) => {
   try {
     const requestBody = { gameDefaults: config };
 
-    const { data } = await axios.patch(
-      `${process.env.REACT_APP_BACKEND_API}/users/${userData.id}`,
-      requestBody,
-      {
-        headers: {
-          Authorization: `Bearer ${auth.accessToken}`,
-        },
+    const { data } = await axios.patch(`${BACKEND_API}/users/${userData.id}`, requestBody, {
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
       },
-    );
+    });
     dispatch(A.successSetUserData(data.user));
   } catch (e) {
     dispatch(A.failSetUserData(e));
