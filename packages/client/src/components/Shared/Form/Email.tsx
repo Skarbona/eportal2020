@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FormState } from '../../../hooks/form/state/interface';
 import { InputChangeEvent } from '../../../models/typescript-events';
 
-interface Props {
+export interface Props {
   inputChanged(value: InputChangeEvent, blurred?: boolean): void;
   email: FormState['inputs']['email'];
 }

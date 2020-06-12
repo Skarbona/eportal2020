@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FormState } from '../../../hooks/form/state/interface';
 import { InputChangeEvent } from '../../../models/typescript-events';
 
-interface Props {
+export interface Props {
   inputChanged(value: InputChangeEvent, blurred?: boolean): void;
   confirmedEmail: FormState['inputs']['confirmedEmail'];
 }
@@ -18,7 +18,7 @@ export const ConfirmEmailComponent: FC<Props> = ({ confirmedEmail, inputChanged 
       margin="normal"
       required
       fullWidth
-      id="confirmed-email"
+      id="confirmedEmail"
       label={t('Confirm Email')}
       name="confirmedEmail"
       value={confirmedEmail?.value}

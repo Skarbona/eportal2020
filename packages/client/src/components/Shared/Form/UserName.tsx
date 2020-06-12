@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FormState } from '../../../hooks/form/state/interface';
 import { InputChangeEvent } from '../../../models/typescript-events';
 
-interface Props {
+export interface Props {
   inputChanged(value: InputChangeEvent, blurred?: boolean): void;
   userName: FormState['inputs']['userName'];
 }
@@ -18,7 +18,7 @@ export const UserNameComponent: FC<Props> = ({ userName, inputChanged }) => {
       margin="normal"
       required
       fullWidth
-      id="username"
+      id="userName"
       label={t('Username')}
       name="userName"
       value={userName?.value}

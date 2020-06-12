@@ -48,8 +48,7 @@ export const useFetch = (): ReturnProps => {
 interface Send {
   url: string;
   method?: 'get' | 'post';
-  // eslint-disable-next-line
-  body?: any;
+  body?: object;
   headers?: object;
   successAlert?: AlertTypes;
   errorAlert?: AlertTypes;

@@ -3,6 +3,11 @@ import { shallow, ShallowWrapper } from 'enzyme';
 
 import { InputsComponent, Props } from '../../../../components/Pages/AuthPage/Inputs';
 import { initialState } from '../../../../hooks/form/state/initialState';
+import Password from '../../../../components/Shared/Form/Password';
+import Email from '../../../../components/Shared/Form/Email';
+import ConfirmEmail from '../../../../components/Shared/Form/ConfirmEmail';
+import PrivacyPolicy from '../../../../components/Shared/Form/PrivacyPolicy';
+import UserName from '../../../../components/Shared/Form/UserName';
 
 describe('<Inputs /> component', () => {
   let wrapper: ShallowWrapper;
@@ -19,68 +24,20 @@ describe('<Inputs /> component', () => {
   });
 
   it('should render all required elements (Register Page)', () => {
-    expect(wrapper.find('#email')).toHaveLength(1);
-    expect(wrapper.find('#confirmed-email')).toHaveLength(1);
-    expect(wrapper.find('#username')).toHaveLength(1);
-    expect(wrapper.find('#password')).toHaveLength(1);
-    expect(wrapper.find('#password')).toHaveLength(1);
-    expect(wrapper.find('#privacy-policy')).toHaveLength(1);
+    expect(wrapper.find(Email)).toHaveLength(1);
+    expect(wrapper.find(ConfirmEmail)).toHaveLength(1);
+    expect(wrapper.find(UserName)).toHaveLength(1);
+    expect(wrapper.find(Password)).toHaveLength(1);
+    expect(wrapper.find(PrivacyPolicy)).toHaveLength(1);
   });
 
   it('should render all required elements (Login Page)', () => {
     props.isRegisterMode = false;
     wrapper = shallow(<InputsComponent {...props} />);
-    expect(wrapper.find('#email')).toHaveLength(1);
-    expect(wrapper.find('#confirmed-email')).toHaveLength(0);
-    expect(wrapper.find('#username')).toHaveLength(0);
-    expect(wrapper.find('#password')).toHaveLength(1);
-    expect(wrapper.find('#privacy-policy')).toHaveLength(0);
-  });
-
-  it('should call handler on email changed', () => {
-    wrapper.find('#email').simulate('change');
-    expect(props.inputChanged).toHaveBeenCalled();
-  });
-
-  it('should call handler on email blurred', () => {
-    wrapper.find('#email').simulate('blur');
-    expect(props.inputChanged).toHaveBeenCalled();
-  });
-
-  it('should call handler on confirmed email changed', () => {
-    wrapper.find('#confirmed-email').simulate('change');
-    expect(props.inputChanged).toHaveBeenCalled();
-  });
-
-  it('should call handler on confirmed email blurred', () => {
-    wrapper.find('#confirmed-email').simulate('blur');
-    expect(props.inputChanged).toHaveBeenCalled();
-  });
-
-  it('should call handler on username changed', () => {
-    wrapper.find('#username').simulate('change');
-    expect(props.inputChanged).toHaveBeenCalled();
-  });
-
-  it('should call handler on username blurred', () => {
-    wrapper.find('#username').simulate('blur');
-    expect(props.inputChanged).toHaveBeenCalled();
-  });
-
-  it('should call handler on password changed', () => {
-    wrapper.find('#password').simulate('change');
-    expect(props.inputChanged).toHaveBeenCalled();
-  });
-
-  it('should call handler on password blurred', () => {
-    wrapper.find('#password').simulate('blur');
-    expect(props.inputChanged).toHaveBeenCalled();
-  });
-
-  it('should call handler on checkbox changed', () => {
-    const checkbox = wrapper.find('#privacy-policy') as any;
-    checkbox.prop('control').props.onChange({ target: { checked: true }, persist: jest.fn() });
-
-    expect(props.checkBoxChanged).toHaveBeenCalled();
+    expect(wrapper.find(Email)).toHaveLength(1);
+    expect(wrapper.find(ConfirmEmail)).toHaveLength(0);
+    expect(wrapper.find(UserName)).toHaveLength(0);
+    expect(wrapper.find(Password)).toHaveLength(1);
+    expect(wrapper.find(PrivacyPolicy)).toHaveLength(0);
   });
 });

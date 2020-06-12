@@ -20,9 +20,9 @@ describe('<BottomNavigation > component', () => {
     wrapper = shallow(<BottomNavigationComponent accessToken="token" />);
     expect(wrapper.find(BottomNavigation)).toHaveLength(1);
     expect(wrapper.find(BottomNavigationAction)).toHaveLength(3);
-    expect(wrapper.find(BottomNavigationAction).at(0).props().label).toEqual('Home');
-    expect(wrapper.find(BottomNavigationAction).at(1).props().label).toEqual('Play!');
-    expect(wrapper.find(BottomNavigationAction).at(2).props().label).toEqual('Profile');
+    expect(wrapper.find(BottomNavigationAction).at(0).props().label).toEqual('Play!');
+    expect(wrapper.find(BottomNavigationAction).at(1).props().label).toEqual('Profile');
+    expect(wrapper.find(BottomNavigationAction).at(2).props().label).toEqual('Contact');
   });
 
   it('should render all required items if has NO access token', () => {
@@ -38,8 +38,8 @@ describe('<BottomNavigation > component', () => {
     expect(wrapper.find(BottomNavigation)).toHaveLength(1);
     expect(wrapper.find(BottomNavigation).props().value).toEqual('/');
     expect(wrapper.find(BottomNavigationAction)).toHaveLength(3);
-    expect(wrapper.find(BottomNavigationAction).at(0).props().label).toEqual('Home');
-    expect(wrapper.find(BottomNavigationAction).at(1).props().label).toEqual('Log in');
-    expect(wrapper.find(BottomNavigationAction).at(2).props().label).toEqual('Register');
+    expect(wrapper.find(BottomNavigationAction).at(0).props().label).toEqual('Log in');
+    expect(wrapper.find(BottomNavigationAction).at(1).props().label).toEqual('Register');
+    expect(wrapper.find(BottomNavigationAction).at(2).props().label).toEqual('Contact');
   });
 });

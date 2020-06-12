@@ -7,7 +7,7 @@ import { PageParams } from '../../../models/page-types';
 import { FormState } from '../../../hooks/form/state/interface';
 import { CheckboxChangeEvent } from '../../../models/typescript-events';
 
-interface Props {
+export interface Props {
   checkBoxChanged(value: CheckboxChangeEvent): void;
   privacyPolicy: FormState['inputs']['privacyPolicy'];
   className?: string;

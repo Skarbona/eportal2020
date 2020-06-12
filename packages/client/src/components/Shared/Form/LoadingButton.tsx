@@ -3,7 +3,7 @@ import { Button, CircularProgress } from '@material-ui/core';
 
 import './LoadingButton.scss';
 
-interface Props {
+export interface Props {
   disabled: boolean;
   isLoading: boolean;
   children: ReactNode;
