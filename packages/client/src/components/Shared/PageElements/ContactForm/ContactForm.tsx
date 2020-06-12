@@ -36,8 +36,8 @@ export const ContactFormComponent: FC<{}> = () => {
     async (e: SubmitEvent) => {
       e.preventDefault();
       const body = {
-        message: inputs.message.value,
-        email: inputs.email.value,
+        message: inputs.message?.value,
+        email: inputs.email?.value,
       };
       await send({
         url: 'emails/contact-form',
