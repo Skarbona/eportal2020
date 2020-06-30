@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import './scss/TaskContent.scss';
 import { useTaskContentSelector } from './selector-hooks';
 import { GenderIds } from '../../../../constants/categoriesIds';
+import { PHOTOS_URL } from '../../../../constants/envs';
 
 export const TaskContentComponent: FC = () => {
   const { t } = useTranslation();
@@ -16,7 +17,7 @@ export const TaskContentComponent: FC = () => {
       <Grid container spacing={3} className="task-content">
         {image && (
           <Grid item xs={12} md={4}>
-            <img src={image} alt={content?.title} />
+            <img src={PHOTOS_URL + image} alt={content?.title} />
           </Grid>
         )}
         <Grid item xs={12} md={image ? 8 : 12}>
