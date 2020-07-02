@@ -8,6 +8,11 @@ import { initialRootState as mockedState } from './store/store';
 
 configure({ adapter: new Adapter() });
 
+jest.mock('react-ga', () => ({
+  initialize: () => jest.fn(),
+  pageview: () => jest.fn(),
+}));
+
 jest.mock('react-redux', () => ({
   useDispatch: () => jest.fn(),
   useSelector: jest.fn(() => mockedState),

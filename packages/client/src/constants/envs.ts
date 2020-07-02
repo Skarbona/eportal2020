@@ -5,3 +5,4 @@ export const PHOTOS_URL = process.env.REACT_APP_PHOTOS_URL;
 export const LANGUAGE = process.env.REACT_APP_LANGUAGE;
 export const { NODE_ENV, PUBLIC_URL } = process.env;
 export const APP_VERSION = process.env.REACT_APP_VERSION;
+export const GOOGLE_ANALYTICS = process.env.REACT_APP_GOOGLE_ANALYTICS;
