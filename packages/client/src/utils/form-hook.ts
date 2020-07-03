@@ -47,8 +47,6 @@ export const messageValidHandler = (message: string, blurred: boolean): Partial<
 
   if (!/^(.{4,})$/.test(message)) {
     errorMsg = i18n.t('Message must include at least 4 characters');
-  } else if (/[`~,.<>;':"/[\]|{}()=_+-]/.test(message)) {
-    errorMsg = i18n.t('Message cannot include some of special characters');
   } else {
     errorMsg = '';
   }
