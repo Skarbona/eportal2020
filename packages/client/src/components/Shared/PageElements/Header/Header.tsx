@@ -43,8 +43,9 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
   const login = links.LoginLink(t('Log in'));
   const register = links.RegisterLink(t('Register'));
   const contact = links.ContactLink(t('Contact'));
+  const waitingRoom = links.WaitingRoomLink(t('Waiting Room'));
   const itemsForMobileMenu = accessToken
-    ? [game, profile, contact, logout]
+    ? [waitingRoom, game, profile, contact, logout]
     : [login, register, contact];
 
   const toggleDrawer = (openDrawer: boolean) => (event: KeyboardEvent | MouseEvent): void => {
@@ -88,6 +89,7 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
         </Typography>
         {accessToken && !isMobile && (
           <>
+            {waitingRoom}
             {game}
             {profile}
           </>

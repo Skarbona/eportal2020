@@ -10,9 +10,19 @@ export const initialInputState = {
   blurred: false,
 };
 
+export const initialInputArrayState = {
+  ...initialInputState,
+  value: [] as string[],
+};
+
 export const initialState: FormState = {
   inputs: {
     password: initialInputState,
+    title: initialInputState,
+    message: initialInputState,
+    place: initialInputState,
+    levels: initialInputState,
+    preferences: initialInputArrayState,
     confirmedEmail: initialInputState,
     email: initialInputState,
     userName: initialInputState,

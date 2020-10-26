@@ -1,7 +1,7 @@
 import isEmail from 'validator/lib/isEmail';
 import i18n from '../settings/translation-settings';
 
-import { FormState, InputKeys, InputState } from '../hooks/form/state/interface';
+import { FormState, InputArrayState, InputKeys, InputState } from '../hooks/form/state/interface';
 import { initialInputState } from '../hooks/form/state/initialState';
 
 interface ValidateByKeyProps {
@@ -42,17 +42,42 @@ export const isPasswordValidHandler = (password: string, blurred: boolean): Part
   };
 };
 
-export const messageValidHandler = (message: string, blurred: boolean): Partial<InputState> => {
+export const fourCharsValidHandler = (
+  message: string,
+  blurred: boolean,
+  type: 'Message' | 'Title',
+): Partial<InputState> => {
   let errorMsg = '';
 
   if (!/^(.{4,})$/.test(message)) {
-    errorMsg = i18n.t('Message must include at least 4 characters');
+    errorMsg = i18n.t(`${type} must include at least 4 characters`);
   } else {
     errorMsg = '';
   }
 
   return {
     value: message,
+    error: errorMsg.length > 0 && blurred,
+    valid: errorMsg.length === 0,
+    blurred: !!blurred,
+    errorMsg,
+  };
+};
+
+export const arePreferencesValidHandler = (
+  preferences: string[],
+  blurred: boolean,
+): Partial<InputArrayState> => {
+  let errorMsg = '';
+
+  if (preferences.length < 2) {
+    errorMsg = i18n.t(`You have at least select 2 preferences`);
+  } else {
+    errorMsg = '';
+  }
+
+  return {
+    value: preferences,
     error: errorMsg.length > 0 && blurred,
     valid: errorMsg.length === 0,
     blurred: !!blurred,
@@ -168,7 +193,7 @@ export const validateByKey = ({
   value,
   blurred = false,
   oldState,
-}: ValidateByKeyProps): Partial<InputState> => {
+}: ValidateByKeyProps): Partial<InputState | InputArrayState> => {
   switch (inputKey) {
     case InputKeys.Email:
       return isEmailValidHandler(value, blurred);
@@ -181,7 +206,18 @@ export const validateByKey = ({
     case InputKeys.Recaptcha:
       return isRecaptchaValidHandler(value);
     case InputKeys.Message:
-      return messageValidHandler(value, blurred);
+      return fourCharsValidHandler(value, blurred, 'Message');
+    case InputKeys.Title:
+      return fourCharsValidHandler(value, blurred, 'Title');
+    case InputKeys.Preferences:
+      return arePreferencesValidHandler((value as unknown) as string[], blurred);
+    case InputKeys.Place:
+    case InputKeys.Levels:
+      return {
+        ...initialInputState,
+        valid: true,
+        value,
+      };
     default:
       return initialInputState;
   }

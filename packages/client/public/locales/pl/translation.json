@@ -65,6 +65,11 @@
   "New password": "Nowe hasło",
   "Summary": "Podsumowanie",
   "Play!": "Graj!",
+  "Edit": "Edytuj",
+  "Created by": "Dodane przez",
+  "Remove": "Usuń",
+  "Approve": "Zaakceptuj",
+  "Waiting Room": "Poczekalnia",
   "tasks": "zadań/nia",
   "expected": "oczekiwano",
   "I will configure game parameters": "Skonfiguruje parametry",
@@ -115,10 +120,14 @@
   "Contact": "Kontakt",
   "Message": "Wiadomość",
   "Message must include at least 4 characters": "Wiadomość musi zawierać przynajmniej 4 litery",
+  "Title must include at least 4 characters": "Tytuł musi zawierać przynajmniej 4 litery",
   "Message cannot include some of special characters": "Wiadomość nie może zawierać znaków specjalnych",
   "Send message": "Wyślij wiadomość",
   "Contact Form": "Formularz Kontaktowy",
   "Success! Your message were send": "Sukces! Twoja wiadomość została wysłana",
   "Action was succesfull": "Akcja zakończyła się sukcesem",
-  "Please wait for our feedback": "Proszę czekaj na informacje zwrotne z naszej strony"
+  "Please wait for our feedback": "Proszę czekaj na informacje zwrotne z naszej strony",
+  "Add post": "Dodaj zadanie",
+  "Post content": "Treść zadania",
+  "Title": "Tytuł"
 }

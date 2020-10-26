@@ -7,8 +7,8 @@ export interface PostBasicInterface {
 }
 
 export enum PostStatus {
-  Publish = 'Publish',
-  AwaitingForApproval = 'AwaitingForApproval',
+  Publish = 'publish',
+  AwaitingForApproval = 'awaitingForApproval',
 }
 
 export interface PostRequestInterface extends PostBasicInterface {
@@ -21,6 +21,8 @@ export interface PostResponseInterface extends PostBasicInterface {
   slug: string;
   categories: string[];
   status: PostStatus;
-  author: string;
+  author: {
+    name: string;
+  };
   id: string;
 }

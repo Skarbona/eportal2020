@@ -6,6 +6,7 @@ import { initialState } from './state/initialState';
 import * as I from './state/interface';
 import * as A from './state/actions';
 import { InputChangeEvent, CheckboxChangeEvent } from '../../models/typescript-events';
+import { FormState } from './state/interface';
 
 interface UseForm {
   state: Partial<I.FormState>;
@@ -18,8 +19,12 @@ interface UseForm {
   };
 }
 
-export const useForm = (inputs: I.InputKeys[], isFormValid = false): UseForm => {
-  const formState = { ...initialState };
+export const useForm = (
+  inputs: I.InputKeys[],
+  isFormValid = false,
+  initialFormState?: Partial<FormState['inputs']>,
+): UseForm => {
+  const formState = { ...initialState, inputs: { ...initialState.inputs, ...initialFormState } };
   formState.isFormValid = isFormValid;
   formState.inputs = setInitialInputsHandler(formState.inputs, inputs);
 

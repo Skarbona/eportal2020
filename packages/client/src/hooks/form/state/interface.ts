@@ -8,6 +8,10 @@ export interface InputState {
   blurred: boolean;
 }
 
+export interface InputArrayState extends Omit<InputState, 'value'> {
+  value: string[];
+}
+
 export interface CheckBoxState {
   value: boolean;
   valid: boolean;
@@ -25,6 +29,10 @@ export interface FormState {
     recaptcha?: InputState;
     confirmAccountDelete?: InputState;
     privacyPolicy?: CheckBoxState;
+    title?: InputState;
+    place?: InputState;
+    levels?: InputState;
+    preferences?: InputArrayState;
   };
   isFormValid: boolean;
 }
@@ -46,6 +54,10 @@ export enum InputKeys {
   'Recaptcha' = 'recaptcha',
   'ConfirmAccountDelete' = 'confirmAccountDelete',
   'PrivacyPolicy' = 'privacyPolicy',
+  'Title' = 'title',
+  'Place' = 'place',
+  'Preferences' = 'preferences',
+  'Levels' = 'levels',
 }
 export interface CheckBoxChanged {
   type: FormActionsEnum.CheckBoxChanged;

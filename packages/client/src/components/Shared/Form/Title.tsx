@@ -7,11 +7,10 @@ import { InputChangeEvent } from '../../../models/typescript-events';
 
 export interface Props {
   inputChanged(value: InputChangeEvent, blurred?: boolean): void;
-  message: FormState['inputs']['message'];
-  label?: string;
+  title: FormState['inputs']['title'];
 }
 
-export const MessageComponent: FC<Props> = ({ message, inputChanged, label }) => {
+export const TitleComponent: FC<Props> = ({ title, inputChanged }) => {
   const { t } = useTranslation();
   return (
     <TextField
@@ -19,18 +18,16 @@ export const MessageComponent: FC<Props> = ({ message, inputChanged, label }) =>
       margin="normal"
       required
       fullWidth
-      id="message"
-      label={label || t('Message')}
-      name="message"
-      multiline
-      rows={4}
-      value={message?.value}
-      error={message?.error}
-      helperText={message?.errorMsg}
+      id="title"
+      label={t('Title')}
+      name="title"
+      value={title?.value}
+      error={title?.error}
+      helperText={title?.errorMsg}
       onChange={inputChanged}
       onBlur={(e): void => inputChanged(e, true)}
     />
   );
 };
 
-export default memo(MessageComponent);
+export default memo(TitleComponent);

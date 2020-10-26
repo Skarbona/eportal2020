@@ -40,7 +40,9 @@ export const mockPost = (): PostResponseInterface => ({
     content: chance.sentence(),
   },
   id: chance.string(),
-  author: chance.string(),
+  author: {
+    name: chance.string(),
+  },
   image: chance.string(),
   date: new Date(),
   slug: chance.string(),
@@ -86,6 +88,10 @@ const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
 });
 
 export const mockedStore = (): RootState => ({
+  waitingRoom: {
+    posts: null,
+    loading: false,
+  },
   pages: {
     page: {},
   },

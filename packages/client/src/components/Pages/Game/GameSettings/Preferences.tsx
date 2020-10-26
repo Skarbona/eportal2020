@@ -9,19 +9,13 @@ import { FormValues } from '../../../../../../service/src/models/shared-interfac
 import {
   nestedCategoriesToState,
   setCheckboxesStatus,
-  renderNestedCatsWithCheckbox,
   selectCatsIds,
   CatsStateInterface,
 } from '../../../../utils/preferences';
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
-
-export interface Props {
-  preferences: CategoryInterface;
-  setFormValidation(valid: boolean): void;
-  defaults: string[];
-}
+import NestedCategories from '../../../Shared/Form/NestedCategories';
 
 export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation, defaults }) => {
   const { t } = useTranslation();
@@ -69,10 +63,18 @@ export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation
       icon={<Apps />}
     >
       <Grid container spacing={0}>
-        {preferencesState && renderNestedCatsWithCheckbox(preferencesState, preferenceStateHandler)}
+        {preferencesState && (
+          <NestedCategories cats={preferencesState} inputChanged={preferenceStateHandler} />
+        )}
       </Grid>
     </ExpansionPanelComponent>
   );
 };
+
+export interface Props {
+  preferences: CategoryInterface;
+  setFormValidation(valid: boolean): void;
+  defaults: string[];
+}
 
 export default memo(PreferencesComponent);

@@ -42,29 +42,35 @@ export const getPosts = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  // TODO: Add option for posts not in Waiting for Approval State
-  const { catsIncludeStrict, catsInclude, catsExclude } = req.query;
+  const { catsIncludeStrict, catsInclude, catsExclude, status } = req.query;
   try {
     let posts;
-    if (catsIncludeStrict || catsInclude || catsExclude) {
-      let options: {};
+    if (catsIncludeStrict || catsInclude || catsExclude || status) {
+      let options: { categories?: {}; status?: {} };
       if (catsIncludeStrict) {
-        options = { $eq: catsIncludeStrict };
+        options = { categories: { $eq: catsIncludeStrict } };
       }
 
       if (catsInclude) {
-        options = { ...options, $in: (catsInclude as string).split(',') };
+        options = {
+          ...options,
+          categories: { ...options.categories, $in: (catsInclude as string).split(',') },
+        };
       }
 
       if (catsExclude) {
-        options = { ...options, $nin: (catsExclude as string).split(',') };
+        options = {
+          ...options,
+          categories: { ...options.categories, $nin: (catsExclude as string).split(',') },
+        };
       }
 
       posts = await Post.find({
-        categories: options,
-      });
+        ...options,
+        status: { $eq: status ? (status as PostStatus) : PostStatus.Publish },
+      }).populate('author', 'name');
     } else {
-      posts = await Post.find();
+      posts = await Post.find().populate('author', 'name');
     }
 
     res.json({

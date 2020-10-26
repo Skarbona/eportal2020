@@ -9,6 +9,7 @@ import Profile from './Profile/Profile';
 import NotFound from './404/404';
 import InitResetPassword from './ResetPassword/Init';
 import SetNewPassword from './ResetPassword/SetNewPassword';
+import WaitingRoom from './WaitingRoom/WaitingRoom';
 import { PageNames } from '../../store/pages/initialState.interface';
 import { PageParams } from '../../models/page-types';
 
@@ -22,6 +23,11 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
       <Route path={PageParams.Home} exact>
         <Main isLoggedIn={!!accessToken?.length} />
       </Route>
+      {accessToken && (
+        <Route path={`${PageParams.WaitingRoom}/:page`} exact>
+          <WaitingRoom />
+        </Route>
+      )}
       {accessToken && (
         <Route path={PageParams.Profile} exact>
           <Profile />
