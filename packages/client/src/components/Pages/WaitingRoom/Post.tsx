@@ -6,7 +6,6 @@ import {
   Edit as EditIcon,
   Send as SendIcon,
 } from '@material-ui/icons';
-// eslint-ignore-next-line
 import { formatDistanceToNow } from 'date-fns';
 // eslint-ignore-next-line Eslint try to combine imports, what not working in this case
 import { enGB, pl } from 'date-fns/locale';
