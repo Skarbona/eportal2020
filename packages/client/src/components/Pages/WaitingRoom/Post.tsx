@@ -6,8 +6,9 @@ import {
   Edit as EditIcon,
   Send as SendIcon,
 } from '@material-ui/icons';
-import { formatDistanceToNow } from 'date-fns';
 // eslint-ignore-next-line
+import { formatDistanceToNow } from 'date-fns';
+// eslint-ignore-next-line Eslint try to combine imports, what not working in this case
 import { enGB, pl } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
 
@@ -90,9 +91,9 @@ export const PostComponent: FC<Props> = ({
   );
 
   const preferenceStateHandler = useCallback(
-    (id: string, parentIndex: number) => {
+    (preferenceId: string, parentIndex: number) => {
       setPreferencesState((prevState) => {
-        const newState = setCheckboxesStatus(id, parentIndex, prevState);
+        const newState = setCheckboxesStatus(preferenceId, parentIndex, prevState);
         const [includedCats] = selectCatsIds(newState);
         const eventMock = ({
           target: { value: includedCats, name: 'preferences' },
@@ -110,7 +111,7 @@ export const PostComponent: FC<Props> = ({
     }
   }, [saveSuccess, setEdit]);
 
-  const handleSubmit = (e: SubmitEvent) => {
+  const handleSubmit = (e: SubmitEvent): void => {
     e.preventDefault();
     const payload = {
       id,
@@ -167,11 +168,11 @@ export const PostComponent: FC<Props> = ({
                     {t('Save')}
                   </Button>
                 )}
-                <Button color="primary" startIcon={<EditIcon />} onClick={() => setEdit(id)}>
+                <Button color="primary" startIcon={<EditIcon />} onClick={(): void => setEdit(id)}>
                   {edit === id ? t('Close') : t('Edit')}
                 </Button>
                 <Button
-                  onClick={() => actionHandler(PostStatus.Publish)}
+                  onClick={(): void => actionHandler(PostStatus.Publish)}
                   disabled={edit === id}
                   startIcon={<CheckIcon />}
                   className="success-button"
@@ -179,7 +180,7 @@ export const PostComponent: FC<Props> = ({
                   {t('Approve')}
                 </Button>
                 <Button
-                  onClick={() => actionHandler(PostStatus.Archival)}
+                  onClick={(): void => actionHandler(PostStatus.Archival)}
                   disabled={edit === id}
                   color="primary"
                   className="error-button"

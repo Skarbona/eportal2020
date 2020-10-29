@@ -17,9 +17,9 @@ export const PlacesComponent: FC<Props> = ({ places, place, inputChanged }) => {
         onChange={inputChanged}
         name="place"
       >
-        {places.children.map((place) => (
-          <MenuItem value={place.id} key={place.id}>
-            {place.name}
+        {places.children.map((placeChild) => (
+          <MenuItem value={placeChild.id} key={placeChild.id}>
+            {placeChild.name}
           </MenuItem>
         ))}
       </Select>
@@ -30,7 +30,7 @@ export const PlacesComponent: FC<Props> = ({ places, place, inputChanged }) => {
 interface Props {
   places: CategoryInterface;
   place: string;
-  inputChanged(event: SelectChangeEvent, value: any): void;
+  inputChanged: <T>(event: SelectChangeEvent, value: T) => void;
 }
 
 export default memo(PlacesComponent);

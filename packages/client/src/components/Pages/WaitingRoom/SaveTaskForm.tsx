@@ -65,7 +65,7 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
     [inputChanged],
   );
 
-  const handleSubmit = (e: SubmitEvent) => {
+  const handleSubmit = (e: SubmitEvent): void => {
     e.preventDefault();
     const payload = {
       categories: [inputs.levels.value, inputs.place.value, ...inputs.preferences.value],
@@ -85,7 +85,7 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
   }, [error, alert, setShowAddPost, dispatch]);
 
   return (
-    <Dialog className="add-form" onClose={() => setShowAddPost(false)} title={t('Add post')}>
+    <Dialog className="add-form" onClose={(): void => setShowAddPost(false)} title={t('Add post')}>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3} alignItems="center">
           <Grid item xs={12}>

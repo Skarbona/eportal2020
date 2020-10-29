@@ -61,7 +61,7 @@ export const CardInfoComponent: FC<Props> = ({ name, email }) => {
       <Card className="profile__card-info primary-gradient-bg">
         <CardContent className="card-user">
           <Button
-            onClick={() => history.push(`${PageParams.WaitingRoom}/1`)}
+            onClick={(): void => history.push(`${PageParams.WaitingRoom}/1`)}
             fullWidth
             className="success-button"
             variant="contained"

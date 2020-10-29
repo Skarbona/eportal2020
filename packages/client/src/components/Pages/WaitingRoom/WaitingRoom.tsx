@@ -34,7 +34,7 @@ export const WaitingRoomComponent: FC = () => {
   );
 
   useEffect(() => {
-    setPageNumber(isNaN(parseInt(page)) ? 0 : parseInt(page));
+    setPageNumber(Number.isNaN(parseInt(page, 10)) ? 0 : parseInt(page, 10));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,7 +55,7 @@ export const WaitingRoomComponent: FC = () => {
               fullWidth
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={() => setShowAddPost((prevState) => !prevState)}
+              onClick={(): void => setShowAddPost((prevState) => !prevState)}
             >
               {t('Add post')}
             </Button>
@@ -71,7 +71,7 @@ export const WaitingRoomComponent: FC = () => {
               <Pagination
                 className="waiting-room__pagination"
                 page={pageNumber}
-                onChange={(e, value) => setPageNumberHandler(value)}
+                onChange={(e, value): void => setPageNumberHandler(value)}
                 count={totalPages}
                 color="primary"
               />

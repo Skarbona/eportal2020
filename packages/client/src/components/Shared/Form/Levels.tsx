@@ -17,9 +17,9 @@ export const LevelsComponent: FC<Props> = ({ levels, level, inputChanged }) => {
         onChange={inputChanged}
         name="levels"
       >
-        {levels.children.map((level) => (
-          <MenuItem value={level.id} key={level.id}>
-            {level.name}
+        {levels.children.map((levelChild) => (
+          <MenuItem value={levelChild.id} key={levelChild.id}>
+            {levelChild.name}
           </MenuItem>
         ))}
       </Select>
@@ -30,7 +30,7 @@ export const LevelsComponent: FC<Props> = ({ levels, level, inputChanged }) => {
 interface Props {
   levels: CategoryInterface;
   level: string;
-  inputChanged(event: SelectChangeEvent, value: any): void;
+  inputChanged: <T>(event: SelectChangeEvent, value: T) => void;
 }
 
 export default memo(LevelsComponent);
