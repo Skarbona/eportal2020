@@ -6,8 +6,9 @@ import {
   Edit as EditIcon,
   Send as SendIcon,
 } from '@material-ui/icons';
-import { formatDistanceToNow, enGB, pl } from 'date-fns';
-
+import { formatDistanceToNow } from 'date-fns';
+// eslint-ignore-next-line
+import { enGB, pl } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
 
 import { LANGUAGE } from '../../../constants/envs';
