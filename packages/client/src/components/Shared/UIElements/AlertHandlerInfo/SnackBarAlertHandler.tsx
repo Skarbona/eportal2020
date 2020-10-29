@@ -20,7 +20,6 @@ export const SnackBarAlertHandlerComponent: FC = () => {
   }, [error]);
 
   const closeHandler = useCallback(() => setIsOpen(false), []);
-  console.log(type, alert, error);
 
   if ((!alert && !error) || !type) return null;
   const alertValues = AlertMap?.get(type || AlertTypes.ServerError);

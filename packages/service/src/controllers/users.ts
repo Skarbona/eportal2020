@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
+import sanitizeHtml from 'sanitize-html';
 
 import HttpError from '../models/http-error';
 import User, { UserDocument } from '../models/user';
@@ -41,7 +42,7 @@ export const signUp = async (
   const createdUser = new User({
     date: new Date(),
     email,
-    name: userName,
+    name: sanitizeHtml(userName),
     type:
       req.route.path === '/signup-admin' && userType === UserType.Admin
         ? UserType.Admin

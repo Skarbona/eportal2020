@@ -2,8 +2,8 @@ import React, { FC, memo, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Grid, useMediaQuery } from '@material-ui/core';
 import ReCAPTCHA from 'react-google-recaptcha';
-
 import { useTranslation } from 'react-i18next';
+
 import Dialog from '../../UIElements/Dialog/Dialog';
 import { setContactFormVisibility } from '../../../../store/app/action';
 import { useForm } from '../../../../hooks/form/form-hook';

@@ -21,6 +21,10 @@ export const failGetPosts = (error: NetworkError): I.FailGetPosts => ({
   },
 });
 
+export const cleanAlerts = (): I.CleanAlerts => ({
+  type: WaitingRoomEnum.CleanAlerts,
+});
+
 export const initSavePosts = (): I.InitSavePosts => ({
   type: WaitingRoomEnum.InitSavePosts,
 });

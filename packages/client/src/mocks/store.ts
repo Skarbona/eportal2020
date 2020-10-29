@@ -159,5 +159,6 @@ export const mockedStore = (): RootState => ({
       gameDefaults: mockDefaults(),
     },
     loading: false,
+    userPosts: null,
   },
 });

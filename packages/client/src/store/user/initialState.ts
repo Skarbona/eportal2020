@@ -10,4 +10,5 @@ export const userInitialState: UserStateInterface = {
     gameDefaults: null,
   },
   loading: false,
+  userPosts: [],
 };

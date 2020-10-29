@@ -6,4 +6,6 @@ export enum WaitingRoomEnum {
   InitSavePosts = 'WaitingRoomEnum_InitSavePosts',
   SuccessSavePosts = 'WaitingRoomEnum_SuccessSavePosts',
   FailSavePosts = 'WaitingRoomEnum_FailSavePosts',
+
+  CleanAlerts = 'WaitingRoomEnum_CleanAlerts',
 }

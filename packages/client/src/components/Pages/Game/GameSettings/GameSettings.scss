@@ -1,12 +1,6 @@
 @import '../../../../scss/Variables';
 
 .game__settings {
-  .form-element__default-width {
-    width: 100%;
-    min-width: 200px;
-    max-width: 500px;
-  }
-
   .number-input {
     input {
       font-size: 2rem;
@@ -17,21 +11,6 @@
     .MuiSwitch-colorPrimary {
       &.Mui-checked + .MuiSwitch-track {
         background-color: $light-gray;
-      }
-    }
-  }
-
-  .game__preferences {
-    .nested-cats {
-      padding-left: 10px;
-    }
-
-    .nested-cats__form-group {
-      > div,
-      label {
-        flex-basis: 100%;
-        width: 100%;
-        max-width: 100%;
       }
     }
   }

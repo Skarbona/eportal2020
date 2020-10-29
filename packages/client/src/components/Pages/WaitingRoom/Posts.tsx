@@ -1,64 +1,29 @@
-import React, { FC, memo, Fragment } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Grid, Typography, Chip, ButtonGroup, Button } from '@material-ui/core';
-import { Archive as ArchiveIcon, Check as CheckIcon, Edit as EditIcon } from '@material-ui/icons';
-import { formatDistanceToNowStrict, pl, enGB } from 'date-fns';
+import React, { FC, memo, useState, useCallback } from 'react';
 
 import { usePostsSelector } from './selector-hook';
-import { LANGUAGE } from '../../../constants/envs';
+import Post from './Post';
 
 export const PostsComponent: FC<Props> = ({ pageNumber }) => {
-  const { posts, allCatsMap } = usePostsSelector(pageNumber);
-  const { t } = useTranslation();
-  // TODO: Sprawdzic skrypty!!!!;
-  console.log(posts);
+  const { posts, allCatsMap, cats, saveSuccess, isAdmin } = usePostsSelector(pageNumber);
+  const [edit, setEdit] = useState<string>('');
+
+  const setEditHandler = useCallback((id: string) => setEdit(id === edit ? '' : id), [edit]);
   return (
-    <Fragment>
-      {posts?.map(({ content, id, categories, author, date }) => (
-        <Fragment key={id}>
-          <Grid item xs={12}>
-            <Grid container spacing={3} className="task-content">
-              <Grid item xs={12} md={8}>
-                <Typography variant="h2" color="primary" className="task-title">
-                  <span dangerouslySetInnerHTML={{ __html: content?.title }} />
-                  <Typography color="secondary">
-                    {t('Created by')} <b>{author.name}</b> (
-                    {formatDistanceToNowStrict(new Date(date), {
-                      locale: LANGUAGE === 'pl' ? pl : enGB,
-                    })}
-                    )
-                  </Typography>
-                </Typography>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <ButtonGroup variant="contained" color="primary">
-                  <Button color="primary" startIcon={<EditIcon />}>
-                    {t('Edit')}
-                  </Button>
-                  <Button startIcon={<CheckIcon />} className="success-button">
-                    {t('Approve')}
-                  </Button>
-                  <Button color="primary" className="error-button" startIcon={<ArchiveIcon />}>
-                    {t('Remove')}
-                  </Button>
-                </ButtonGroup>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography
-                  dangerouslySetInnerHTML={{ __html: content?.content }}
-                  color="primary"
-                />
-              </Grid>
-              <Grid item xs={12} className="categories-badges">
-                {categories?.map((cat) => (
-                  <Chip key={cat} size="small" color="primary" label={allCatsMap?.get(cat)} />
-                ))}
-              </Grid>
-            </Grid>
-          </Grid>
-        </Fragment>
-      ))}
-    </Fragment>
+    <>
+      {cats.preferences &&
+        posts?.map((post) => (
+          <Post
+            isAdmin={isAdmin}
+            saveSuccess={saveSuccess}
+            key={post.id}
+            post={post}
+            cats={cats}
+            setEdit={setEditHandler}
+            edit={edit}
+            allCatsMap={allCatsMap}
+          />
+        ))}
+    </>
   );
 };
 

@@ -36,6 +36,14 @@ const gameReducer = (
         alertType: AlertTypes.SavePost,
       };
     }
+    case WaitingRoomEnum.CleanAlerts: {
+      return {
+        ...state,
+        alert: false,
+        error: null,
+        alertType: null,
+      };
+    }
     case WaitingRoomEnum.FailSavePosts:
     case WaitingRoomEnum.FailGetPosts: {
       const { error } = action.data;

@@ -25,6 +25,12 @@
       justify-content: center;
     }
 
+    .default-cursor {
+      button {
+        cursor: default;
+      }
+    }
+
     .card-actions {
       display: flex;
       align-items: center;

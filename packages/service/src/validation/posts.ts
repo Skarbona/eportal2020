@@ -17,6 +17,26 @@ const catsQueryRules = {
   },
 };
 
+const post = {
+  custom: {
+    options: (post: PostRequestInterface): boolean => {
+      if (!post) {
+        throw new Error('Not valid schema for posts');
+      }
+      const { content, categories, image, id } = post;
+      if (content?.title && (typeof content.title !== 'string' || content.title.length < 4))
+        return false;
+      if (content?.content && (typeof content.content !== 'string' || content.content.length < 4))
+        return false;
+      if (!id) return false;
+      if (categories && !Array.isArray(categories)) return false;
+      if (categories && categories.find((cat) => !Types.ObjectId.isValid(cat))) return false;
+      if (image && typeof image !== 'string') return false;
+      return true;
+    },
+  },
+};
+
 const posts = {
   custom: {
     options: (posts: PostRequestInterface): boolean => {
@@ -41,8 +61,10 @@ const posts = {
 };
 
 export const createPosts = checkSchema({ posts });
+export const savePosts = checkSchema({ post });
 export const getPosts = checkSchema({
   catsIncludeStrict: catsQueryRules,
   catsExclude: catsQueryRules,
   catsInclude: catsQueryRules,
+  author: catsQueryRules,
 });

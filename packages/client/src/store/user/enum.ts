@@ -17,4 +17,8 @@ export enum UserEnum {
   FailGetResetPasswordLink = 'FailGetResetPasswordLink',
   SuccessSetPassword = 'SuccessSetPassword',
   CleanUserAlerts = 'CleanUserAlerts',
+
+  FetchUserPostsStart = 'FetchUserPostsStart',
+  FetchUserPostsSuccess = 'FetchUserPostsSuccess',
+  FetchUserPostsFail = 'FetchUserPostsFail',
 }

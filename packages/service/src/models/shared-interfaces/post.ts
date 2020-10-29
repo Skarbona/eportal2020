@@ -8,12 +8,14 @@ export interface PostBasicInterface {
 
 export enum PostStatus {
   Publish = 'publish',
+  Archival = 'archival',
   AwaitingForApproval = 'awaitingForApproval',
 }
 
 export interface PostRequestInterface extends PostBasicInterface {
   categories: string[];
   author: string;
+  id?: string;
 }
 
 export interface PostResponseInterface extends PostBasicInterface {

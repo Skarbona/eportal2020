@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
 
 import postsRoutes from './routes/posts';
 import userRoutes from './routes/users';
@@ -19,6 +20,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(corsHeaders);
+app.use(helmet());
 app.use('/api/posts', postsRoutes);
 app.use('/api/pages', pagesRoutes);
 app.use('/api/categories', categoriesRoutes);

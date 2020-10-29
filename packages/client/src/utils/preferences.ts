@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CategoryInterface } from '../store/categories/initialState.interface';
 
 export interface CatsStateInterface {

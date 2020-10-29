@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
+import sanitizeHtml from 'sanitize-html';
 
 import Category, { CategoryRequestInterface } from '../models/category';
 import HttpError from '../models/http-error';
@@ -18,9 +19,9 @@ export const createCategories = async (
     const newCategories = categories.map(({ name, description }) => {
       return new Category({
         date: new Date(),
-        slug: stringToSlug(name),
-        name,
-        description,
+        slug: stringToSlug(sanitizeHtml(name)),
+        name: sanitizeHtml(name),
+        description: sanitizeHtml(description),
         children: [],
       });
     });

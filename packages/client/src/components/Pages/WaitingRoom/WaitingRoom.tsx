@@ -16,16 +16,6 @@ import { PageParams } from '../../../models/page-types';
 import { fetchCategories } from '../../../store/categories/thunks/fetchCategories';
 import { useWaitingRoomSelector } from './selector-hook';
 
-// TODO:
-// Stylowanie
-// Tlumaczenia (w tym walidacji)
-// Scroll to TOP on close
-// Weryfikacja skryptowego ataku
-// Sortowanie od najnowszych
-// Edycja przez adamina - UI/Backend
-// Akceptwanie/Usuwanie przez admina - UI/Backend
-// Aktualizacja informacji na profilu
-
 export const WaitingRoomComponent: FC = () => {
   const dispatch = useReduxDispatch();
   const { t } = useTranslation();

@@ -1,9 +1,40 @@
 import { NextFunction, Request, Response } from 'express';
+import sanitizeHtml from 'sanitize-html';
 
 import Post from '../models/post';
 import { PostRequestInterface, PostStatus } from '../models/shared-interfaces/post';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
+
+export const savePosts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void | Response> => {
+  const {
+    post: { id, content, categories, status },
+  } = req.body;
+  let post;
+  try {
+    post = await Post.findById(id);
+    if (!post) {
+      throw new Error();
+    }
+  } catch (e) {
+    return next(new HttpError('Post does not exist', 404));
+  }
+
+  try {
+    if (content?.content) post.content.content = sanitizeHtml(content.content);
+    if (content?.title) post.content.title = sanitizeHtml(content.title);
+    if (categories) post.categories = categories;
+    if (status) post.status = status as PostStatus;
+    await post.save();
+    res.json({ page: post.toObject({ getters: true }) });
+  } catch (e) {
+    return next(new HttpError('Something went wrong, could not update post', 500));
+  }
+};
 
 export const createPosts = async (
   req: Request,
@@ -15,11 +46,11 @@ export const createPosts = async (
   const createdPosts = posts.map(({ content, categories, image, author }: PostRequestInterface) => {
     const post = new Post({
       date: new Date(),
-      slug: stringToSlug(content.title),
+      slug: stringToSlug(sanitizeHtml(content.title)),
       status: PostStatus.AwaitingForApproval,
       content: {
-        title: content.title,
-        content: content.content,
+        title: sanitizeHtml(content.title),
+        content: sanitizeHtml(content.content),
       },
       author,
       categories,
@@ -42,11 +73,11 @@ export const getPosts = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const { catsIncludeStrict, catsInclude, catsExclude, status } = req.query;
+  const { catsIncludeStrict, catsInclude, catsExclude, status, author } = req.query;
   try {
     let posts;
     if (catsIncludeStrict || catsInclude || catsExclude || status) {
-      let options: { categories?: {}; status?: {} };
+      let options: { categories?: {}; status?: {}; author?: {} };
       if (catsIncludeStrict) {
         options = { categories: { $eq: catsIncludeStrict } };
       }
@@ -62,6 +93,13 @@ export const getPosts = async (
         options = {
           ...options,
           categories: { ...options.categories, $nin: (catsExclude as string).split(',') },
+        };
+      }
+
+      if (author) {
+        options = {
+          ...options,
+          author: { $eq: author },
         };
       }
 

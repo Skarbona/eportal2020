@@ -18,20 +18,28 @@ interface UseFormSelector {
 }
 
 export const usePostsSelector = (pageNumber: number): PostSelector =>
-  useSelector<RootState, PostSelector>(({ waitingRoom, categories }) => {
+  useSelector<RootState, PostSelector>(({ waitingRoom, categories, user }) => {
     const postsByPageNumber = waitingRoom.posts?.slice(
       (pageNumber - 1) * 10,
       (pageNumber - 1) * 10 + 10,
     );
     return {
-      posts: postsByPageNumber,
+      posts: postsByPageNumber?.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+      ),
       allCatsMap: categories.allCatsMap,
+      cats: categories.categories,
+      saveSuccess: !waitingRoom.error && waitingRoom.alert,
+      isAdmin: user.userData.type === 'admin',
     };
   });
 
 interface PostSelector {
   posts: PostResponseInterface[];
   allCatsMap: Map<string, string>;
+  cats: CategoriesStateInterface['categories'];
+  saveSuccess: boolean;
+  isAdmin: boolean;
 }
 
 export const useWaitingRoomSelector = (): WaitingRoomSelector =>

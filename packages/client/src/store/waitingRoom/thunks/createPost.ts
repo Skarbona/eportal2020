@@ -6,7 +6,7 @@ import { initSavePosts, successSavePosts, failSavePosts } from '../action';
 import { BACKEND_API } from '../../../constants/envs';
 import { getPosts } from './getPosts';
 
-export const savePosts = (payload: SavePosts): AppThunk => async (dispatch, getState) => {
+export const createPost = (payload: CreatePost): AppThunk => async (dispatch, getState) => {
   dispatch(initSavePosts());
   try {
     const {
@@ -33,7 +33,7 @@ export const savePosts = (payload: SavePosts): AppThunk => async (dispatch, getS
   }
 };
 
-interface SavePosts {
+interface CreatePost {
   categories: string[];
   content: {
     title: string;

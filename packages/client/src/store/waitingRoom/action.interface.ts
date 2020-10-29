@@ -30,6 +30,10 @@ export interface SuccessSavePosts extends Action {
   type: WaitingRoomEnum.SuccessSavePosts;
 }
 
+export interface CleanAlerts extends Action {
+  type: WaitingRoomEnum.CleanAlerts;
+}
+
 export interface FailSavePosts extends Action {
   type: WaitingRoomEnum.FailSavePosts;
   data: {
@@ -38,6 +42,7 @@ export interface FailSavePosts extends Action {
 }
 
 export type WaitingRoomActions =
+  | CleanAlerts
   | InitSavePosts
   | SuccessSavePosts
   | FailSavePosts

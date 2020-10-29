@@ -1,0 +1,57 @@
+@import './Variables';
+
+.form-element__default-width {
+  width: 100%;
+  min-width: 200px;
+  max-width: 550px;
+}
+
+.nested-cats {
+  padding-left: 10px;
+}
+
+.nested-cats__form-group {
+  > div,
+  label {
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.secondary-checkbox {
+  .MuiTypography-root,
+  .MuiCheckbox-root {
+    color: $light;
+  }
+}
+
+.primary-checkbox {
+  .MuiTypography-root,
+  .MuiCheckbox-root {
+    color: $primary;
+  }
+}
+
+.inputs-for-light-bg {
+  .MuiFormControlLabel-label,
+  .MuiSelect-icon,
+  .MuiFilledInput-root,
+  .MuiFormLabel-root,
+  .MuiFormHelperText-root,
+  .MuiFilledInput-underline {
+    color: $primary;
+
+    &::before {
+      color: $primary;
+
+      &.Mui-error {
+        color: $error;
+      }
+    }
+  }
+
+  .MuiFilledInput-underline {
+    background-color: $transparent-gray;
+  }
+}

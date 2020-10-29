@@ -10,7 +10,7 @@ export const NestedCategoriesComponent: FC<Props> = ({ cats, inputChanged, paren
         const mainIndex = parentIndex >= 0 ? parentIndex : i;
         const setStateHandler = (): void => inputChanged(cat.id, mainIndex);
         return (
-          <Grid item xs={12} md={6} className="nested-cats" key={cat.name}>
+          <Grid item xs={12} sm={6} className="nested-cats" key={cat.name}>
             <FormGroup className="nested-cats__form-group">
               <FormControlLabel
                 control={
