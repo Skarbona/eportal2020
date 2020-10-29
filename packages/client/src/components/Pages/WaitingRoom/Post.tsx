@@ -6,7 +6,7 @@ import {
   Edit as EditIcon,
   Send as SendIcon,
 } from '@material-ui/icons';
-import { formatDistanceToNow, pl, enGB } from 'date-fns';
+import { formatDistanceToNow, enGB, pl } from 'date-fns';
 
 import { useTranslation } from 'react-i18next';
 
