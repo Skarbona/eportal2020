@@ -42,7 +42,7 @@ export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
   }, [selectedPlace]);
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const handleOnChange = useCallback((event: SelectChangeEvent, value: any): void => {
+  const handleOnChange = useCallback((event: SelectChangeEvent, value?: any): void => {
     setSelectedPlace(event.target.value as string);
     setSubtitle(`(${value.props.children})`);
   }, []);

@@ -30,7 +30,7 @@ export const LevelsComponent: FC<Props> = ({ levels, level, inputChanged }) => {
 interface Props {
   levels: CategoryInterface;
   level: string;
-  inputChanged: <T>(event: SelectChangeEvent, value: T) => void;
+  inputChanged: (event: SelectChangeEvent) => void;
 }
 
 export default memo(LevelsComponent);

@@ -30,7 +30,7 @@ export const PlacesComponent: FC<Props> = ({ places, place, inputChanged }) => {
 interface Props {
   places: CategoryInterface;
   place: string;
-  inputChanged: <T>(event: SelectChangeEvent, value: T) => void;
+  inputChanged: (event: SelectChangeEvent) => void;
 }
 
 export default memo(PlacesComponent);
