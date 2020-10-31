@@ -122,3 +122,27 @@ export const getPosts = (server: Server, token: string, query = ''): Promise<Res
     .get('/api/posts/' + query)
     .set('Authorization', `Bearer ${token}`);
 };
+
+export const savePost = (
+  server: Server,
+  token: string,
+  authorId: string,
+  postId?: string,
+  body?: any,
+): Promise<Response> => {
+  const sendBody = {
+    post: {
+      content: {
+        content: 'SAVED CONTENT',
+        title: 'SAVED TITLE',
+      },
+      id: postId,
+      categories: [mongoose.Types.ObjectId(), mongoose.Types.ObjectId()],
+    },
+  };
+
+  return request(server)
+    .patch('/api/posts')
+    .send(!body ? sendBody : { ...body })
+    .set('Authorization', `Bearer ${token}`);
+};

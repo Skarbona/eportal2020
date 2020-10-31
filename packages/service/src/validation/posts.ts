@@ -1,6 +1,8 @@
 import { checkSchema } from 'express-validator';
 import { Types } from 'mongoose';
+
 import { PostRequestInterface } from '../models/shared-interfaces/post';
+import { PostStatus } from '../models/shared-interfaces/post';
 
 const catsQueryRules = {
   optional: { options: { nullable: true } },
@@ -21,17 +23,23 @@ const post = {
   custom: {
     options: (post: PostRequestInterface): boolean => {
       if (!post) {
-        throw new Error('Not valid schema for posts');
+        throw new Error('Not valid schema for post');
       }
-      const { content, categories, image, id } = post;
-      if (content?.title && (typeof content.title !== 'string' || content.title.length < 4))
-        return false;
-      if (content?.content && (typeof content.content !== 'string' || content.content.length < 4))
-        return false;
-      if (!id) return false;
-      if (categories && !Array.isArray(categories)) return false;
-      if (categories && categories.find((cat) => !Types.ObjectId.isValid(cat))) return false;
-      if (image && typeof image !== 'string') return false;
+      const { content, categories, image, id, status } = post;
+      if (content?.title && (typeof content.title !== 'string' || content.title?.length < 4))
+        throw new Error('Not valid title');
+      if (content?.content && (typeof content.content !== 'string' || content.content?.length < 4))
+        throw new Error('Not valid content');
+      if (!id) throw new Error('Id is required');
+      if (categories && !Array.isArray(categories)) throw new Error('Not valid id schema');
+      if (categories && categories.find((cat) => !Types.ObjectId.isValid(cat)))
+        throw new Error('Not valid ids');
+      if (image && typeof image !== 'string') throw new Error('Not valid image');
+      if (
+        status &&
+        ![PostStatus.Publish, PostStatus.AwaitingForApproval, PostStatus.Archival].includes(status)
+      )
+        throw new Error('Not valid status');
       return true;
     },
   },

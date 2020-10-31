@@ -16,6 +16,8 @@ import { PageParams } from '../../../models/page-types';
 import { fetchCategories } from '../../../store/categories/thunks/fetchCategories';
 import { useWaitingRoomSelector } from './selector-hook';
 
+// JEST BUG, ze nie mozna edit zrobic ponownie
+
 export const WaitingRoomComponent: FC = () => {
   const dispatch = useReduxDispatch();
   const { t } = useTranslation();

@@ -5,6 +5,8 @@ import Post from '../models/post';
 import { PostRequestInterface, PostStatus } from '../models/shared-interfaces/post';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
+import createEmailTransporter from '../utils/create-transport';
+import { EMAIL_USER } from '../constants/envs';
 
 export const savePosts = async (
   req: Request,
@@ -30,7 +32,7 @@ export const savePosts = async (
     if (categories) post.categories = categories;
     if (status) post.status = status as PostStatus;
     await post.save();
-    res.json({ page: post.toObject({ getters: true }) });
+    res.json({ post: post.toObject({ getters: true }) });
   } catch (e) {
     return next(new HttpError('Something went wrong, could not update post', 500));
   }
@@ -66,6 +68,18 @@ export const createPosts = async (
   } catch (e) {
     return next(new HttpError('Something went wrong, could not create posts', 500));
   }
+
+  try {
+    const transporter = createEmailTransporter();
+    await transporter.sendMail({
+      from: `<${EMAIL_USER}>`,
+      to: EMAIL_USER,
+      subject: 'New post added',
+      text: `Please check waiting Room, new post was added`,
+    });
+  } catch (e) {
+    return next();
+  }
 };
 
 export const getPosts = async (
@@ -85,14 +99,14 @@ export const getPosts = async (
       if (catsInclude) {
         options = {
           ...options,
-          categories: { ...options.categories, $in: (catsInclude as string).split(',') },
+          categories: { ...options?.categories, $in: (catsInclude as string).split(',') },
         };
       }
 
       if (catsExclude) {
         options = {
           ...options,
-          categories: { ...options.categories, $nin: (catsExclude as string).split(',') },
+          categories: { ...options?.categories, $nin: (catsExclude as string).split(',') },
         };
       }
 

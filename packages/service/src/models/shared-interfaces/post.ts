@@ -4,6 +4,7 @@ export interface PostBasicInterface {
     content: string;
   };
   image?: string;
+  status: PostStatus;
 }
 
 export enum PostStatus {
@@ -22,7 +23,6 @@ export interface PostResponseInterface extends PostBasicInterface {
   date: Date;
   slug: string;
   categories: string[];
-  status: PostStatus;
   author: {
     name: string;
   };
