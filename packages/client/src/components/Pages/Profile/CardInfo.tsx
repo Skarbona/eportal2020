@@ -3,8 +3,8 @@ import { Typography, Card, CardContent, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Add as AddIcon } from '@material-ui/icons';
+import { useHistory } from 'react-router-dom';
 
-import { useHistory } from 'react-router';
 import { fetchUserPosts } from '../../../store/user/thunks/fetchUserPosts';
 import { useReduxDispatch } from '../../../store/helpers';
 import { RootState } from '../../../store/store.interface';

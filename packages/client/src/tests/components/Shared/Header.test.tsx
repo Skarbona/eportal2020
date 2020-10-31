@@ -16,10 +16,11 @@ describe('<Header > component', () => {
     wrapper = shallow(<HeaderComponent accessToken="TOKEN" />);
     expect(wrapper.find(AppBar)).toHaveLength(1);
     expect(wrapper.find(MenuIcon)).toHaveLength(1);
-    expect(wrapper.find(Link)).toHaveLength(5);
+    expect(wrapper.find(Link)).toHaveLength(6);
     expect(wrapper.find('.portal-name')).toHaveLength(1);
     expect(wrapper.find('.btn__start-game')).toHaveLength(1);
     expect(wrapper.find('.btn__logout')).toHaveLength(2);
+    expect(wrapper.find('.btn__waiting-room')).toHaveLength(1);
     expect(wrapper.find('.btn__profile-page')).toHaveLength(1);
     expect(wrapper.find('.btn__log-in')).toHaveLength(0);
     expect(wrapper.find('.btn__register')).toHaveLength(0);
@@ -34,6 +35,7 @@ describe('<Header > component', () => {
     expect(wrapper.find('.portal-name')).toHaveLength(1);
     expect(wrapper.find('.btn__start-game')).toHaveLength(0);
     expect(wrapper.find('.btn__logout')).toHaveLength(0);
+    expect(wrapper.find('.btn__waiting-room')).toHaveLength(0);
     expect(wrapper.find('.btn__profile-page')).toHaveLength(0);
     expect(wrapper.find('.btn__log-in')).toHaveLength(1);
     expect(wrapper.find('.btn__register')).toHaveLength(1);
@@ -44,11 +46,12 @@ describe('<Header > component', () => {
     wrapper = shallow(<HeaderComponent accessToken="TOKEN" />);
     expect(wrapper.find(AppBar)).toHaveLength(1);
     expect(wrapper.find(MenuIcon)).toHaveLength(0);
-    expect(wrapper.find(Link)).toHaveLength(4);
+    expect(wrapper.find(Link)).toHaveLength(5);
     expect(wrapper.find('.portal-name')).toHaveLength(1);
     expect(wrapper.find('.btn__start-game')).toHaveLength(1);
     expect(wrapper.find('.btn__logout')).toHaveLength(1);
     expect(wrapper.find('.btn__profile-page')).toHaveLength(1);
+    expect(wrapper.find('.btn__waiting-room')).toHaveLength(1);
     expect(wrapper.find('.btn__log-in')).toHaveLength(0);
     expect(wrapper.find('.btn__register')).toHaveLength(0);
   });
@@ -63,6 +66,7 @@ describe('<Header > component', () => {
     expect(wrapper.find('.btn__start-game')).toHaveLength(0);
     expect(wrapper.find('.btn__logout')).toHaveLength(0);
     expect(wrapper.find('.btn__profile-page')).toHaveLength(0);
+    expect(wrapper.find('.btn__waiting-room')).toHaveLength(0);
     expect(wrapper.find('.btn__log-in')).toHaveLength(1);
     expect(wrapper.find('.btn__register')).toHaveLength(1);
   });

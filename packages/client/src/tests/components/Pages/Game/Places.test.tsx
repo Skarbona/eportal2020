@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import { Select } from '@material-ui/core';
 
 import * as gameActions from '../../../../store/game/action';
 import { PlacesComponent, Props } from '../../../../components/Pages/Game/GameSettings/Places';
 import ExpansionPanelComponent from '../../../../components/Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import Places from '../../../../components/Shared/Form/Places';
 import { mockedStore } from '../../../../mocks/store';
 import { InputChangeEvent } from '../../../../models/typescript-events';
 
@@ -25,7 +25,7 @@ describe('<Places /> component', () => {
     props = { defaults: null, places: null };
     wrapper = shallow(<PlacesComponent {...props} />);
     expect(wrapper.find(ExpansionPanelComponent)).toHaveLength(1);
-    expect(wrapper.find(Select)).toHaveLength(0);
+    expect(wrapper.find(Places)).toHaveLength(0);
   });
 
   it('should render all required elements when props provided', () => {
@@ -36,7 +36,7 @@ describe('<Places /> component', () => {
     };
     wrapper = shallow(<PlacesComponent {...props} />);
     expect(wrapper.find(ExpansionPanelComponent)).toHaveLength(1);
-    expect(wrapper.find(Select)).toHaveLength(1);
+    expect(wrapper.find(Places)).toHaveLength(1);
   });
 
   it('should call setFormValues', () => {
@@ -50,6 +50,7 @@ describe('<Places /> component', () => {
   });
 
   it('should handle onChange events', () => {
+    // TODO: Move to Places Input unit tests
     const { user, categories } = mockedStore();
     const props = {
       defaults: user.userData.gameDefaults.place,
@@ -59,7 +60,7 @@ describe('<Places /> component', () => {
     expect(setFormValuesSpy).toHaveBeenCalledTimes(2);
     const event = ({ target: { value: 0 } } as unknown) as InputChangeEvent;
     const value = { props: { children: [''] } };
-    wrapper.find(Select).simulate('change', event, value);
+    wrapper.find(Places).simulate('change', event, value);
     expect(setFormValuesSpy).toHaveBeenCalledTimes(3);
   });
 });

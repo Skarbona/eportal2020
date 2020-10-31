@@ -8,23 +8,25 @@ import Page from '../../../components/Pages/Page/Page';
 import Main from '../../../components/Pages/Main/Main';
 import AuthPage from '../../../components/Pages/AuthPage/AuthPage';
 import NotFound from '../../../components/Pages/404/404';
+import WaitingRoom from '../../../components/Pages/WaitingRoom/WaitingRoom';
 
 describe('<Pages > component', () => {
   let wrapper: ShallowWrapper;
 
   it('should have all required elements if access token exist', () => {
-    wrapper = shallow(<PagesComponent accessToken="TOKEN" expirationDate={new Date()} />);
+    wrapper = shallow(<PagesComponent accessToken="TOKEN" />);
     expect(wrapper.find(Game)).toHaveLength(1);
     expect(wrapper.find(Main)).toHaveLength(1);
     expect(wrapper.find(Page)).toHaveLength(2);
     expect(wrapper.find(NotFound)).toHaveLength(1);
-    expect(wrapper.find(Route)).toHaveLength(6);
+    expect(wrapper.find(WaitingRoom)).toHaveLength(1);
+    expect(wrapper.find(Route)).toHaveLength(7);
 
     expect(wrapper.find(AuthPage)).toHaveLength(0);
   });
 
   it('should have all required elements if access token NOT exist', () => {
-    wrapper = shallow(<PagesComponent accessToken="" expirationDate={new Date()} />);
+    wrapper = shallow(<PagesComponent accessToken="" />);
     expect(wrapper.find(Main)).toHaveLength(1);
     expect(wrapper.find(AuthPage)).toHaveLength(1);
     expect(wrapper.find(NotFound)).toHaveLength(1);
@@ -38,8 +40,8 @@ describe('<Pages > component', () => {
     const oldAccessToken = '111111';
     const newAccessToken = '222222';
     const propsChanged = arePropsEqual(
-      { accessToken: oldAccessToken, expirationDate: new Date() },
-      { accessToken: newAccessToken, expirationDate: new Date() },
+      { accessToken: oldAccessToken },
+      { accessToken: newAccessToken },
     );
     expect(propsChanged).toEqual(true);
   });
@@ -48,8 +50,8 @@ describe('<Pages > component', () => {
     const oldAccessToken = '';
     const newAccessToken = '222222';
     const propsChanged = arePropsEqual(
-      { accessToken: oldAccessToken, expirationDate: new Date() },
-      { accessToken: newAccessToken, expirationDate: new Date() },
+      { accessToken: oldAccessToken },
+      { accessToken: newAccessToken },
     );
     expect(propsChanged).toEqual(false);
   });

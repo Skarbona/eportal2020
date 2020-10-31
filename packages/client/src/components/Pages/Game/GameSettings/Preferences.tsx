@@ -63,7 +63,7 @@ export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation
       icon={<Apps />}
     >
       <Grid container spacing={0}>
-        {preferencesState && (
+        {preferencesState.length > 0 && (
           <NestedCategories cats={preferencesState} inputChanged={preferenceStateHandler} />
         )}
       </Grid>
