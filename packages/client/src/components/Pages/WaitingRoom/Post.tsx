@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, useState, useMemo, useEffect } from 'react';
+import React, { FC, memo, useCallback, useState, useMemo } from 'react';
 import { Grid, Typography, Chip, ButtonGroup, Button } from '@material-ui/core';
 import {
   Archive as ArchiveIcon,
@@ -41,15 +41,7 @@ const formInputs = [
   InputKeys.Preferences,
 ];
 
-export const PostComponent: FC<Props> = ({
-  cats,
-  post,
-  edit,
-  setEdit,
-  allCatsMap,
-  saveSuccess,
-  isAdmin,
-}) => {
+export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap, isAdmin }) => {
   const dispatch = useReduxDispatch();
   const { id, content, author, date, categories } = post;
   const initialState = useMemo(() => {
@@ -104,13 +96,7 @@ export const PostComponent: FC<Props> = ({
     [inputChanged],
   );
 
-  useEffect(() => {
-    if (saveSuccess) {
-      setEdit('');
-    }
-  }, [saveSuccess, setEdit]);
-
-  const handleSubmit = (e: SubmitEvent): void => {
+  const handleSubmit = async (e: SubmitEvent): Promise<void> => {
     e.preventDefault();
     const payload = {
       id,
@@ -120,7 +106,8 @@ export const PostComponent: FC<Props> = ({
         content: inputs.message.value,
       },
     };
-    dispatch(savePost(payload));
+    await dispatch(savePost(payload));
+    setEdit('');
   };
 
   const actionHandler = useCallback(
@@ -238,7 +225,6 @@ interface Props {
   setEdit: (editId: string) => void;
   allCatsMap: Map<string, string>;
   cats: CategoriesStateInterface['categories'];
-  saveSuccess: boolean;
   isAdmin: boolean;
 }
 

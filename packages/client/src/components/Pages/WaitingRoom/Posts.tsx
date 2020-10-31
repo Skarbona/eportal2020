@@ -4,7 +4,7 @@ import { usePostsSelector } from './selector-hook';
 import Post from './Post';
 
 export const PostsComponent: FC<Props> = ({ pageNumber }) => {
-  const { posts, allCatsMap, cats, saveSuccess, isAdmin } = usePostsSelector(pageNumber);
+  const { posts, allCatsMap, cats, isAdmin } = usePostsSelector(pageNumber);
   const [edit, setEdit] = useState<string>('');
 
   const setEditHandler = useCallback((id: string) => setEdit(id === edit ? '' : id), [edit]);
@@ -14,7 +14,6 @@ export const PostsComponent: FC<Props> = ({ pageNumber }) => {
         posts?.map((post) => (
           <Post
             isAdmin={isAdmin}
-            saveSuccess={saveSuccess}
             key={post.id}
             post={post}
             cats={cats}
