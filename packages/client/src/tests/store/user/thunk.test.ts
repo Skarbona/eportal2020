@@ -9,12 +9,8 @@ import * as getResetPasswordLinkThunk from '../../../store/user/thunks/getResetP
 import * as fetchUserPostsThunk from '../../../store/user/thunks/fetchUserPosts';
 import * as logoutThunk from '../../../store/app/thunks/logout';
 import * as userActions from '../../../store/user/action';
-
 import { initialRootState } from '../../../store/store';
 import { AuthorizationEndpoints } from '../../../models/endpoint-models';
-import { fetchUserPostsStart } from '../../../store/user/action';
-import { fetchUserPostsSuccess } from '../../../store/user/action';
-import { fetchUserPostsFail } from '../../../store/user/action';
 
 describe('Thunk: User', () => {
   let dispatch: any;

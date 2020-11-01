@@ -5,10 +5,6 @@ import * as getPostsThunk from '../../../store/waitingRoom/thunks/getPosts';
 import * as createPostThunk from '../../../store/waitingRoom/thunks/createPost';
 import * as waitingRoomActions from '../../../store/waitingRoom/action';
 import { initialRootState } from '../../../store/store';
-import { successSavePosts } from '../../../store/waitingRoom/action';
-import { initGetPosts } from '../../../store/waitingRoom/action';
-import { successGetPosts } from '../../../store/waitingRoom/action';
-import { failGetPosts } from '../../../store/waitingRoom/action';
 
 describe('Thunk: WaitingRoom', () => {
   let dispatch: any;

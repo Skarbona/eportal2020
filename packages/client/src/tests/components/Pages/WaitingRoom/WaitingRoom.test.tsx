@@ -41,7 +41,6 @@ describe('<WaitingRoom > component', () => {
   });
 
   it('should have all required elements', () => {
-    spyStore.mock;
     wrapper = shallow(<WaitingRoom />);
     expect(wrapper.find(PageHeading)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);
