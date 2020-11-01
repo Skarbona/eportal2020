@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import { createShallow } from '@material-ui/core/test-utils';
-import { FormGroup } from '@material-ui/core';
 
 import * as gameActions from '../../../../store/game/action';
 import {
@@ -10,6 +9,7 @@ import {
 } from '../../../../components/Pages/Game/GameSettings/Preferences';
 import ExpansionPanelComponent from '../../../../components/Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { mockedStore } from '../../../../mocks/store';
+import NestedCategories from '../../../../components/Shared/Form/NestedCategories';
 
 describe('<PreferencesComponent /> component', () => {
   let wrapper: ShallowWrapper;
@@ -30,7 +30,7 @@ describe('<PreferencesComponent /> component', () => {
     props = { preferences: null, setFormValidation: () => {}, defaults: null };
     wrapper = shallow(<PreferencesComponent {...props} />);
     expect(wrapper.find(ExpansionPanelComponent)).toHaveLength(1);
-    expect(wrapper.find(FormGroup)).toHaveLength(0);
+    expect(wrapper.find(NestedCategories)).toHaveLength(0);
   });
 
   it('should render all required elements when props provided', () => {
@@ -42,7 +42,7 @@ describe('<PreferencesComponent /> component', () => {
     };
     wrapper = shallow(<PreferencesComponent {...props} />);
     expect(wrapper.find(ExpansionPanelComponent)).toHaveLength(1);
-    expect(wrapper.find(FormGroup)).toHaveLength(12);
+    expect(wrapper.find(NestedCategories)).toHaveLength(1);
   });
 
   it('should call setFormValues', () => {

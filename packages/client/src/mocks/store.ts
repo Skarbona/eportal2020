@@ -40,7 +40,9 @@ export const mockPost = (): PostResponseInterface => ({
     content: chance.sentence(),
   },
   id: chance.string(),
-  author: chance.string(),
+  author: {
+    name: chance.string(),
+  },
   image: chance.string(),
   date: new Date(),
   slug: chance.string(),
@@ -70,7 +72,7 @@ const mockDefaults = (): FormValues => ({
   saveAsDefault: false,
 });
 
-const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
+export const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
   id: name,
   date: new Date(),
   slug: name,
@@ -86,6 +88,10 @@ const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
 });
 
 export const mockedStore = (): RootState => ({
+  waitingRoom: {
+    posts: [mockPost(), mockPost(), mockPost()],
+    loading: false,
+  },
   pages: {
     page: {},
   },
@@ -153,5 +159,6 @@ export const mockedStore = (): RootState => ({
       gameDefaults: mockDefaults(),
     },
     loading: false,
+    userPosts: null,
   },
 });

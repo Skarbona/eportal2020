@@ -1,0 +1,10 @@
+@import '../../../scss/Variables';
+
+.waiting-room {
+  .waiting-room__pagination {
+    button:not(.Mui-selected),
+    .MuiPaginationItem-ellipsis {
+      color: $primary;
+    }
+  }
+}

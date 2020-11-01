@@ -11,6 +11,8 @@ import { GameStateInterface } from './game/initialState.interface';
 import { UserStateInterface } from './user/initialState.interface';
 import { AppStateInterface } from './app/initialState.interface';
 import { PagesStateInterface } from './pages/initialState.interface';
+import { WaitingRoomInterface } from './waitingRoom/initialState.interface';
+import { WaitingRoomActions } from './waitingRoom/action.interface';
 
 export interface RootState {
   categories: CategoriesStateInterface;
@@ -18,9 +20,16 @@ export interface RootState {
   user: UserStateInterface;
   app: AppStateInterface;
   pages: PagesStateInterface;
+  waitingRoom: WaitingRoomInterface;
 }
 
-export type Actions = CategoriesActions | GameActions | UserActions | AppActions | PagesActions;
+export type Actions =
+  | CategoriesActions
+  | GameActions
+  | UserActions
+  | AppActions
+  | PagesActions
+  | WaitingRoomActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, null, Action<string>>;
 

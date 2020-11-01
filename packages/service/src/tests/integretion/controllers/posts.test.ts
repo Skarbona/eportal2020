@@ -4,8 +4,14 @@ import { Server } from 'http';
 import Post from '../../../models/post';
 import User from '../../../models/user';
 import appStartUp from '../../../app';
-import { signUpUser, createPosts, getPosts } from '../../../utils/test-basic-calls';
-import { PostStatus } from '../../../models/shared-interfaces/post';
+import {
+  signUpUser,
+  createPosts,
+  getPosts,
+  savePost,
+  loginAdmin,
+} from '../../../utils/test-basic-calls';
+import { PostResponseInterface, PostStatus } from '../../../models/shared-interfaces/post';
 
 describe('Controller: Post', () => {
   let server: Server;
@@ -22,6 +28,86 @@ describe('Controller: Post', () => {
   afterAll(async () => {
     await mongoose.connection.close();
     await server.close();
+  });
+
+  describe('savePosts Controller', () => {
+    it('should save post', async () => {
+      const admin = await loginAdmin(server);
+      const createdPosts = await createPosts(
+        server,
+        admin.body.accessToken,
+        admin.body.userData.id,
+      );
+      const savedPosts = await savePost(
+        server,
+        admin.body.accessToken,
+        admin.body.userData.id,
+        createdPosts.body.posts[0]._id,
+      );
+      expect(savedPosts.status).toEqual(200);
+      expect(savedPosts.body.post.categories).toHaveLength(2);
+      expect(savedPosts.body.post.date).toBeDefined();
+      expect(savedPosts.body.post.slug).toBeDefined();
+      expect(savedPosts.body.post.status).toEqual(PostStatus.AwaitingForApproval);
+      expect(savedPosts.body.post.author).toBeDefined();
+      expect(savedPosts.body.post.image).toBeDefined();
+      expect(savedPosts.body.post.content.title).toEqual('SAVED TITLE');
+      expect(savedPosts.body.post.content.content).toEqual('SAVED CONTENT');
+    });
+
+    it('should change post status', async () => {
+      const admin = await loginAdmin(server);
+      const createdPosts = await createPosts(
+        server,
+        admin.body.accessToken,
+        admin.body.userData.id,
+      );
+      const savedPosts = await savePost(
+        server,
+        admin.body.accessToken,
+        admin.body.userData.id,
+        '',
+        {
+          post: {
+            id: createdPosts.body.posts[0]._id,
+            status: PostStatus.Publish,
+          },
+        },
+      );
+      expect(savedPosts.body.post.status).toEqual(PostStatus.Publish);
+    });
+
+    it('should not allow not admin user to save data', async () => {
+      const user = await signUpUser(server);
+      const createdPosts = await createPosts(server, user.body.accessToken, user.body.userData.id);
+      const savedPosts = await savePost(
+        server,
+        user.body.accessToken,
+        user.body.userData.id,
+        createdPosts.body.posts[0]._id,
+      );
+      expect(savedPosts.status).toEqual(401);
+    });
+
+    it('should NOT return data if access token not provided', async () => {
+      const user = await signUpUser(server);
+      const createdPosts = await createPosts(server, user.body.accessToken, user.body.userData.id);
+      const posts = await savePost(server, '', '', createdPosts.body.posts[0]._id);
+      expect(posts.status).toEqual(401);
+    });
+
+    it('should return 400 if body is not valid', async () => {
+      const admin = await loginAdmin(server);
+      await createPosts(server, admin.body.accessToken, admin.body.userData.id);
+      const savedPosts = await savePost(
+        server,
+        admin.body.accessToken,
+        admin.body.userData.id,
+        '',
+        {},
+      );
+      expect(savedPosts.status).toEqual(400);
+    });
   });
 
   describe('createPosts Controller', () => {
@@ -61,7 +147,48 @@ describe('Controller: Post', () => {
       expect(posts.body.posts).toHaveLength(2);
     });
 
-    // TODO: FINISH REST OF TESTS
+    it('should set awaitingForApproval status for all new created posts', async () => {
+      const user = await signUpUser(server);
+      const cat1 = mongoose.Types.ObjectId();
+      const cat2 = mongoose.Types.ObjectId();
+      const cat3 = mongoose.Types.ObjectId();
+      const postsBody = {
+        posts: [
+          {
+            content: {
+              content: 'CONTENT',
+              title: 'TITLE',
+            },
+            author: user.body.userData.id,
+            image: '',
+            categories: [cat1, cat3],
+            status: PostStatus.Publish,
+          },
+          {
+            content: {
+              content: 'CONTENT2',
+              title: 'TITLE2',
+            },
+            author: user.body.userData.id,
+            image: '',
+            categories: [cat2],
+          },
+        ],
+      };
+      await createPosts(server, user.body.accessToken, user.body.userData.id, postsBody);
+      const posts = await getPosts(
+        server,
+        user.body.accessToken,
+        `?status=${PostStatus.AwaitingForApproval}`,
+      );
+      expect(posts.status).toEqual(200);
+      expect(posts.body.posts).toHaveLength(2);
+      expect(
+        posts.body.posts.every(
+          (post: PostResponseInterface) => post.status === PostStatus.AwaitingForApproval,
+        ),
+      ).toEqual(true);
+    });
 
     it('should get only post related to strictly cats (it must include)', async () => {
       const user = await signUpUser(server);
@@ -91,7 +218,11 @@ describe('Controller: Post', () => {
         ],
       };
       await createPosts(server, user.body.accessToken, user.body.userData.id, postsBody);
-      const posts = await getPosts(server, user.body.accessToken, `?catsIncludeStrict=${cat1}`);
+      const posts = await getPosts(
+        server,
+        user.body.accessToken,
+        `?catsIncludeStrict=${cat1}&status=${PostStatus.AwaitingForApproval}`,
+      );
       expect(posts.status).toEqual(200);
       expect(posts.body.posts).toHaveLength(1);
     });
@@ -124,7 +255,11 @@ describe('Controller: Post', () => {
         ],
       };
       await createPosts(server, user.body.accessToken, user.body.userData.id, postsBody);
-      const posts = await getPosts(server, user.body.accessToken, `?catsInclude=${cat1},${cat3}`);
+      const posts = await getPosts(
+        server,
+        user.body.accessToken,
+        `?catsInclude=${cat1},${cat3}&status=${PostStatus.AwaitingForApproval}`,
+      );
       expect(posts.status).toEqual(200);
       expect(posts.body.posts).toHaveLength(2);
     });
@@ -157,11 +292,19 @@ describe('Controller: Post', () => {
         ],
       };
       await createPosts(server, user.body.accessToken, user.body.userData.id, postsBody);
-      const posts1 = await getPosts(server, user.body.accessToken, `?catsExclude=${cat3}`);
+      const posts1 = await getPosts(
+        server,
+        user.body.accessToken,
+        `?catsExclude=${cat3}&status=${PostStatus.AwaitingForApproval}`,
+      );
       expect(posts1.status).toEqual(200);
       expect(posts1.body.posts).toHaveLength(1);
 
-      const posts2 = await getPosts(server, user.body.accessToken, `?catsExclude=${cat3},${cat1}`);
+      const posts2 = await getPosts(
+        server,
+        user.body.accessToken,
+        `?catsExclude=${cat3},${cat1}&status=${PostStatus.AwaitingForApproval}`,
+      );
       expect(posts2.status).toEqual(200);
       expect(posts2.body.posts).toHaveLength(0);
     });
@@ -216,7 +359,7 @@ describe('Controller: Post', () => {
       const posts = await getPosts(
         server,
         user.body.accessToken,
-        `?catsIncludeStrict=${cat1}&catsExclude=${cat2}&catsInclude=${cat3},${cat4}`,
+        `?catsIncludeStrict=${cat1}&catsExclude=${cat2}&catsInclude=${cat3},${cat4}&status=${PostStatus.AwaitingForApproval}`,
       );
       expect(posts.status).toEqual(200);
       expect(posts.body.posts).toHaveLength(2);

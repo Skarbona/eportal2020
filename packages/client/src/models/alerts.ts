@@ -26,6 +26,7 @@ export enum AlertTypes {
   ServerErrorSnackBar = 'ServerErrorSnackBar',
   Success = 'Success',
   SuccessEmail = 'SuccessEmail',
+  SavePost = 'SavePost',
 }
 
 export enum AlertSizes {
@@ -125,6 +126,13 @@ export const setAlertMap = (): void => {
     message: i18n.t('This is probably issue with Internet connection or server'),
     size: AlertSizes.Snackbar,
     severity: 'error',
+  });
+
+  AlertMap.set(AlertTypes.SavePost, {
+    header: i18n.t('Success'),
+    message: i18n.t('Your post was saved'),
+    size: AlertSizes.Snackbar,
+    severity: 'success',
   });
 
   AlertMap.set(AlertTypes.CannotSetUserDataWarning, {

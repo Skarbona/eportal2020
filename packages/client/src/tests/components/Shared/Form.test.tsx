@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { TextField, FormControlLabel, Button, CircularProgress } from '@material-ui/core';
+import { TextField, FormControlLabel, Button, CircularProgress, Select } from '@material-ui/core';
 
 import {
   ConfirmAccountDeleteComponent as ConfirmAccountDelete,
@@ -34,8 +34,34 @@ import {
   LoadingButtonComponent as LoadingButton,
   Props as LoadingButtonProps,
 } from '../../../components/Shared/Form/LoadingButton';
+import {
+  TitleComponent as Title,
+  Props as TitleProps,
+} from '../../../components/Shared/Form/Title';
+import {
+  NewCategoryComponent as NewCategory,
+  Props as NewCategoryProps,
+} from '../../../components/Shared/Form/NewCategory';
+import {
+  LevelsComponent as Levels,
+  Props as LevelsProps,
+} from '../../../components/Shared/Form/Levels';
+import {
+  PlacesComponent as Places,
+  Props as PlacesProps,
+} from '../../../components/Shared/Form/Places';
+import {
+  GenderComponent as Gender,
+  Props as GenderProps,
+} from '../../../components/Shared/Form/Gender';
+import {
+  NestedCategoriesComponent as NestedCategories,
+  Props as NestedCategoriesProps,
+} from '../../../components/Shared/Form/NestedCategories';
 import { chance } from '../../../mocks/chance';
 import { MockedEventWithValues } from '../../../mocks/event';
+import { mockedCategory } from '../../../mocks/store';
+import { mockedCatStateForNestedCats } from '../../../mocks/catState';
 
 describe('Form components', () => {
   describe('<ConfirmAccountDelete /> component', () => {
@@ -121,6 +147,131 @@ describe('Form components', () => {
 
     it('should call on Change and Blur function', () => {
       const wrapper = shallow(<UserName {...props} />);
+      wrapper.find(TextField).simulate('change', MockedEventWithValues());
+      wrapper.find(TextField).simulate('blur', MockedEventWithValues());
+      expect(props.inputChanged).toHaveBeenCalledTimes(2);
+    });
+  });
+  describe('<Title /> component', () => {
+    let props: TitleProps;
+    beforeEach(() => {
+      props = {
+        title: null,
+        inputChanged: jest.fn(),
+      };
+    });
+    it('should render all required items', () => {
+      const wrapper = shallow(<Title {...props} />);
+      expect(wrapper.find(TextField)).toHaveLength(1);
+      expect(wrapper.find(TextField).props().id).toEqual('title');
+      expect(wrapper.find(TextField).props().name).toEqual('title');
+    });
+
+    it('should call on Change and Blur function', () => {
+      const wrapper = shallow(<Title {...props} />);
+      wrapper.find(TextField).simulate('change', MockedEventWithValues());
+      wrapper.find(TextField).simulate('blur', MockedEventWithValues());
+      expect(props.inputChanged).toHaveBeenCalledTimes(2);
+    });
+  });
+  describe('<Levels /> component', () => {
+    let props: LevelsProps;
+    beforeEach(() => {
+      props = {
+        level: null,
+        levels: mockedCategory('Levels'),
+        inputChanged: jest.fn(),
+      };
+    });
+    it('should render all required items', () => {
+      const wrapper = shallow(<Levels {...props} />);
+      expect(wrapper.find(Select)).toHaveLength(1);
+      expect(wrapper.find(Select).props().id).toEqual('levels');
+      expect(wrapper.find(Select).props().name).toEqual('levels');
+    });
+
+    it('should call on Change and Blur function', () => {
+      const wrapper = shallow(<Levels {...props} />);
+      wrapper.find(Select).simulate('change', MockedEventWithValues());
+      expect(props.inputChanged).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('<Gender /> component', () => {
+    let props: GenderProps;
+    beforeEach(() => {
+      props = {
+        gender: null,
+        genders: mockedCategory('Genders'),
+        inputChanged: jest.fn(),
+      };
+    });
+    it('should render all required items', () => {
+      const wrapper = shallow(<Gender {...props} />);
+      expect(wrapper.find(Select)).toHaveLength(1);
+      expect(wrapper.find(Select).props().id).toEqual('gender');
+      expect(wrapper.find(Select).props().name).toEqual('gender');
+    });
+
+    it('should call on Change and Blur function', () => {
+      const wrapper = shallow(<Gender {...props} />);
+      wrapper.find(Select).simulate('change', MockedEventWithValues());
+      expect(props.inputChanged).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('<Places /> component', () => {
+    let props: PlacesProps;
+    beforeEach(() => {
+      props = {
+        place: null,
+        places: mockedCategory('Places'),
+        inputChanged: jest.fn(),
+      };
+    });
+    it('should render all required items', () => {
+      const wrapper = shallow(<Places {...props} />);
+      expect(wrapper.find(Select)).toHaveLength(1);
+      expect(wrapper.find(Select).props().id).toEqual('place');
+      expect(wrapper.find(Select).props().name).toEqual('place');
+    });
+
+    it('should call on Change and Blur function', () => {
+      const wrapper = shallow(<Places {...props} />);
+      wrapper.find(Select).simulate('change', MockedEventWithValues());
+      expect(props.inputChanged).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('<NestedCategories /> component', () => {
+    let props: NestedCategoriesProps;
+    beforeEach(() => {
+      const categories = mockedCatStateForNestedCats();
+      props = {
+        cats: categories,
+        inputChanged: jest.fn(),
+      };
+    });
+
+    it('should render all required items', () => {
+      const wrapper = shallow(<NestedCategories {...props} />);
+      expect(wrapper.find(NestedCategories)).toHaveLength(3);
+    });
+  });
+  describe('<NewCategory /> component', () => {
+    let props: NewCategoryProps;
+    beforeEach(() => {
+      props = {
+        newCategory: null,
+        inputChanged: jest.fn(),
+      };
+    });
+    it('should render all required items', () => {
+      const wrapper = shallow(<NewCategory {...props} />);
+      expect(wrapper.find(TextField)).toHaveLength(1);
+      expect(wrapper.find(TextField).props().id).toEqual('newCategory');
+      expect(wrapper.find(TextField).props().name).toEqual('newCategory');
+    });
+
+    it('should call on Change and Blur function', () => {
+      const wrapper = shallow(<NewCategory {...props} />);
       wrapper.find(TextField).simulate('change', MockedEventWithValues());
       wrapper.find(TextField).simulate('blur', MockedEventWithValues());
       expect(props.inputChanged).toHaveBeenCalledTimes(2);

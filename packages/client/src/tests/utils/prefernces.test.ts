@@ -2,7 +2,6 @@ import {
   nestedCategoriesToState,
   selectCatsIds,
   setCheckboxesStatus,
-  renderNestedCatsWithCheckbox,
 } from '../../utils/preferences';
 import { mockedStore } from '../../mocks/store';
 import { categoryResponseMock } from '../../mocks/responses';
@@ -137,14 +136,5 @@ describe('setCheckboxesStatus utility function', () => {
     expect(newState[0].indeterminate).toEqual(true);
     expect(newState[0].child[0].status).toEqual(true);
     expect(newState[0].child[1].status).toEqual(false);
-  });
-});
-
-describe('renderNestedCatsWithCheckbox utility function', () => {
-  it('should render properly', () => {
-    const categories = nestedCategoriesToState(categoryResponseMock(), []);
-    const setState = () => {};
-    const renderedCheckboxes = renderNestedCatsWithCheckbox(categories, setState);
-    expect(renderedCheckboxes).toBeTruthy();
   });
 });

@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import sanitizeHtml from 'sanitize-html';
 
 import { stringToSlug } from '../utils/slug';
 import Page from '../models/page';
@@ -28,10 +29,10 @@ export const createPage = async (
 
   const createdPage = new Page({
     date: new Date(),
-    slug: stringToSlug(content.title),
+    slug: stringToSlug(sanitizeHtml(content.title)),
     content: {
-      title: content.title,
-      content: content.content,
+      title: sanitizeHtml(content.title),
+      content: sanitizeHtml(content.content),
     },
     author,
   });
@@ -63,8 +64,8 @@ export const updatePage = async (
   }
 
   try {
-    if (content.content) page.content.content = content.content;
-    if (content.title) page.content.title = content.title;
+    if (content.content) page.content.content = sanitizeHtml(content.content);
+    if (content.title) page.content.title = sanitizeHtml(content.title);
     await page.save();
     res.json({ page: page.toObject({ getters: true }) });
   } catch (e) {

@@ -9,7 +9,7 @@ import {
   isRecaptchaValidHandler,
 } from '../../utils/form-hook';
 import { initialState } from '../../hooks/form/state/initialState';
-import { InputKeys } from '../../hooks/form/state/interface';
+import { FormState, InputKeys } from '../../hooks/form/state/interface';
 import { chance } from '../../mocks/chance';
 
 describe('isFormValidHandler utility function', () => {
@@ -26,7 +26,7 @@ describe('isFormValidHandler utility function', () => {
   });
 
   it('should return true if all fields are valid', () => {
-    const inputs = {
+    const inputs: FormState['inputs'] = {
       ...initialState.inputs,
       email: { ...initialState.inputs.email, valid: true },
       confirmedEmail: { ...initialState.inputs.confirmedEmail, valid: true },
@@ -35,13 +35,20 @@ describe('isFormValidHandler utility function', () => {
       recaptcha: { ...initialState.inputs.recaptcha, valid: true },
       confirmAccountDelete: { ...initialState.inputs.confirmAccountDelete, valid: true },
       privacyPolicy: { ...initialState.inputs.privacyPolicy, valid: true, value: true },
+      preferences: { ...initialState.inputs.preferences, valid: true, value: ['cat1', 'cat2'] },
+      levels: { ...initialState.inputs.levels, valid: true, value: 'level' },
+      message: { ...initialState.inputs.message, valid: true, value: 'message' },
+      place: { ...initialState.inputs.place, valid: true, value: 'place' },
+      title: { ...initialState.inputs.title, valid: true, value: 'title' },
+      newCategory: { ...initialState.inputs.newCategory, valid: true, value: 'newCategory' },
+      gender: { ...initialState.inputs.gender, valid: true, value: 'gender' },
     };
     const isFormValid = isFormValidHandler(inputs);
     expect(isFormValid).toEqual(true);
   });
 
   it('should ignore field check if not visible even if field is not valid', () => {
-    const inputs = {
+    const inputs: FormState['inputs'] = {
       ...initialState.inputs,
       email: { ...initialState.inputs.email, valid: false, visible: false }, // IGNORED FIELD
       confirmedEmail: { ...initialState.inputs.confirmedEmail, valid: true },
@@ -50,6 +57,13 @@ describe('isFormValidHandler utility function', () => {
       recaptcha: { ...initialState.inputs.recaptcha, valid: true },
       confirmAccountDelete: { ...initialState.inputs.confirmAccountDelete, valid: true },
       privacyPolicy: { ...initialState.inputs.privacyPolicy, valid: true, value: true },
+      preferences: { ...initialState.inputs.preferences, valid: true, value: ['cat1', 'cat2'] },
+      levels: { ...initialState.inputs.levels, valid: true, value: 'level' },
+      message: { ...initialState.inputs.message, valid: true, value: 'message' },
+      place: { ...initialState.inputs.place, valid: true, value: 'place' },
+      title: { ...initialState.inputs.title, valid: true, value: 'title' },
+      newCategory: { ...initialState.inputs.newCategory, valid: true, value: 'newCategory' },
+      gender: { ...initialState.inputs.gender, valid: true, value: 'gender' },
     };
     const isFormValid = isFormValidHandler(inputs);
     expect(isFormValid).toEqual(true);

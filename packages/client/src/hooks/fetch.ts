@@ -30,7 +30,6 @@ export const useFetch = (): ReturnProps => {
         const response = await request(`${BACKEND_API}/${url}`, body, { headers });
         setLoadingStatus(false);
         setAlert(successAlert);
-        console.log(3333, successAlert, response);
         return response;
       } catch (e) {
         setLoadingStatus(false);

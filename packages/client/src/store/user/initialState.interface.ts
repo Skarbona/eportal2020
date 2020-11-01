@@ -1,5 +1,6 @@
 import { UserResponse } from '../../../../service/src/models/shared-interfaces/user';
 import { AlertTypes, NetworkError } from '../../models/alerts';
+import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 
 export interface UserStateInterface {
   userData: UserResponse;
@@ -9,4 +10,5 @@ export interface UserStateInterface {
   alertType?: AlertTypes;
   token?: string;
   tokenExpirationDate?: Date;
+  userPosts: PostResponseInterface[];
 }

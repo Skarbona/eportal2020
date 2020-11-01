@@ -37,6 +37,7 @@
     ]
   },
   "dependencies": {
+    "node-sass": "^4.14.1",
     "react-scripts": "3.4.0",
     "react-transition-group": "^4.3.0"
   },
@@ -45,7 +46,6 @@
     "@types/css-mediaquery": "^0.1.0",
     "css-mediaquery": "^0.1.2",
     "eslint-plugin-prettier": "^3.1.2",
-    "node-sass": "^4.13.1",
     "prettier": "^2.0.2",
     "sass-lint": "^1.13.1"
   }

@@ -19,7 +19,7 @@ describe('<Main > component', () => {
 
   it('should have all required elements', () => {
     wrapper = shallow(<MainComponent isLoggedIn />);
-    expect(wrapper.find(PageContainer)).toHaveLength(2);
+    expect(wrapper.find(PageContainer)).toHaveLength(4);
   });
 
   it('should call getPageData', () => {

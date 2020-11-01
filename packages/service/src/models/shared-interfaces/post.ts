@@ -4,23 +4,30 @@ export interface PostBasicInterface {
     content: string;
   };
   image?: string;
+  status: PostStatus;
+  meta?: {
+    newCategory: string;
+  };
 }
 
 export enum PostStatus {
-  Publish = 'Publish',
-  AwaitingForApproval = 'AwaitingForApproval',
+  Publish = 'publish',
+  Archival = 'archival',
+  AwaitingForApproval = 'awaitingForApproval',
 }
 
 export interface PostRequestInterface extends PostBasicInterface {
   categories: string[];
   author: string;
+  id?: string;
 }
 
 export interface PostResponseInterface extends PostBasicInterface {
   date: Date;
   slug: string;
   categories: string[];
-  status: PostStatus;
-  author: string;
+  author: {
+    name: string;
+  };
   id: string;
 }

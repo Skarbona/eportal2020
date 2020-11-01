@@ -178,7 +178,7 @@ describe('AuthPage State: reducer', () => {
         inputKeys: [InputKeys.Password, InputKeys.Email, InputKeys.Recaptcha],
       },
     };
-    const expectedState = {
+    const expectedState: FormState = {
       ...state,
       inputs: {
         email: {
@@ -207,6 +207,34 @@ describe('AuthPage State: reducer', () => {
         },
         privacyPolicy: {
           ...state.inputs.privacyPolicy,
+          visible: false,
+        },
+        message: {
+          ...state.inputs.message,
+          visible: false,
+        },
+        levels: {
+          ...state.inputs.levels,
+          visible: false,
+        },
+        place: {
+          ...state.inputs.place,
+          visible: false,
+        },
+        preferences: {
+          ...state.inputs.preferences,
+          visible: false,
+        },
+        title: {
+          ...state.inputs.title,
+          visible: false,
+        },
+        newCategory: {
+          ...state.inputs.newCategory,
+          visible: false,
+        },
+        gender: {
+          ...state.inputs.gender,
           visible: false,
         },
       },

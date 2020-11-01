@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import React, { FC, memo, useEffect, useState, useCallback } from 'react';
-import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { Place } from '@material-ui/icons';
 
 import { SelectChangeEvent } from '../../../../models/typescript-events';
@@ -8,6 +8,7 @@ import { CategoryInterface } from '../../../../store/categories/initialState.int
 import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
 
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
+import PlacesInput from '../../../Shared/Form/Places';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
 
@@ -41,7 +42,7 @@ export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
   }, [selectedPlace]);
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const handleOnChange = useCallback((event: SelectChangeEvent, value: any): void => {
+  const handleOnChange = useCallback((event: SelectChangeEvent, value?: any): void => {
     setSelectedPlace(event.target.value as string);
     setSubtitle(`(${value.props.children})`);
   }, []);
@@ -55,21 +56,7 @@ export const PlacesComponent: FC<Props> = ({ places, defaults }) => {
     >
       <Grid container spacing={1}>
         {selectedPlace && (
-          <FormControl variant="filled" className="form-element__default-width">
-            <InputLabel id="place_label">{t('Place of game')}</InputLabel>
-            <Select
-              labelId="place_label"
-              id="game_select"
-              value={selectedPlace}
-              onChange={handleOnChange}
-            >
-              {places.children.map((place) => (
-                <MenuItem value={place.id} key={place.id}>
-                  {place.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <PlacesInput place={selectedPlace} inputChanged={handleOnChange} places={places} />
         )}
       </Grid>
     </ExpansionPanelComponent>

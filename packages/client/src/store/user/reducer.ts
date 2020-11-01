@@ -6,6 +6,12 @@ import { AlertTypes } from '../../models/alerts';
 
 const userReducer = (state = userInitialState, action: UserActions): UserStateInterface => {
   switch (action.type) {
+    case UserEnum.FetchUserPostsSuccess: {
+      return {
+        ...state,
+        userPosts: action.data.posts,
+      };
+    }
     case UserEnum.CleanUserAlerts: {
       return {
         ...state,

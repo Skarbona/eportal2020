@@ -6,6 +6,7 @@ import { gameInitialState } from './game/initialState';
 import { userInitialState } from './user/initialState';
 import { appInitialState } from './app/initialState';
 import { pagesInitialState } from './pages/initialState';
+import { waitingRoomInitialState } from './waitingRoom/initialState';
 import reducers from './reducers';
 import { Actions, RootState } from './store.interface';
 
@@ -15,6 +16,7 @@ export const initialRootState: RootState = {
   user: userInitialState,
   app: appInitialState,
   pages: pagesInitialState,
+  waitingRoom: waitingRoomInitialState,
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

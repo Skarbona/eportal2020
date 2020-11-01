@@ -2,6 +2,7 @@ import { ActionCreator } from 'redux';
 
 import * as I from './action.interface';
 import { UserEnum } from './enum';
+import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 
 export const cleanUserAlerts: ActionCreator<I.CleanUserAlerts> = () => ({
   type: UserEnum.CleanUserAlerts,
@@ -97,4 +98,19 @@ export const failDeleteUser: ActionCreator<I.FailDeleteUser> = (error) => ({
   data: {
     error,
   },
+});
+
+export const fetchUserPostsStart = (): I.FetchUserPostsStart => ({
+  type: UserEnum.FetchUserPostsStart,
+});
+
+export const fetchUserPostsSuccess = (posts: PostResponseInterface[]): I.FetchUserPostsSuccess => ({
+  type: UserEnum.FetchUserPostsSuccess,
+  data: {
+    posts,
+  },
+});
+
+export const fetchUserPostsFail = (): I.FetchUserPostsFail => ({
+  type: UserEnum.FetchUserPostsFail,
 });

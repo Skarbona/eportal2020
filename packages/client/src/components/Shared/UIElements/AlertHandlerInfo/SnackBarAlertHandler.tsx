@@ -7,16 +7,12 @@ import { useSelector } from 'react-redux';
 import { AlertMap, AlertTypes, AlertSizes } from '../../../../models/alerts';
 import { RootState } from '../../../../store/store.interface';
 
-export interface Props {
-  type: AlertTypes;
-  error: Error | boolean;
-}
-
 export const SnackBarAlertHandlerComponent: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
-  const { error, type } = useSelector<RootState, Props>(({ user, app }) => ({
-    error: user.error || app.error,
-    type: user.alertType || app.alertType,
+  const { error, type, alert } = useSelector<RootState, Selector>(({ user, app, waitingRoom }) => ({
+    error: user.error || app.error || waitingRoom.error,
+    alert: waitingRoom.alert,
+    type: user.alertType || app.alertType || waitingRoom.alertType,
   }));
 
   useEffect(() => {
@@ -25,7 +21,7 @@ export const SnackBarAlertHandlerComponent: FC = () => {
 
   const closeHandler = useCallback(() => setIsOpen(false), []);
 
-  if (!error || !type) return null;
+  if ((!alert && !error) || !type) return null;
   const alertValues = AlertMap?.get(type || AlertTypes.ServerError);
   if (!alertValues) return null;
   const { message, severity, header, size } = alertValues;
@@ -40,5 +36,11 @@ export const SnackBarAlertHandlerComponent: FC = () => {
     )
   );
 };
+
+export interface Selector {
+  type: AlertTypes;
+  error: Error | boolean;
+  alert: boolean;
+}
 
 export default memo(SnackBarAlertHandlerComponent);

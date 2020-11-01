@@ -18,7 +18,9 @@ export const postsResponseMock = (): PostResponseInterface[] => [
     slug: chance.word(),
     categories: [LevelsIDs.Level1, GenderIds.Man],
     status: PostStatus.Publish,
-    author: chance.word(),
+    author: {
+      name: chance.word(),
+    },
   },
   {
     content: {
@@ -31,7 +33,9 @@ export const postsResponseMock = (): PostResponseInterface[] => [
     slug: chance.word(),
     categories: [LevelsIDs.Level1, GenderIds.Woman],
     status: PostStatus.Publish,
-    author: chance.word(),
+    author: {
+      name: chance.word(),
+    },
   },
   {
     content: {
@@ -44,7 +48,9 @@ export const postsResponseMock = (): PostResponseInterface[] => [
     slug: chance.word(),
     categories: [LevelsIDs.Level2, GenderIds.Man],
     status: PostStatus.Publish,
-    author: chance.word(),
+    author: {
+      name: chance.word(),
+    },
   },
   {
     content: {
@@ -57,7 +63,9 @@ export const postsResponseMock = (): PostResponseInterface[] => [
     slug: chance.word(),
     categories: [LevelsIDs.Level2, GenderIds.Woman],
     status: PostStatus.Publish,
-    author: chance.word(),
+    author: {
+      name: chance.word(),
+    },
   },
   {
     content: {
@@ -70,7 +78,9 @@ export const postsResponseMock = (): PostResponseInterface[] => [
     slug: chance.word(),
     categories: [LevelsIDs.Level3, GenderIds.Man],
     status: PostStatus.Publish,
-    author: chance.word(),
+    author: {
+      name: chance.word(),
+    },
   },
   {
     content: {
@@ -83,7 +93,9 @@ export const postsResponseMock = (): PostResponseInterface[] => [
     slug: chance.word(),
     categories: [LevelsIDs.Level3, GenderIds.Woman],
     status: PostStatus.Publish,
-    author: chance.word(),
+    author: {
+      name: chance.word(),
+    },
   },
 ];
 

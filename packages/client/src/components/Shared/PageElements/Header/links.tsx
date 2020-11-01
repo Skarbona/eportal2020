@@ -7,6 +7,12 @@ import { AccountCircle as AccountIcon } from '@material-ui/icons';
 import { setContactFormVisibility } from '../../../../store/app/action';
 import { PageParams } from '../../../../models/page-types';
 
+export const WaitingRoomLink = (text: string): ReactNode => (
+  <Link to={`${PageParams.WaitingRoom}/1`} className="btn__waiting-room">
+    <Button>{text}</Button>
+  </Link>
+);
+
 export const GameLink = (text: string): ReactNode => (
   <Link to={PageParams.Game} className="btn__start-game">
     <Button>{text}</Button>

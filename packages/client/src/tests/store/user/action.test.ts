@@ -4,6 +4,37 @@ import * as A from '../../../store/user/action';
 import { mockedStore } from '../../../mocks/store';
 
 describe('Actions: User', () => {
+  it('should create fetchUserPostsStart action', () => {
+    const expectedAction: I.FetchUserPostsStart = {
+      type: UserEnum.FetchUserPostsStart,
+    };
+
+    const action = A.fetchUserPostsStart();
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create fetchUserPostsSuccess action', () => {
+    const { waitingRoom } = mockedStore();
+    const expectedAction: I.FetchUserPostsSuccess = {
+      type: UserEnum.FetchUserPostsSuccess,
+      data: {
+        posts: waitingRoom.posts,
+      },
+    };
+
+    const action = A.fetchUserPostsSuccess(waitingRoom.posts);
+    expect(action).toEqual(expectedAction);
+  });
+
+  it('should create fetchUserPostsFail action', () => {
+    const expectedAction: I.FetchUserPostsFail = {
+      type: UserEnum.FetchUserPostsFail,
+    };
+
+    const action = A.fetchUserPostsFail();
+    expect(action).toEqual(expectedAction);
+  });
+
   it('should create initGetResetPasswordLink action', () => {
     const expectedAction: I.InitGetResetPasswordLink = {
       type: UserEnum.InitGetResetPasswordLink,

@@ -1,6 +1,8 @@
+import { Action } from 'redux';
 import { UserEnum } from './enum';
 import { UserResponse } from '../../../../service/src/models/shared-interfaces/user';
 import { NetworkError } from '../../models/alerts';
+import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
 
 interface ActionInterface {
   type: UserEnum;
@@ -102,7 +104,24 @@ export interface CleanUserData extends ActionInterface {
   type: UserEnum.CleanUserData;
 }
 
+export interface FetchUserPostsStart extends Action {
+  type: UserEnum.FetchUserPostsStart;
+}
+
+export interface FetchUserPostsSuccess extends Action {
+  type: UserEnum.FetchUserPostsSuccess;
+  data: {
+    posts: PostResponseInterface[];
+  };
+}
+
+export interface FetchUserPostsFail extends Action {
+  type: UserEnum.FetchUserPostsFail;
+}
+
 export type UserActions =
+  | FetchUserPostsSuccess
+  | FetchUserPostsStart
   | CleanUserAlerts
   | SuccessSetPassword
   | InitGetResetPasswordLink
