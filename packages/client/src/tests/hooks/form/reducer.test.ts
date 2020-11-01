@@ -230,7 +230,11 @@ describe('AuthPage State: reducer', () => {
           visible: false,
         },
         newCategory: {
-          ...state.inputs.title,
+          ...state.inputs.newCategory,
+          visible: false,
+        },
+        gender: {
+          ...state.inputs.gender,
           visible: false,
         },
       },

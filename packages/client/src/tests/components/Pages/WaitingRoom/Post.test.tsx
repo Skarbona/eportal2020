@@ -9,6 +9,7 @@ import Title from '../../../../components/Shared/Form/Title';
 import Message from '../../../../components/Shared/Form/Message';
 import Places from '../../../../components/Shared/Form/Places';
 import Levels from '../../../../components/Shared/Form/Levels';
+import Gender from '../../../../components/Shared/Form/Gender';
 import NestedCategories from '../../../../components/Shared/Form/NestedCategories';
 import * as savePostThunk from '../../../../store/waitingRoom/thunks/savePost';
 import { mockedEvent } from '../../../../mocks/event';
@@ -56,6 +57,7 @@ describe('<Posts > component', () => {
     expect(wrapper.find(Message)).toHaveLength(0);
     expect(wrapper.find(Levels)).toHaveLength(0);
     expect(wrapper.find(Places)).toHaveLength(0);
+    expect(wrapper.find(Gender)).toHaveLength(0);
     expect(wrapper.find(NestedCategories)).toHaveLength(0);
   });
 
@@ -69,6 +71,7 @@ describe('<Posts > component', () => {
     expect(wrapper.find(Typography)).toHaveLength(2);
     expect(wrapper.find(Levels)).toHaveLength(1);
     expect(wrapper.find(Places)).toHaveLength(1);
+    expect(wrapper.find(Gender)).toHaveLength(1);
     expect(wrapper.find(NestedCategories)).toHaveLength(1);
     expect(wrapper.find(Chip)).toHaveLength(0);
     expect(wrapper.find(Button)).toHaveLength(4);

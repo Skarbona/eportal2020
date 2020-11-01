@@ -26,6 +26,7 @@ export const initialState: FormState = {
     confirmedEmail: initialInputState,
     email: initialInputState,
     userName: initialInputState,
+    gender: initialInputState,
     recaptcha: initialInputState,
     confirmAccountDelete: initialInputState,
     newCategory: initialInputState,

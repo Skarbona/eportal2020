@@ -18,6 +18,7 @@ import Message from '../../Shared/Form/Message';
 import NestedCategories from '../../Shared/Form/NestedCategories';
 import Places from '../../Shared/Form/Places';
 import Levels from '../../Shared/Form/Levels';
+import Gender from '../../Shared/Form/Gender';
 import { useForm } from '../../../hooks/form/form-hook';
 import { InputKeys } from '../../../hooks/form/state/interface';
 import { initialInputState } from '../../../hooks/form/state/initialState';
@@ -39,6 +40,7 @@ const formInputs = [
   InputKeys.Place,
   InputKeys.Levels,
   InputKeys.Preferences,
+  InputKeys.Gender,
 ];
 
 export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap, isAdmin }) => {
@@ -51,6 +53,7 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
     const levelId = categories.find((cat) =>
       cats.levels.children.find((level) => level.id === cat),
     );
+    const genderId = categories.find((cat) => cats.gender.children.find((gen) => gen.id === cat));
     const preferencesId = categories.filter((cat) => ![placeId, levelId].includes(cat));
     return {
       title: { ...initialInputState, value: content.title, valid: true },
@@ -58,6 +61,11 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
       place: {
         ...initialInputState,
         value: placeId,
+        valid: true,
+      },
+      gender: {
+        ...initialInputState,
+        value: genderId,
         valid: true,
       },
       levels: {
@@ -100,7 +108,12 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
     e.preventDefault();
     const payload = {
       id,
-      categories: [inputs.levels.value, inputs.place.value, ...inputs.preferences.value],
+      categories: [
+        inputs.levels.value,
+        inputs.place.value,
+        inputs.gender.value,
+        ...inputs.preferences.value,
+      ],
       content: {
         title: inputs.title.value,
         content: inputs.message.value,
@@ -191,6 +204,13 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
           )}
           {edit === id && (
             <>
+              <Grid item xs={12}>
+                <Gender
+                  genders={cats.gender}
+                  gender={inputs?.gender.value}
+                  inputChanged={inputChanged}
+                />
+              </Grid>
               <Grid item xs={12}>
                 <Places
                   places={cats.places}

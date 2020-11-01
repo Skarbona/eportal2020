@@ -31,6 +31,7 @@ export interface FormState {
     privacyPolicy?: CheckBoxState;
     title?: InputState;
     place?: InputState;
+    gender?: InputState;
     levels?: InputState;
     newCategory?: InputState;
     preferences?: InputArrayState;
@@ -60,6 +61,7 @@ export enum InputKeys {
   'Preferences' = 'preferences',
   'Levels' = 'levels',
   'NewCategory' = 'newCategory',
+  'Gender' = 'gender',
 }
 export interface CheckBoxChanged {
   type: FormActionsEnum.CheckBoxChanged;

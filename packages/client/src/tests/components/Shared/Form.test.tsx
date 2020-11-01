@@ -51,6 +51,10 @@ import {
   Props as PlacesProps,
 } from '../../../components/Shared/Form/Places';
 import {
+  GenderComponent as Gender,
+  Props as GenderProps,
+} from '../../../components/Shared/Form/Gender';
+import {
   NestedCategoriesComponent as NestedCategories,
   Props as NestedCategoriesProps,
 } from '../../../components/Shared/Form/NestedCategories';
@@ -188,6 +192,28 @@ describe('Form components', () => {
 
     it('should call on Change and Blur function', () => {
       const wrapper = shallow(<Levels {...props} />);
+      wrapper.find(Select).simulate('change', MockedEventWithValues());
+      expect(props.inputChanged).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('<Gender /> component', () => {
+    let props: GenderProps;
+    beforeEach(() => {
+      props = {
+        gender: null,
+        genders: mockedCategory('Genders'),
+        inputChanged: jest.fn(),
+      };
+    });
+    it('should render all required items', () => {
+      const wrapper = shallow(<Gender {...props} />);
+      expect(wrapper.find(Select)).toHaveLength(1);
+      expect(wrapper.find(Select).props().id).toEqual('gender');
+      expect(wrapper.find(Select).props().name).toEqual('gender');
+    });
+
+    it('should call on Change and Blur function', () => {
+      const wrapper = shallow(<Gender {...props} />);
       wrapper.find(Select).simulate('change', MockedEventWithValues());
       expect(props.inputChanged).toHaveBeenCalledTimes(1);
     });

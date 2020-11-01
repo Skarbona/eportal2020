@@ -14,6 +14,7 @@ import Message from '../../../../components/Shared/Form/Message';
 import Places from '../../../../components/Shared/Form/Places';
 import NewCategory from '../../../../components/Shared/Form/NewCategory';
 import NestedCategories from '../../../../components/Shared/Form/NestedCategories';
+import Gender from '../../../../components/Shared/Form/Gender';
 import { mockedEvent } from '../../../../mocks/event';
 import { mockedStore } from '../../../../mocks/store';
 
@@ -49,6 +50,7 @@ describe('<SaveTaskForm > component', () => {
     expect(wrapper.find(Levels)).toHaveLength(1);
     expect(wrapper.find(NestedCategories)).toHaveLength(1);
     expect(wrapper.find(NewCategory)).toHaveLength(1);
+    expect(wrapper.find(Gender)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);
   });
 

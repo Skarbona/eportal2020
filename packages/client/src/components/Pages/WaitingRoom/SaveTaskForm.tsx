@@ -11,6 +11,7 @@ import Places from '../../Shared/Form/Places';
 import Levels from '../../Shared/Form/Levels';
 import NestedCategories from '../../Shared/Form/NestedCategories';
 import NewCategory from '../../Shared/Form/NewCategory';
+import Gender from '../../Shared/Form/Gender';
 import Dialog from '../../Shared/UIElements/Dialog/Dialog';
 import { GOOGLE_RECAPTCHA } from '../../../constants/envs';
 import { useFormSelector } from './selector-hook';
@@ -34,6 +35,7 @@ const formInputs = [
   InputKeys.Preferences,
   InputKeys.Levels,
   InputKeys.NewCategory,
+  InputKeys.Gender,
 ];
 
 export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
@@ -42,6 +44,7 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
   const initialState = {
     place: { ...initialInputState, value: cats.places?.children[0].id, valid: true },
     levels: { ...initialInputState, value: cats.levels?.children[0].id, valid: true },
+    gender: { ...initialInputState, value: cats.gender?.children[0].id, valid: true },
     newCategory: { ...initialInputState, valid: true },
   };
   const {
@@ -69,10 +72,10 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
   );
 
   const handleSubmit = (e: SubmitEvent): void => {
-    const { levels, place, preferences, title, message, newCategory } = inputs;
+    const { levels, place, preferences, title, message, newCategory, gender } = inputs;
     e.preventDefault();
     const payload = {
-      categories: [levels.value, place.value, ...preferences.value],
+      categories: [levels.value, place.value, gender.value, ...preferences.value],
       content: {
         title: title.value,
         content: message.value,
@@ -104,12 +107,20 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
             />
           </Grid>
           <Grid item xs={12}>
+            <Gender
+              genders={cats.gender}
+              gender={inputs?.gender.value}
+              inputChanged={inputChanged}
+            />
+          </Grid>
+          <Grid item xs={12}>
             <Places places={cats.places} place={inputs?.place.value} inputChanged={inputChanged} />
           </Grid>
           <Grid item xs={12}>
             <Levels levels={cats.levels} level={inputs?.levels.value} inputChanged={inputChanged} />
           </Grid>
           <Grid item xs={12}>
+            {t('Preferences (min 2)')}:
             <Grid container spacing={0}>
               <NestedCategories cats={preferencesState} inputChanged={preferenceStateHandler} />
             </Grid>

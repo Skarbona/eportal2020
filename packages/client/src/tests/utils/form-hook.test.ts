@@ -41,6 +41,7 @@ describe('isFormValidHandler utility function', () => {
       place: { ...initialState.inputs.place, valid: true, value: 'place' },
       title: { ...initialState.inputs.title, valid: true, value: 'title' },
       newCategory: { ...initialState.inputs.newCategory, valid: true, value: 'newCategory' },
+      gender: { ...initialState.inputs.gender, valid: true, value: 'gender' },
     };
     const isFormValid = isFormValidHandler(inputs);
     expect(isFormValid).toEqual(true);
@@ -62,6 +63,7 @@ describe('isFormValidHandler utility function', () => {
       place: { ...initialState.inputs.place, valid: true, value: 'place' },
       title: { ...initialState.inputs.title, valid: true, value: 'title' },
       newCategory: { ...initialState.inputs.newCategory, valid: true, value: 'newCategory' },
+      gender: { ...initialState.inputs.gender, valid: true, value: 'gender' },
     };
     const isFormValid = isFormValidHandler(inputs);
     expect(isFormValid).toEqual(true);

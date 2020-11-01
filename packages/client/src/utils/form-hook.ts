@@ -212,6 +212,7 @@ export const validateByKey = ({
     case InputKeys.Preferences:
       return arePreferencesValidHandler((value as unknown) as string[], blurred);
     case InputKeys.Place:
+    case InputKeys.Gender:
     case InputKeys.NewCategory:
     case InputKeys.Levels:
       return {
