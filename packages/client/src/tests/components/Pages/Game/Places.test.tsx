@@ -48,19 +48,4 @@ describe('<Places /> component', () => {
     wrapper = shallow(<PlacesComponent {...props} />);
     expect(setFormValuesSpy).toHaveBeenCalled();
   });
-
-  it('should handle onChange events', () => {
-    // TODO: Move to Places Input unit tests
-    const { user, categories } = mockedStore();
-    const props = {
-      defaults: user.userData.gameDefaults.place,
-      places: categories.categories.places,
-    };
-    wrapper = shallow(<PlacesComponent {...props} />);
-    expect(setFormValuesSpy).toHaveBeenCalledTimes(2);
-    const event = ({ target: { value: 0 } } as unknown) as InputChangeEvent;
-    const value = { props: { children: [''] } };
-    wrapper.find(Places).simulate('change', event, value);
-    expect(setFormValuesSpy).toHaveBeenCalledTimes(3);
-  });
 });

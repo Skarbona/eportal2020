@@ -229,6 +229,10 @@ describe('AuthPage State: reducer', () => {
           ...state.inputs.title,
           visible: false,
         },
+        newCategory: {
+          ...state.inputs.title,
+          visible: false,
+        },
       },
     };
     const reducer = formReducer(state, action);

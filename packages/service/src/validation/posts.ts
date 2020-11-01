@@ -51,12 +51,15 @@ const posts = {
       if (!posts || !Array.isArray(posts) || posts.length < 1) {
         throw new Error('Not valid schema for posts');
       }
-      const everyPostIsValid = posts.every(({ content, categories, image, author }) => {
-        if (!content?.title || !content.content) return false;
-        if (!categories || !Array.isArray(categories)) return false;
-        if (categories.find((cat) => !Types.ObjectId.isValid(cat))) return false;
-        if (image && typeof image !== 'string') return false;
-        if (!author || !Types.ObjectId.isValid(author)) return false;
+      const everyPostIsValid = posts.every(({ content, categories, image, author, meta }) => {
+        if (!content?.title || !content.content) throw new Error('Not valid content');
+        if (!categories || !Array.isArray(categories)) throw new Error('Not valid categories');
+        if (categories.find((cat) => !Types.ObjectId.isValid(cat)))
+          throw new Error('Not valid categories');
+        if (image && typeof image !== 'string') throw new Error('Not valid image');
+        if (!author || !Types.ObjectId.isValid(author)) throw new Error('Not valid author');
+        if (meta?.newCategory && typeof meta.newCategory !== 'string')
+          throw new Error('Not valid newCategory');
         return true;
       });
 

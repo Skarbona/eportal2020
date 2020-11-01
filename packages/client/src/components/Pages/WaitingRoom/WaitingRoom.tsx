@@ -1,7 +1,7 @@
 import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { Pagination } from '@material-ui/lab';
 import { useParams, useHistory } from 'react-router-dom';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
@@ -15,8 +15,6 @@ import { useReduxDispatch } from '../../../store/helpers';
 import { PageParams } from '../../../models/page-types';
 import { fetchCategories } from '../../../store/categories/thunks/fetchCategories';
 import { useWaitingRoomSelector } from './selector-hook';
-
-// JEST BUG, ze nie mozna edit zrobic ponownie
 
 export const WaitingRoomComponent: FC = () => {
   const dispatch = useReduxDispatch();
@@ -61,6 +59,11 @@ export const WaitingRoomComponent: FC = () => {
             >
               {t('Add post')}
             </Button>
+          </Grid>
+          <Grid item sm={12} md={12}>
+            <Typography variant="body1" component="p" color="secondary">
+              {t('Add new subtitle')}
+            </Typography>
           </Grid>
           <Grid item sm={12} md={12}>
             {catsLoaded && showAddPost && <SaveTaskForm setShowAddPost={setShowAddPost} />}

@@ -10,6 +10,7 @@ import Title from '../../Shared/Form/Title';
 import Places from '../../Shared/Form/Places';
 import Levels from '../../Shared/Form/Levels';
 import NestedCategories from '../../Shared/Form/NestedCategories';
+import NewCategory from '../../Shared/Form/NewCategory';
 import Dialog from '../../Shared/UIElements/Dialog/Dialog';
 import { GOOGLE_RECAPTCHA } from '../../../constants/envs';
 import { useFormSelector } from './selector-hook';
@@ -32,6 +33,7 @@ const formInputs = [
   InputKeys.Place,
   InputKeys.Preferences,
   InputKeys.Levels,
+  InputKeys.NewCategory,
 ];
 
 export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
@@ -40,6 +42,7 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
   const initialState = {
     place: { ...initialInputState, value: cats.places?.children[0].id, valid: true },
     levels: { ...initialInputState, value: cats.levels?.children[0].id, valid: true },
+    newCategory: { ...initialInputState, valid: true },
   };
   const {
     state: { inputs, isFormValid },
@@ -66,12 +69,16 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
   );
 
   const handleSubmit = (e: SubmitEvent): void => {
+    const { levels, place, preferences, title, message, newCategory } = inputs;
     e.preventDefault();
     const payload = {
-      categories: [inputs.levels.value, inputs.place.value, ...inputs.preferences.value],
+      categories: [levels.value, place.value, ...preferences.value],
       content: {
-        title: inputs.title.value,
-        content: inputs.message.value,
+        title: title.value,
+        content: message.value,
+      },
+      meta: {
+        newCategory: newCategory.value,
       },
     };
     dispatch(createPost(payload));
@@ -108,6 +115,9 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
             </Grid>
           </Grid>
           <Grid item xs={12}>
+            <NewCategory newCategory={inputs?.newCategory} inputChanged={inputChanged} />
+          </Grid>
+          <Grid item xs={12}>
             <ReCAPTCHA sitekey={GOOGLE_RECAPTCHA} onChange={recaptchaChanged} />
           </Grid>
           <Grid item xs={12}>
@@ -127,7 +137,7 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
   );
 };
 
-interface Props {
+export interface Props {
   setShowAddPost: (show: boolean) => void;
 }
 

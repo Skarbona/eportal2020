@@ -39,4 +39,7 @@ interface CreatePost {
     title: string;
     content: string;
   };
+  meta?: {
+    newCategory?: string;
+  };
 }

@@ -45,22 +45,27 @@ export const createPosts = async (
 ): Promise<void | Response> => {
   const { posts } = req.body;
 
-  const createdPosts = posts.map(({ content, categories, image, author }: PostRequestInterface) => {
-    const post = new Post({
-      date: new Date(),
-      slug: stringToSlug(sanitizeHtml(content.title)),
-      status: PostStatus.AwaitingForApproval,
-      content: {
-        title: sanitizeHtml(content.title),
-        content: sanitizeHtml(content.content),
-      },
-      author,
-      categories,
-      image,
-    });
-    post.slug = `${post.slug}/${post._id}`;
-    return post;
-  });
+  const createdPosts = posts.map(
+    ({ content, categories, image, author, meta }: PostRequestInterface) => {
+      const post = new Post({
+        date: new Date(),
+        slug: stringToSlug(sanitizeHtml(content.title)),
+        status: PostStatus.AwaitingForApproval,
+        content: {
+          title: sanitizeHtml(content.title),
+          content: sanitizeHtml(content.content),
+        },
+        author,
+        categories,
+        image,
+        meta: {
+          newCategory: sanitizeHtml(meta?.newCategory) || '',
+        },
+      });
+      post.slug = `${post.slug}/${post._id}`;
+      return post;
+    },
+  );
 
   try {
     const posts = await Post.insertMany(createdPosts);

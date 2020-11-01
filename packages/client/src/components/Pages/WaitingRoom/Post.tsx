@@ -184,6 +184,11 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
               <Message message={inputs.message} inputChanged={inputChanged} />
             )}
           </Grid>
+          {post.meta?.newCategory && (
+            <Grid item xs={12}>
+              {t('Proposal of new preference')}: {post.meta.newCategory}
+            </Grid>
+          )}
           {edit === id && (
             <>
               <Grid item xs={12}>
@@ -219,7 +224,7 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
   );
 };
 
-interface Props {
+export interface Props {
   post: PostResponseInterface;
   edit: string;
   setEdit: (editId: string) => void;

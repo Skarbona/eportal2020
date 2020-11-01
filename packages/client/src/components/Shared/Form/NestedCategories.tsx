@@ -39,7 +39,7 @@ export const NestedCategoriesComponent: FC<Props> = ({ cats, inputChanged, paren
   );
 };
 
-interface Props {
+export interface Props {
   cats: CatsStateInterface[];
   inputChanged: (id: string, parentIndex: number) => void;
   parentIndex?: number;

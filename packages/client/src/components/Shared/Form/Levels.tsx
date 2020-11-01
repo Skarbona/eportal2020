@@ -10,13 +10,7 @@ export const LevelsComponent: FC<Props> = ({ levels, level, inputChanged }) => {
   return (
     <FormControl variant="filled" className="form-element__default-width">
       <InputLabel id="place_label">{t('Place of game')}</InputLabel>
-      <Select
-        labelId="place_label"
-        id="game_select"
-        value={level}
-        onChange={inputChanged}
-        name="levels"
-      >
+      <Select labelId="place_label" id="levels" value={level} onChange={inputChanged} name="levels">
         {levels.children.map((levelChild) => (
           <MenuItem value={levelChild.id} key={levelChild.id}>
             {levelChild.name}
@@ -27,7 +21,7 @@ export const LevelsComponent: FC<Props> = ({ levels, level, inputChanged }) => {
   );
 };
 
-interface Props {
+export interface Props {
   levels: CategoryInterface;
   level: string;
   inputChanged: (event: SelectChangeEvent) => void;

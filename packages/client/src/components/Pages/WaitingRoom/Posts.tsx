@@ -10,7 +10,7 @@ export const PostsComponent: FC<Props> = ({ pageNumber }) => {
   const setEditHandler = useCallback((id: string) => setEdit(id === edit ? '' : id), [edit]);
   return (
     <>
-      {cats.preferences &&
+      {cats?.preferences &&
         posts?.map((post) => (
           <Post
             isAdmin={isAdmin}

@@ -10,13 +10,7 @@ export const PlacesComponent: FC<Props> = ({ places, place, inputChanged }) => {
   return (
     <FormControl variant="filled" className="form-element__default-width">
       <InputLabel id="place_label">{t('Place of game')}</InputLabel>
-      <Select
-        labelId="place_label"
-        id="game_select"
-        value={place}
-        onChange={inputChanged}
-        name="place"
-      >
+      <Select labelId="place_label" id="place" value={place} onChange={inputChanged} name="place">
         {places.children.map((placeChild) => (
           <MenuItem value={placeChild.id} key={placeChild.id}>
             {placeChild.name}
@@ -27,7 +21,7 @@ export const PlacesComponent: FC<Props> = ({ places, place, inputChanged }) => {
   );
 };
 
-interface Props {
+export interface Props {
   places: CategoryInterface;
   place: string;
   inputChanged: (event: SelectChangeEvent) => void;

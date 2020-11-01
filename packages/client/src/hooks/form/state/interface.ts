@@ -32,6 +32,7 @@ export interface FormState {
     title?: InputState;
     place?: InputState;
     levels?: InputState;
+    newCategory?: InputState;
     preferences?: InputArrayState;
   };
   isFormValid: boolean;
@@ -58,6 +59,7 @@ export enum InputKeys {
   'Place' = 'place',
   'Preferences' = 'preferences',
   'Levels' = 'levels',
+  'NewCategory' = 'newCategory',
 }
 export interface CheckBoxChanged {
   type: FormActionsEnum.CheckBoxChanged;

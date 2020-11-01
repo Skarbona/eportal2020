@@ -5,6 +5,9 @@ export interface PostBasicInterface {
   };
   image?: string;
   status: PostStatus;
+  meta?: {
+    newCategory: string;
+  };
 }
 
 export enum PostStatus {

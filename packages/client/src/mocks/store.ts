@@ -72,7 +72,7 @@ const mockDefaults = (): FormValues => ({
   saveAsDefault: false,
 });
 
-const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
+export const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
   id: name,
   date: new Date(),
   slug: name,
@@ -89,7 +89,7 @@ const mockedCategory = (name: string, nested = 0): CategoryInterface => ({
 
 export const mockedStore = (): RootState => ({
   waitingRoom: {
-    posts: null,
+    posts: [mockPost(), mockPost(), mockPost()],
     loading: false,
   },
   pages: {

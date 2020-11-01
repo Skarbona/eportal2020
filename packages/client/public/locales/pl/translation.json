@@ -134,5 +134,10 @@
   "Close": "Zamknij",
   "Save": "Zapisz",
   "Send": "Wyślij",
-  "You have at least select 2 preferences": "Musisz wybrać przynajmniej 2 preferencje"
+  "You have at least select 2 preferences": "Musisz wybrać przynajmniej 2 preferencje",
+  "Proposal of new preference": "Propozycja nowej kategorii",
+  "Empty": "Brak",
+  "Add new posts!": "Dodawaj nowe zadania",
+  "Add new subtitle": "Graj i dodawaj własne zadania. Rozwijaj największą baze zadań w Polsce (prawie 2000 zadań)!",
+  "Game rules": "Po rozpoczęciu Gry, każdy z Graczy posiada 0 punktów, a gra jest podzielona na III Etapy. Wybieracie, który z Graczy ma wykonywać zadanie lub pozwalacie zadecydować losowi. Wygrywa Osoba z największą ilością punktów."
 }
