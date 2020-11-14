@@ -20,7 +20,7 @@ export const initialState: FormState = {
     password: initialInputState,
     title: initialInputState,
     message: initialInputState,
-    place: initialInputState,
+    place: initialInputArrayState,
     levels: initialInputState,
     preferences: initialInputArrayState,
     confirmedEmail: initialInputState,

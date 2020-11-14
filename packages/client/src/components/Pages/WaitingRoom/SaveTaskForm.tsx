@@ -7,7 +7,7 @@ import { useForm } from '../../../hooks/form/form-hook';
 import { InputKeys } from '../../../hooks/form/state/interface';
 import Message from '../../Shared/Form/Message';
 import Title from '../../Shared/Form/Title';
-import Places from '../../Shared/Form/Places';
+import MultiPlaces from '../../Shared/Form/MultiPlaces';
 import Levels from '../../Shared/Form/Levels';
 import NestedCategories from '../../Shared/Form/NestedCategories';
 import NewCategory from '../../Shared/Form/NewCategory';
@@ -42,7 +42,7 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
   const dispatch = useReduxDispatch();
   const { cats, error, alert } = useFormSelector();
   const initialState = {
-    place: { ...initialInputState, value: cats.places?.children[0].id, valid: true },
+    place: { ...initialInputState, value: [cats.places?.children[0].id], valid: true },
     levels: { ...initialInputState, value: cats.levels?.children[0].id, valid: true },
     gender: { ...initialInputState, value: cats.gender?.children[0].id, valid: true },
     newCategory: { ...initialInputState, valid: true },
@@ -75,7 +75,7 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
     const { levels, place, preferences, title, message, newCategory, gender } = inputs;
     e.preventDefault();
     const payload = {
-      categories: [levels.value, place.value, gender.value, ...preferences.value],
+      categories: [levels.value, gender.value, ...place.value, ...preferences.value],
       content: {
         title: title.value,
         content: message.value,
@@ -114,13 +114,20 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Places places={cats.places} place={inputs?.place.value} inputChanged={inputChanged} />
+            {t('Place (min 1)')}:
+            <Grid container spacing={0}>
+              <MultiPlaces
+                places={cats.places}
+                place={inputs?.place.value}
+                inputChanged={inputChanged}
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <Levels levels={cats.levels} level={inputs?.levels.value} inputChanged={inputChanged} />
           </Grid>
           <Grid item xs={12}>
-            {t('Preferences (min 2)')}:
+            {t('Preferences (min 1)')}:
             <Grid container spacing={0}>
               <NestedCategories cats={preferencesState} inputChanged={preferenceStateHandler} />
             </Grid>

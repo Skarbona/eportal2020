@@ -19,8 +19,8 @@ describe('<Pages > component', () => {
     expect(wrapper.find(Main)).toHaveLength(1);
     expect(wrapper.find(Page)).toHaveLength(2);
     expect(wrapper.find(NotFound)).toHaveLength(1);
-    expect(wrapper.find(WaitingRoom)).toHaveLength(1);
-    expect(wrapper.find(Route)).toHaveLength(7);
+    expect(wrapper.find(WaitingRoom)).toHaveLength(2);
+    expect(wrapper.find(Route)).toHaveLength(8);
 
     expect(wrapper.find(AuthPage)).toHaveLength(0);
   });

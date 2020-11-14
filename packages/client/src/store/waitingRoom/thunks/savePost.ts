@@ -7,7 +7,10 @@ import { BACKEND_API } from '../../../constants/envs';
 import { getPosts } from './getPosts';
 import { PostStatus } from '../../../models/posts';
 
-export const savePost = (post: SavePost): AppThunk => async (dispatch, getState) => {
+export const savePost = (post: SavePost, search?: string): AppThunk => async (
+  dispatch,
+  getState,
+) => {
   dispatch(initSavePosts());
   try {
     const {
@@ -25,7 +28,7 @@ export const savePost = (post: SavePost): AppThunk => async (dispatch, getState)
       },
     );
     dispatch(successSavePosts());
-    dispatch(getPosts());
+    dispatch(getPosts(search));
   } catch (e) {
     dispatch(failSavePosts(e));
   }

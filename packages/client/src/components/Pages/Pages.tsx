@@ -24,7 +24,12 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
         <Main isLoggedIn={!!accessToken?.length} />
       </Route>
       {accessToken && (
-        <Route path={`${PageParams.WaitingRoom}/:page`} exact>
+        <Route key="waiting-room" path={`${PageParams.WaitingRoom}/:page`} exact>
+          <WaitingRoom />
+        </Route>
+      )}
+      {accessToken && (
+        <Route key="posts" path={`${PageParams.Posts}/:page`} exact>
           <WaitingRoom />
         </Route>
       )}

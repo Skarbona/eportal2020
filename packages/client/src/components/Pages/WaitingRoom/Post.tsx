@@ -5,18 +5,20 @@ import {
   Check as CheckIcon,
   Edit as EditIcon,
   Send as SendIcon,
+  Warning as WarningIcon,
 } from '@material-ui/icons';
 import { formatDistanceToNow } from 'date-fns';
 // eslint-ignore-next-line Eslint try to combine imports, what not working in this case
 import { enGB, pl } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 import { LANGUAGE } from '../../../constants/envs';
 import { PostResponseInterface } from '../../../../../service/src/models/shared-interfaces/post';
 import Title from '../../Shared/Form/Title';
 import Message from '../../Shared/Form/Message';
 import NestedCategories from '../../Shared/Form/NestedCategories';
-import Places from '../../Shared/Form/Places';
+import MultiPlaces from '../../Shared/Form/MultiPlaces';
 import Levels from '../../Shared/Form/Levels';
 import Gender from '../../Shared/Form/Gender';
 import { useForm } from '../../../hooks/form/form-hook';
@@ -33,6 +35,7 @@ import { CategoriesStateInterface } from '../../../store/categories/initialState
 import { savePost } from '../../../store/waitingRoom/thunks/savePost';
 import { useReduxDispatch } from '../../../store/helpers';
 import { PostStatus } from '../../../models/posts';
+import { PageParams } from '../../../models/page-types';
 
 const formInputs = [
   InputKeys.Title,
@@ -45,22 +48,26 @@ const formInputs = [
 
 export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap, isAdmin }) => {
   const dispatch = useReduxDispatch();
-  const { id, content, author, date, categories } = post;
+  const { id, content, author, date, categories, status } = post;
+  const location = useLocation();
+  const isWaitingRoomMode = location.pathname.includes(PageParams.WaitingRoom);
   const initialState = useMemo(() => {
-    const placeId = categories.find((cat) =>
+    const placesId = categories.filter((cat) =>
       cats.places.children.find((place) => place.id === cat),
     );
     const levelId = categories.find((cat) =>
       cats.levels.children.find((level) => level.id === cat),
     );
     const genderId = categories.find((cat) => cats.gender.children.find((gen) => gen.id === cat));
-    const preferencesId = categories.filter((cat) => ![placeId, levelId].includes(cat));
+    const preferencesId = categories.filter(
+      (cat) => ![...placesId, levelId, genderId].includes(cat),
+    );
     return {
       title: { ...initialInputState, value: content.title, valid: true },
       message: { ...initialInputState, value: content.content, valid: true },
       place: {
         ...initialInputState,
-        value: placeId,
+        value: placesId,
         valid: true,
       },
       gender: {
@@ -110,8 +117,8 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
       id,
       categories: [
         inputs.levels.value,
-        inputs.place.value,
         inputs.gender.value,
+        ...inputs.place.value,
         ...inputs.preferences.value,
       ],
       content: {
@@ -119,15 +126,15 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
         content: inputs.message.value,
       },
     };
-    await dispatch(savePost(payload));
+    await dispatch(savePost(payload, location.search || (!isWaitingRoomMode && '?status=publish')));
     setEdit('');
   };
 
   const actionHandler = useCallback(
-    (status) => {
+    (postStatus) => {
       const payload = {
         id,
-        status,
+        status: postStatus,
       };
       dispatch(savePost(payload));
     },
@@ -150,7 +157,8 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
                 {formatDistanceToNow(new Date(date), {
                   locale: LANGUAGE === 'pl' ? pl : enGB,
                 })}
-                ) {edit === id && id}
+                ) {t('Status')}: <b>{t(status)}</b>
+                {edit === id && id}
               </Typography>
             </Typography>
           </Grid>
@@ -170,23 +178,37 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
                 <Button color="primary" startIcon={<EditIcon />} onClick={(): void => setEdit(id)}>
                   {edit === id ? t('Close') : t('Edit')}
                 </Button>
-                <Button
-                  onClick={(): void => actionHandler(PostStatus.Publish)}
-                  disabled={edit === id}
-                  startIcon={<CheckIcon />}
-                  className="success-button"
-                >
-                  {t('Approve')}
-                </Button>
-                <Button
-                  onClick={(): void => actionHandler(PostStatus.Archival)}
-                  disabled={edit === id}
-                  color="primary"
-                  className="error-button"
-                  startIcon={<ArchiveIcon />}
-                >
-                  {t('Remove')}
-                </Button>
+                {status !== PostStatus.AwaitingForApproval && (
+                  <Button
+                    onClick={(): void => actionHandler(PostStatus.AwaitingForApproval)}
+                    disabled={edit === id}
+                    startIcon={<WarningIcon />}
+                    className="warning-button"
+                  >
+                    {t('Awaiting For approval')}
+                  </Button>
+                )}
+                {status !== PostStatus.Publish && (
+                  <Button
+                    onClick={(): void => actionHandler(PostStatus.Publish)}
+                    disabled={edit === id}
+                    startIcon={<CheckIcon />}
+                    className="success-button"
+                  >
+                    {t('Approve')}
+                  </Button>
+                )}
+                {status !== PostStatus.Archival && (
+                  <Button
+                    onClick={(): void => actionHandler(PostStatus.Archival)}
+                    disabled={edit === id}
+                    color="primary"
+                    className="error-button"
+                    startIcon={<ArchiveIcon />}
+                  >
+                    {t('Remove')}
+                  </Button>
+                )}
               </ButtonGroup>
             </Grid>
           )}
@@ -212,7 +234,7 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
                 />
               </Grid>
               <Grid item xs={12}>
-                <Places
+                <MultiPlaces
                   places={cats.places}
                   place={inputs?.place.value}
                   inputChanged={inputChanged}

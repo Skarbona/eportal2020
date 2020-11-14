@@ -3,6 +3,7 @@ export enum PageParams {
   Login = '/autentykacja/logowanie',
   Game = '/gra',
   Profile = '/profil',
+  Posts = '/zadania',
   Rules = '/zasady',
   PrivacyPolice = '/polityka-prywatnosci',
   WaitingRoom = '/poczekalnia',

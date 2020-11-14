@@ -30,7 +30,7 @@ export interface FormState {
     confirmAccountDelete?: InputState;
     privacyPolicy?: CheckBoxState;
     title?: InputState;
-    place?: InputState;
+    place?: InputArrayState;
     gender?: InputState;
     levels?: InputState;
     newCategory?: InputState;
