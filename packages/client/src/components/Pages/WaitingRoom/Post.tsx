@@ -153,11 +153,11 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
                 <Title title={inputs.title} inputChanged={inputChanged} />
               )}
               <Typography color="secondary">
-                {t('Created by')} <b>{author?.name || ''}</b> (
+                {t('Created by')} <b>{author?.name || t('Account deleted')}</b> (
                 {formatDistanceToNow(new Date(date), {
                   locale: LANGUAGE === 'pl' ? pl : enGB,
-                })}
-                ) {t('Status')}: <b>{t(status)}</b>
+                })}{' '}
+                {t('ago')}) {t('Status')}: <b>{t(status)}</b>
                 {edit === id && id}
               </Typography>
             </Typography>

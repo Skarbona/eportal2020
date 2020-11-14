@@ -148,8 +148,10 @@
   "Status": "Status",
   "publish": "opublikowany",
   "awaitingForApproval": "Oczekujący na akceptacje",
-  "Awaiting For approval": "Przenieś do poczekalni",
+  "Awaiting For approval": "Poczekalnia",
   "Search": "Szukaj",
   "archival": "Zarchiwizowane",
-  "No posts": "Brak zadań spełniających kryteria"
+  "No posts": "Brak zadań spełniających kryteria",
+  "ago": "temu",
+  "Account deleted": "Konto usunięte"
 }
