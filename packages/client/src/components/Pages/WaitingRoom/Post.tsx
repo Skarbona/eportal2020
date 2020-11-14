@@ -131,10 +131,10 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
   };
 
   const actionHandler = useCallback(
-    (status) => {
+    (postStatus) => {
       const payload = {
         id,
-        status,
+        status: postStatus,
       };
       dispatch(savePost(payload));
     },
