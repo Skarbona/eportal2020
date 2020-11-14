@@ -22,7 +22,7 @@ export const ProfileComponent: FC = () => {
       <PageContainer className="profile">
         <Grid container spacing={2} className="profile__grid-container">
           <Grid item sm={12} md={5} className="profile__grid-item">
-            {id && <CardInfo name={name} email={email} />}
+            {id && <CardInfo name={name} email={email} userId={id} />}
           </Grid>
           <Grid item sm={12} md={7} className="profile__grid-item">
             <Settings />

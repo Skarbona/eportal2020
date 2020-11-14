@@ -95,7 +95,7 @@ export const getPosts = async (
   const { catsIncludeStrict, catsInclude, catsExclude, status, author } = req.query;
   try {
     let posts;
-    if (catsIncludeStrict || catsInclude || catsExclude || status) {
+    if (catsIncludeStrict || catsInclude || catsExclude || status || author) {
       let options: { categories?: {}; status?: {}; author?: {} };
       if (catsIncludeStrict) {
         options = { categories: { $eq: catsIncludeStrict } };
@@ -122,9 +122,13 @@ export const getPosts = async (
         };
       }
 
+      options = {
+        ...options,
+        status: { $in: status ? (status as PostStatus)?.split(',') : [PostStatus.Publish] },
+      };
+
       posts = await Post.find({
         ...options,
-        status: { $eq: status ? (status as PostStatus) : PostStatus.Publish },
       }).populate('author', 'name');
     } else {
       posts = await Post.find().populate('author', 'name');

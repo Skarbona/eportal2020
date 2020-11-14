@@ -7,12 +7,17 @@ import { PostComponent as Post, Props } from '../../../../components/Pages/Waiti
 import { mockedStore } from '../../../../mocks/store';
 import Title from '../../../../components/Shared/Form/Title';
 import Message from '../../../../components/Shared/Form/Message';
-import Places from '../../../../components/Shared/Form/Places';
+import MultiPlaces from '../../../../components/Shared/Form/MultiPlaces';
 import Levels from '../../../../components/Shared/Form/Levels';
 import Gender from '../../../../components/Shared/Form/Gender';
 import NestedCategories from '../../../../components/Shared/Form/NestedCategories';
 import * as savePostThunk from '../../../../store/waitingRoom/thunks/savePost';
 import { mockedEvent } from '../../../../mocks/event';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: jest.fn(() => ({ pathname: '/poczekalnia' })),
+}));
 
 describe('<Posts > component', () => {
   let wrapper: ShallowWrapper;
@@ -56,7 +61,7 @@ describe('<Posts > component', () => {
     expect(wrapper.find(Title)).toHaveLength(0);
     expect(wrapper.find(Message)).toHaveLength(0);
     expect(wrapper.find(Levels)).toHaveLength(0);
-    expect(wrapper.find(Places)).toHaveLength(0);
+    expect(wrapper.find(MultiPlaces)).toHaveLength(0);
     expect(wrapper.find(Gender)).toHaveLength(0);
     expect(wrapper.find(NestedCategories)).toHaveLength(0);
   });
@@ -70,7 +75,7 @@ describe('<Posts > component', () => {
     expect(wrapper.find(Message)).toHaveLength(1);
     expect(wrapper.find(Typography)).toHaveLength(2);
     expect(wrapper.find(Levels)).toHaveLength(1);
-    expect(wrapper.find(Places)).toHaveLength(1);
+    expect(wrapper.find(MultiPlaces)).toHaveLength(1);
     expect(wrapper.find(Gender)).toHaveLength(1);
     expect(wrapper.find(NestedCategories)).toHaveLength(1);
     expect(wrapper.find(Chip)).toHaveLength(0);

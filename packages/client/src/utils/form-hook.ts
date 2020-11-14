@@ -64,14 +64,15 @@ export const fourCharsValidHandler = (
   };
 };
 
-export const arePreferencesValidHandler = (
+export const areCategoriesValidHandler = (
   preferences: string[],
+  requiredLength: number,
   blurred: boolean,
 ): Partial<InputArrayState> => {
   let errorMsg = '';
 
-  if (preferences.length < 2) {
-    errorMsg = i18n.t(`You have at least select 2 preferences`);
+  if (preferences.length < requiredLength) {
+    errorMsg = i18n.t('You have to select more categories');
   } else {
     errorMsg = '';
   }
@@ -210,8 +211,9 @@ export const validateByKey = ({
     case InputKeys.Title:
       return fourCharsValidHandler(value, blurred, 'Title');
     case InputKeys.Preferences:
-      return arePreferencesValidHandler((value as unknown) as string[], blurred);
+      return areCategoriesValidHandler((value as unknown) as string[], 1, blurred);
     case InputKeys.Place:
+      return areCategoriesValidHandler((value as unknown) as string[], 1, blurred);
     case InputKeys.Gender:
     case InputKeys.NewCategory:
     case InputKeys.Levels:

@@ -20,6 +20,7 @@ jest.mock('react-router-dom', () => ({
   useParams: jest.fn(() => ({
     page: 1,
   })),
+  useLocation: jest.fn(() => ({ pathname: '/poczekalnia' })),
 }));
 
 describe('<WaitingRoom > component', () => {

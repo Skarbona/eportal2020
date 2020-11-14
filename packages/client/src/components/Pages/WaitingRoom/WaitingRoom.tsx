@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { Pagination } from '@material-ui/lab';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -24,13 +24,15 @@ export const WaitingRoomComponent: FC = () => {
   const { totalPages, catsLoaded } = useWaitingRoomSelector();
   const { page } = useParams();
   const history = useHistory();
+  const location = useLocation();
+  const isWaitingRoomMode = location.pathname.includes(PageParams.WaitingRoom);
 
   const setPageNumberHandler = useCallback(
     (value) => {
       setPageNumber(value);
-      history.push(`${PageParams.WaitingRoom}/${value}`);
+      history.push(`${isWaitingRoomMode ? PageParams.WaitingRoom : PageParams.Posts}/${value}`);
     },
-    [history],
+    [history, isWaitingRoomMode],
   );
 
   useEffect(() => {
@@ -39,37 +41,43 @@ export const WaitingRoomComponent: FC = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(getPosts(location.search || (!isWaitingRoomMode && '?status=publish')));
     dispatch(fetchCategories());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const title = isWaitingRoomMode ? 'Waiting Room' : 'Posts';
+
   return (
     <>
-      <PageHeading title="Waiting Room" disableBreadCrumbs />
+      <PageHeading title={title} disableBreadCrumbs />
       <PageContainer className="waiting-room">
         <Grid container spacing={2}>
-          <Grid item sm={12} md={4}>
-            <Button
-              color="primary"
-              fullWidth
-              variant="contained"
-              startIcon={<AddIcon />}
-              onClick={(): void => setShowAddPost((prevState) => !prevState)}
-            >
-              {t('Add post')}
-            </Button>
-          </Grid>
-          <Grid item sm={12} md={12}>
-            <Typography variant="body1" component="p" color="secondary">
-              {t('Add new subtitle')}
-            </Typography>
-          </Grid>
+          {isWaitingRoomMode && (
+            <>
+              <Grid item sm={12} md={4}>
+                <Button
+                  color="primary"
+                  fullWidth
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  onClick={(): void => setShowAddPost((prevState) => !prevState)}
+                >
+                  {t('Add post')}
+                </Button>
+              </Grid>
+              <Grid item sm={12} md={12}>
+                <Typography variant="body1" component="p" color="secondary">
+                  {t('Add new subtitle')}
+                </Typography>
+              </Grid>
+            </>
+          )}
           <Grid item sm={12} md={12}>
             {catsLoaded && showAddPost && <SaveTaskForm setShowAddPost={setShowAddPost} />}
           </Grid>
           <Grid item sm={12} md={12}>
-            <Posts pageNumber={pageNumber} />
+            <Posts pageNumber={pageNumber} isWaitingRoomMode={isWaitingRoomMode} />
           </Grid>
           <Grid item sm={12} md={12}>
             {totalPages > 1 && (

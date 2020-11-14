@@ -17,13 +17,10 @@ interface UseFormSelector {
   alert: boolean;
 }
 
-export const usePostsSelector = (pageNumber: number): PostSelector =>
+export const usePostsSelector = (): PostSelector =>
   useSelector<RootState, PostSelector>(({ waitingRoom, categories, user }) => {
-    const postsByPageNumberSorted = waitingRoom.posts
-      ?.slice((pageNumber - 1) * 10, (pageNumber - 1) * 10 + 10)
-      ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     return {
-      posts: postsByPageNumberSorted,
+      posts: waitingRoom.posts,
       allCatsMap: categories.allCatsMap,
       cats: categories.categories,
       isAdmin: user.userData.type === 'admin',

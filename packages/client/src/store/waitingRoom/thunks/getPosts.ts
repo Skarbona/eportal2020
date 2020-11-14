@@ -7,14 +7,14 @@ import { initGetPosts, successGetPosts, failGetPosts } from '../action';
 import { BACKEND_API } from '../../../constants/envs';
 import { PostStatus } from '../../../models/posts';
 
-export const getPosts = (): AppThunk => async (dispatch, getState) => {
+export const getPosts = (search?: string): AppThunk => async (dispatch, getState) => {
   dispatch(initGetPosts());
   try {
     const {
       app: { auth },
     } = getState();
     const { data } = await axios.get(
-      `${BACKEND_API}/posts?status=${PostStatus.AwaitingForApproval}`,
+      `${BACKEND_API}/posts${search || `?status=${PostStatus.AwaitingForApproval}`}`,
       {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
