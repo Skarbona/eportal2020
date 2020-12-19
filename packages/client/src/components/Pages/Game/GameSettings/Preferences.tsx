@@ -5,7 +5,6 @@ import { Apps } from '@material-ui/icons';
 
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
 import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
-
 import {
   nestedCategoriesToState,
   setCheckboxesStatus,
@@ -16,7 +15,7 @@ import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/E
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
 import NestedCategories from '../../../Shared/Form/NestedCategories';
-import { FormValidation } from './GameSettings';
+import { FormValidation } from './Interfaces';
 
 export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation, defaults }) => {
   const { t } = useTranslation();

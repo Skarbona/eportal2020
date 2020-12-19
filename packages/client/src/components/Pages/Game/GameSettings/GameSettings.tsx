@@ -23,11 +23,7 @@ import { useReduxDispatch } from '../../../../store/helpers';
 import { setGameStatus } from '../../../../store/game/thunks/setGameStatus';
 import { GameStatus } from '../../../../models/game-models';
 import { useGameSettingsSelector } from './selector-hooks';
-
-export interface FormValidation {
-  preferences: boolean;
-  taskPerLevel: boolean;
-}
+import { FormValidation } from './Interfaces';
 
 export const GameSettingComponent: FC = () => {
   const dispatch = useReduxDispatch();

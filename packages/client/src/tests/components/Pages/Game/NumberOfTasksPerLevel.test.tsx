@@ -10,7 +10,6 @@ import {
 import ExpansionPanelComponent from '../../../../components/Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { mockedStore } from '../../../../mocks/store';
 import { InputChangeEvent } from '../../../../models/typescript-events';
-import { FormValidation } from '../../../../components/Pages/Game/GameSettings/GameSettings';
 
 describe('<NumberOfTasksPerLevel /> component', () => {
   let wrapper: ShallowWrapper;

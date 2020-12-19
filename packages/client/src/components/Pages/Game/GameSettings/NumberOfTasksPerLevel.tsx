@@ -6,11 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { InputChangeEvent } from '../../../../models/typescript-events';
 import { CategoryInterface } from '../../../../store/categories/initialState.interface';
 import { FormValues } from '../../../../../../service/src/models/shared-interfaces/user';
-
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
-import { FormValidation } from './GameSettings';
+import { FormValidation } from './Interfaces';
 
 export interface Props {
   levels: CategoryInterface;

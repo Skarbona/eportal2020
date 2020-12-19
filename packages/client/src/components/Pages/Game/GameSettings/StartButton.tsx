@@ -4,7 +4,7 @@ import { PlayArrow, Info } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import LoadingButton from '../../../Shared/Form/LoadingButton';
-import { FormValidation } from './GameSettings';
+import { FormValidation } from './Interfaces';
 
 export interface Props {
   formValidation: FormValidation;
