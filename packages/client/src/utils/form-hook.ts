@@ -49,7 +49,7 @@ export const fourCharsValidHandler = (
 ): Partial<InputState> => {
   let errorMsg = '';
 
-  if (!/^(.{4,})$/.test(message)) {
+  if (message?.length < 4) {
     errorMsg = i18n.t(`${type} must include at least 4 characters`);
   } else {
     errorMsg = '';

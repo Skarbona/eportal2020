@@ -24,9 +24,17 @@ import { setGameStatus } from '../../../../store/game/thunks/setGameStatus';
 import { GameStatus } from '../../../../models/game-models';
 import { useGameSettingsSelector } from './selector-hooks';
 
+export interface FormValidation {
+  preferences: boolean;
+  taskPerLevel: boolean;
+}
+
 export const GameSettingComponent: FC = () => {
   const dispatch = useReduxDispatch();
-  const [isFormValid, setFormValidation] = useState<boolean>(false);
+  const [formValidation, setFormValidation] = useState<FormValidation>({
+    preferences: true,
+    taskPerLevel: true,
+  });
   const { cats, loading, error, alertType, defaults, userCanStartGame } = useGameSettingsSelector();
 
   const onSubmitHandler = (event: SubmitEvent): void => {
@@ -63,12 +71,16 @@ export const GameSettingComponent: FC = () => {
                 setFormValidation={setFormValidation}
                 defaults={defaults.catsQuery.catsInclude}
               />
-              <NumberOfTasksPerLevel levels={cats.levels} defaults={defaults.levels} />
+              <NumberOfTasksPerLevel
+                levels={cats.levels}
+                defaults={defaults.levels}
+                setFormValidation={setFormValidation}
+              />
               <TimeForTask defaults={defaults.time} />
             </Grid>
             <DefaultSettings />
             {errors}
-            <StartButton isFormValid={isFormValid} isLoading={loading} />
+            <StartButton formValidation={formValidation} isLoading={loading} />
           </form>
         )}
       </PageContainer>

@@ -153,5 +153,7 @@
   "archival": "Zarchiwizowane",
   "No posts": "Brak zadań spełniających kryteria",
   "ago": "temu",
-  "Account deleted": "Konto usunięte"
+  "Account deleted": "Konto usunięte",
+  "Value must be bigger than 0": "Minimalna wartość to 1",
+  "Every level need at last 1 task": "Na każdym poziomie minimalna liczba zadań powinna wynosić 1"
 }

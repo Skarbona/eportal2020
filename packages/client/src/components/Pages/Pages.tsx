@@ -67,7 +67,11 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
       <Route path={PageParams.Page404} exact>
         <NotFound />
       </Route>
-      <Redirect to={PageParams.Page404} />
+      {!accessToken ? (
+        <Redirect to="/autentykacja/logowanie" />
+      ) : (
+        <Redirect to={PageParams.Page404} />
+      )}
     </Switch>
   );
 };

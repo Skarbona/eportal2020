@@ -10,6 +10,7 @@ import {
 import ExpansionPanelComponent from '../../../../components/Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { mockedStore } from '../../../../mocks/store';
 import { InputChangeEvent } from '../../../../models/typescript-events';
+import { FormValidation } from '../../../../components/Pages/Game/GameSettings/GameSettings';
 
 describe('<NumberOfTasksPerLevel /> component', () => {
   let wrapper: ShallowWrapper;
@@ -25,7 +26,7 @@ describe('<NumberOfTasksPerLevel /> component', () => {
   });
 
   it('should render all required elements', () => {
-    props = { defaults: null, levels: null };
+    props = { defaults: null, levels: null, setFormValidation: jest.fn() };
     wrapper = shallow(<NumberOfTasksPerLevelComponent {...props} />);
     expect(wrapper.find(ExpansionPanelComponent)).toHaveLength(1);
     expect(wrapper.find(TextField)).toHaveLength(0);
@@ -36,6 +37,7 @@ describe('<NumberOfTasksPerLevel /> component', () => {
     const props = {
       defaults: user.userData.gameDefaults.levels,
       levels: categories.categories.levels,
+      setFormValidation: jest.fn(),
     };
     wrapper = shallow(<NumberOfTasksPerLevelComponent {...props} />);
     expect(wrapper.find(ExpansionPanelComponent)).toHaveLength(1);
@@ -47,6 +49,7 @@ describe('<NumberOfTasksPerLevel /> component', () => {
     const props = {
       defaults: user.userData.gameDefaults.levels,
       levels: categories.categories.levels,
+      setFormValidation: jest.fn(),
     };
     wrapper = shallow(<NumberOfTasksPerLevelComponent {...props} />);
     expect(setFormValuesSpy).toHaveBeenCalled();
@@ -57,6 +60,7 @@ describe('<NumberOfTasksPerLevel /> component', () => {
     const props = {
       defaults: user.userData.gameDefaults.levels,
       levels: categories.categories.levels,
+      setFormValidation: jest.fn(),
     };
     wrapper = shallow(<NumberOfTasksPerLevelComponent {...props} />);
     expect(setFormValuesSpy).toHaveBeenCalledTimes(1);

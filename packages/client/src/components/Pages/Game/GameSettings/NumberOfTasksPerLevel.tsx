@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState, useCallback } from 'react';
+import React, { FC, memo, useEffect, useState, useCallback, SetStateAction, Dispatch } from 'react';
 import { Grid, TextField } from '@material-ui/core';
 import { FormatListNumbered } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +10,11 @@ import { FormValues } from '../../../../../../service/src/models/shared-interfac
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
+import { FormValidation } from './GameSettings';
 
 export interface Props {
   levels: CategoryInterface;
+  setFormValidation: Dispatch<SetStateAction<FormValidation>>;
   defaults: FormValues['levels'];
 }
 
@@ -22,7 +24,11 @@ interface State {
   name: string;
 }
 
-export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels, defaults }) => {
+export const NumberOfTasksPerLevelComponent: FC<Props> = ({
+  levels,
+  defaults,
+  setFormValidation,
+}) => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
   const [selectedAmounts, setSelectedAmounts] = useState<State[]>(null);
@@ -45,9 +51,9 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels, defaults }) 
       if (selectedAmounts) {
         const payload: Partial<FormValues> = {
           levels: {
-            level1: selectedAmounts[0].value,
-            level2: selectedAmounts[1].value,
-            level3: selectedAmounts[2].value,
+            level1: selectedAmounts[0].value || 10,
+            level2: selectedAmounts[1].value || 10,
+            level3: selectedAmounts[2].value || 10,
           },
         };
         dispatch(setFormValues(payload));
@@ -59,17 +65,19 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels, defaults }) 
 
   const onChangeHandler = useCallback(
     (event: InputChangeEvent, index: number): void => {
-      const newState = [...selectedAmounts];
-      const value = parseInt(event.target.value, 10);
-      const numberToSet = value >= 1 ? value : 1;
-      newState[index].value = numberToSet;
+      const newState: State[] = [...selectedAmounts];
+      newState[index].value = parseInt(event.target.value, 10);
       setSelectedAmounts(newState);
+      setFormValidation((prevState) => ({
+        ...prevState,
+        taskPerLevel: newState.every((state) => state.value && state.value > 0),
+      }));
     },
-    [selectedAmounts],
+    [selectedAmounts, setFormValidation],
   );
 
   const subtitle = `(${
-    selectedAmounts ? selectedAmounts.map((level) => level.value) : '10,10,10'
+    selectedAmounts ? selectedAmounts.map((level) => level.value || 0) : '10,10,10'
   })`;
   return (
     <ExpansionPanelComponent
@@ -90,6 +98,8 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({ levels, defaults }) 
                 className="form-element__default-width number-input"
                 variant="filled"
                 type="number"
+                error={!level.value || level.value < 1}
+                helperText={(!level.value || level.value < 1) && t('Value must be bigger than 0')}
               />
             </Grid>
           ))}

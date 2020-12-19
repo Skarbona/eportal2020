@@ -18,6 +18,7 @@ export const MessageComponent: FC<Props> = ({ message, inputChanged, label }) =>
       variant="filled"
       margin="normal"
       required
+      rowsMax={Infinity}
       fullWidth
       id="message"
       label={label || t('Message')}

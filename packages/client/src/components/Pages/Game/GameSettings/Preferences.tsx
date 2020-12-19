@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, useEffect, useState } from 'react';
+import React, { Dispatch, FC, memo, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid } from '@material-ui/core';
 import { Apps } from '@material-ui/icons';
@@ -16,6 +16,7 @@ import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/E
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
 import NestedCategories from '../../../Shared/Form/NestedCategories';
+import { FormValidation } from './GameSettings';
 
 export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation, defaults }) => {
   const { t } = useTranslation();
@@ -24,7 +25,10 @@ export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation
   const [numberOfSelection, setNumberOfSelection] = useState<number>(0);
 
   useEffect(() => {
-    setFormValidation(numberOfSelection >= 10);
+    setFormValidation((prevState: FormValidation) => ({
+      ...prevState,
+      preferences: numberOfSelection >= 10,
+    }));
   }, [numberOfSelection, setFormValidation]);
 
   const preferenceStateHandler = useCallback((id: string, parentIndex: number) => {
@@ -73,7 +77,7 @@ export const PreferencesComponent: FC<Props> = ({ preferences, setFormValidation
 
 export interface Props {
   preferences: CategoryInterface;
-  setFormValidation(valid: boolean): void;
+  setFormValidation: Dispatch<SetStateAction<FormValidation>>;
   defaults: string[];
 }
 
