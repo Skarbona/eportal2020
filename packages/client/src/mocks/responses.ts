@@ -12,7 +12,7 @@ export const postsResponseMock = (): PostResponseInterface[] => [
       title: chance.word(),
       content: chance.word(),
     },
-    id: chance.word(),
+    id: chance.word() + Math.random().toString(),
     image: chance.word(),
     date: new Date(),
     slug: chance.word(),

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "lib": ["es6"],
-    "target": "es5",
+    "target": "es6",
     "esModuleInterop": true,
     "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
