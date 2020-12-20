@@ -39,15 +39,19 @@ export interface PropsTaskRandomizationSelector {
   he: string;
   gameStatus: GameStatus;
   points: GameStateInterface['points'];
+  favouritesPosts: string[];
+  onlyFavourites: boolean;
 }
 
 export const useTaskRandomizationSelector = (): PropsTaskRandomizationSelector => {
   return useSelector<RootState, PropsTaskRandomizationSelector>(
-    ({ game }): PropsTaskRandomizationSelector => ({
+    ({ game, user }): PropsTaskRandomizationSelector => ({
       she: game.config?.names.she,
       he: game.config?.names.he,
       gameStatus: game.gameStatus,
       points: game.points,
+      favouritesPosts: user.userData.favouritesPosts,
+      onlyFavourites: game.config.onlyFavourites,
     }),
   );
 };
@@ -59,6 +63,7 @@ export interface PropsTaskContentSelector {
   image: PostResponseInterface['image'];
   she: string;
   he: string;
+  id: string;
 }
 
 export const useTaskContentSelector = (): PropsTaskContentSelector => {
@@ -68,6 +73,7 @@ export const useTaskContentSelector = (): PropsTaskContentSelector => {
       categories: game.currentTask?.categories,
       content: game.currentTask?.content,
       image: game.currentTask?.image,
+      id: game.currentTask?.id,
       she: game.config?.names.she,
       he: game.config?.names.he,
     }),

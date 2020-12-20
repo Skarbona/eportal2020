@@ -275,6 +275,50 @@ describe('Controller: Users', () => {
     });
   });
 
+  describe('saveFavourites Controller', () => {
+    it('should save favourite posts', async () => {
+      const user = await signUpUser(server);
+      const postId = mongoose.Types.ObjectId();
+
+      const patch = await request(server)
+        .patch(endpoint + '/favourites/' + postId)
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      expect(patch.status).toEqual(200);
+      expect(patch.body.user.favouritesPosts[0]).toEqual(postId.toString());
+
+      const remove = await request(server)
+        .patch(endpoint + '/favourites/' + postId)
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      expect(remove.status).toEqual(200);
+      expect(remove.body.user.favouritesPosts.length).toEqual(0);
+    });
+
+    it('should NOT update userData if access token not provided', async () => {
+      await signUpUser(server);
+      const postId = mongoose.Types.ObjectId();
+
+      const patch = await request(server).patch(endpoint + '/favourites/' + postId);
+
+      expect(patch.status).toEqual(401);
+    });
+
+    it('should return 404 if user does not exist', async () => {
+      const user = await signUpUser(server);
+      const postId = mongoose.Types.ObjectId();
+      await request(server)
+        .delete(endpoint)
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      const patch = await request(server)
+        .patch(endpoint + '/favourites/' + postId)
+        .set('Authorization', `Bearer ${user.body.accessToken}`);
+
+      expect(patch.status).toEqual(404);
+    });
+  });
+
   describe('updateUser Controller', () => {
     it('should update user password', async () => {
       const user = await signUpUser(server);

@@ -17,6 +17,7 @@ describe('<TaskContent > component', () => {
     const { game, categories } = mockedStore();
     const currentTask = mockPost();
     selectorProps = {
+      id: '',
       allCatsMap: categories.allCatsMap,
       categories: currentTask.categories,
       content: currentTask.content,

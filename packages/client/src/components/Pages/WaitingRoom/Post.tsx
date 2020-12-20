@@ -21,6 +21,7 @@ import NestedCategories from '../../Shared/Form/NestedCategories';
 import MultiPlaces from '../../Shared/Form/MultiPlaces';
 import Levels from '../../Shared/Form/Levels';
 import Gender from '../../Shared/Form/Gender';
+import Favourite from '../../Shared/UIElements/Favourite/Favourite';
 import { useForm } from '../../../hooks/form/form-hook';
 import { InputKeys } from '../../../hooks/form/state/interface';
 import { initialInputState } from '../../../hooks/form/state/initialState';
@@ -148,7 +149,10 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
           <Grid item xs={12} md={8}>
             <Typography variant="h2" color="primary" className="task-title">
               {edit !== id ? (
-                <span dangerouslySetInnerHTML={{ __html: content?.title }} />
+                <>
+                  <span dangerouslySetInnerHTML={{ __html: content?.title }} />
+                  <Favourite postId={id} />
+                </>
               ) : (
                 <Title title={inputs.title} inputChanged={inputChanged} />
               )}

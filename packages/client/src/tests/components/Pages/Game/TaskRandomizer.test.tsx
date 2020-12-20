@@ -27,6 +27,8 @@ describe('<TaskRandomizer > component', () => {
       currentTaskNo: 2,
     };
     selectorProps = {
+      favouritesPosts: [],
+      onlyFavourites: false,
       she: game.config?.names.she,
       he: game.config?.names.he,
       gameStatus: GameStatus.Level3,
@@ -55,10 +57,18 @@ describe('<TaskRandomizer > component', () => {
     expect(randomizeTaskSpy).toHaveBeenCalled();
 
     Buttons.at(1).simulate('click');
-    expect(randomizeTaskSpy).toHaveBeenCalledWith(Gender.Woman);
+    expect(randomizeTaskSpy).toHaveBeenCalledWith({
+      activePerson: Gender.Woman,
+      favouritesPosts: [],
+      onlyFavourites: false,
+    });
 
     Buttons.at(2).simulate('click');
-    expect(randomizeTaskSpy).toHaveBeenCalledWith(Gender.Man);
+    expect(randomizeTaskSpy).toHaveBeenCalledWith({
+      activePerson: Gender.Man,
+      favouritesPosts: [],
+      onlyFavourites: false,
+    });
   });
 
   it('should display correct items if it is draw on first task of 3rd level', () => {

@@ -4,7 +4,7 @@ import gameReducer from '../../../store/game/reducer';
 import { GameEnum } from '../../../store/game/enum';
 import * as I from '../../../store/game/action.interface';
 import { postsResponseMock } from '../../../mocks/responses';
-import { convertPosts } from '../../../utils/posts';
+import { convertPosts } from '../../../utils/posts/posts';
 import { AlertTypes, NetworkError } from '../../../models/alerts';
 import { GameStatus, Gender } from '../../../models/game-models';
 import { mockedStore, mockPost } from '../../../mocks/store';
@@ -163,6 +163,8 @@ describe('Reducer: Game', () => {
       type: GameEnum.RandomizeTask,
       data: {
         activePerson: Gender.Woman,
+        favouritesPosts: [],
+        onlyFavourites: false,
       },
     };
     const stateForGameInProgress: GameStateInterface = mockedStore().game;

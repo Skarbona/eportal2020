@@ -11,7 +11,9 @@ export const UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
   type: { type: String },
   password: { type: String, required: true, minlength: 6 },
+  favouritesPosts: [{ type: Schema.Types.ObjectId }],
   gameDefaults: {
+    onlyFavourites: { type: Boolean },
     names: {
       she: { type: String },
       he: { type: String },

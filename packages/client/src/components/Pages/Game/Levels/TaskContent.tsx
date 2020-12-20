@@ -6,10 +6,11 @@ import './scss/TaskContent.scss';
 import { useTaskContentSelector } from './selector-hooks';
 import { GenderIds } from '../../../../constants/categoriesIds';
 import { PHOTOS_URL } from '../../../../constants/envs';
+import Favourite from '../../../Shared/UIElements/Favourite/Favourite';
 
 export const TaskContentComponent: FC = () => {
   const { t } = useTranslation();
-  const { categories, content, image, she, he, allCatsMap } = useTaskContentSelector();
+  const { categories, content, image, she, he, allCatsMap, id } = useTaskContentSelector();
 
   const taskGender = categories?.includes(GenderIds.Woman) ? she : he;
   return (
@@ -23,6 +24,7 @@ export const TaskContentComponent: FC = () => {
         <Grid item xs={12} md={image ? 8 : 12}>
           <Typography variant="h2" color="primary" className="task-title">
             <span dangerouslySetInnerHTML={{ __html: content?.title }} />
+            <Favourite postId={id} />
             <Typography color="secondary">
               {t('The task is performed by')} <b>{taskGender}</b>
             </Typography>

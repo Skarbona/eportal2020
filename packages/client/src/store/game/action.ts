@@ -3,7 +3,7 @@ import { ActionCreator } from 'redux';
 import * as I from './action.interface';
 import { GameEnum } from './enum';
 import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
-import { GameStatus, Gender } from '../../models/game-models';
+import { GameStatus } from '../../models/game-models';
 import { GameStateInterface } from './initialState.interface';
 
 export const cleanGameAlerts: ActionCreator<I.CleanGameAlerts> = () => ({
@@ -69,11 +69,9 @@ export const cleanCurrentTask: ActionCreator<I.CleanCurrentTask> = () => ({
   type: GameEnum.CleanCurrentTask,
 });
 
-export const randomizeTask: ActionCreator<I.RandomizeTask> = (activePerson: Gender) => ({
+export const randomizeTask = (data: I.RandomizeTask['data']): I.RandomizeTask => ({
   type: GameEnum.RandomizeTask,
-  data: {
-    activePerson,
-  },
+  data,
 });
 
 export const setPoints: ActionCreator<I.SetPoints> = ({

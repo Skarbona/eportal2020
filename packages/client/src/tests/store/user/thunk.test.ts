@@ -6,6 +6,7 @@ import * as fetchUserDataThunk from '../../../store/user/thunks/fetchUserData';
 import * as authorizeUserThunk from '../../../store/user/thunks/authorizeUser';
 import * as changePasswordThunk from '../../../store/user/thunks/changePassword';
 import * as getResetPasswordLinkThunk from '../../../store/user/thunks/getResetPasswordLink';
+import * as saveFavouritesThunk from '../../../store/user/thunks/saveFavourites';
 import * as fetchUserPostsThunk from '../../../store/user/thunks/fetchUserPosts';
 import * as logoutThunk from '../../../store/app/thunks/logout';
 import * as userActions from '../../../store/user/action';
@@ -121,6 +122,46 @@ describe('Thunk: User', () => {
       );
       expect(initGetResetPasswordLinkSpy).toHaveBeenCalled();
       expect(failGetResetPasswordLinkSpy).toHaveBeenCalledWith(error);
+    });
+  });
+
+  describe('saveFavourites thunk', () => {
+    it('should call all required action in success path for adding favourite post', async () => {
+      jest.spyOn(axios, 'patch').mockImplementation(() => Promise.resolve({ data: { user: {} } }));
+      await saveFavouritesThunk.saveFavourites('postId')(dispatch, () => initialRootState, null);
+      expect(initSetUserDataSpy).toHaveBeenCalled();
+      expect(successSetUserDataSpy).toHaveBeenCalledWith({});
+    });
+
+    it('should call all required action in fail path for adding favourite post', async () => {
+      const error = new Error();
+      jest.spyOn(axios, 'patch').mockImplementation(() => Promise.reject(error));
+      await saveFavouritesThunk.saveFavourites('postId')(dispatch, () => initialRootState, null);
+      expect(initSetUserDataSpy).toHaveBeenCalled();
+      expect(failSetUserDataSpy).toHaveBeenCalledWith(error);
+    });
+
+    it('should call all required action in success path for removing favourite post', async () => {
+      jest.spyOn(axios, 'delete').mockImplementation(() => Promise.resolve({ data: { user: {} } }));
+      await saveFavouritesThunk.saveFavourites('postId', true)(
+        dispatch,
+        () => initialRootState,
+        null,
+      );
+      expect(initSetUserDataSpy).toHaveBeenCalled();
+      expect(successSetUserDataSpy).toHaveBeenCalledWith({});
+    });
+
+    it('should call all required action in fail path for removing favourite post', async () => {
+      const error = new Error();
+      jest.spyOn(axios, 'delete').mockImplementation(() => Promise.reject(error));
+      await saveFavouritesThunk.saveFavourites('postId', true)(
+        dispatch,
+        () => initialRootState,
+        null,
+      );
+      expect(initSetUserDataSpy).toHaveBeenCalled();
+      expect(failSetUserDataSpy).toHaveBeenCalledWith(error);
     });
   });
 

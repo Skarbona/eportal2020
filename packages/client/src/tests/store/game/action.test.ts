@@ -116,10 +116,12 @@ describe('Actions: Game', () => {
       type: GameEnum.RandomizeTask,
       data: {
         activePerson: Gender.Woman,
+        favouritesPosts: [],
+        onlyFavourites: false,
       },
     };
 
-    const action = A.randomizeTask(Gender.Woman);
+    const action = A.randomizeTask(expectedAction.data);
     expect(action).toEqual(expectedAction);
   });
 });

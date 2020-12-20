@@ -57,6 +57,8 @@ export interface RandomizeTask extends ActionInterface {
   type: GameEnum.RandomizeTask;
   data: {
     activePerson: Gender;
+    favouritesPosts: string[];
+    onlyFavourites: boolean;
   };
 }
 
