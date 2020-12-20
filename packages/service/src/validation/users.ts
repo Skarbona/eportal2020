@@ -90,6 +90,7 @@ export const login = checkSchema({ email, password });
 export const getUserData = checkSchema({});
 export const resetPassword = checkSchema({ email });
 export const deleteUser = checkSchema({});
+export const saveFavourites = checkSchema({});
 export const updateUser = checkSchema({
   password: optionalPassword,
   gameDefaults: gameDefaultsOptional,

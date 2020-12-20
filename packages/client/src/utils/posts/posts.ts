@@ -1,11 +1,16 @@
-import { GenderIds, LevelsIDs } from '../constants/categoriesIds';
-import { CheckIfHasEnoughPosts, GameStateInterface } from '../store/game/initialState.interface';
-import { gameInitialState } from '../store/game/initialState';
-import { PostResponseInterface } from '../../../service/src/models/shared-interfaces/post';
-import { FormValues } from '../../../service/src/models/shared-interfaces/user';
-import { GameStatus, Gender, Levels } from '../models/game-models';
-
-type Posts = GameStateInterface['posts'];
+import { GenderIds, LevelsIDs } from '../../constants/categoriesIds';
+import { CheckIfHasEnoughPosts, GameStateInterface } from '../../store/game/initialState.interface';
+import { gameInitialState } from '../../store/game/initialState';
+import { PostResponseInterface } from '../../../../service/src/models/shared-interfaces/post';
+import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
+import { GameStatus, Gender, Levels } from '../../models/game-models';
+import {
+  getPostToRandom,
+  getOnlyFavouritesPosts,
+  findRandomPostIndex,
+  getRandomIndex,
+} from './posts-getters';
+import { Posts, RandomizeNewTask } from './interface';
 
 const setPostData = (
   level: Levels,
@@ -75,15 +80,15 @@ export const checkIfHasEnoughPosts = (
   };
 };
 
-interface RandomizeNewTask {
-  currentTask: GameStateInterface['currentTask'];
-  posts: Posts;
-}
-
 export const randomizeNewTask = (
   { gameStatus, posts }: Partial<GameStateInterface>,
-  gender: Gender,
+  settings: {
+    favouritesPosts: string[];
+    gender: Gender;
+    onlyFavourites: boolean;
+  },
 ): RandomizeNewTask => {
+  const { favouritesPosts, gender, onlyFavourites } = settings;
   const setRandomizeData = (
     storePosts: Posts,
     level: Levels,
@@ -103,11 +108,18 @@ export const randomizeNewTask = (
     };
     const postsByLevel = gamePosts[level];
     const postsByGender = postsByLevel.data[genderToSelect];
-    const randomIndex =
-      postsByGender.length > 1 ? Math.floor(Math.random() * postsByGender.length) : 1;
-    const randomPost = postsByGender[randomIndex];
-    postsByGender.splice(randomIndex, 1);
+    const postsToRandom = getPostToRandom(
+      getOnlyFavouritesPosts(postsByGender, favouritesPosts),
+      postsByGender,
+      onlyFavourites,
+    );
+
+    const randomPost = postsToRandom[getRandomIndex(postsToRandom)];
+    const randomPostIndex = findRandomPostIndex(postsByGender, randomPost);
+
+    postsByGender.splice(randomPostIndex, 1);
     postsByLevel.removedPosts.push(randomPost.id);
+
     return {
       currentTask: randomPost,
       posts: gamePosts,

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import sanitizeHtml from 'sanitize-html';
+import { Types } from 'mongoose';
 
 import HttpError from '../models/http-error';
 import User, { UserDocument } from '../models/user';
@@ -202,6 +203,42 @@ export const updateUser = async (
     res.json({ user: userData });
   } catch (e) {
     return next(new HttpError('Something went wrong, could not update user', 500));
+  }
+};
+
+export const saveFavourites = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void | Response> => {
+  const { postId } = req.params;
+  const { userId } = req.userData;
+
+  let user;
+  try {
+    user = await User.findById(userId);
+    if (!user) {
+      throw new Error();
+    }
+  } catch (e) {
+    return next(new HttpError('User does not exist', 404));
+  }
+
+  try {
+    if (postId) {
+      const hasPost = user.favouritesPosts.find((id) => id.toString() === postId);
+      if (!hasPost) {
+        user.favouritesPosts = [...new Set([...user.favouritesPosts, postId])];
+      } else {
+        user.favouritesPosts = user.favouritesPosts.filter((id) => id.toString() !== postId);
+      }
+    }
+    await user.save();
+    const userData = user.toObject({ getters: true });
+    delete userData.password;
+    res.json({ user: userData });
+  } catch (e) {
+    return next(new HttpError('Something went wrong, could not save favourites', 500));
   }
 };
 

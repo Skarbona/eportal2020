@@ -16,6 +16,7 @@ import PlayersNames from './PlayersNames';
 import Preferences from './Preferences';
 import TimeForTask from './TimeForTask';
 import StartButton from './StartButton';
+import FavouritesSwitch from './FavouritesSwitch';
 import GameStartDialog from './GameStartDialog/GameStartDialog';
 import { cleanIsReadyToGameData } from '../../../../store/game/action';
 import { startGameHandler } from '../../../../store/game/thunks/startGame';
@@ -73,6 +74,7 @@ export const GameSettingComponent: FC = () => {
                 setFormValidation={setFormValidation}
               />
               <TimeForTask defaults={defaults.time} />
+              <FavouritesSwitch onlyFavourites={defaults.onlyFavourites} />
             </Grid>
             <DefaultSettings />
             {errors}

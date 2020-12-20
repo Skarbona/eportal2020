@@ -155,5 +155,12 @@
   "ago": "temu",
   "Account deleted": "Konto usunięte",
   "Value must be bigger than 0": "Minimalna wartość to 1",
-  "Every level need at last 1 task": "Na każdym poziomie minimalna liczba zadań powinna wynosić 1"
+  "Every level need at last 1 task": "Na każdym poziomie minimalna liczba zadań powinna wynosić 1",
+  "Add to favourites": "Dodaj do ulubionych",
+  "Remove favourites": "Usuń z ulubionych",
+  "Prefer favourite tasks": "Preferuj zadania oznaczone jako ulubione.",
+  "Try go get only favourite tasks": "Spróbuj wybierać tylko zadania oznaczone jako ulubione",
+  "The probability of selecting the 60": "Prawdopodobieństwo wylosowania ulubionego zadania wynosi 60%. Ta opcja jest zalecana, aby utrzymać stały napływ nowych zadań w czasie gry.",
+  "The probability of selecting the 100": "Prawdopodobieństwo wylosowania ulubionego zadania wynosi 100%. Ta opcja NIE jest zalecana. Przy małej ilości zaznaczonych ulubionych zadań, będzie powodowała losowanie tych samych zadań, bez możliwości wylosowania najnowszych zadań dodanych przez społeczność.",
+  "General info about favourite option": "Jeżeli nie posiadasz wystarczającej ilości zadań ulubionych, reszta zadań będzie losowana z postałej puli."
 }

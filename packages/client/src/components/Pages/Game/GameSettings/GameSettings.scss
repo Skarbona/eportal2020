@@ -7,6 +7,23 @@
     }
   }
 
+  .prefer-favourites {
+    .MuiSwitch-track {
+      background-color: $primary400;
+    }
+    .MuiSwitch-colorPrimary {
+      .MuiSwitch-thumb {
+        background-color: $primary;
+      }
+    }
+    .extra-info {
+      display: flex;
+      svg {
+        margin-right: 4px;
+      }
+    }
+  }
+
   .game__time {
     .MuiSwitch-colorPrimary {
       &.Mui-checked + .MuiSwitch-track {

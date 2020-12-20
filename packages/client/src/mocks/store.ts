@@ -151,6 +151,7 @@ export const mockedStore = (): RootState => ({
   },
   user: {
     userData: {
+      favouritesPosts: [],
       id: chance.word(),
       date: new Date(),
       name: chance.name(),

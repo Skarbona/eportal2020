@@ -12,7 +12,7 @@ import { LocalStorage } from '../../../models/local-storage';
 import { saveActiveGameData, setFormValues } from '../../../store/game/action';
 import { fetchPostsForGame } from '../../../store/game/thunks/fetchPostsForGame';
 import { FormValues } from '../../../../../service/src/models/shared-interfaces/user';
-import { checkIfHasPosts } from '../../../utils/posts';
+import { checkIfHasPosts } from '../../../utils/posts/posts';
 import { checkIfHasCategories } from '../../../utils/categories';
 import { checkIfTokenIsValid } from '../../../utils/auth';
 import { usePrevious } from '../../../hooks/previous-state';

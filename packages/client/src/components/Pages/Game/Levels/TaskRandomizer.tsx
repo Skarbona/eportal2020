@@ -18,19 +18,22 @@ export interface Props {
 export const TaskRandomizationComponent: FC<Props> = ({ currentTaskNo }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { she, he, points, gameStatus } = useTaskRandomizationSelector();
+  const {
+    she,
+    he,
+    points,
+    gameStatus,
+    favouritesPosts,
+    onlyFavourites,
+  } = useTaskRandomizationSelector();
 
   const randomizeTaskHandler = useCallback(
-    (gender) => dispatch(randomizeTask(gender)),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    (activePerson) => dispatch(randomizeTask({ activePerson, favouritesPosts, onlyFavourites })),
+    [dispatch, favouritesPosts, onlyFavourites],
   );
 
-  let whoIsWinner;
   const isTheFirstTaskForLevel3 = gameStatus === GameStatus.Level3 && currentTaskNo === 0;
-  if (isTheFirstTaskForLevel3) {
-    whoIsWinner = whoIsWinnerHandler(points);
-  }
+  const whoIsWinner = isTheFirstTaskForLevel3 && whoIsWinnerHandler(points);
 
   const randomButton = (
     <Grid item xs={12} sm={4}>

@@ -19,6 +19,20 @@ router.get('/:id', validate.getUserData, checkValidation, controllers.getUserDat
 router.patch('/', validate.updateUser, checkValidation, controllers.updateUser);
 router.patch('/:id', validate.updateUser, checkValidation, controllers.updateUser);
 
+router.patch(
+  '/favourites/:postId',
+  validate.saveFavourites,
+  checkValidation,
+  controllers.saveFavourites,
+);
+
+router.delete(
+  '/favourites/:postId',
+  validate.saveFavourites,
+  checkValidation,
+  controllers.saveFavourites,
+);
+
 router.delete('/', validate.deleteUser, checkValidation, controllers.deleteUser);
 router.delete('/:id', validate.deleteUser, checkValidation, controllers.deleteUser);
 

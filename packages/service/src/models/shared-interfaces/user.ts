@@ -25,6 +25,7 @@ export interface FormValues {
     value: number[];
   };
   saveAsDefault?: boolean;
+  onlyFavourites?: boolean;
 }
 
 export interface UserBasic {
@@ -33,6 +34,7 @@ export interface UserBasic {
   email: string;
   type: UserType;
   gameDefaults: FormValues;
+  favouritesPosts: string[];
 }
 
 export interface AuthResponse {

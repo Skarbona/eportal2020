@@ -4,7 +4,7 @@ import {
   randomizeNewTask,
   filterRemovedPosts,
   checkIfHasPosts,
-} from '../../utils/posts';
+} from '../../utils/posts/posts';
 import { postsResponseMock } from '../../mocks/responses';
 import { mockedStore } from '../../mocks/store';
 import { GameStatus, Gender } from '../../models/game-models';

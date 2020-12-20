@@ -7,7 +7,7 @@ import {
   convertPosts,
   randomizeNewTask,
   filterRemovedPosts,
-} from '../../utils/posts';
+} from '../../utils/posts/posts';
 import { AlertTypes } from '../../models/alerts';
 import { GameStatus } from '../../models/game-models';
 
@@ -128,9 +128,13 @@ const gameReducer = (state = gameInitialState, action: GameActions): GameStateIn
       };
     }
     case GameEnum.RandomizeTask: {
-      const { activePerson } = action.data;
+      const { activePerson, favouritesPosts, onlyFavourites } = action.data;
       const newState = { ...state };
-      const { currentTask, posts } = randomizeNewTask(newState, activePerson);
+      const { currentTask, posts } = randomizeNewTask(newState, {
+        gender: activePerson,
+        favouritesPosts,
+        onlyFavourites,
+      });
       return {
         ...newState,
         currentTask,
