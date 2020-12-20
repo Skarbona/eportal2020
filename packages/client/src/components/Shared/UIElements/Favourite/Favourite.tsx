@@ -32,6 +32,7 @@ export const FavouriteComponent: FC<Props> = ({ postId }) => {
         setIsFavourite(true);
         await dispatch(saveFavourites(postId));
       }
+      // eslint-disable-next-line no-empty
     } catch {}
   }, [isFavourite, postId, dispatch]);
 
