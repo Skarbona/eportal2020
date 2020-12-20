@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import sanitizeHtml from 'sanitize-html';
-import { Types } from 'mongoose';
 
 import HttpError from '../models/http-error';
 import User, { UserDocument } from '../models/user';
