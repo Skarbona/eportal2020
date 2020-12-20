@@ -47,7 +47,7 @@ describe('randomizeNewTask utility function', () => {
     const { game } = mockedStore();
     const firstTask = randomizeNewTask(
       { gameStatus: GameStatus.Level1, posts: game.posts },
-      Gender.Woman,
+      { gender: Gender.Woman, onlyFavourites: false, favouritesPosts: [] },
     );
     expect(firstTask.currentTask.id).toBeTruthy();
     expect(firstTask.posts.level1.removedPosts[0]).toEqual(firstTask.currentTask.id);
@@ -56,7 +56,7 @@ describe('randomizeNewTask utility function', () => {
 
     const secondTask = randomizeNewTask(
       { gameStatus: GameStatus.Level2, posts: game.posts },
-      Gender.Man,
+      { gender: Gender.Man, onlyFavourites: false, favouritesPosts: [] },
     );
     expect(secondTask.currentTask.id).toBeTruthy();
     expect(secondTask.posts.level2.removedPosts[0]).toEqual(secondTask.currentTask.id);
@@ -65,12 +65,24 @@ describe('randomizeNewTask utility function', () => {
 
     const thirdTask = randomizeNewTask(
       { gameStatus: GameStatus.Level3, posts: game.posts },
-      Gender.Man,
+      { gender: Gender.Man, onlyFavourites: false, favouritesPosts: [] },
     );
     expect(thirdTask.currentTask.id).toBeTruthy();
     expect(thirdTask.posts.level3.removedPosts[0]).toEqual(thirdTask.currentTask.id);
     expect(thirdTask.posts.level3.data.woman).toHaveLength(2);
     expect(thirdTask.posts.level3.data.man).toHaveLength(1);
+  });
+  it('should return favourite task', () => {
+    const { game } = mockedStore();
+    const firstTask = randomizeNewTask(
+      { gameStatus: GameStatus.Level1, posts: game.posts },
+      {
+        gender: Gender.Woman,
+        onlyFavourites: true,
+        favouritesPosts: [game.posts.level1.data.woman[0].id],
+      },
+    );
+    expect(firstTask.currentTask.id).toEqual(game.posts.level1.data.woman[0].id);
   });
 });
 

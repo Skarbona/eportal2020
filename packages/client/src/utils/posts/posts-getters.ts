@@ -2,7 +2,7 @@ import { PostResponseInterface as PostData } from '../../../../service/src/model
 
 export const shouldGetOnlyFavourites = (): boolean => Math.random() < 0.6;
 
-export const getPostToRandom = (
+export const getPostsToRandomize = (
   onlyFavouritesPosts: PostData[],
   postsByGender: PostData[],
   onlyFavourites: boolean,

@@ -5,7 +5,7 @@ import { PostResponseInterface } from '../../../../service/src/models/shared-int
 import { FormValues } from '../../../../service/src/models/shared-interfaces/user';
 import { GameStatus, Gender, Levels } from '../../models/game-models';
 import {
-  getPostToRandom,
+  getPostsToRandomize,
   getOnlyFavouritesPosts,
   findRandomPostIndex,
   getRandomIndex,
@@ -108,7 +108,7 @@ export const randomizeNewTask = (
     };
     const postsByLevel = gamePosts[level];
     const postsByGender = postsByLevel.data[genderToSelect];
-    const postsToRandom = getPostToRandom(
+    const postsToRandom = getPostsToRandomize(
       getOnlyFavouritesPosts(postsByGender, favouritesPosts),
       postsByGender,
       onlyFavourites,

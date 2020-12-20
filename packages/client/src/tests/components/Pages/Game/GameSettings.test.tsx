@@ -12,6 +12,7 @@ import PlayersNames from '../../../../components/Pages/Game/GameSettings/Players
 import Preferences from '../../../../components/Pages/Game/GameSettings/Preferences';
 import TimeForTask from '../../../../components/Pages/Game/GameSettings/TimeForTask';
 import StartButton from '../../../../components/Pages/Game/GameSettings/StartButton';
+import FavouritesSwitch from '../../../../components/Pages/Game/GameSettings/FavouritesSwitch';
 import AlertHandler from '../../../../components/Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import CircleLoading from '../../../../components/Shared/UIElements/Loading/CircleLoading';
 import * as startGameThunk from '../../../../store/game/thunks/startGame';
@@ -50,6 +51,7 @@ describe('<GameSettings > component', () => {
     expect(wrapper.find(TimeForTask)).toHaveLength(0);
     expect(wrapper.find(StartButton)).toHaveLength(0);
     expect(wrapper.find(CircleLoading)).toHaveLength(0);
+    expect(wrapper.find(FavouritesSwitch)).toHaveLength(0);
   });
 
   it('should render <CircleLoading /> if loading', () => {
@@ -82,6 +84,7 @@ describe('<GameSettings > component', () => {
     expect(wrapper.find(Preferences)).toHaveLength(1);
     expect(wrapper.find(TimeForTask)).toHaveLength(1);
     expect(wrapper.find(StartButton)).toHaveLength(1);
+    expect(wrapper.find(FavouritesSwitch)).toHaveLength(1);
     expect(wrapper.find(CircleLoading)).toHaveLength(0);
   });
 
@@ -103,6 +106,7 @@ describe('<GameSettings > component', () => {
     expect(wrapper.find(Preferences)).toHaveLength(1);
     expect(wrapper.find(TimeForTask)).toHaveLength(1);
     expect(wrapper.find(StartButton)).toHaveLength(1);
+    expect(wrapper.find(FavouritesSwitch)).toHaveLength(1);
     expect(wrapper.find(CircleLoading)).toHaveLength(0);
   });
 

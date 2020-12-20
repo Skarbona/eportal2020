@@ -163,6 +163,8 @@ describe('Reducer: Game', () => {
       type: GameEnum.RandomizeTask,
       data: {
         activePerson: Gender.Woman,
+        favouritesPosts: [],
+        onlyFavourites: false,
       },
     };
     const stateForGameInProgress: GameStateInterface = mockedStore().game;
