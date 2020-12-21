@@ -9,7 +9,8 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    "outDir": "./build"
+    "outDir": "./build",
+    "module": "umd"
   },
   "files": ["./src/app.ts"],
   "exclude": ["node_modules", "./src/tests"],
