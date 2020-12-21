@@ -2,14 +2,15 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "lib": ["es6"],
-    "target": "es6",
+    "target": "es5",
     "esModuleInterop": true,
     "strictNullChecks": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    "outDir": "./build"
+    "outDir": "./build",
+    "module": "umd"
   },
   "files": ["./src/app.ts"],
   "exclude": ["node_modules", "./src/tests"],
