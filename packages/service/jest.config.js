@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
   testEnvironment: 'node',
   roots: ['<rootDir>/src'],
   setupFiles: ['./setupTests.ts'],
@@ -7,5 +7,3 @@ const config = {
     '^.+\\.(ts)$': 'ts-jest',
   },
 };
-
-export default config;

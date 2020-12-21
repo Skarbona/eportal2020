@@ -2,7 +2,6 @@
   "name": "service",
   "version": "1.2.2",
   "private": true,
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/Skarbona/eportal2020/packages/service"
@@ -13,7 +12,7 @@
   "scripts": {
     "tsc": "tsc",
     "start": "ts-node-dev --respawn --transpileOnly --notify=false src/app.ts",
-    "build": "tsc --downlevelIteration -p tsconfig.production.json",
+    "build": "tsc -p tsconfig.production.json",
     "test": "jest --coverage --forceExit --detectOpenHandles --maxWorkers=1",
     "test:watch": "jest --watch --detectOpenHandles --maxWorkers=1",
     "lint": "npm run lint:src",
