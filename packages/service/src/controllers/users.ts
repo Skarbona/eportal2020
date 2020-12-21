@@ -227,7 +227,7 @@ export const saveFavourites = async (
     if (postId) {
       const hasPost = user.favouritesPosts.find((id) => id.toString() === postId);
       if (!hasPost) {
-        user.favouritesPosts = [...new Set([...user.favouritesPosts, postId])];
+        user.favouritesPosts = Array.from(new Set([...user.favouritesPosts, postId]));
       } else {
         user.favouritesPosts = user.favouritesPosts.filter((id) => id.toString() !== postId);
       }
