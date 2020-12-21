@@ -1,6 +1,6 @@
 {
   "name": "service",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "private": true,
   "type": "module",
   "repository": {
@@ -13,7 +13,7 @@
   "scripts": {
     "tsc": "tsc",
     "start": "ts-node-dev --respawn --transpileOnly --notify=false src/app.ts",
-    "build": "tsc -p tsconfig.production.json",
+    "build": "tsc --downlevelIteration -p tsconfig.production.json",
     "test": "jest --coverage --forceExit --detectOpenHandles --maxWorkers=1",
     "test:watch": "jest --watch --detectOpenHandles --maxWorkers=1",
     "lint": "npm run lint:src",
