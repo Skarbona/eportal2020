@@ -24,7 +24,7 @@
     "@types/nodemailer": "^6.4.0",
     "helmet": "^4.1.1",
     "nodemailer": "^6.4.6",
-    "sanitize-html": "^2.1.1",
+    "sanitize-html": "^2.3.2",
     "ts-node-dev": "^1.0.0-pre.44"
   },
   "devDependencies": {
