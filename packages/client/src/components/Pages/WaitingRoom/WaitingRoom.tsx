@@ -22,7 +22,7 @@ export const WaitingRoomComponent: FC = () => {
   const [pageNumber, setPageNumber] = useState<number>(0);
   const [showAddPost, setShowAddPost] = useState<boolean>(false);
   const { totalPages, catsLoaded } = useWaitingRoomSelector();
-  const { page } = useParams();
+  const { page } = useParams<{ page: string }>();
   const history = useHistory();
   const location = useLocation();
   const isWaitingRoomMode = location.pathname.includes(PageParams.WaitingRoom);

@@ -28,7 +28,7 @@ describe('Thunk: Categories', () => {
       jest
         .spyOn(axios, 'get')
         .mockImplementation(() => Promise.resolve({ data: { categories: [] } }));
-      await fetchCategoriesThunk.fetchCategories('TOKEN')(dispatch, () => initialRootState, null);
+      await fetchCategoriesThunk.fetchCategories()(dispatch, () => initialRootState, null);
       expect(initFetchCategoriesSpy).toHaveBeenCalled();
       expect(successFetchCategoriesSpy).toHaveBeenCalledWith([]);
     });
@@ -36,7 +36,7 @@ describe('Thunk: Categories', () => {
     it('should call all required action in fail path', async () => {
       const error = new Error();
       jest.spyOn(axios, 'get').mockImplementation(() => Promise.reject(error));
-      await fetchCategoriesThunk.fetchCategories('TOKEN')(dispatch, () => initialRootState, null);
+      await fetchCategoriesThunk.fetchCategories()(dispatch, () => initialRootState, null);
       expect(initFetchCategoriesSpy).toHaveBeenCalled();
       expect(failFetchCategoriesSpy).toHaveBeenCalledWith(error);
     });

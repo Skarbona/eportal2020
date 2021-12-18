@@ -16,7 +16,7 @@ export const SettingsComponent: FC = () => {
     ProfileSettings.ChangePassword,
   );
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number): void => {
+  const handleChange = (event: React.ChangeEvent<any>, newValue: number): void => {
     setActiveSetting(newValue);
   };
 

@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
-import { Grid, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Grid, FormGroup, FormControlLabel, Checkbox, Tooltip } from '@material-ui/core';
+import { Help } from '@material-ui/icons';
 
 import { CatsStateInterface } from '../../../utils/preferences';
 
@@ -22,7 +23,16 @@ export const NestedCategoriesComponent: FC<Props> = ({ cats, inputChanged, paren
                     indeterminate={cat.indeterminate}
                   />
                 }
-                label={cat.name}
+                label={
+                  <div className="nested-cats__label">
+                    {cat.name}{' '}
+                    {cat.description && (
+                      <Tooltip title={cat.description}>
+                        <Help />
+                      </Tooltip>
+                    )}
+                  </div>
+                }
               />
               {cat.child && (
                 <NestedCategoriesComponent

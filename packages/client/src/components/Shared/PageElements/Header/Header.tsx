@@ -48,15 +48,17 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
     ? [waitingRoom, game, profile, contact, logout]
     : [login, register, contact];
 
-  const toggleDrawer = (openDrawer: boolean) => (event: KeyboardEvent | MouseEvent): void => {
-    if (
-      event.type === 'keydown' &&
-      ((event as KeyboardEvent).key === 'Tab' || (event as KeyboardEvent).key === 'Shift')
-    )
-      return;
+  const toggleDrawer =
+    (openDrawer: boolean) =>
+    (event: KeyboardEvent | MouseEvent): void => {
+      if (
+        event.type === 'keydown' &&
+        ((event as KeyboardEvent).key === 'Tab' || (event as KeyboardEvent).key === 'Shift')
+      )
+        return;
 
-    setDrawerVisibility(openDrawer);
-  };
+      setDrawerVisibility(openDrawer);
+    };
 
   return (
     <AppBar position="static" className="header">

@@ -5,6 +5,7 @@ export interface CatsStateInterface {
   name: string;
   id: string;
   indeterminate: boolean;
+  description?: string;
   child: CatsStateInterface[];
 }
 
@@ -35,6 +36,7 @@ export const nestedCategoriesToState = (
       id: cat.id,
       indeterminate: !isEveryChildTrue && isSomeChildTrue,
       child: [],
+      description: cat.description,
     };
     const child = nestedCategoriesToState(cat, defaults);
     if (child) {

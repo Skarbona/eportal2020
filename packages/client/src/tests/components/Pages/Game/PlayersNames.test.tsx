@@ -41,7 +41,7 @@ describe('<PlayersNames /> component', () => {
     props = { defaults: { she: chance.name(), he: chance.name() } };
     wrapper = shallow(<PlayersNamesComponent {...props} />);
     expect(setFormValuesSpy).toHaveBeenCalledTimes(1);
-    const event = ({ target: { value: 0 } } as unknown) as InputChangeEvent;
+    const event = { target: { value: 0 } } as unknown as InputChangeEvent;
     wrapper.find(TextField).first().simulate('change', event);
     expect(setFormValuesSpy).toHaveBeenCalledTimes(2);
   });

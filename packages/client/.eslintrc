@@ -1,7 +1,5 @@
 {
   "extends": [
-    "plugin:import/warnings",
-    "plugin:import/typescript",
     "react-app",
     "airbnb-base",
     "eslint:recommended",
@@ -20,12 +18,17 @@
     "jest": true
   },
   "rules": {
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-use-before-define": "off",
     "import/order": ["warn"],
     "react/prop-types": "off",
     "no-param-reassign": "off",
     "import/no-named-as-default": "off",
     "import/no-extraneous-dependencies": "off",
     "no-underscore-dangle": "off",
+    "import/no-relative-packages": "off",
     "import/prefer-default-export": "off",
     "import/extensions": [
       "error",

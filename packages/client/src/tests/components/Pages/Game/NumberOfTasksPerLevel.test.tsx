@@ -13,7 +13,7 @@ import { InputChangeEvent } from '../../../../models/typescript-events';
 
 describe('<NumberOfTasksPerLevel /> component', () => {
   let wrapper: ShallowWrapper;
-  let props: Props;
+  let componentProps: Props;
   let setFormValuesSpy: any;
 
   beforeEach(() => {
@@ -25,8 +25,8 @@ describe('<NumberOfTasksPerLevel /> component', () => {
   });
 
   it('should render all required elements', () => {
-    props = { defaults: null, levels: null, setFormValidation: jest.fn() };
-    wrapper = shallow(<NumberOfTasksPerLevelComponent {...props} />);
+    componentProps = { defaults: null, levels: null, setFormValidation: jest.fn() };
+    wrapper = shallow(<NumberOfTasksPerLevelComponent {...componentProps} />);
     expect(wrapper.find(ExpansionPanelComponent)).toHaveLength(1);
     expect(wrapper.find(TextField)).toHaveLength(0);
   });
@@ -63,7 +63,7 @@ describe('<NumberOfTasksPerLevel /> component', () => {
     };
     wrapper = shallow(<NumberOfTasksPerLevelComponent {...props} />);
     expect(setFormValuesSpy).toHaveBeenCalledTimes(1);
-    const event = ({ target: { value: 0 } } as unknown) as InputChangeEvent;
+    const event = { target: { value: 0 } } as unknown as InputChangeEvent;
     wrapper.find(TextField).first().simulate('change', event);
     expect(setFormValuesSpy).toHaveBeenCalledTimes(2);
   });

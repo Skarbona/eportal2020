@@ -5,6 +5,7 @@ export interface CategoryInterface {
   date: Date;
   slug: string;
   name: string;
+  description?: string;
   children?: CategoryInterface[];
 }
 

@@ -19,7 +19,7 @@ import { SubmitEvent } from '../../../../models/typescript-events';
 import AlertHandlerInfo from '../../UIElements/AlertHandlerInfo/AlertHandlerInfo';
 import { AlertTypes } from '../../../../models/alerts';
 
-export const ContactFormComponent: FC<{}> = () => {
+export const ContactFormComponent: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const isSmallMobile = useMediaQuery(theme.breakpoints.down('xs'));

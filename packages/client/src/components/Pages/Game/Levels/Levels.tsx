@@ -30,15 +30,8 @@ export const LevelsComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const containerRef = useRef(null);
-  const {
-    gameStatus,
-    levels,
-    currentTask,
-    removedPosts,
-    config,
-    configLevels,
-    posts,
-  } = useLevelsSelector();
+  const { gameStatus, levels, currentTask, removedPosts, config, configLevels, posts } =
+    useLevelsSelector();
   const prevProps = usePrevious<PreviousProps>({ currentTask });
 
   const { currentTaskNo, taskPerLevel } = taskCounter(gameStatus, posts, configLevels);

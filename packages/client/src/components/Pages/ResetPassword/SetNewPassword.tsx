@@ -26,7 +26,7 @@ interface SelectorProp {
 export const SetNewPasswordComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
-  const { token } = useParams();
+  const { token } = useParams<{ token: string }>();
   const { alert, error, type, isLoading } = useSelector<RootState, SelectorProp>(({ user }) => ({
     error: user.error,
     alert: user.alert,

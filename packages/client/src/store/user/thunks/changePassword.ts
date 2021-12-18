@@ -6,26 +6,25 @@ import * as A from '../action';
 import { logout } from '../../app/thunks/logout';
 import { BACKEND_API } from '../../../constants/envs';
 
-export const changePassword = (password: string, token?: string): AppThunk => async (
-  dispatch,
-  getState,
-) => {
-  dispatch(A.initSetUserData());
-  const {
-    user: { userData },
-    app: { auth },
-  } = getState();
-  try {
-    const requestBody = { password };
+export const changePassword =
+  (password: string, token?: string): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(A.initSetUserData());
+    const {
+      user: { userData },
+      app: { auth },
+    } = getState();
+    try {
+      const requestBody = { password };
 
-    await axios.patch(`${BACKEND_API}/users/${userData?.id || ''}`, requestBody, {
-      headers: {
-        Authorization: `Bearer ${token || auth.accessToken}`,
-      },
-    });
-    dispatch(A.successSetPassword());
-    if (!token) dispatch(logout());
-  } catch (e) {
-    dispatch(A.failSetUserData(e));
-  }
-};
+      await axios.patch(`${BACKEND_API}/users/${userData?.id || ''}`, requestBody, {
+        headers: {
+          Authorization: `Bearer ${token || auth.accessToken}`,
+        },
+      });
+      dispatch(A.successSetPassword());
+      if (!token) dispatch(logout());
+    } catch (e) {
+      dispatch(A.failSetUserData(e));
+    }
+  };

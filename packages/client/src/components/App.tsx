@@ -28,19 +28,14 @@ interface AppSelector {
 }
 
 export const App: FC = () => {
-  const {
-    id,
-    accessToken,
-    expirationTokenDate,
-    isAuthorizationDone,
-    showContactForm,
-  } = useSelector<RootState, AppSelector>(({ user, app }) => ({
-    id: user.userData.id,
-    accessToken: app.auth.accessToken,
-    expirationTokenDate: app.auth.accessTokenExpiration,
-    isAuthorizationDone: app.auth.isAuthorizationDone,
-    showContactForm: app.showContactForm,
-  }));
+  const { id, accessToken, expirationTokenDate, isAuthorizationDone, showContactForm } =
+    useSelector<RootState, AppSelector>(({ user, app }) => ({
+      id: user.userData.id,
+      accessToken: app.auth.accessToken,
+      expirationTokenDate: app.auth.accessTokenExpiration,
+      isAuthorizationDone: app.auth.isAuthorizationDone,
+      showContactForm: app.showContactForm,
+    }));
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const dispatch = useReduxDispatch();
   useEffect(() => {

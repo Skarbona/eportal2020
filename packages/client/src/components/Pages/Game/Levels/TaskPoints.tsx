@@ -8,7 +8,7 @@ import { setPoints } from '../../../../store/game/action';
 import { LocalStorage } from '../../../../models/local-storage';
 import { GameStateInterface } from '../../../../store/game/initialState.interface';
 
-export const TaskPointsComponent: FC<{}> = () => {
+export const TaskPointsComponent: FC = () => {
   const dispatch = useDispatch();
   const { she, he, points } = useTaskPointsSelector();
 

@@ -41,6 +41,7 @@ const formInputs = [
 export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
   const dispatch = useReduxDispatch();
   const { cats, error, alert } = useFormSelector();
+  const [captchaKey, setResetcaptcha] = useState<string>('initial');
   const initialState = {
     place: { ...initialInputState, value: [cats.places?.children[0].id], valid: true },
     levels: { ...initialInputState, value: cats.levels?.children[0].id, valid: true },
@@ -61,9 +62,9 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
       setPreferencesState((prevState) => {
         const newState = setCheckboxesStatus(id, parentIndex, prevState);
         const [includedCats] = selectCatsIds(newState);
-        const eventMock = ({
+        const eventMock = {
           target: { value: includedCats, name: 'preferences' },
-        } as unknown) as InputChangeEvent;
+        } as unknown as InputChangeEvent;
         inputChanged(eventMock);
         return newState;
       });
@@ -135,7 +136,17 @@ export const SaveTaskFormComponent: FC<Props> = ({ setShowAddPost }) => {
           <Grid item xs={12}>
             <NewCategory newCategory={inputs?.newCategory} inputChanged={inputChanged} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} key={captchaKey}>
+            <Button
+              fullWidth
+              color="primary"
+              size="small"
+              variant="contained"
+              className="warning-button"
+              onClick={() => setResetcaptcha(Math.random().toString())}
+            >
+              {t('Reset reCaptcha')}
+            </Button>
             <ReCAPTCHA sitekey={GOOGLE_RECAPTCHA} onChange={recaptchaChanged} />
           </Grid>
           <Grid item xs={12}>

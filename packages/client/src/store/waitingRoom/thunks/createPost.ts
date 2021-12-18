@@ -6,32 +6,34 @@ import { initSavePosts, successSavePosts, failSavePosts } from '../action';
 import { BACKEND_API } from '../../../constants/envs';
 import { getPosts } from './getPosts';
 
-export const createPost = (payload: CreatePost): AppThunk => async (dispatch, getState) => {
-  dispatch(initSavePosts());
-  try {
-    const {
-      app: { auth },
-      user: {
-        userData: { id },
-      },
-    } = getState();
-    await axios.post(
-      `${BACKEND_API}/posts`,
-      {
-        posts: [{ ...payload, author: id }],
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${auth.accessToken}`,
+export const createPost =
+  (payload: CreatePost): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(initSavePosts());
+    try {
+      const {
+        app: { auth },
+        user: {
+          userData: { id },
         },
-      },
-    );
-    dispatch(successSavePosts());
-    dispatch(getPosts());
-  } catch (e) {
-    dispatch(failSavePosts(e));
-  }
-};
+      } = getState();
+      await axios.post(
+        `${BACKEND_API}/posts`,
+        {
+          posts: [{ ...payload, author: id }],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        },
+      );
+      dispatch(successSavePosts());
+      dispatch(getPosts());
+    } catch (e: any) {
+      dispatch(failSavePosts(e));
+    }
+  };
 
 interface CreatePost {
   categories: string[];

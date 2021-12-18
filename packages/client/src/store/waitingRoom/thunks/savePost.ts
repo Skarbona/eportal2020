@@ -7,32 +7,31 @@ import { BACKEND_API } from '../../../constants/envs';
 import { getPosts } from './getPosts';
 import { PostStatus } from '../../../models/posts';
 
-export const savePost = (post: SavePost, search?: string): AppThunk => async (
-  dispatch,
-  getState,
-) => {
-  dispatch(initSavePosts());
-  try {
-    const {
-      app: { auth },
-    } = getState();
-    await axios.patch(
-      `${BACKEND_API}/posts`,
-      {
-        post,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${auth.accessToken}`,
+export const savePost =
+  (post: SavePost, search?: string): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(initSavePosts());
+    try {
+      const {
+        app: { auth },
+      } = getState();
+      await axios.patch(
+        `${BACKEND_API}/posts`,
+        {
+          post,
         },
-      },
-    );
-    dispatch(successSavePosts());
-    dispatch(getPosts(search));
-  } catch (e) {
-    dispatch(failSavePosts(e));
-  }
-};
+        {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        },
+      );
+      dispatch(successSavePosts());
+      dispatch(getPosts(search));
+    } catch (e: any) {
+      dispatch(failSavePosts(e));
+    }
+  };
 
 interface SavePost {
   id: string;

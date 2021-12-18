@@ -9,20 +9,20 @@ export const MultiPlacesComponent: FC<Props> = ({ places, place, inputChanged })
   const inputChangedHandler = useCallback(
     ({ target: { id, name } }: CheckboxChangeEvent) => {
       if (place.find((el) => el === id)) {
-        const event = ({
+        const event = {
           target: {
             value: place.filter((el) => el !== id),
             name,
           },
-        } as unknown) as SelectChangeEvent;
+        } as unknown as SelectChangeEvent;
         inputChanged(event);
       } else {
-        const event = ({
+        const event = {
           target: {
             value: [...place, id],
             name,
           },
-        } as unknown) as SelectChangeEvent;
+        } as unknown as SelectChangeEvent;
         inputChanged(event);
       }
     },

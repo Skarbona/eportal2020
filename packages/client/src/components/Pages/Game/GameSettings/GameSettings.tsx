@@ -46,8 +46,12 @@ export const GameSettingComponent: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userCanStartGame]);
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,react-hooks/exhaustive-deps
-  useEffect(() => () => dispatch(cleanIsReadyToGameData()), []);
+  useEffect(
+    () => () => {
+      dispatch(cleanIsReadyToGameData());
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   const errors = <AlertHandler error={error} type={alertType} />;
 

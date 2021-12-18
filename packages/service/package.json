@@ -11,7 +11,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "start": "ts-node-dev --respawn --transpileOnly --notify=false src/app.ts",
+    "start": "ts-node-dev --respawn --transpile-only --notify=false src/app.ts",
     "build": "tsc --downlevelIteration -p tsconfig.production.json",
     "test": "jest --coverage --forceExit --detectOpenHandles --maxWorkers=1",
     "test:watch": "jest --watch --detectOpenHandles --maxWorkers=1",

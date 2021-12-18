@@ -211,9 +211,9 @@ export const validateByKey = ({
     case InputKeys.Title:
       return fourCharsValidHandler(value, blurred, 'Title');
     case InputKeys.Preferences:
-      return areCategoriesValidHandler((value as unknown) as string[], 1, blurred);
+      return areCategoriesValidHandler(value as unknown as string[], 1, blurred);
     case InputKeys.Place:
-      return areCategoriesValidHandler((value as unknown) as string[], 1, blurred);
+      return areCategoriesValidHandler(value as unknown as string[], 1, blurred);
     case InputKeys.Gender:
     case InputKeys.NewCategory:
     case InputKeys.Levels:

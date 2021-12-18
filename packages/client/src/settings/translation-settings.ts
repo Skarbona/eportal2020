@@ -7,6 +7,7 @@ import { LANGUAGE, NODE_ENV } from '../constants/envs';
 const fallbackLng = ['en'];
 const availableLanguages = ['en', 'pl'];
 
+// @ts-ignore: TODO resolve. Issue appears after libraries were updated
 i18n
   .use(Backend)
   .use(initReactI18next)

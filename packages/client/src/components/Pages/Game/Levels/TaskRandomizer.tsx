@@ -18,14 +18,8 @@ export interface Props {
 export const TaskRandomizationComponent: FC<Props> = ({ currentTaskNo }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const {
-    she,
-    he,
-    points,
-    gameStatus,
-    favouritesPosts,
-    onlyFavourites,
-  } = useTaskRandomizationSelector();
+  const { she, he, points, gameStatus, favouritesPosts, onlyFavourites } =
+    useTaskRandomizationSelector();
 
   const randomizeTaskHandler = useCallback(
     (activePerson) => dispatch(randomizeTask({ activePerson, favouritesPosts, onlyFavourites })),

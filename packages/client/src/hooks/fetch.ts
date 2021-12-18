@@ -31,7 +31,7 @@ export const useFetch = (): ReturnProps => {
         setLoadingStatus(false);
         setAlert(successAlert);
         return response;
-      } catch (e) {
+      } catch (e: any) {
         setLoadingStatus(false);
         setAlert(errorAlert);
         return e;
@@ -48,8 +48,8 @@ export const useFetch = (): ReturnProps => {
 interface Send {
   url: string;
   method?: 'get' | 'post';
-  body?: object;
-  headers?: object;
+  body?: any;
+  headers?: any;
   successAlert?: AlertTypes;
   errorAlert?: AlertTypes;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import React, { FC, memo, useCallback, useState, useMemo } from 'react';
 import { Grid, Typography, Chip, ButtonGroup, Button } from '@material-ui/core';
 import {
@@ -102,9 +103,9 @@ export const PostComponent: FC<Props> = ({ cats, post, edit, setEdit, allCatsMap
       setPreferencesState((prevState) => {
         const newState = setCheckboxesStatus(preferenceId, parentIndex, prevState);
         const [includedCats] = selectCatsIds(newState);
-        const eventMock = ({
+        const eventMock = {
           target: { value: includedCats, name: 'preferences' },
-        } as unknown) as InputChangeEvent;
+        } as unknown as InputChangeEvent;
         inputChanged(eventMock);
         return newState;
       });

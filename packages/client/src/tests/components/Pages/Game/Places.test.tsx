@@ -10,7 +10,7 @@ import { InputChangeEvent } from '../../../../models/typescript-events';
 
 describe('<Places /> component', () => {
   let wrapper: ShallowWrapper;
-  let props: Props;
+  let componentProps: Props;
   let setFormValuesSpy: any;
 
   beforeEach(() => {
@@ -22,8 +22,8 @@ describe('<Places /> component', () => {
   });
 
   it('should render all required elements', () => {
-    props = { defaults: null, places: null };
-    wrapper = shallow(<PlacesComponent {...props} />);
+    componentProps = { defaults: null, places: null };
+    wrapper = shallow(<PlacesComponent {...componentProps} />);
     expect(wrapper.find(ExpansionPanelComponent)).toHaveLength(1);
     expect(wrapper.find(Places)).toHaveLength(0);
   });
