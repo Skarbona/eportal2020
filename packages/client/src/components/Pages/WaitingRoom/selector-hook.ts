@@ -36,7 +36,9 @@ interface PostSelector {
 
 export const useWaitingRoomSelector = (): WaitingRoomSelector =>
   useSelector<RootState, WaitingRoomSelector>(({ waitingRoom, categories }) => ({
-    totalPages: Math.ceil(waitingRoom.posts?.length / 10 - 1 || 1),
+    totalPages: waitingRoom.posts?.length
+      ? Math.ceil(waitingRoom.posts?.length || 1 / 10 - 1 || 1)
+      : 0,
     catsLoaded: !!categories.allCatsMap,
   }));
 

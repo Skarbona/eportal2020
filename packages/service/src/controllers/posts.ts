@@ -96,7 +96,11 @@ export const getPosts = async (
   try {
     let posts;
     if (catsIncludeStrict || catsInclude || catsExclude || status || author) {
-      let options: { categories?: {}; status?: {}; author?: {} };
+      let options: {
+        categories?: Record<string, unknown>;
+        status?: Record<string, unknown>;
+        author?: Record<string, unknown>;
+      };
       if (catsIncludeStrict) {
         options = { categories: { $eq: catsIncludeStrict } };
       }

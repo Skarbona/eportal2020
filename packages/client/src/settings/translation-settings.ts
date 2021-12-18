@@ -7,6 +7,7 @@ import { LANGUAGE, NODE_ENV } from '../constants/envs';
 const fallbackLng = ['en'];
 const availableLanguages = ['en', 'pl'];
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore: TODO resolve. Issue appears after libraries were updated
 i18n
   .use(Backend)
