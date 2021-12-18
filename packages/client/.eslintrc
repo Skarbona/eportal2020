@@ -29,6 +29,7 @@
     "import/no-extraneous-dependencies": "off",
     "no-underscore-dangle": "off",
     "import/no-relative-packages": "off",
+    "default-param-last": "off",
     "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
