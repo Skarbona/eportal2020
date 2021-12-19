@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/extend-expect';
 import { configure } from 'enzyme';
 import enableHooks from 'jest-react-hooks-shallow';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import React from 'react';
 
 import { initialRootState as mockedState } from './store/store';

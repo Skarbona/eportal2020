@@ -43,7 +43,7 @@ describe('<AuthPage /> component', () => {
   });
 
   it('should handleSubmit', () => {
-    const authorizeUserSpy = spyOn(authorizeUserThunk, 'authorizeUser');
+    const authorizeUserSpy = jest.spyOn(authorizeUserThunk, 'authorizeUser');
     wrapper = shallow(<AuthPageComponent />);
     wrapper.find('form').simulate('submit', mockedEvent);
     expect(authorizeUserSpy).toHaveBeenCalled();

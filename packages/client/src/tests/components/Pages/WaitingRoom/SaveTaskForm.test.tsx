@@ -51,7 +51,7 @@ describe('<SaveTaskForm > component', () => {
     expect(wrapper.find(NestedCategories)).toHaveLength(1);
     expect(wrapper.find(NewCategory)).toHaveLength(1);
     expect(wrapper.find(Gender)).toHaveLength(1);
-    expect(wrapper.find(Button)).toHaveLength(1);
+    expect(wrapper.find(Button)).toHaveLength(2);
   });
 
   it('should call createPost onSubmit', async () => {
