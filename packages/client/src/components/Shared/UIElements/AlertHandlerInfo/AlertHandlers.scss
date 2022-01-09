@@ -1,3 +1,11 @@
 .errors-handler {
   width: 100%;
 }
+
+.alert-handler__more-info {
+  background: transparent !important;
+
+  .expansion-panel__summary {
+    padding: 0;
+  }
+}

@@ -4,7 +4,9 @@ import { Grid } from '@material-ui/core';
 
 import './AlertHandlers.scss';
 
+import { useTranslation } from 'react-i18next';
 import { AlertMap, AlertTypes, AlertSizes } from '../../../../models/alerts';
+import ExpansionPanel from '../ExpansionPanel/ExpansionPanel';
 
 export interface Props {
   type: AlertTypes;
@@ -13,6 +15,8 @@ export interface Props {
 }
 
 export const AlertHandlerComponent: FC<Props> = ({ type, error, alert }) => {
+  const { t } = useTranslation();
+
   if ((!type && !error) || (!type && !alert)) return null;
   const alertValues = AlertMap?.get(type || AlertTypes.ServerError);
   if (!alertValues) return null;
@@ -24,6 +28,11 @@ export const AlertHandlerComponent: FC<Props> = ({ type, error, alert }) => {
         <Alert severity={severity} className="alert-handler">
           <AlertTitle>{header}</AlertTitle>
           {message}
+          {error && (
+            <ExpansionPanel title={t('More info')} className="alert-handler__more-info">
+              {error?.toString()}
+            </ExpansionPanel>
+          )}
         </Alert>
       </Grid>
     )
