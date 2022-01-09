@@ -13,27 +13,25 @@ export const NestedCategoriesComponent: FC<Props> = ({ cats, inputChanged, paren
         return (
           <Grid item xs={12} sm={6} className="nested-cats" key={cat.name}>
             <FormGroup className="nested-cats__form-group">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={cat.status}
-                    onChange={setStateHandler}
-                    name={cat.id}
-                    color="primary"
-                    indeterminate={cat.indeterminate}
-                  />
-                }
-                label={
-                  <div className="nested-cats__label">
-                    {cat.name}{' '}
-                    {cat.description && (
-                      <Tooltip title={cat.description}>
-                        <Help />
-                      </Tooltip>
-                    )}
-                  </div>
-                }
-              />
+              <div className="nested-cats__wrapper">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={cat.status}
+                      onChange={setStateHandler}
+                      name={cat.id}
+                      color="primary"
+                      indeterminate={cat.indeterminate}
+                    />
+                  }
+                  label={<div className="nested-cats__label">{cat.name} </div>}
+                />
+                {cat.description && (
+                  <Tooltip title={cat.description} enterTouchDelay={0}>
+                    <Help />
+                  </Tooltip>
+                )}
+              </div>
               {cat.child && (
                 <NestedCategoriesComponent
                   cats={cat.child}
