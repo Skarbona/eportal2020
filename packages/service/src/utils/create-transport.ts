@@ -1,8 +1,9 @@
-import { createTransport } from 'nodemailer';
+import { createTransport, Transporter } from 'nodemailer';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 import { EMAIL_HOST, EMAIL_PASS, EMAIL_USER } from '../constants/envs';
 
-const createEmailTransporter = () =>
+const createEmailTransporter = (): Transporter<SMTPTransport.SentMessageInfo> =>
   createTransport({
     host: EMAIL_HOST,
     port: 465,
