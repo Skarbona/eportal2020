@@ -17,6 +17,12 @@
     width: 100%;
     max-width: 100%;
   }
+
+  .nested-cats__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .nested-cats__label {

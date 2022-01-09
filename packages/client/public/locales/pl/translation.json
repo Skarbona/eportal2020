@@ -163,5 +163,6 @@
   "Try go get only favourite tasks": "Spróbuj wybierać tylko zadania oznaczone jako ulubione",
   "The probability of selecting the 60": "Prawdopodobieństwo wylosowania ulubionego zadania wynosi 60%. Ta opcja jest zalecana, aby utrzymać stały napływ nowych zadań w czasie gry.",
   "The probability of selecting the 100": "Prawdopodobieństwo wylosowania ulubionego zadania wynosi 100%. Ta opcja NIE jest zalecana. Przy małej ilości zaznaczonych ulubionych zadań, będzie powodowała losowanie tych samych zadań, bez możliwości wylosowania najnowszych zadań dodanych przez społeczność.",
-  "General info about favourite option": "Jeżeli nie posiadasz wystarczającej ilości zadań ulubionych, reszta zadań będzie losowana z postałej puli."
+  "General info about favourite option": "Jeżeli nie posiadasz wystarczającej ilości zadań ulubionych, reszta zadań będzie losowana z postałej puli.",
+  "More info": "Szczegóły błędu"
 }
