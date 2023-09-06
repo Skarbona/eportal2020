@@ -8,6 +8,9 @@ export enum PageParams {
   PrivacyPolice = '/polityka-prywatnosci',
   WaitingRoom = '/poczekalnia',
   ResetPassword = '/reset',
+  PremiumPayment = '/premium',
+  PaymentSuccess = '/sukces-platnosci',
+  PaymentFailed = '/brak-platnosci',
   Page404 = '/404',
   Home = '/',
 }

@@ -88,6 +88,9 @@ export const mockedCategory = (name: string, nested = 0): CategoryInterface => (
 });
 
 export const mockedStore = (): RootState => ({
+  payments: {
+    loading: false,
+  },
   waitingRoom: {
     posts: [mockPost(), mockPost(), mockPost()],
     loading: false,

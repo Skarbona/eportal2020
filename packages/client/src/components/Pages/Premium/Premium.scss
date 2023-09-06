@@ -1,0 +1,62 @@
+@import '../../../scss/Variables';
+@import '../../../scss/BreakPoints';
+
+.premium-page {
+  .info-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .premium-features {
+    display: flex;
+    width: 400px;
+    justify-content: flex-start;
+    align-items: center;
+    p {
+      color: $primary;
+    }
+  }
+  .plan-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .payment-methods {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    img {
+      height: 30px;
+      width: auto;
+    }
+  }
+
+  .stripe-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .stripe-text {
+    display: flex;
+    align-items: center;
+    img {
+      height: 60px;
+      width: auto;
+    }
+  }
+}

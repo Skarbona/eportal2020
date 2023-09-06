@@ -7,6 +7,16 @@
     position: relative;
   }
 
+  .personalize-time {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    button {
+      width: auto;
+    }
+  }
+
   .line-progress {
     height: 2rem;
   }

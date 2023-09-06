@@ -9,6 +9,9 @@ import { TimeMode } from '../../../../models/game-models';
 import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanel';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
+import { ExpansionPanelPremiumTitle } from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanelPremiumTitle';
+import { usePremiumUser } from '../../../../hooks/usePremiumUser';
+import { PremiumStar } from '../../../Shared/UIElements/PremiumStar';
 
 export interface Props {
   defaults: FormValues['time'];
@@ -17,10 +20,9 @@ export interface Props {
 export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
-  const [timeMode, setTimeMode] = useState<TimeMode>(defaults.type);
-  const [singleState, setSingleState] = useState<number[]>(
-    defaults.type === TimeMode.Single ? defaults.value : [2],
-  );
+  const { isPremium } = usePremiumUser();
+  const [timeMode, setTimeMode] = useState<TimeMode>(!isPremium ? TimeMode.Single : defaults.type);
+  const [singleState, setSingleState] = useState<number[]>(getSingleDefault(isPremium, defaults));
   const [rangeState, setRangeState] = useState<number[]>(
     defaults.type === TimeMode.Range ? defaults.value : [2, 5],
   );
@@ -36,12 +38,12 @@ export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
   useEffect(() => {
     const payload: Partial<FormValues> = {
       time: {
-        type: timeMode,
+        type: isPremium ? TimeMode.Single : timeMode,
         value: timeMode === TimeMode.Single ? singleState : rangeState,
       },
     };
     dispatch(setFormValues(payload));
-  }, [timeMode, singleState, rangeState, dispatch]);
+  }, [timeMode, singleState, rangeState, dispatch, isPremium]);
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const handleSingleChange = (event: any, newValue: number | number[]): void =>
@@ -62,23 +64,30 @@ export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
     <ExpansionPanelComponent
       icon={<Timelapse />}
       subtitle={subtitleHandler()}
-      title={t('Time for finishing 1 task')}
+      title={<ExpansionPanelPremiumTitle title={t('Time for finishing 1 task')} />}
       className="game__time"
     >
       <Grid container spacing={1}>
         <FormControlLabel
           control={
             <Switch
+              disabled={!isPremium}
               color="primary"
               checked={timeMode !== TimeMode.Single}
               onChange={handleSwitchChange}
               name="Time Mode"
             />
           }
-          label={t('With time ranges')}
+          label={
+            <div>
+              {t('With time ranges')}
+              <PremiumStar />
+            </div>
+          }
         />
         {timeMode === TimeMode.Single && (
           <Slider
+            disabled={!isPremium}
             value={singleState[0]}
             onChange={handleSingleChange}
             valueLabelDisplay="auto"
@@ -90,6 +99,7 @@ export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
         )}
         {timeMode === TimeMode.Range && (
           <Slider
+            disabled={!isPremium}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
             value={rangeState}
@@ -103,6 +113,11 @@ export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
       </Grid>
     </ExpansionPanelComponent>
   );
+};
+
+const getSingleDefault = (isPremium: boolean, defaults: FormValues['time']): number[] => {
+  if (!isPremium) return [2];
+  return defaults.type === TimeMode.Single ? defaults.value : [2];
 };
 
 export default memo(TimeForTaskComponent);

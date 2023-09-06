@@ -6,3 +6,6 @@ export const LANGUAGE = process.env.REACT_APP_LANGUAGE;
 export const { NODE_ENV, PUBLIC_URL } = process.env;
 export const APP_VERSION = process.env.REACT_APP_VERSION;
 export const GOOGLE_ANALYTICS = process.env.REACT_APP_GOOGLE_ANALYTICS;
+export const STRIPE_CLIENT_ID = process.env.REACT_APP_STRIPE_CLIENT;
+export const MONTH_PLAN_ID = process.env.REACT_APP_MONTH_PLAN_ID;
+export const ONE_DAY_ACCESS = process.env.REACT_APP_ONE_DAY_ACCESS;

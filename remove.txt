@@ -1,0 +1,16 @@
+2023-09-06 10:34:13   --> charge.succeeded [evt_3NnHBgJID14mWz0q1niVxxQM]
+2023-09-06 10:34:13   --> invoice.created [evt_1NnHBiJID14mWz0qGjwmo3UF]
+2023-09-06 10:34:13   --> invoice.finalized [evt_1NnHBiJID14mWz0q8963NPOL]
+2023-09-06 10:34:13   --> customer.subscription.created [evt_1NnHBiJID14mWz0qSPPNwUnw]
+2023-09-06 10:34:13   --> checkout.session.completed [evt_1NnHBiJID14mWz0qRYgPd9Cs]
+2023-09-06 10:34:13   --> invoice.updated [evt_1NnHBiJID14mWz0qBmAVsn8g]
+2023-09-06 10:34:13   --> invoice.paid [evt_1NnHBiJID14mWz0qghRvCSt5]
+2023-09-06 10:34:14   --> invoice.payment_succeeded [evt_1NnHBjJID14mWz0qhXaFSVkv]
+2023-09-06 10:34:14   --> customer.subscription.updated [evt_1NnHBjJID14mWz0qS2W8da0V]
+2023-09-06 10:34:14   --> payment_intent.succeeded [evt_3NnHBgJID14mWz0q1HJngZJ6]
+2023-09-06 10:34:14   --> payment_intent.created
+
+2023-09-06 10:36:31   --> charge.succeeded [evt_3NnHDuJID14mWz0q0AEKnXoc]
+2023-09-06 10:36:31   --> payment_intent.succeeded [evt_3NnHDuJID14mWz0q09gsAsPX]
+2023-09-06 10:36:32   --> payment_intent.created [evt_3NnHDuJID14mWz0q0Dmpjf15]
+2023-09-06 10:36:32   --> checkout.session.completed [evt_1NnHDxJID14mWz0qiySrvMzU]

@@ -99,7 +99,7 @@ export const Login = async (
       throw new Error('Not valid password');
     }
   } catch (e) {
-    return next(new HttpError('Could not identify user', 401));
+    return next(new HttpError('Could not identify user' + e, 401));
   }
 
   try {

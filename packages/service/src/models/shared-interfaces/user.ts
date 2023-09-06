@@ -32,9 +32,12 @@ export interface UserBasic {
   date: Date;
   name: string;
   email: string;
+  stripeCustomerId?: string;
   type: UserType;
   gameDefaults: FormValues;
   favouritesPosts: string[];
+  activePlan?: string;
+  currentPeriodEnd?: Date;
 }
 
 export interface AuthResponse {

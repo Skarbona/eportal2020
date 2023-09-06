@@ -18,6 +18,8 @@ import { cleanCurrentTask, setPoints } from '../../../../store/game/action';
 import { useReduxDispatch } from '../../../../store/helpers';
 import { TaskGameStatus } from '../../../../models/game-models';
 import { useTaskActionsSelector } from './selector-hooks';
+import { usePremiumUser } from '../../../../hooks/usePremiumUser';
+import { PremiumStar } from '../../../Shared/UIElements/PremiumStar';
 
 let interval: NodeJS.Timeout;
 
@@ -32,6 +34,7 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
   const [gameTime, setGameTime] = useState<number>(2);
   const [taskGameStatus, setTaskGameStatus] = useState<TaskGameStatus>(TaskGameStatus.BeforeGame);
   const [seconds, setSeconds] = useState(2 * 60);
+  const { isPremium } = usePremiumUser();
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const setGameTimeHandler = (event: any, newValue: number | number[]): void => {
@@ -90,10 +93,14 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
           <>
             <Grid item xs={12} className="before-game">
               <>
-                <Typography>
-                  {t('Personalize time if you want')}: {gameTime} min
+                <Typography className="personalize-time">
+                  <span>
+                    {t('Personalize time if you want')}: {gameTime} min
+                  </span>
+                  <PremiumStar />
                 </Typography>
                 <Slider
+                  disabled={!isPremium}
                   value={gameTime}
                   onChange={setGameTimeHandler}
                   valueLabelDisplay="auto"

@@ -12,7 +12,7 @@ import React, { FC, memo, ReactNode, useState } from 'react';
 export interface Props {
   children: ReactNode;
   icon?: ReactNode;
-  title: string;
+  title: JSX.Element | string;
   subtitle?: string;
   className?: string;
   defaultState?: boolean;

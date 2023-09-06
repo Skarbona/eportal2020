@@ -15,7 +15,7 @@ export const getPosts =
       const {
         app: { auth },
       } = getState();
-      const { data } = await axios.get(
+      const { data } = await axios.get<{ posts: PostResponseInterface[] }>(
         `${BACKEND_API}/posts${search || `?status=${PostStatus.AwaitingForApproval}`}`,
         {
           headers: {
@@ -23,7 +23,7 @@ export const getPosts =
           },
         },
       );
-      dispatch(successGetPosts(data.posts as PostResponseInterface[]));
+      dispatch(successGetPosts(data.posts));
     } catch (e: any) {
       dispatch(failGetPosts(e));
     }

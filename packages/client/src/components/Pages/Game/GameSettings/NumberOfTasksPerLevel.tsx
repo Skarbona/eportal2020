@@ -10,6 +10,9 @@ import ExpansionPanelComponent from '../../../Shared/UIElements/ExpansionPanel/E
 import { useReduxDispatch } from '../../../../store/helpers';
 import { setFormValues } from '../../../../store/game/action';
 import { FormValidation } from './Interfaces';
+import { usePremiumUser } from '../../../../hooks/usePremiumUser';
+import { PremiumStar } from '../../../Shared/UIElements/PremiumStar';
+import { ExpansionPanelPremiumTitle } from '../../../Shared/UIElements/ExpansionPanel/ExpansionPanelPremiumTitle';
 
 export interface Props {
   levels: CategoryInterface;
@@ -32,6 +35,8 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({
   const dispatch = useReduxDispatch();
   const [selectedAmounts, setSelectedAmounts] = useState<State[]>(null);
 
+  const { isPremium } = usePremiumUser();
+
   useEffect(() => {
     if (levels) {
       setSelectedAmounts(
@@ -50,9 +55,9 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({
       if (selectedAmounts) {
         const payload: Partial<FormValues> = {
           levels: {
-            level1: selectedAmounts[0].value || 10,
-            level2: selectedAmounts[1].value || 10,
-            level3: selectedAmounts[2].value || 10,
+            level1: !isPremium ? 3 : selectedAmounts[0].value || 10,
+            level2: !isPremium ? 3 : selectedAmounts[1].value || 10,
+            level3: !isPremium ? 3 : selectedAmounts[2].value || 10,
           },
         };
         dispatch(setFormValues(payload));
@@ -75,14 +80,15 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({
     [selectedAmounts, setFormValidation],
   );
 
-  const subtitle = `(${
-    selectedAmounts ? selectedAmounts.map((level) => level.value || 0) : '10,10,10'
-  })`;
+  const subtitle = !isPremium
+    ? '3,3,3'
+    : `(${selectedAmounts ? selectedAmounts.map((level) => level.value || 0) : '10,10,10'})`;
+
   return (
     <ExpansionPanelComponent
       icon={<FormatListNumbered />}
       subtitle={subtitle}
-      title={t('Number of tasks per level')}
+      title={<ExpansionPanelPremiumTitle title={t('Number of tasks per level')} />}
       className="game__levels"
     >
       <Grid container spacing={1}>
@@ -90,10 +96,14 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({
           selectedAmounts.map((level, index) => (
             <Grid item xs={12} md={4} key={level.id}>
               <TextField
+                InputProps={{
+                  startAdornment: <PremiumStar style={{ marginTop: '12px' }} />,
+                }}
                 label={level.name}
+                disabled={!isPremium}
                 id={level.id}
                 onChange={(e): void => onChangeHandler(e, index)}
-                value={level.value}
+                value={isPremium ? level.value : 3}
                 className="form-element__default-width number-input"
                 variant="filled"
                 type="number"
