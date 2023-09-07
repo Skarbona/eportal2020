@@ -6,6 +6,9 @@ import { PagesComponent, arePropsEqual } from '../../../components/Pages/Pages';
 import Game from '../../../components/Pages/Game/Game';
 import Page from '../../../components/Pages/Page/Page';
 import Main from '../../../components/Pages/Main/Main';
+import Premium from '../../../components/Pages/Premium/Premium';
+import { Success } from '../../../components/Pages/Premium/Success';
+import { Failed } from '../../../components/Pages/Premium/Failed';
 import AuthPage from '../../../components/Pages/AuthPage/AuthPage';
 import NotFound from '../../../components/Pages/404/404';
 import WaitingRoom from '../../../components/Pages/WaitingRoom/WaitingRoom';
@@ -19,8 +22,11 @@ describe('<Pages > component', () => {
     expect(wrapper.find(Main)).toHaveLength(1);
     expect(wrapper.find(Page)).toHaveLength(2);
     expect(wrapper.find(NotFound)).toHaveLength(1);
+    expect(wrapper.find(Premium)).toHaveLength(1);
+    expect(wrapper.find(Success)).toHaveLength(1);
+    expect(wrapper.find(Failed)).toHaveLength(1);
     expect(wrapper.find(WaitingRoom)).toHaveLength(2);
-    expect(wrapper.find(Route)).toHaveLength(8);
+    expect(wrapper.find(Route)).toHaveLength(11);
 
     expect(wrapper.find(AuthPage)).toHaveLength(0);
   });
@@ -31,8 +37,11 @@ describe('<Pages > component', () => {
     expect(wrapper.find(AuthPage)).toHaveLength(1);
     expect(wrapper.find(NotFound)).toHaveLength(1);
     expect(wrapper.find(Page)).toHaveLength(2);
-    expect(wrapper.find(Route)).toHaveLength(7);
+    expect(wrapper.find(Success)).toHaveLength(1);
+    expect(wrapper.find(Failed)).toHaveLength(1);
+    expect(wrapper.find(Route)).toHaveLength(9);
 
+    expect(wrapper.find(Premium)).toHaveLength(0);
     expect(wrapper.find(Game)).toHaveLength(0);
   });
 

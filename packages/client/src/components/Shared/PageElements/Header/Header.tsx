@@ -39,7 +39,6 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
 
   const game = links.GameLink(t('Play!'));
   const profile = links.ProfileLink(t('Profile'), isMobile);
-  // TODO: Add translation
   const premium = links.PremiumLink(t('Premium'), isMobile);
   const logout = links.LogoutLink(t('Logout'), logoutHandler);
   const login = links.LoginLink(t('Log in'));

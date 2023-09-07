@@ -9,6 +9,7 @@ const paymentsReducer = (
   action: PaymentsActions,
 ): PaymentsStateInterface => {
   switch (action.type) {
+    case PaymentsEnum.CancelUserSubscriptionStart:
     case PaymentsEnum.FetchUserTransactionsStart:
     case PaymentsEnum.FetchCheckoutSessionIdStart: {
       return {
@@ -16,6 +17,7 @@ const paymentsReducer = (
         loading: true,
       };
     }
+    case PaymentsEnum.CancelUserSubscriptionSuccess:
     case PaymentsEnum.FetchUserTransactionsSuccess:
     case PaymentsEnum.FetchCheckoutSessionIdSuccess: {
       return {
@@ -23,6 +25,7 @@ const paymentsReducer = (
         loading: false,
       };
     }
+    case PaymentsEnum.CancelUserSubscriptionFail:
     case PaymentsEnum.FetchUserTransactionsFail:
     case PaymentsEnum.FetchCheckoutSessionIdFail: {
       const { error } = action.data;

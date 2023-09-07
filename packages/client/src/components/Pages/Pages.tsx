@@ -51,16 +51,6 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
           <Payment />
         </Route>
       )}
-      {accessToken && (
-        <Route path={PageParams.PaymentSuccess} exact>
-          <Success />
-        </Route>
-      )}
-      {accessToken && (
-        <Route path={PageParams.PaymentFailed} exact>
-          <Failed />
-        </Route>
-      )}
       {!accessToken && (
         <Route path="/autentykacja/:mode" exact>
           <AuthPage />

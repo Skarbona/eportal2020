@@ -19,7 +19,7 @@ import { getUserTransactions } from '../../../store/payments/thunks/getUserTrans
 import { useReduxDispatch } from '../../../store/helpers';
 import { UserTransactions } from '../../../../../service/src/models/shared-interfaces/payments';
 import { getDateWithTime } from '../../../utils/date';
-import { cancelTransaction } from '../../../store/payments/thunks/cancelSubscribtion';
+import { cancelSubscription } from '../../../store/payments/thunks/cancelSubscription';
 import { reFetchUserData } from '../../../store/user/thunks/refetchUserData';
 
 export const PremiumUserSection: FC = () => {
@@ -34,7 +34,7 @@ export const PremiumUserSection: FC = () => {
   }, [dispatch]);
 
   const handleCancelSubscription = useCallback(async () => {
-    const success = await dispatch(cancelTransaction());
+    const success = await dispatch(cancelSubscription());
     if (success) {
       setTimeout(() => {
         dispatch(reFetchUserData());

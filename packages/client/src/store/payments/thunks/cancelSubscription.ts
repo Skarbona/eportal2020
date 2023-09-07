@@ -3,7 +3,7 @@ import { BACKEND_API } from '../../../constants/envs';
 import * as A from '../action';
 import { ReturnAppThunk } from '../../store.interface';
 
-export const cancelTransaction =
+export const cancelSubscription =
   (): ReturnAppThunk<boolean | undefined> => async (dispatch, getState) => {
     dispatch(A.cancelUserSubscriptionStart());
     try {
@@ -19,6 +19,6 @@ export const cancelTransaction =
       return true;
     } catch (e) {
       dispatch(A.cancelUserSubscriptionFail(e));
-      return undefined;
+      return false;
     }
   };

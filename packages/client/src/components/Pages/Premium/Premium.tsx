@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { useTranslation } from 'react-i18next';
@@ -35,3 +35,5 @@ export const Payment: FC = () => {
     </>
   );
 };
+
+export default memo(Payment);
