@@ -76,7 +76,7 @@ export const signUp = async (
     const { accessToken, refreshToken } = createTokens(createdUser);
     res.status(201).json({ userData: user.toObject({ getters: true }), accessToken, refreshToken });
   } catch (e) {
-    return next(new HttpError('Cannot sign up', 500));
+    return next(new HttpError('Cannot sign up:' + e, 500));
   }
 };
 

@@ -9,7 +9,7 @@ export const UserSchema = new Schema({
   date: { type: Date, required: true },
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  stripeCustomerId: { type: String, unique: true },
+  stripeCustomerId: { type: String },
   activePlan: { type: String },
   currentPeriodEnd: { type: Date },
   type: { type: String },
