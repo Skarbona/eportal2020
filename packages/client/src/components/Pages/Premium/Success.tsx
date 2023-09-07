@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useParams, useRouteMatch } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import PageContainer from '../../Shared/PageElements/PageContainer/PageContainer';
 import PageHeading from '../../Shared/PageElements/PageHeading/PageHeading';
