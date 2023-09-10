@@ -1,6 +1,5 @@
-import React, { FC, memo, useEffect, useState, useCallback } from 'react';
-import { Pagination } from '@material-ui/lab';
-import { useParams, useHistory, useLocation } from 'react-router-dom';
+import React, { FC, memo, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Grid, Button, Typography } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -19,26 +18,10 @@ import { useWaitingRoomSelector } from './selector-hook';
 export const WaitingRoomComponent: FC = () => {
   const dispatch = useReduxDispatch();
   const { t } = useTranslation();
-  const [pageNumber, setPageNumber] = useState<number>(0);
   const [showAddPost, setShowAddPost] = useState<boolean>(false);
-  const { totalPages, catsLoaded } = useWaitingRoomSelector();
-  const { page } = useParams<{ page: string }>();
-  const history = useHistory();
+  const { catsLoaded } = useWaitingRoomSelector();
   const location = useLocation();
   const isWaitingRoomMode = location.pathname.includes(PageParams.WaitingRoom);
-
-  const setPageNumberHandler = useCallback(
-    (value) => {
-      setPageNumber(value);
-      history.push(`${isWaitingRoomMode ? PageParams.WaitingRoom : PageParams.Posts}/${value}`);
-    },
-    [history, isWaitingRoomMode],
-  );
-
-  useEffect(() => {
-    setPageNumber(Number.isNaN(parseInt(page, 10)) ? 0 : parseInt(page, 10));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     dispatch(getPosts(location.search || (!isWaitingRoomMode && '?status=publish')));
@@ -77,18 +60,7 @@ export const WaitingRoomComponent: FC = () => {
             {catsLoaded && showAddPost && <SaveTaskForm setShowAddPost={setShowAddPost} />}
           </Grid>
           <Grid item sm={12} md={12}>
-            <Posts pageNumber={pageNumber} isWaitingRoomMode={isWaitingRoomMode} />
-          </Grid>
-          <Grid item sm={12} md={12}>
-            {totalPages > 1 && (
-              <Pagination
-                className="waiting-room__pagination"
-                page={pageNumber}
-                onChange={(e, value): void => setPageNumberHandler(value)}
-                count={totalPages}
-                color="primary"
-              />
-            )}
+            <Posts isWaitingRoomMode={isWaitingRoomMode} />
           </Grid>
         </Grid>
       </PageContainer>

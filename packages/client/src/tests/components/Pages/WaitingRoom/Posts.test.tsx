@@ -19,7 +19,7 @@ describe('<Posts > component', () => {
   });
 
   it('should have all required elements', () => {
-    wrapper = shallow(<Posts pageNumber={2} isWaitingRoomMode />);
+    wrapper = shallow(<Posts isWaitingRoomMode />);
     expect(wrapper.find(Post)).toHaveLength(0);
   });
 
@@ -31,7 +31,7 @@ describe('<Posts > component', () => {
       cats: categories.categories,
       isAdmin: true,
     });
-    wrapper = shallow(<Posts pageNumber={1} isWaitingRoomMode />);
+    wrapper = shallow(<Posts isWaitingRoomMode />);
     expect(wrapper.find(Post)).toHaveLength(3);
   });
 });

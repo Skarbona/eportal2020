@@ -36,6 +36,11 @@ export const TaskContentComponent: FC = () => {
             <Chip key={cat} size="small" color="primary" label={allCatsMap.get(cat)} />
           ))}
         </Grid>
+        <Grid item xs={12} className="categories-badges">
+          <Typography color="primary" variant="caption" style={{ fontSize: '7px' }}>
+            Id: {id}
+          </Typography>
+        </Grid>
       </Grid>
     </Grid>
   );
