@@ -73,6 +73,7 @@ export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
             <Switch
               disabled={!isPremium}
               color="primary"
+              data-test="time-switch"
               checked={timeMode !== TimeMode.Single}
               onChange={handleSwitchChange}
               name="Time Mode"
@@ -89,6 +90,7 @@ export const TimeForTaskComponent: FC<Props> = ({ defaults }) => {
           <Slider
             disabled={!isPremium}
             value={singleState[0]}
+            data-test="time-slider"
             onChange={handleSingleChange}
             valueLabelDisplay="auto"
             step={1}

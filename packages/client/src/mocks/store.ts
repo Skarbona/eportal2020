@@ -66,8 +66,8 @@ const mockDefaults = (): FormValues => ({
     level3: 11,
   },
   time: {
-    type: TimeMode.Single,
-    value: [2],
+    type: TimeMode.Range,
+    value: [3, 5],
   },
   saveAsDefault: false,
 });

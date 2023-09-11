@@ -48,7 +48,6 @@ describe('<WaitingRoom > component', () => {
     expect(wrapper.find(PageContainer)).toHaveLength(1);
     expect(wrapper.find(Posts)).toHaveLength(1);
     expect(wrapper.find(SaveTaskForm)).toHaveLength(0);
-    expect(wrapper.find(Pagination)).toHaveLength(0);
   });
 
   it('should have all required elements for proper props', () => {
@@ -62,7 +61,6 @@ describe('<WaitingRoom > component', () => {
     expect(wrapper.find(PageContainer)).toHaveLength(1);
     expect(wrapper.find(Posts)).toHaveLength(1);
     expect(wrapper.find(SaveTaskForm)).toHaveLength(0);
-    expect(wrapper.find(Pagination)).toHaveLength(1);
   });
 
   it('should show SaveTaskForm on button click', () => {

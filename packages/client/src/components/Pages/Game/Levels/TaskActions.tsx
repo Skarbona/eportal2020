@@ -73,7 +73,7 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
   }, []);
 
   useEffect(() => {
-    const initialTime = U.randomizeTime(time);
+    const initialTime = U.randomizeTime(time, isPremium);
     setGameTime(initialTime);
     setSeconds(initialTime * 60);
     // eslint-disable-next-line react-hooks/exhaustive-deps

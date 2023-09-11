@@ -76,6 +76,7 @@ export const GameSettingComponent: FC = () => {
                 to={PageParams.PremiumPayment}
                 startIcon={<StarBorderSharp />}
                 size="small"
+                data-test="premium-payment-button"
                 color="primary"
                 variant="outlined"
               >

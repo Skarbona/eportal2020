@@ -9,6 +9,7 @@ import { PropsTaskActionsSelector } from '../../../../components/Pages/Game/Leve
 import { mockedStore, mockPost } from '../../../../mocks/store';
 import * as GameActions from '../../../../store/game/action';
 import * as SetGameStatusThunk from '../../../../store/game/thunks/setGameStatus';
+import { premiumUser } from '../../../helpers';
 
 describe('<TaskActions > component', () => {
   let wrapper: ShallowWrapper;
@@ -231,5 +232,23 @@ describe('<TaskActions > component', () => {
     const PointsButtonsFade = wrapper.find(Fade).at(1);
 
     expect(PointsButtonsFade.props().show).toEqual(true);
+  });
+
+  it('should set fixed for NONE Premium user', () => {
+    wrapper = shallow(<TaskActionsComponent isTheLastTask={false} />);
+
+    expect(wrapper.find(Slider).props().value).toEqual(2);
+    expect(wrapper.find(Slider).props().disabled).toEqual(true);
+  });
+
+  it('should set default for Premium user', () => {
+    spyStore.mockReturnValue({
+      ...selectorProps,
+      ...premiumUser(),
+    });
+    wrapper = shallow(<TaskActionsComponent isTheLastTask={false} />);
+
+    expect(wrapper.find(Slider).props().value).toEqual(4);
+    expect(wrapper.find(Slider).props().disabled).toEqual(false);
   });
 });

@@ -17,6 +17,7 @@ import AlertHandler from '../../../../components/Shared/UIElements/AlertHandlerI
 import CircleLoading from '../../../../components/Shared/UIElements/Loading/CircleLoading';
 import * as startGameThunk from '../../../../store/game/thunks/startGame';
 import { mockedEvent } from '../../../../mocks/event';
+import { premiumUser } from '../../../helpers';
 
 describe('<GameSettings > component', () => {
   let wrapper: ShallowWrapper;
@@ -122,5 +123,32 @@ describe('<GameSettings > component', () => {
     wrapper = shallow(<GameSettingComponent />);
     wrapper.find('form').simulate('submit', mockedEvent);
     expect(startGameSpy).toHaveBeenCalled();
+  });
+
+  it('should shown NONE Premium features', () => {
+    const { categories, user } = mockedStore();
+    spyStore.mockReturnValue({
+      cats: categories.categories,
+      defaults: user.userData.gameDefaults,
+      loading: false,
+      error: null,
+      alertType: null,
+    });
+    wrapper = shallow(<GameSettingComponent />);
+    expect(wrapper.find('[data-test="premium-payment-button"]')).toHaveLength(1);
+  });
+
+  it('should show premium features', () => {
+    const { categories, user } = mockedStore();
+    spyStore.mockReturnValue({
+      cats: categories.categories,
+      defaults: user.userData.gameDefaults,
+      ...premiumUser(),
+      loading: false,
+      error: null,
+      alertType: null,
+    });
+    wrapper = shallow(<GameSettingComponent />);
+    expect(wrapper.find('[data-test="premium-payment-button"]')).toHaveLength(0);
   });
 });

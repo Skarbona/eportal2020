@@ -93,25 +93,28 @@ export const NumberOfTasksPerLevelComponent: FC<Props> = ({
     >
       <Grid container spacing={1}>
         {selectedAmounts &&
-          selectedAmounts.map((level, index) => (
-            <Grid item xs={12} md={4} key={level.id}>
-              <TextField
-                InputProps={{
-                  startAdornment: <PremiumStar style={{ marginTop: '12px' }} />,
-                }}
-                label={level.name}
-                disabled={!isPremium}
-                id={level.id}
-                onChange={(e): void => onChangeHandler(e, index)}
-                value={isPremium ? level.value : 3}
-                className="form-element__default-width number-input"
-                variant="filled"
-                type="number"
-                error={!level.value || level.value < 1}
-                helperText={(!level.value || level.value < 1) && t('Value must be bigger than 0')}
-              />
-            </Grid>
-          ))}
+          selectedAmounts.map((level, index) => {
+            return (
+              <Grid item xs={12} md={4} key={level.id}>
+                <TextField
+                  InputProps={{
+                    startAdornment: <PremiumStar style={{ marginTop: '12px' }} />,
+                  }}
+                  label={level.name}
+                  disabled={!isPremium}
+                  id={level.id}
+                  data-test={`level-${level.name}`}
+                  onChange={(e): void => onChangeHandler(e, index)}
+                  value={isPremium ? level.value : 3}
+                  className="form-element__default-width number-input"
+                  variant="filled"
+                  type="number"
+                  error={!level.value || level.value < 1}
+                  helperText={(!level.value || level.value < 1) && t('Value must be bigger than 0')}
+                />
+              </Grid>
+            );
+          })}
       </Grid>
     </ExpansionPanelComponent>
   );
