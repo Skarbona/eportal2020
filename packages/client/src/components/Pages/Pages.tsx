@@ -12,6 +12,9 @@ import SetNewPassword from './ResetPassword/SetNewPassword';
 import WaitingRoom from './WaitingRoom/WaitingRoom';
 import { PageNames } from '../../store/pages/initialState.interface';
 import { PageParams } from '../../models/page-types';
+import { Payment } from './Premium/Premium';
+import { Success } from './Premium/Success';
+import { Failed } from './Premium/Failed';
 
 interface Props {
   accessToken: string;
@@ -43,6 +46,11 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
           <Game />
         </Route>
       )}
+      {accessToken && (
+        <Route path={PageParams.PremiumPayment} exact>
+          <Payment />
+        </Route>
+      )}
       {!accessToken && (
         <Route path="/autentykacja/:mode" exact>
           <AuthPage />
@@ -58,6 +66,12 @@ export const PagesComponent: FC<Props> = ({ accessToken }) => {
           <SetNewPassword />
         </Route>
       )}
+      <Route path={PageParams.PaymentSuccess} exact>
+        <Success />
+      </Route>
+      <Route path={PageParams.PaymentFailed} exact>
+        <Failed />
+      </Route>
       <Route key="privacy-policy" path={PageParams.PrivacyPolice} exact>
         <Page slug={PageNames.PrivacyPolicy} />
       </Route>

@@ -6,6 +6,7 @@ import { AccountCircle as AccountIcon } from '@material-ui/icons';
 
 import { setContactFormVisibility } from '../../../../store/app/action';
 import { PageParams } from '../../../../models/page-types';
+import { PremiumStar } from '../../UIElements/PremiumStar';
 
 export const WaitingRoomLink = (text: string): ReactNode => (
   <Link to={`${PageParams.WaitingRoom}/1`} className="btn__waiting-room">
@@ -16,6 +17,12 @@ export const WaitingRoomLink = (text: string): ReactNode => (
 export const GameLink = (text: string): ReactNode => (
   <Link to={PageParams.Game} className="btn__start-game">
     <Button>{text}</Button>
+  </Link>
+);
+
+export const PremiumLink = (text: string, isMobile: boolean): ReactNode => (
+  <Link to={PageParams.PremiumPayment} className="btn__premium-page">
+    {isMobile ? <Button>{text}</Button> : <PremiumStar />}
   </Link>
 );
 

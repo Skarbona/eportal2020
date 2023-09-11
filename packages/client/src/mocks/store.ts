@@ -66,8 +66,8 @@ const mockDefaults = (): FormValues => ({
     level3: 11,
   },
   time: {
-    type: TimeMode.Single,
-    value: [2],
+    type: TimeMode.Range,
+    value: [3, 5],
   },
   saveAsDefault: false,
 });
@@ -88,6 +88,9 @@ export const mockedCategory = (name: string, nested = 0): CategoryInterface => (
 });
 
 export const mockedStore = (): RootState => ({
+  payments: {
+    loading: false,
+  },
   waitingRoom: {
     posts: [mockPost(), mockPost(), mockPost()],
     loading: false,

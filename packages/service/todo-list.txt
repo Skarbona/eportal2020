@@ -1,4 +1,0 @@
-1. Restrict DataBase Access - DONE
-2. Add JWT auth
-3. Add logs
-4. Add ESLINT checks

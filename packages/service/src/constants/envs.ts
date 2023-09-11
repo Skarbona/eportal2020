@@ -20,3 +20,8 @@ export const EMAIL_PASS = process.env.EMAIL_PASS;
 export const PORTAL_ADRESS = process.env.PORTAL_ADRESS;
 
 export const PORT = process.env.PORT;
+
+export const STRIPE_SECRET = process.env.STRIPE_SECRET;
+export const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+export const ONE_MONTH_ACCESS = process.env.ONE_MONTH_ACCESS;
+export const ONE_DAY_ACCESS = process.env.ONE_DAY_ACCESS;

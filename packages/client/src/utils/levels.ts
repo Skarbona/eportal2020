@@ -52,7 +52,11 @@ export const taskCounter = (
   return taskCounterReturnHandler(Levels.L3);
 };
 
-export const randomizeTime = (time: GameStateInterface['config']['time']): number => {
+export const randomizeTime = (
+  time: GameStateInterface['config']['time'],
+  isPremium: boolean,
+): number => {
+  if (!isPremium) return 2;
   if (time.type === TimeMode.Single) return time.value[0];
 
   return Math.floor(Math.random() * (time.value[1] - time.value[0] + 1)) + time.value[0];

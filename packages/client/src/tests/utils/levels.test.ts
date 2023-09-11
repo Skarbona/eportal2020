@@ -69,16 +69,28 @@ describe('taskCounter utility function', () => {
   });
 });
 
-describe('randomizeTime utility function', () => {
+describe('randomizeTime utility function for Premium User', () => {
   it('should return valid values for SingleTime', () => {
-    const single = randomizeTime({ type: TimeMode.Single, value: [3] });
+    const single = randomizeTime({ type: TimeMode.Single, value: [3] }, true);
     expect(single).toEqual(3);
   });
 
   it('should return valid values for RangeTime', () => {
-    const range = randomizeTime({ type: TimeMode.Range, value: [2, 5] });
+    const range = randomizeTime({ type: TimeMode.Range, value: [2, 5] }, true);
     expect(range).toBeGreaterThanOrEqual(2);
     expect(range).toBeLessThanOrEqual(5);
+  });
+});
+
+describe('randomizeTime utility function for NONE Premium User', () => {
+  it('should return valid values for SingleTime', () => {
+    const single = randomizeTime({ type: TimeMode.Single, value: [3] }, false);
+    expect(single).toEqual(2);
+  });
+
+  it('should return valid values for RangeTime', () => {
+    const range = randomizeTime({ type: TimeMode.Range, value: [2, 5] }, false);
+    expect(range).toBeGreaterThanOrEqual(2);
   });
 });
 

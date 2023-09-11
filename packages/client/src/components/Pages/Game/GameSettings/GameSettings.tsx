@@ -1,8 +1,10 @@
 import React, { FC, memo, useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
-
+import { Button, Grid } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import './GameSettings.scss';
 
+import { useTranslation } from 'react-i18next';
+import { StarBorderSharp } from '@material-ui/icons';
 import { SubmitEvent } from '../../../../models/typescript-events';
 
 import AlertHandler from '../../../Shared/UIElements/AlertHandlerInfo/AlertHandlerInfo';
@@ -25,9 +27,13 @@ import { setGameStatus } from '../../../../store/game/thunks/setGameStatus';
 import { GameStatus } from '../../../../models/game-models';
 import { useGameSettingsSelector } from './selector-hooks';
 import { FormValidation } from './Interfaces';
+import { usePremiumUser } from '../../../../hooks/usePremiumUser';
+import { PageParams } from '../../../../models/page-types';
 
 export const GameSettingComponent: FC = () => {
   const dispatch = useReduxDispatch();
+  const { t } = useTranslation();
+  const { isPremium } = usePremiumUser();
   const [formValidation, setFormValidation] = useState<FormValidation>({
     preferences: true,
     taskPerLevel: true,
@@ -64,6 +70,19 @@ export const GameSettingComponent: FC = () => {
         {loading && <CircleLoading />}
         {defaults && cats && (
           <form onSubmit={onSubmitHandler}>
+            {!isPremium && (
+              <Button
+                component={Link}
+                to={PageParams.PremiumPayment}
+                startIcon={<StarBorderSharp />}
+                size="small"
+                data-test="premium-payment-button"
+                color="primary"
+                variant="outlined"
+              >
+                {t('Do you want to unblock all features?')}
+              </Button>
+            )}
             <Grid container direction="column">
               <PlayersNames defaults={defaults.names} />
               <Places places={cats.places} defaults={defaults.place} />

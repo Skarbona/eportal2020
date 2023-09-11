@@ -39,13 +39,15 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
 
   const game = links.GameLink(t('Play!'));
   const profile = links.ProfileLink(t('Profile'), isMobile);
+  const premium = links.PremiumLink(t('Premium'), isMobile);
   const logout = links.LogoutLink(t('Logout'), logoutHandler);
   const login = links.LoginLink(t('Log in'));
   const register = links.RegisterLink(t('Register'));
   const contact = links.ContactLink(t('Contact'));
+
   const waitingRoom = links.WaitingRoomLink(t('Waiting Room'));
   const itemsForMobileMenu = accessToken
-    ? [waitingRoom, game, profile, contact, logout]
+    ? [waitingRoom, game, profile, premium, contact, logout]
     : [login, register, contact];
 
   const toggleDrawer =
@@ -94,6 +96,7 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
             {waitingRoom}
             {game}
             {profile}
+            {premium}
           </>
         )}
         {!accessToken && !isMobile && (

@@ -6,6 +6,16 @@
     flex-basis: 33.33%;
     flex-shrink: 0;
 
+    .premium-expansion-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      svg {
+        margin-right: 0;
+      }
+    }
+
     > div {
       @include xs {
         flex-wrap: wrap;

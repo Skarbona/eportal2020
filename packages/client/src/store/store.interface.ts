@@ -13,6 +13,8 @@ import { AppStateInterface } from './app/initialState.interface';
 import { PagesStateInterface } from './pages/initialState.interface';
 import { WaitingRoomInterface } from './waitingRoom/initialState.interface';
 import { WaitingRoomActions } from './waitingRoom/action.interface';
+import { PaymentsStateInterface } from './payments/initialState.interface';
+import { PaymentsActions } from './payments/action.interface';
 
 export interface RootState {
   categories: CategoriesStateInterface;
@@ -21,6 +23,7 @@ export interface RootState {
   app: AppStateInterface;
   pages: PagesStateInterface;
   waitingRoom: WaitingRoomInterface;
+  payments: PaymentsStateInterface;
 }
 
 export type Actions =
@@ -29,7 +32,8 @@ export type Actions =
   | UserActions
   | AppActions
   | PagesActions
-  | WaitingRoomActions;
+  | WaitingRoomActions
+  | PaymentsActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, null, Action<string>>;
 

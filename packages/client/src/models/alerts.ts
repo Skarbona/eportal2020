@@ -27,6 +27,7 @@ export enum AlertTypes {
   Success = 'Success',
   SuccessEmail = 'SuccessEmail',
   SavePost = 'SavePost',
+  SomethingWentWrong = 'SomethingWentWrong',
 }
 
 export enum AlertSizes {

@@ -8,6 +8,8 @@ import categoriesRoutes from './routes/categories';
 import tokenRoutes from './routes/token';
 import pagesRoutes from './routes/pages';
 import emailsRoutes from './routes/emails';
+import paymentsRoutes from './routes/payments';
+import webhookRoutes from './routes/webhook';
 
 import errorHandler from './middlewares/error-handler';
 import unHandledRoutes from './middlewares/un-handled-routes';
@@ -18,7 +20,8 @@ import envsCheck from './startup/envs';
 envsCheck();
 const app = express();
 
-app.use(bodyParser.json());
+app.use('/api/webhook', webhookRoutes);
+app.use(express.json());
 app.use(corsHeaders);
 app.use(helmet());
 app.use('/api/posts', postsRoutes);
@@ -27,6 +30,7 @@ app.use('/api/categories', categoriesRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/token', tokenRoutes);
 app.use('/api/emails', emailsRoutes);
+app.use('/api/payments', paymentsRoutes);
 app.use(unHandledRoutes);
 app.use(errorHandler);
 

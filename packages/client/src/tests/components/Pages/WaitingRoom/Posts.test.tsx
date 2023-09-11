@@ -2,9 +2,17 @@ import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import * as redux from 'react-redux';
 
+import { Pagination } from '@material-ui/lab';
 import { PostsComponent as Posts } from '../../../../components/Pages/WaitingRoom/Posts';
 import Post from '../../../../components/Pages/WaitingRoom/Post';
 import { mockedStore } from '../../../../mocks/store';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: jest.fn(() => ({
+    page: 1,
+  })),
+}));
 
 describe('<Posts > component', () => {
   let wrapper: ShallowWrapper;
@@ -19,7 +27,7 @@ describe('<Posts > component', () => {
   });
 
   it('should have all required elements', () => {
-    wrapper = shallow(<Posts pageNumber={2} isWaitingRoomMode />);
+    wrapper = shallow(<Posts isWaitingRoomMode />);
     expect(wrapper.find(Post)).toHaveLength(0);
   });
 
@@ -31,7 +39,7 @@ describe('<Posts > component', () => {
       cats: categories.categories,
       isAdmin: true,
     });
-    wrapper = shallow(<Posts pageNumber={1} isWaitingRoomMode />);
+    wrapper = shallow(<Posts isWaitingRoomMode />);
     expect(wrapper.find(Post)).toHaveLength(3);
   });
 });

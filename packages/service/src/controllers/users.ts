@@ -76,7 +76,7 @@ export const signUp = async (
     const { accessToken, refreshToken } = createTokens(createdUser);
     res.status(201).json({ userData: user.toObject({ getters: true }), accessToken, refreshToken });
   } catch (e) {
-    return next(new HttpError('Cannot sign up', 500));
+    return next(new HttpError('Cannot sign up:' + e, 500));
   }
 };
 
@@ -99,7 +99,7 @@ export const Login = async (
       throw new Error('Not valid password');
     }
   } catch (e) {
-    return next(new HttpError('Could not identify user', 401));
+    return next(new HttpError('Could not identify user' + e, 401));
   }
 
   try {

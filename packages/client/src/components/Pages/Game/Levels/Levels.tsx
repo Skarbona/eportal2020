@@ -54,7 +54,7 @@ export const LevelsComponent: FC = () => {
     const removedPostsLS: string[][] = JSON.parse(
       window.localStorage.getItem(LocalStorage.RemovedPosts || '{}'),
     );
-    if (currentTaskLS?.id && Array.isArray(removedPostsLS)) {
+    if (Array.isArray(removedPostsLS)) {
       dispatch(saveActiveGameData(currentTaskLS, removedPostsLS));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
