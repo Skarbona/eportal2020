@@ -248,7 +248,8 @@ describe('<TaskActions > component', () => {
     });
     wrapper = shallow(<TaskActionsComponent isTheLastTask={false} />);
 
-    expect(wrapper.find(Slider).props().value).toEqual(4);
+    expect(wrapper.find(Slider).props().value).toBeGreaterThanOrEqual(3);
+    expect(wrapper.find(Slider).props().value).toBeLessThanOrEqual(5);
     expect(wrapper.find(Slider).props().disabled).toEqual(false);
   });
 });

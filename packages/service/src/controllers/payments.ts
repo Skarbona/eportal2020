@@ -17,6 +17,7 @@ export const createStripeCheckoutSession = async (
   const user = await getOrCreateCustomer(userId);
 
   const isOneMonthPlan = plan === '1 month';
+  const isOneDayPlan = plan === '1 day';
 
   const data = isOneMonthPlan
     ? { metadata: { plan } }
@@ -27,6 +28,7 @@ export const createStripeCheckoutSession = async (
       };
 
   try {
+    if (!isOneDayPlan && !isOneMonthPlan) throw new Error('Wrong Plan');
     const session = await stripe.checkout.sessions.create({
       ...data,
       customer: user.id,

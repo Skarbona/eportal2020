@@ -52,21 +52,31 @@ export const PremiumUserSection: FC = () => {
       <Grid item sm={12} md={5}>
         <Card className="primary-gradient-bg">
           <CardContent style={{ textAlign: 'center' }}>
-            <Typography gutterBottom variant="h4" component="h2">
+            <Typography data-test="premium-type" gutterBottom variant="h4" component="h2">
               {isMonthPlan && t('Monthly Subscription')}
               {isDayPlan && t('24h Subscription')}
             </Typography>
             {currentPeriodEnd && (
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography data-test="active-to" variant="body2" color="textSecondary" component="p">
                 {t('Active to')}: {getDateWithTime(currentPeriodEnd)}
               </Typography>
             )}
             {cancelledSubscription && (
               <>
-                <Typography gutterBottom variant="h4" component="h2">
+                <Typography
+                  data-test="canceled-subscription-title"
+                  gutterBottom
+                  variant="h4"
+                  component="h2"
+                >
                   {t('Subscription is cancelled')}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography
+                  data-test="canceled-subscription-description"
+                  variant="body2"
+                  color="textSecondary"
+                  component="p"
+                >
                   {t('You can use this subscription to the end of period')}
                 </Typography>
               </>
@@ -76,6 +86,7 @@ export const PremiumUserSection: FC = () => {
             <CardContent style={{ textAlign: 'center' }}>
               <Button
                 fullWidth
+                data-test="cancel-button"
                 onClick={handleCancelSubscription}
                 className="cancel-button"
                 variant="contained"
@@ -84,7 +95,12 @@ export const PremiumUserSection: FC = () => {
               >
                 {t('Cancel subscription')}
               </Button>
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography
+                data-test="cancel-description"
+                variant="body2"
+                color="textSecondary"
+                component="p"
+              >
                 {t('You can cancel this subscription at any time.')}
               </Typography>
             </CardContent>

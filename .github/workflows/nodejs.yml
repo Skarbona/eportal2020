@@ -40,6 +40,9 @@ jobs:
           EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
+          ONE_MONTH_ACCESS: ${{ secrets.ONE_MONTH_ACCESS }}
+          ONE_DAY_ACCESS: ${{ secrets.ONE_DAY_ACCESS }}
       - run: npm run lerna:build
         env:
           DB_USER: ${{ secrets.DB_USER }}
@@ -52,6 +55,9 @@ jobs:
           EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          STRIPE_SECRET: ${{ secrets.STRIPE_SECRET }}
+          ONE_MONTH_ACCESS: ${{ secrets.ONE_MONTH_ACCESS }}
+          ONE_DAY_ACCESS: ${{ secrets.ONE_DAY_ACCESS }}
       - run: npm run test:coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1

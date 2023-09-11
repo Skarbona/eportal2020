@@ -18,24 +18,22 @@ export const PaymentForm: FC = () => {
   const handleSubmit = async (event: SubmitEvent) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
-    event.preventDefault();
+    event?.preventDefault();
 
     if (!stripe || !elements) {
       return;
     }
 
-    const { id: sessionId } = await dispatch(getSessionId(subscription));
+    const data = await dispatch(getSessionId(subscription));
 
-    const { error } = await stripe.redirectToCheckout({
-      sessionId,
-    });
-
-    if (error) {
-      // TODO: DISPLAY ERROR MESSAGE
+    if (data?.id) {
+      await stripe.redirectToCheckout({
+        sessionId: data.id,
+      });
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form data-test="form" onSubmit={handleSubmit}>
       <div className="premium-features">
         <StarRateSharp color="primary" />
         <Typography>{t('Unlimited amount of tasks per level')} </Typography>
@@ -49,6 +47,7 @@ export const PaymentForm: FC = () => {
       <div className="plan-selection">
         <Button
           size="large"
+          data-test="one-day-button"
           variant={subscription === '1 day' ? 'contained' : 'text'}
           color="primary"
           onClick={() => setSubscription('1 day')}
@@ -57,6 +56,7 @@ export const PaymentForm: FC = () => {
         </Button>
         <Button
           size="large"
+          data-test="one-month-button"
           variant={subscription === '1 month' ? 'contained' : 'text'}
           color="primary"
           onClick={() => setSubscription('1 month')}
@@ -66,7 +66,7 @@ export const PaymentForm: FC = () => {
       </div>
       <div className="info-section">
         <InfoOutlined color="primary" />
-        <Typography color="primary">
+        <Typography color="primary" data-test="description">
           {subscription === '1 month' ? t('1 month subscription') : t('1 day access only')}
         </Typography>
       </div>
@@ -74,6 +74,7 @@ export const PaymentForm: FC = () => {
         <Button
           type="submit"
           size="large"
+          data-test="checkout-button"
           variant="outlined"
           color="primary"
           disabled={!stripe || !elements}

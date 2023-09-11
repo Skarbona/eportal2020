@@ -146,3 +146,14 @@ export const savePost = (
     .send(!body ? sendBody : { ...body })
     .set('Authorization', `Bearer ${token}`);
 };
+
+export const createStripeCheckoutSession = (
+  server: Server,
+  body: { plan: '1 month' | '1 day' },
+  token: string,
+): Promise<Response> => {
+  return request(server)
+    .post('/api/payments/subscriptions')
+    .send(body)
+    .set('Authorization', `Bearer ${token}`);
+};

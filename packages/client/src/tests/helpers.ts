@@ -8,10 +8,10 @@ export const createMatchMedia = (width: number) => (query: any) => ({
   removeListener: () => {},
 });
 
-const ONE_DAY = 60 * 60 * 24 * 1000;
-const ONE_MONTH = ONE_DAY * 30;
-export const premiumUser = (period: '24h' | '1 month' = '1 month') => ({
-  activePlan: period === '24h' ? ONE_DAY_ACCESS : MONTH_PLAN_ID,
+export const ONE_DAY = 60 * 60 * 24 * 1000;
+export const ONE_MONTH = ONE_DAY * 30;
+export const premiumUser = (period: '24h' | '1 month' = '1 month', cancelled: boolean = false) => ({
+  activePlan: period === '24h' ? ONE_DAY_ACCESS : cancelled ? '' : MONTH_PLAN_ID,
   currentPeriodEnd:
     period === '24h'
       ? new Date(new Date().getTime() + ONE_DAY)
