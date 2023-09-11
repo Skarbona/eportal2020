@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { Server } from 'http';
 
-import Post from '../../../models/post';
 import User from '../../../models/user';
 import appStartUp from '../../../app';
 import { signUpUser, createStripeCheckoutSession } from '../../../utils/test-basic-calls';
@@ -14,7 +13,6 @@ describe('Controller: Payments', () => {
   });
 
   afterEach(async () => {
-    await Post.deleteMany({});
     await User.deleteMany({ name: { $ne: 'eportal_admin' } });
   });
 
