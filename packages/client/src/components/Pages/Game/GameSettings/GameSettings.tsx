@@ -1,5 +1,5 @@
 import React, { FC, memo, useState, useEffect } from 'react';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import './GameSettings.scss';
 
@@ -29,6 +29,7 @@ import { useGameSettingsSelector } from './selector-hooks';
 import { FormValidation } from './Interfaces';
 import { usePremiumUser } from '../../../../hooks/usePremiumUser';
 import { PageParams } from '../../../../models/page-types';
+import { PremiumStar } from '../../../Shared/UIElements/PremiumStar';
 
 export const GameSettingComponent: FC = () => {
   const dispatch = useReduxDispatch();
@@ -70,7 +71,7 @@ export const GameSettingComponent: FC = () => {
         {loading && <CircleLoading />}
         {defaults && cats && (
           <form onSubmit={onSubmitHandler}>
-            {!isPremium && (
+            {!isPremium ? (
               <Button
                 component={Link}
                 to={PageParams.PremiumPayment}
@@ -82,6 +83,11 @@ export const GameSettingComponent: FC = () => {
               >
                 {t('Do you want to unblock all features?')}
               </Button>
+            ) : (
+              <Typography color="primary">
+                <PremiumStar color="primary" />
+                {t('You have Premium')}
+              </Typography>
             )}
             <Grid container direction="column">
               <PlayersNames defaults={defaults.names} />
