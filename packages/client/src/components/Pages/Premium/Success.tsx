@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { Button, Typography } from '@material-ui/core';
-import { StarBorderSharp } from '@material-ui/icons';
 import PageContainer from '../../Shared/PageElements/PageContainer/PageContainer';
 import PageHeading from '../../Shared/PageElements/PageHeading/PageHeading';
 import { PageParams } from '../../../models/page-types';
