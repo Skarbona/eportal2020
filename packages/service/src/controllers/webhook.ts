@@ -28,14 +28,14 @@ export const listenStripe = async (
 
   if (webhookSecret) {
     let event;
-    const signature = req.headers['stripe-signature'];
     try {
+      const signature = req.headers['stripe-signature'];
       event = stripe.webhooks.constructEvent(req.body, signature, webhookSecret);
+      data = event.data;
+      eventType = event.type;
     } catch (e) {
       return next(new HttpError('Webhook signature verification failed.' + e, 401));
     }
-    data = event.data;
-    eventType = event.type;
   } else {
     return next(new HttpError('Webhook signature verification failed. webhookSecret empty', 401));
   }
@@ -159,7 +159,6 @@ export const listenStripe = async (
             to: user.email,
             ...content,
           });
-          // TODO: account after 1 month?
           await transporter.sendMail({
             from: `<${EMAIL_USER}>`,
             to: EMAIL_USER,
