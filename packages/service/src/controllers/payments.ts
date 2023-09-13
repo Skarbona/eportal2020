@@ -14,20 +14,20 @@ export const createStripeCheckoutSession = async (
   const { plan } = req.body;
   const { userId } = req.userData;
 
-  const user = await getOrCreateCustomer(userId);
-
-  const isOneMonthPlan = plan === '1 month';
-  const isOneDayPlan = plan === '1 day';
-
-  const data = isOneMonthPlan
-    ? { metadata: { plan } }
-    : {
-        payment_intent_data: {
-          metadata: { plan: ONE_DAY_ACCESS },
-        },
-      };
-
   try {
+    const user = await getOrCreateCustomer(userId);
+
+    const isOneMonthPlan = plan === '1 month';
+    const isOneDayPlan = plan === '1 day';
+
+    const data = isOneMonthPlan
+      ? { metadata: { plan } }
+      : {
+          payment_intent_data: {
+            metadata: { plan: ONE_DAY_ACCESS },
+          },
+        };
+
     if (!isOneDayPlan && !isOneMonthPlan) throw new Error('Wrong Plan');
     const session = await stripe.checkout.sessions.create({
       ...data,
