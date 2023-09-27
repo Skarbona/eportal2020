@@ -77,6 +77,7 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
       const sound = new Audio('./media/audio/girl-sighs.mp3');
       await sound.play();
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.warn(e);
     }
   }, []);
