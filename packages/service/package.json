@@ -27,7 +27,7 @@
     "express-validator": "^6.4.0",
     "helmet": "^4.1.1",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^5.9.7",
+    "mongoose": "^5.13.20",
     "mongoose-unique-validator": "^2.0.3",
     "nodemailer": "^6.4.6",
     "sanitize-html": "^2.1.1",
