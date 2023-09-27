@@ -72,6 +72,16 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const playEndSound = useCallback(async () => {
+    try {
+      const sound = new Audio('./media/audio/girl-sighs.mp3');
+      await sound.play();
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(e);
+    }
+  }, []);
+
   useEffect(() => {
     const initialTime = U.randomizeTime(time, isPremium);
     setGameTime(initialTime);
@@ -81,6 +91,7 @@ export const TaskActionsComponent: FC<Props> = ({ isTheLastTask }) => {
 
   useEffect(() => {
     if (seconds <= 0) {
+      playEndSound();
       endTimerHandler();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
