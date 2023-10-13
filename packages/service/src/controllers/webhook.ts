@@ -77,13 +77,32 @@ export const listenStripe = async (
     case 'invoice.paid':
       {
         try {
-          const transporter = createEmailTransporter();
-          const content = successfullyPayment(Language.PL);
-          await transporter.sendMail({
-            from: `<${EMAIL_USER}>`,
-            to: user.email,
-            ...content,
-          });
+          if (typedData.object.billing_reason === 'subscription_cycle') {
+            const plan = typedData.object.lines.data[0].plan.id;
+            const date = new Date();
+            const backupDate = new Date(date.setMonth(date.getMonth() + 1));
+            const currentPeriodEnd = typedData.object.lines.data[0].period.end;
+            user.activePlan = plan;
+            user.currentPeriodEnd = currentPeriodEnd
+              ? new Date(currentPeriodEnd * 1000)
+              : backupDate;
+            await user.save();
+            const transporter = createEmailTransporter();
+            const content = account1montActivation(Language.PL, currentPeriodEnd.toString());
+            await transporter.sendMail({
+              from: `<${EMAIL_USER}>`,
+              to: user.email,
+              ...content,
+            });
+          } else {
+            const transporter = createEmailTransporter();
+            const content = successfullyPayment(Language.PL);
+            await transporter.sendMail({
+              from: `<${EMAIL_USER}>`,
+              to: user.email,
+              ...content,
+            });
+          }
         } catch (e) {
           return next(new HttpError('Something went wrong: ' + e, 500));
         }
