@@ -88,7 +88,10 @@ export const listenStripe = async (
               : backupDate;
             await user.save();
             const transporter = createEmailTransporter();
-            const content = account1montActivation(Language.PL, currentPeriodEnd.toString());
+            const content = account1montActivation(
+              Language.PL,
+              new Date(currentPeriodEnd * 1000).toString(),
+            );
             await transporter.sendMail({
               from: `<${EMAIL_USER}>`,
               to: user.email,
