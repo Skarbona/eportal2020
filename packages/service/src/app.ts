@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import helmet from 'helmet';
 
 import postsRoutes from './routes/posts';
@@ -21,7 +20,7 @@ envsCheck();
 const app = express();
 
 app.use('/api/webhook', webhookRoutes);
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 app.use(corsHeaders);
 app.use(helmet());
 app.use('/api/posts', postsRoutes);
