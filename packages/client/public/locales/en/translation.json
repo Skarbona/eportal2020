@@ -59,6 +59,7 @@
   "Delete an Account": "Delete an Account",
   "Added Tasks": "Added Tasks",
   "Approved Tasks": "Approved Tasks",
+  "You can't delete account with premium account.": "You can't delete account with premium account. Cancel subscription first and wait until the end of period.",
   "Please confirm account deletion by typing your email": "Please confirm account deletion by typing your email. This action is irreversible. After deleting your account, you will be logged out.",
   "Type your email": "Type your email",
   "After password changed you will be log off": "After changing your password, you will be logged out",

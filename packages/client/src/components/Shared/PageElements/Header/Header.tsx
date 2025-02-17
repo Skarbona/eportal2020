@@ -39,7 +39,7 @@ export const HeaderComponent: FC<Props> = ({ accessToken }) => {
 
   const game = links.GameLink(t('Play!'));
   const profile = links.ProfileLink(t('Profile'), isMobile);
-  const premium = links.PremiumLink(t('Premium'), isMobile);
+  const premium = links.PremiumLink(t('Premium'));
   const logout = links.LogoutLink(t('Logout'), logoutHandler);
   const login = links.LoginLink(t('Log in'));
   const register = links.RegisterLink(t('Register'));

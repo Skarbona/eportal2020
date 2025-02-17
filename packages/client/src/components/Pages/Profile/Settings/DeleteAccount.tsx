@@ -12,6 +12,7 @@ import { useReduxDispatch } from '../../../../store/helpers';
 import { AlertTypes } from '../../../../models/alerts';
 import ConfirmAccountDelete from '../../../Shared/Form/ConfirmAccountDelete';
 import LoadingButton from '../../../Shared/Form/LoadingButton';
+import { usePremiumUser } from '../../../../hooks/usePremiumUser';
 
 interface DeleteAccountSelectorProps {
   email: string;
@@ -23,6 +24,8 @@ interface DeleteAccountSelectorProps {
 export const DeleteAccountComponent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useReduxDispatch();
+  const { isPremium } = usePremiumUser();
+
   const { email, error, type, isLoading } = useSelector<RootState, DeleteAccountSelectorProps>(
     ({ user }) => ({
       email: user.userData.email,
@@ -44,14 +47,19 @@ export const DeleteAccountComponent: FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Typography>{t('Please confirm account deletion by typing your email')}</Typography>
+      <Typography color="error">
+        {isPremium
+          ? t("You can't delete account with premium account.")
+          : t('Please confirm account deletion by typing your email')}
+      </Typography>
       <ConfirmAccountDelete
+        disabled={isPremium}
         confirmAccountDelete={inputs.confirmAccountDelete}
         confirmAccountDeleteChanged={confirmAccountDeleteChanged}
         email={email}
       />
       <AlertHandler error={error} type={type} />
-      <LoadingButton disabled={!isFormValid} isLoading={isLoading}>
+      <LoadingButton disabled={!isFormValid || isPremium} isLoading={isLoading}>
         {t('Delete an Account')}
       </LoadingButton>
     </form>
