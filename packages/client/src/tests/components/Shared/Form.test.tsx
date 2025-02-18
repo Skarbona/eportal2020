@@ -68,6 +68,7 @@ describe('Form components', () => {
     let props: DeleteProps;
     beforeEach(() => {
       props = {
+        disabled: false,
         email: chance.email(),
         confirmAccountDelete: null,
         confirmAccountDeleteChanged: jest.fn(),

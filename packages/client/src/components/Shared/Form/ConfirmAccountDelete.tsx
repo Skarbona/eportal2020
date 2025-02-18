@@ -9,16 +9,19 @@ export interface Props {
   confirmAccountDeleteChanged(value: string, userEmail: string): void;
   email: string;
   confirmAccountDelete: FormState['inputs']['confirmAccountDelete'];
+  disabled: boolean;
 }
 
 export const ConfirmAccountDeleteComponent: FC<Props> = ({
   confirmAccountDelete,
   confirmAccountDeleteChanged,
   email,
+  disabled,
 }) => {
   const { t } = useTranslation();
   return (
     <TextField
+      disabled={disabled}
       variant="filled"
       margin="normal"
       required

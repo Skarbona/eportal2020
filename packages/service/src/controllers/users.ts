@@ -17,11 +17,12 @@ export const signUp = async (
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
-  const { userName, email, password } = req.body;
+  const { userName, email: passedEmail, password } = req.body;
   const userType = req.userData?.type;
-
+  let email;
   let existingUser;
   try {
+    email = (passedEmail as string)?.toLocaleLowerCase?.();
     existingUser = await User.findOne({ $or: [{ email }, { name: userName }] });
   } catch (e) {
     console.log(e);
