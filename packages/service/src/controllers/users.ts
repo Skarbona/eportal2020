@@ -8,7 +8,7 @@ import { UserType } from '../models/shared-interfaces/user';
 import { TimeMode } from '../../../client/src/models/game-models';
 import { createTokens } from '../utils/tokens';
 import { resetPasswordTemplate } from '../templetes/emails/reset-password';
-import { Language } from '../models/languages';
+import { LanguageApp } from '../models/languages';
 import { EMAIL_USER } from '../constants/envs';
 import createEmailTransporter from '../utils/create-transport';
 
@@ -120,8 +120,6 @@ export const resetPassword = async (
   next: NextFunction,
 ): Promise<void | Response> => {
   const { email } = req.body;
-  const { lang } = req.query;
-
   let user;
 
   try {
@@ -138,7 +136,7 @@ export const resetPassword = async (
 
     const { resetToken } = createTokens(user);
 
-    const { subject, text } = resetPasswordTemplate(resetToken, lang as Language);
+    const { subject, text } = resetPasswordTemplate(resetToken, LanguageApp);
 
     await transporter.sendMail({
       from: `<${EMAIL_USER}>`,
