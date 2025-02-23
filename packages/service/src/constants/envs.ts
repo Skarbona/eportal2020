@@ -2,6 +2,8 @@ import { config } from 'dotenv';
 
 config();
 
+export const LANGUAGE = process.env.LANGUAGE;
+
 export const NODE_ENV = process.env.NODE_ENV;
 export const ADMIN_TEST_USER = process.env.ADMIN_TEST_USER;
 export const ADMIN_TEST_PASS = process.env.ADMIN_TEST_PASS;

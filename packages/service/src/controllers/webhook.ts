@@ -15,7 +15,7 @@ import {
   subscriptionRemoval,
   successfullyPayment,
 } from '../templetes/emails/subscriptions';
-import { Language } from '../models/languages';
+import { LanguageApp } from '../models/languages';
 
 export const listenStripe = async (
   req: Request,
@@ -62,7 +62,7 @@ export const listenStripe = async (
       {
         try {
           const transporter = createEmailTransporter();
-          const content = checkoutSessionSuccess(Language.PL);
+          const content = checkoutSessionSuccess(LanguageApp);
           await transporter.sendMail({
             from: `<${EMAIL_USER}>`,
             to: user.email,
@@ -89,7 +89,7 @@ export const listenStripe = async (
             await user.save();
             const transporter = createEmailTransporter();
             const content = account1montActivation(
-              Language.PL,
+              LanguageApp,
               new Date(currentPeriodEnd * 1000).toString(),
             );
             await transporter.sendMail({
@@ -99,7 +99,7 @@ export const listenStripe = async (
             });
           } else {
             const transporter = createEmailTransporter();
-            const content = successfullyPayment(Language.PL);
+            const content = successfullyPayment(LanguageApp);
             await transporter.sendMail({
               from: `<${EMAIL_USER}>`,
               to: user.email,
@@ -116,7 +116,7 @@ export const listenStripe = async (
       {
         try {
           const transporter = createEmailTransporter();
-          const content = failedPayment(Language.PL);
+          const content = failedPayment(LanguageApp);
           await transporter.sendMail({
             from: `<${EMAIL_USER}>`,
             to: user.email,
@@ -141,7 +141,7 @@ export const listenStripe = async (
             user.currentPeriodEnd = currentPeriodEnd;
             await user.save();
             const transporter = createEmailTransporter();
-            const content = account24hActivation(Language.PL, currentPeriodEnd.toString());
+            const content = account24hActivation(LanguageApp, currentPeriodEnd.toString());
             await transporter.sendMail({
               from: `<${EMAIL_USER}>`,
               to: user.email,
@@ -175,7 +175,7 @@ export const listenStripe = async (
           user.currentPeriodEnd = new Date(currentPeriodEnd * 1000);
           await user.save();
           const transporter = createEmailTransporter();
-          const content = account1montActivation(Language.PL, currentPeriodEnd.toString());
+          const content = account1montActivation(LanguageApp, currentPeriodEnd.toString());
           await transporter.sendMail({
             from: `<${EMAIL_USER}>`,
             to: user.email,
@@ -205,7 +205,7 @@ export const listenStripe = async (
           user.activePlan = '';
           await user.save();
           const transporter = createEmailTransporter();
-          const content = subscriptionRemoval(Language.PL);
+          const content = subscriptionRemoval(LanguageApp);
           await transporter.sendMail({
             from: `<${EMAIL_USER}>`,
             to: user.email,
