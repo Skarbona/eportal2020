@@ -145,7 +145,7 @@ export const AuthHOC: FC = () => {
           refreshTokenData: { refreshToken, refreshTokenExpiration: refreshTokenExpirationDate },
         } as Login),
       );
-    } else if (![PageParams.Register, PageParams.Login].includes(pathname as PageParams)) {
+    } else if (![PageParams.Register, PageParams.Login].includes(pathname)) {
       dispatch(logout());
     } else {
       dispatch(finishAuthorization());
@@ -158,7 +158,7 @@ export const AuthHOC: FC = () => {
     if (
       !accToken?.length &&
       !!prevAccToken?.accToken?.length &&
-      ![PageParams.Register, PageParams.Login].includes(pathname as PageParams)
+      ![PageParams.Register, PageParams.Login].includes(pathname)
     ) {
       history.push(PageParams.Home);
     }

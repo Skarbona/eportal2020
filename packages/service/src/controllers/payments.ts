@@ -4,6 +4,7 @@ import HttpError from '../models/http-error';
 import { stripe } from '../startup/app';
 import { ONE_DAY_ACCESS, ONE_MONTH_ACCESS, PORTAL_ADRESS } from '../constants/envs';
 import { getOrCreateCustomer } from '../utils/getOrCreateCustomer';
+import { LanguageApp } from '../models/languages';
 
 export const createStripeCheckoutSession = async (
   req: Request,
@@ -39,8 +40,11 @@ export const createStripeCheckoutSession = async (
           quantity: 1,
         },
       ],
-      success_url: `${url}/sukces-platnosci?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${url}/brak-platnosci`,
+      success_url:
+        LanguageApp === 'en'
+          ? `${url}/payment-success?session_id={CHECKOUT_SESSION_ID}`
+          : `${url}/sukces-platnosci?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: LanguageApp === 'en' ? `${url}/no-payment` : `${url}/brak-platnosci`,
     });
 
     res.json(session);
