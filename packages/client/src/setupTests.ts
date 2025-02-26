@@ -8,7 +8,7 @@ import { initialRootState as mockedState } from './store/store';
 
 configure({ adapter: new Adapter() });
 
-jest.mock('react-ga', () => ({
+jest.mock('react-ga4', () => ({
   initialize: () => jest.fn(),
   pageview: () => jest.fn(),
 }));
