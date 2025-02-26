@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() });
 
 jest.mock('react-ga4', () => ({
   initialize: () => jest.fn(),
-  pageview: () => jest.fn(),
+  send: () => jest.fn(),
 }));
 
 jest.mock('react-redux', () => ({
