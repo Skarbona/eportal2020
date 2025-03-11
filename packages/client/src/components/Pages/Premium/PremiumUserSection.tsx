@@ -131,7 +131,7 @@ export const PremiumUserSection: FC = () => {
                       return (
                         <TableRow key={transaction.id}>
                           <TableCell component="th" scope="row">
-                            {transaction.amount ? transaction.amount / 100 : '-'} PLN
+                            {transaction.amount ? transaction.amount / 100 : '-'} {t('currency')}
                           </TableCell>
                           <TableCell align="right">
                             <div>{transactionDate ? getDateWithTime(transactionDate) : '-'}</div>
