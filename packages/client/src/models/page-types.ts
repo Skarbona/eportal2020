@@ -1,7 +1,7 @@
 import { LANGUAGE } from '../constants/envs';
 
 const PageParamsPL = {
-  Auth: '/autentykacja',
+  Auth: 'autentykacja',
   Register: '/autentykacja/rejestracja',
   Login: '/autentykacja/logowanie',
   Game: '/gra',
