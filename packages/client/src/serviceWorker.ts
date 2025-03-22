@@ -39,8 +39,9 @@ export function register(config?: Config) {
 
     window.addEventListener('load', () => {
       const swUrl = `${PUBLIC_URL}/service-worker.js`;
+      const tempDisable = true;
 
-      if (isLocalhost) {
+      if (isLocalhost && !tempDisable) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
 
@@ -52,7 +53,7 @@ export function register(config?: Config) {
               'worker. To learn more, visit https://bit.ly/CRA-PWA',
           );
         });
-      } else {
+      } else if (!tempDisable) {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config);
       }
