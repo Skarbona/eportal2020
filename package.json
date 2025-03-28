@@ -15,7 +15,7 @@
   "author": "Filip Sokolowski",
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
-    "axios": "^0.21.2",
+    "axios": "^0.30.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "date-fns": "^2.11.0",
