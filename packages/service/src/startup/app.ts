@@ -5,7 +5,7 @@ import Stripe from 'stripe';
 
 import { PORT, STRIPE_SECRET } from '../constants/envs';
 
-export const appServer = (app: Express): Server => app.listen(PORT || 5000);
+export const appServer = (app: Express): Server => app.listen(PORT || 5020);
 
 export const stripe = new Stripe(STRIPE_SECRET, { apiVersion: '2022-11-15' });
 

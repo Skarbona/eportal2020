@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-const corsHeaders = (req: Request, res: Response, next: NextFunction): void => {
+const corsHeaders = (req: Request, res: Response, next: NextFunction): any => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // TODO: Restrict, env?
   res.setHeader(
     'Access-Control-Allow-Headers',

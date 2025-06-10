@@ -88,10 +88,18 @@ export const listenStripe = async (
               : backupDate;
             await user.save();
             const transporter = createEmailTransporter();
-            const content = account1montActivation(
-              LanguageApp,
-              new Date(currentPeriodEnd * 1000).toString(),
-            );
+            let dateObj;
+            if (currentPeriodEnd) {
+              dateObj = new Date(currentPeriodEnd * 1000);
+            } else {
+              dateObj = backupDate;
+            }
+            const formattedDate = dateObj.toLocaleDateString(LanguageApp, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            });
+            const content = account1montActivation(LanguageApp, formattedDate);
             await transporter.sendMail({
               from: `<${EMAIL_USER}>`,
               to: user.email,
@@ -141,7 +149,12 @@ export const listenStripe = async (
             user.currentPeriodEnd = currentPeriodEnd;
             await user.save();
             const transporter = createEmailTransporter();
-            const content = account24hActivation(LanguageApp, currentPeriodEnd.toString());
+            const formattedDate = currentPeriodEnd.toLocaleDateString(LanguageApp, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            });
+            const content = account24hActivation(LanguageApp, formattedDate);
             await transporter.sendMail({
               from: `<${EMAIL_USER}>`,
               to: user.email,
@@ -175,7 +188,13 @@ export const listenStripe = async (
           user.currentPeriodEnd = new Date(currentPeriodEnd * 1000);
           await user.save();
           const transporter = createEmailTransporter();
-          const content = account1montActivation(LanguageApp, currentPeriodEnd.toString());
+          const dateObj = new Date(currentPeriodEnd * 1000);
+          const formattedDate = dateObj.toLocaleDateString(LanguageApp, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+          const content = account1montActivation(LanguageApp, formattedDate);
           await transporter.sendMail({
             from: `<${EMAIL_USER}>`,
             to: user.email,
