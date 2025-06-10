@@ -7,6 +7,7 @@ import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
 import createEmailTransporter from '../utils/create-transport';
 import { EMAIL_USER } from '../constants/envs';
+import { logControllerError } from '../utils/error-logs';
 
 export const savePosts = async (
   req: Request,
@@ -34,6 +35,7 @@ export const savePosts = async (
     await post.save();
     res.json({ post: post.toObject({ getters: true }) });
   } catch (e) {
+    logControllerError('savePosts', e);
     return next(new HttpError('Something went wrong, could not update post', 500));
   }
 };
@@ -71,6 +73,7 @@ export const createPosts = async (
     const posts = await Post.insertMany(createdPosts);
     res.status(201).json({ posts });
   } catch (e) {
+    logControllerError('createPosts', e);
     return next(new HttpError('Something went wrong, could not create posts', 500));
   }
 
@@ -83,6 +86,7 @@ export const createPosts = async (
       text: `Please check waiting Room, new post was added`,
     });
   } catch (e) {
+    logControllerError('createPosts', e);
     return next();
   }
 };
@@ -142,8 +146,7 @@ export const getPosts = async (
       posts: posts.map((post) => post.toObject({ getters: true })),
     });
   } catch (e) {
-    // TODO: Add errors logging
-    console.log(e);
+    logControllerError('getPosts', e);
     return next(new HttpError('Something went wrong, could not find posts', 500));
   }
 };

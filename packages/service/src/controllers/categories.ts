@@ -5,6 +5,7 @@ import sanitizeHtml from 'sanitize-html';
 import Category, { CategoryRequestInterface } from '../models/category';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
+import { logControllerError } from '../utils/error-logs';
 
 export const createCategories = async (
   req: Request,
@@ -42,6 +43,7 @@ export const createCategories = async (
     await session.commitTransaction();
     res.status(201).json({ categories: createdCategories });
   } catch (e) {
+    logControllerError('createCategory', e);
     return next(new HttpError('Something went wrong, could not create categories', 500));
   }
 };
@@ -68,6 +70,7 @@ export const getCategories = async (
     }
     res.json({ categories: categories.map((category) => category.toObject({ getters: true })) });
   } catch (e) {
+    logControllerError('getCategories', e);
     return next(new HttpError('Something went wrong, could not find categories', 500));
   }
 };
