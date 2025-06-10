@@ -1,5 +1,6 @@
 export interface DataObject {
   object: {
+    payment_intent: string;
     billing_reason: 'subscription_cycle';
     customer: string;
     // it is unix timestamp

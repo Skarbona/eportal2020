@@ -123,6 +123,22 @@ export const listenStripe = async (
     case 'invoice.payment_failed':
       {
         try {
+          const invoiceObj = typedData.object;
+          const paymentIntentId = invoiceObj.payment_intent;
+          let paymentIntent;
+          if (paymentIntentId) {
+            paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+          }
+
+          if (
+            paymentIntent &&
+            (paymentIntent.status === 'requires_action' || paymentIntent.status === 'processing')
+          ) {
+            // Do not send an email, as the customer may still confirm the payment
+            break;
+          }
+
+          // If the paymentIntent is canceled or requires_payment_method, then the payment has actually failed
           const transporter = createEmailTransporter();
           const content = failedPayment(LanguageApp);
           await transporter.sendMail({
