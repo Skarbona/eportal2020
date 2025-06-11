@@ -4,6 +4,17 @@ import appStartUp from '../../../app';
 import User from '../../../models/user';
 import { loginAdmin, signUpUser } from '../../../utils/test-basic-calls';
 import { ServerWithClose } from '../../../utils/server-interface';
+import nodemailer from 'nodemailer';
+
+jest.mock('nodemailer', () => {
+  const original = jest.requireActual('nodemailer');
+  return {
+    ...original,
+    createTransport: () => ({
+      sendMail: jest.fn().mockResolvedValue({ messageId: 'mocked' }),
+    }),
+  };
+});
 
 const endpoint = '/api/users/';
 
