@@ -41,7 +41,7 @@ export const createCategories = async (
     });
     const createdCategories = await Category.insertMany(newCategories);
     await session.commitTransaction();
-    res.status(201).json({ categories: createdCategories });
+    return res.status(201).json({ categories: createdCategories });
   } catch (e) {
     logControllerError('createCategory', e);
     return next(new HttpError('Something went wrong, could not create categories', 500));

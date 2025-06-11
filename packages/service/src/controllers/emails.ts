@@ -16,12 +16,13 @@ export const contactForm = async (
     const transporter = createEmailTransporter();
 
     await transporter.sendMail({
-      from: `<${email}>`,
+      from: `<${EMAIL_USER}>`,
       to: EMAIL_USER,
+      replyTo: email,
       subject: 'New email from contact Form!',
       text: message,
     });
-    res.status(202).json({ msg: 'Message was send!' });
+    return res.status(202).json({ msg: 'Message was send!' });
   } catch (e) {
     logControllerError('sendEmail', e);
     return next(new HttpError('Something went wrong, could not sent an email', 500));
