@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import sanitizeHtml from 'sanitize-html';
+import mongoose from 'mongoose';
 
-import Post from '../models/post';
+import Post, { PostDocumentInterface } from '../models/post';
 import { PostRequestInterface, PostStatus } from '../models/shared-interfaces/post';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
@@ -9,14 +10,18 @@ import createEmailTransporter from '../utils/create-transport';
 import { EMAIL_USER } from '../constants/envs';
 import { logControllerError } from '../utils/error-logs';
 
+interface SavePostBody {
+  post: PostDocumentInterface;
+}
+
 export const savePosts = async (
-  req: Request,
+  req: Request<Record<string, unknown>, Record<string, unknown>, SavePostBody>,
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
   const {
     post: { id, content, categories, status },
-  } = req.body;
+  } = (req as { body: SavePostBody }).body;
   let post;
   try {
     post = await Post.findById(id);
@@ -30,7 +35,13 @@ export const savePosts = async (
   try {
     if (content?.content) post.content.content = sanitizeHtml(content.content);
     if (content?.title) post.content.title = sanitizeHtml(content.title);
-    if (categories) post.categories = categories;
+    if (categories)
+      post.categories = categories.map(
+        (id) =>
+          mongoose.Types.ObjectId.createFromHexString(
+            id as unknown as string,
+          ) as unknown as PostDocumentInterface['categories'][0],
+      );
     if (status) post.status = status as PostStatus;
     await post.save();
     res.json({ post: post.toObject({ getters: true }) });
@@ -71,7 +82,9 @@ export const createPosts = async (
 
   try {
     const posts = await Post.insertMany(createdPosts);
-    res.status(201).json({ posts });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    req.status(201).json({ posts });
   } catch (e) {
     logControllerError('createPosts', e);
     return next(new HttpError('Something went wrong, could not create posts', 500));

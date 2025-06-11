@@ -1,12 +1,12 @@
 import request from 'supertest';
-import { Server } from 'http';
 
 import appStartUp from '../../../app';
+import { ServerWithClose } from '../../../utils/server-interface';
 
 const endpoint = '/api/emails/';
 
 describe('Controller: Emails', () => {
-  let server: Server;
+  let server: ServerWithClose;
 
   beforeAll(async () => {
     server = await appStartUp;
