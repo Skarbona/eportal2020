@@ -4,7 +4,8 @@ import { PostBasicInterface, PostStatus } from './shared-interfaces/post';
 export interface PostDocumentInterface extends PostBasicInterface, Document {
   date: Date;
   slug: string;
-  categories: typeof Schema.Types.ObjectId[];
+  // prettier-ignore
+  categories: (typeof Schema.Types.ObjectId)[];
   status: PostStatus;
   author: typeof Schema.Types.ObjectId;
 }

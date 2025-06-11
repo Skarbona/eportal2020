@@ -9,7 +9,11 @@ export const getCategories = (server: Server, token: string): Promise<Response> 
   return request(server).get('/api/categories').set('Authorization', `Bearer ${token}`);
 };
 
-export const createCategories = (server: Server, token: string, body?: any): Promise<Response> => {
+export const createCategories = (
+  server: Server,
+  token: string,
+  body?: Record<string, unknown>,
+): Promise<Response> => {
   const sendBody = {
     categories: [
       { name: 'cat no1', description: 'description1' },
@@ -47,7 +51,7 @@ export const createPage = (
   server: Server,
   token: string,
   authorId: string,
-  body?: any,
+  body?: Record<string, unknown>,
 ): Promise<Response> => {
   const sendBody = {
     content: {
@@ -67,7 +71,7 @@ export const updatePage = (
   server: Server,
   token: string,
   slug: string,
-  body?: any,
+  body?: Record<string, unknown>,
 ): Promise<Response> => {
   const sendBody = {
     content: {
@@ -86,7 +90,7 @@ export const createPosts = (
   server: Server,
   token: string,
   authorId: string,
-  body?: any,
+  body?: Record<string, unknown>,
 ): Promise<Response> => {
   const sendBody = {
     posts: [
@@ -128,7 +132,7 @@ export const savePost = (
   token: string,
   authorId: string,
   postId?: string,
-  body?: any,
+  body?: Record<string, unknown>,
 ): Promise<Response> => {
   const sendBody = {
     post: {

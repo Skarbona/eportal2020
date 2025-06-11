@@ -2,10 +2,12 @@ import mongoose, { Document, Schema, Model } from 'mongoose';
 import { CategoryBasicInterface } from './shared-interfaces/category';
 
 export interface CategoryDocumentInterface extends CategoryBasicInterface, Document {
+  // prettier-ignore
   children?: typeof Schema.Types.ObjectId[];
 }
 
 export interface CategoryRequestInterface extends CategoryBasicInterface {
+  // prettier-ignore
   parent?: typeof Schema.Types.ObjectId[];
 }
 
