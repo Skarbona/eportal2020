@@ -82,9 +82,7 @@ export const createPosts = async (
 
   try {
     const posts = await Post.insertMany(createdPosts);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    req.status(201).json({ posts });
+    res.status(201).json({ posts });
   } catch (e) {
     logControllerError('createPosts', e);
     return next(new HttpError('Something went wrong, could not create posts', 500));

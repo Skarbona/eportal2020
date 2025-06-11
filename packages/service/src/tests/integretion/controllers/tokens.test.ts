@@ -8,7 +8,10 @@ import { ServerWithClose } from '../../../utils/server-interface';
 
 describe('Controller: Tokens', () => {
   let server: ServerWithClose;
-  server.close();
+
+  afterAll(() => {
+    server.close();
+  });
 
   beforeAll(async () => {
     server = await appStartUp;
