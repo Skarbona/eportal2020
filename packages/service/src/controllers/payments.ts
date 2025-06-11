@@ -65,7 +65,7 @@ export const getUserTransactions = async (
     const user = await getOrCreateCustomer(userId);
     const payments = await stripe.paymentIntents.list({ customer: user.id });
 
-    res.status(201).json({ payments });
+    return res.status(201).json({ payments });
   } catch (e) {
     logControllerError('getUserTransactions', e);
     return next(new HttpError('Something went wrong, could not retrieve balance list' + e, 500));
