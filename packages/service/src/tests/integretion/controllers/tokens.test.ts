@@ -1,13 +1,17 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
-import { Server } from 'http';
 
 import appStartUp from '../../../app';
 import User from '../../../models/user';
 import { signUpUser } from '../../../utils/test-basic-calls';
+import { ServerWithClose } from '../../../utils/server-interface';
 
 describe('Controller: Tokens', () => {
-  let server: Server;
+  let server: ServerWithClose;
+
+  afterAll(() => {
+    server.close();
+  });
 
   beforeAll(async () => {
     server = await appStartUp;

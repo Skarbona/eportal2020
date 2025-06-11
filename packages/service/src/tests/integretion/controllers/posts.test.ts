@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { Server } from 'http';
 
 import Post from '../../../models/post';
 import User from '../../../models/user';
@@ -12,9 +11,10 @@ import {
   loginAdmin,
 } from '../../../utils/test-basic-calls';
 import { PostResponseInterface, PostStatus } from '../../../models/shared-interfaces/post';
+import { ServerWithClose } from '../../../utils/server-interface';
 
 describe('Controller: Post', () => {
-  let server: Server;
+  let server: ServerWithClose;
 
   beforeAll(async () => {
     server = await appStartUp;

@@ -1,12 +1,23 @@
 import request from 'supertest';
-import { Server } from 'http';
+import nodemailer from 'nodemailer';
 
 import appStartUp from '../../../app';
+import { ServerWithClose } from '../../../utils/server-interface';
+
+jest.mock('nodemailer', () => {
+  const original = jest.requireActual('nodemailer');
+  return {
+    ...original,
+    createTransport: () => ({
+      sendMail: jest.fn().mockResolvedValue({ messageId: 'mocked' }),
+    }),
+  };
+});
 
 const endpoint = '/api/emails/';
 
 describe('Controller: Emails', () => {
-  let server: Server;
+  let server: ServerWithClose;
 
   beforeAll(async () => {
     server = await appStartUp;

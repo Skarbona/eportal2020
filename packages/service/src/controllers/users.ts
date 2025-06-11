@@ -11,6 +11,7 @@ import { resetPasswordTemplate } from '../templetes/emails/reset-password';
 import { LanguageApp } from '../models/languages';
 import { EMAIL_USER } from '../constants/envs';
 import createEmailTransporter from '../utils/create-transport';
+import { logControllerError } from '../utils/error-logs';
 
 export const signUp = async (
   req: Request,
@@ -25,7 +26,7 @@ export const signUp = async (
     email = (passedEmail as string)?.toLocaleLowerCase?.();
     existingUser = await User.findOne({ $or: [{ email }, { name: userName }] });
   } catch (e) {
-    console.log(e);
+    logControllerError('signUp', e);
     return next(new HttpError('Please try again later', 500));
   }
 
@@ -77,6 +78,7 @@ export const signUp = async (
     const { accessToken, refreshToken } = createTokens(createdUser);
     res.status(201).json({ userData: user.toObject({ getters: true }), accessToken, refreshToken });
   } catch (e) {
+    logControllerError('signUp', e);
     return next(new HttpError('Cannot sign up:' + e, 500));
   }
 };
@@ -100,6 +102,7 @@ export const Login = async (
       throw new Error('Not valid password');
     }
   } catch (e) {
+    logControllerError('Login', e);
     return next(new HttpError('Could not identify user' + e, 401));
   }
 
@@ -110,6 +113,7 @@ export const Login = async (
 
     res.json({ userData, accessToken, refreshToken });
   } catch (e) {
+    logControllerError('Login', e);
     return next(new HttpError('Cannot sign up', 500));
   }
 };
@@ -128,6 +132,7 @@ export const resetPassword = async (
       throw new Error('User does not exist');
     }
   } catch (e) {
+    logControllerError('resetPassword', e);
     return next(new HttpError('User does not exist', 401));
   }
 
@@ -147,7 +152,7 @@ export const resetPassword = async (
 
     res.status(202).json({ msg: 'Check your email with new Password' });
   } catch (e) {
-    console.log(e);
+    logControllerError('resetPassword', e);
     return next(new HttpError('Something went wrong, could not reset password', 500));
   }
 };
@@ -164,6 +169,7 @@ export const getUserData = async (
   try {
     user = await User.findById(userId).select('-password');
   } catch (e) {
+    logControllerError('getUserData', e);
     return next(new HttpError('Something went wrong', 500));
   }
 
@@ -189,6 +195,7 @@ export const updateUser = async (
       throw new Error();
     }
   } catch (e) {
+    logControllerError('updateUser', e);
     return next(new HttpError('User does not exist', 404));
   }
 
@@ -200,6 +207,7 @@ export const updateUser = async (
     delete userData.password;
     res.json({ user: userData });
   } catch (e) {
+    logControllerError('updateUser', e);
     return next(new HttpError('Something went wrong, could not update user', 500));
   }
 };
@@ -219,6 +227,7 @@ export const saveFavourites = async (
       throw new Error();
     }
   } catch (e) {
+    logControllerError('saveFavourites', e);
     return next(new HttpError('User does not exist', 404));
   }
 
@@ -236,6 +245,7 @@ export const saveFavourites = async (
     delete userData.password;
     res.json({ user: userData });
   } catch (e) {
+    logControllerError('saveFavourites', e);
     return next(new HttpError('Something went wrong, could not save favourites', 500));
   }
 };
@@ -257,6 +267,7 @@ export const deleteUser = async (
     await user.remove();
     res.status(200).json({ msg: 'User Removed' });
   } catch (e) {
+    logControllerError('deleteUser', e);
     return next(new HttpError('Something went wrong', 500));
   }
 
@@ -269,6 +280,7 @@ export const deleteUser = async (
       text: `Account of ${email} was removed`,
     });
   } catch (e) {
+    logControllerError('deleteUser', e);
     return next();
   }
 };

@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { EMAIL_USER } from '../constants/envs';
 import createEmailTransporter from '../utils/create-transport';
 import HttpError from '../models/http-error';
+import { logControllerError } from '../utils/error-logs';
 
 export const contactForm = async (
   req: Request,
@@ -22,6 +23,7 @@ export const contactForm = async (
     });
     res.status(202).json({ msg: 'Message was send!' });
   } catch (e) {
+    logControllerError('sendEmail', e);
     return next(new HttpError('Something went wrong, could not sent an email', 500));
   }
 };

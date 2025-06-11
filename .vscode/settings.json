@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Favourites"]
+  "cSpell.words": ["Favourites"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

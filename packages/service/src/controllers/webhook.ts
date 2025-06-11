@@ -16,6 +16,7 @@ import {
   successfullyPayment,
 } from '../templetes/emails/subscriptions';
 import { LanguageApp } from '../models/languages';
+import { logControllerError } from '../utils/error-logs';
 
 export const listenStripe = async (
   req: Request,
@@ -34,6 +35,7 @@ export const listenStripe = async (
       data = event.data;
       eventType = event.type;
     } catch (e) {
+      logControllerError('listenStripe webhookSecret', e);
       return next(new HttpError('Webhook signature verification failed.' + e, 401));
     }
   } else {
@@ -53,6 +55,7 @@ export const listenStripe = async (
       throw new Error();
     }
   } catch (e) {
+    logControllerError('listenStripe user', e);
     return next(new HttpError('User does not exist: ' + e, 404));
   }
 
@@ -69,6 +72,7 @@ export const listenStripe = async (
             ...content,
           });
         } catch (e) {
+          logControllerError('listenStripe checkout.session.completed', e);
           return next(new HttpError('Something went wrong: ' + e, 500));
         }
       }
@@ -115,6 +119,7 @@ export const listenStripe = async (
             });
           }
         } catch (e) {
+          logControllerError('listenStripe invoice.paid', e);
           return next(new HttpError('Something went wrong: ' + e, 500));
         }
       }
@@ -123,6 +128,22 @@ export const listenStripe = async (
     case 'invoice.payment_failed':
       {
         try {
+          const invoiceObj = typedData.object;
+          const paymentIntentId = invoiceObj.payment_intent;
+          let paymentIntent;
+          if (paymentIntentId) {
+            paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+          }
+
+          if (
+            paymentIntent &&
+            (paymentIntent.status === 'requires_action' || paymentIntent.status === 'processing')
+          ) {
+            // Do not send an email, as the customer may still confirm the payment
+            break;
+          }
+
+          // If the paymentIntent is canceled or requires_payment_method, then the payment has actually failed
           const transporter = createEmailTransporter();
           const content = failedPayment(LanguageApp);
           await transporter.sendMail({
@@ -131,6 +152,7 @@ export const listenStripe = async (
             ...content,
           });
         } catch (e) {
+          logControllerError('listenStripe invoice.payment_failed', e);
           return next(new HttpError('Something went wrong: ' + e, 500));
         }
       }
@@ -168,6 +190,7 @@ export const listenStripe = async (
             });
           }
         } catch (e) {
+          logControllerError('listenStripe payment_intent.succeeded', e);
           const transporter = createEmailTransporter();
           await transporter.sendMail({
             from: `<${EMAIL_USER}>`,
@@ -207,6 +230,7 @@ export const listenStripe = async (
             text: `User: ${user.email} activated 1 month account`,
           });
         } catch (e) {
+          logControllerError('listenStripe customer.subscription.created', e);
           const transporter = createEmailTransporter();
           await transporter.sendMail({
             from: `<${EMAIL_USER}>`,
@@ -238,6 +262,7 @@ export const listenStripe = async (
             text: `User: ${user.email} removed his subscription`,
           });
         } catch (e) {
+          logControllerError('listenStripe customer.subscription.deleted', e);
           const transporter = createEmailTransporter();
           await transporter.sendMail({
             from: `<${EMAIL_USER}>`,

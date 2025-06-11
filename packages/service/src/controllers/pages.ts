@@ -4,6 +4,7 @@ import sanitizeHtml from 'sanitize-html';
 import { stringToSlug } from '../utils/slug';
 import Page from '../models/page';
 import HttpError from '../models/http-error';
+import { logControllerError } from '../utils/error-logs';
 
 export const getPage = async (
   req: Request,
@@ -16,6 +17,7 @@ export const getPage = async (
     const page = await Page.findOne({ slug });
     res.json({ page: page.toObject({ getters: true }) });
   } catch (e) {
+    logControllerError('getPages', e);
     return next(new HttpError('Sorry we cannot find this page', 404));
   }
 };
@@ -41,6 +43,7 @@ export const createPage = async (
     const savedPage = await createdPage.save();
     res.status(201).json({ page: savedPage.toObject({ getters: true }) });
   } catch (e) {
+    logControllerError('createPage', e);
     return next(new HttpError('Something went wrong, could not create page', 500));
   }
 };
@@ -60,6 +63,7 @@ export const updatePage = async (
       throw new Error();
     }
   } catch (e) {
+    logControllerError('updatePage', e);
     return next(new HttpError('Page does not exist', 404));
   }
 
@@ -69,6 +73,7 @@ export const updatePage = async (
     await page.save();
     res.json({ page: page.toObject({ getters: true }) });
   } catch (e) {
+    logControllerError('updatePage', e);
     return next(new HttpError('Something went wrong, could not update page', 500));
   }
 };

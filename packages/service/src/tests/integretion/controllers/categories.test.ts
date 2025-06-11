@@ -1,6 +1,5 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
-import { Server } from 'http';
 
 import appStartUp from '../../../app';
 import Category from '../../../models/category';
@@ -11,11 +10,12 @@ import {
   getCategories,
   loginAdmin,
 } from '../../../utils/test-basic-calls';
+import { ServerWithClose } from '../../../utils/server-interface';
 
 const endpoint = '/api/categories/';
 
 describe('Controller: Category', () => {
-  let server: Server;
+  let server: ServerWithClose;
 
   beforeAll(async () => {
     server = await appStartUp;

@@ -1,21 +1,27 @@
 import { NextFunction, Request, Response } from 'express';
 import sanitizeHtml from 'sanitize-html';
+import mongoose from 'mongoose';
 
-import Post from '../models/post';
+import Post, { PostDocumentInterface } from '../models/post';
 import { PostRequestInterface, PostStatus } from '../models/shared-interfaces/post';
 import HttpError from '../models/http-error';
 import { stringToSlug } from '../utils/slug';
 import createEmailTransporter from '../utils/create-transport';
 import { EMAIL_USER } from '../constants/envs';
+import { logControllerError } from '../utils/error-logs';
+
+interface SavePostBody {
+  post: PostDocumentInterface;
+}
 
 export const savePosts = async (
-  req: Request,
+  req: Request<Record<string, unknown>, Record<string, unknown>, SavePostBody>,
   res: Response,
   next: NextFunction,
 ): Promise<void | Response> => {
   const {
     post: { id, content, categories, status },
-  } = req.body;
+  } = (req as { body: SavePostBody }).body;
   let post;
   try {
     post = await Post.findById(id);
@@ -29,11 +35,18 @@ export const savePosts = async (
   try {
     if (content?.content) post.content.content = sanitizeHtml(content.content);
     if (content?.title) post.content.title = sanitizeHtml(content.title);
-    if (categories) post.categories = categories;
+    if (categories)
+      post.categories = categories.map(
+        (id) =>
+          mongoose.Types.ObjectId.createFromHexString(
+            id as unknown as string,
+          ) as unknown as PostDocumentInterface['categories'][0],
+      );
     if (status) post.status = status as PostStatus;
     await post.save();
     res.json({ post: post.toObject({ getters: true }) });
   } catch (e) {
+    logControllerError('savePosts', e);
     return next(new HttpError('Something went wrong, could not update post', 500));
   }
 };
@@ -71,6 +84,7 @@ export const createPosts = async (
     const posts = await Post.insertMany(createdPosts);
     res.status(201).json({ posts });
   } catch (e) {
+    logControllerError('createPosts', e);
     return next(new HttpError('Something went wrong, could not create posts', 500));
   }
 
@@ -83,6 +97,7 @@ export const createPosts = async (
       text: `Please check waiting Room, new post was added`,
     });
   } catch (e) {
+    logControllerError('createPosts', e);
     return next();
   }
 };
@@ -142,8 +157,7 @@ export const getPosts = async (
       posts: posts.map((post) => post.toObject({ getters: true })),
     });
   } catch (e) {
-    // TODO: Add errors logging
-    console.log(e);
+    logControllerError('getPosts', e);
     return next(new HttpError('Something went wrong, could not find posts', 500));
   }
 };

@@ -1,15 +1,25 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
-import { Server } from 'http';
-
 import appStartUp from '../../../app';
 import User from '../../../models/user';
 import { loginAdmin, signUpUser } from '../../../utils/test-basic-calls';
+import { ServerWithClose } from '../../../utils/server-interface';
+import nodemailer from 'nodemailer';
+
+jest.mock('nodemailer', () => {
+  const original = jest.requireActual('nodemailer');
+  return {
+    ...original,
+    createTransport: () => ({
+      sendMail: jest.fn().mockResolvedValue({ messageId: 'mocked' }),
+    }),
+  };
+});
 
 const endpoint = '/api/users/';
 
 describe('Controller: Users', () => {
-  let server: Server;
+  let server: ServerWithClose;
 
   beforeAll(async () => {
     server = await appStartUp;
