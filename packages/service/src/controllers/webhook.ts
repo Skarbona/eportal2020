@@ -81,7 +81,10 @@ export const listenStripe = async (
     case 'invoice.paid':
       {
         try {
-          if (typedData.object.billing_reason === 'subscription_cycle') {
+          if (
+            typedData.object.billing_reason === 'subscription_cycle' ||
+            typedData.object.billing_reason === 'subscription_create'
+          ) {
             const plan = typedData.object.lines.data[0].plan.id;
             const date = new Date();
             const backupDate = new Date(date.setMonth(date.getMonth() + 1));
@@ -109,6 +112,16 @@ export const listenStripe = async (
               to: user.email,
               ...content,
             });
+
+            // Send notification email to admin for subscription creation
+            if (typedData.object.billing_reason === 'subscription_create') {
+              await transporter.sendMail({
+                from: `<${EMAIL_USER}>`,
+                to: EMAIL_USER,
+                subject: '1 month account activation',
+                text: `User: ${user.email} activated 1 month account`,
+              });
+            }
           } else {
             const transporter = createEmailTransporter();
             const content = successfullyPayment(LanguageApp);
@@ -196,46 +209,6 @@ export const listenStripe = async (
             from: `<${EMAIL_USER}>`,
             to: EMAIL_USER,
             subject: 'Issue with 24h account activation.',
-            text: `User: ${user.email} has issue with account activation: ${e}.`,
-          });
-          return next(new HttpError('Something went wrong: ' + e, 500));
-        }
-      }
-      break;
-    case 'customer.subscription.created':
-      {
-        try {
-          const plan = typedData.object?.plan?.id;
-          const currentPeriodEnd = typedData.object?.current_period_end;
-          user.activePlan = plan;
-          user.currentPeriodEnd = new Date(currentPeriodEnd * 1000);
-          await user.save();
-          const transporter = createEmailTransporter();
-          const dateObj = new Date(currentPeriodEnd * 1000);
-          const formattedDate = dateObj.toLocaleDateString(LanguageApp, {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          });
-          const content = account1montActivation(LanguageApp, formattedDate);
-          await transporter.sendMail({
-            from: `<${EMAIL_USER}>`,
-            to: user.email,
-            ...content,
-          });
-          await transporter.sendMail({
-            from: `<${EMAIL_USER}>`,
-            to: EMAIL_USER,
-            subject: '1 month account activation',
-            text: `User: ${user.email} activated 1 month account`,
-          });
-        } catch (e) {
-          logControllerError('listenStripe customer.subscription.created', e);
-          const transporter = createEmailTransporter();
-          await transporter.sendMail({
-            from: `<${EMAIL_USER}>`,
-            to: EMAIL_USER,
-            subject: 'Issue with 1 month account activation.',
             text: `User: ${user.email} has issue with account activation: ${e}.`,
           });
           return next(new HttpError('Something went wrong: ' + e, 500));

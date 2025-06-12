@@ -1,7 +1,7 @@
 export interface DataObject {
   object: {
     payment_intent: string;
-    billing_reason: 'subscription_cycle';
+    billing_reason: 'subscription_cycle' | 'subscription_create';
     customer: string;
     // it is unix timestamp
     current_period_end: number;
