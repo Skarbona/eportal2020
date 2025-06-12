@@ -56,7 +56,7 @@ export const account24hActivation = (lang: Language, date: string): BasicEmailTe
     default:
       return {
         subject: 'The PREMIUM account for 24 hours has been activated.',
-        text: 'Your account will be valid for 24 hours until: ${date}.',
+        text: `Your account will be valid for 24 hours until: ${date}.`,
       };
   }
 };
@@ -71,7 +71,7 @@ export const account1montActivation = (lang: Language, date: string): BasicEmail
     default:
       return {
         subject: 'The PREMIUM account for 1 month has been activated.',
-        text: 'Your account will be valid for 1 month until: ${date}.',
+        text: `Your account will be valid for 1 month until: ${date}.`,
       };
   }
 };
